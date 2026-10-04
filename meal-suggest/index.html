@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gợi ý thực đơn — NutriFit (Module riêng)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+  <header class="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+    <div class="flex items-center gap-3">
+      <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center font-black">N</span>
+      <div>
+        <h1 class="font-black text-lg">Gợi ý thực đơn</h1>
+        <p class="text-[11px] text-slate-400">Module độc lập — dùng chung backend SQL Server, không sửa file cũ</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 text-xs">
+      <label class="text-slate-400 font-semibold">UserId:</label>
+      <input id="ms-user-id" type="number" min="1" value="1" class="w-20 px-2 py-1.5 border border-slate-200 rounded-lg text-center font-bold">
+      <button id="btn-ms-key" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg font-bold">API Key</button>
+      <a href="../index.html" class="px-3 py-1.5 bg-slate-900 text-white rounded-lg font-bold">← App chính</a>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto p-6 space-y-6">
+
+    <!-- Banner + chuyển mode trưa/tối -->
+    <div class="bg-white border border-slate-200 rounded-3xl p-5 space-y-3">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span id="ms-banner-icon" class="text-2xl">☀️</span>
+          <h2 id="ms-banner-title" class="font-extrabold">Bữa Trưa — Ăn no, năng lượng bền bỉ</h2>
+        </div>
+        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+          <button id="btn-mode-lunch" class="px-4 py-1.5 text-xs font-bold rounded-lg bg-white text-slate-900 shadow-sm">☀️ Bữa trưa</button>
+          <button id="btn-mode-dinner" class="px-4 py-1.5 text-xs font-bold rounded-lg text-slate-500 hover:text-slate-900">🌙 Bữa tối</button>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2 text-xs">
+        <button id="btn-ms-generate" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl">Gợi ý 3 thực đơn</button>
+        <button id="btn-ms-refresh" class="px-4 py-2 bg-slate-900 hover:bg-slate-700 text-white font-bold rounded-xl">🔄 Đổi thực đơn khác</button>
+        <button id="btn-ms-history" class="px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 font-bold rounded-xl">📜 Lịch sử</button>
+        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+          <button id="btn-dish-combo" class="px-4 py-1.5 text-xs font-bold rounded-lg bg-white text-slate-900 shadow-sm">🍱 Mâm cơm</button>
+          <button id="btn-dish-single" class="px-4 py-1.5 text-xs font-bold rounded-lg text-slate-500 hover:text-slate-900">🍢 Món lẻ</button>
+        </div>
+      </div>
+      <div id="ms-status" class="hidden p-3 rounded-xl text-xs font-semibold flex items-center gap-2 border">
+        <span id="ms-status-text"></span>
+      </div>
+    </div>
+
+    <!-- Nguyên liệu sẵn có + lọc -->
+    <div class="bg-white border border-slate-200 rounded-3xl p-5 space-y-3">
+      <h3 class="font-extrabold text-sm">🧺 Nguyên liệu sẵn có & bộ lọc</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="space-y-2">
+          <label class="text-xs font-bold text-slate-500">Nguyên liệu sẵn có (cách nhau bằng dấu phẩy)</label>
+          <textarea id="ms-pantry" rows="2" placeholder="VD: thịt gà, rau muống, trứng, nấm..." class="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs"></textarea>
+          <button id="btn-ms-pantry" class="px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white font-bold rounded-xl text-xs">Lưu nguyên liệu</button>
+        </div>
+        <div class="space-y-2 text-xs">
+          <label class="font-bold text-slate-500">Lọc & sắp xếp gợi ý</label>
+          <div class="flex flex-wrap items-center gap-2">
+            <input id="ms-max-kcal" type="number" min="0" placeholder="Kcal tối đa" class="w-28 px-2 py-1.5 border border-slate-200 rounded-lg text-center font-bold">
+            <input id="ms-max-price" type="number" min="0" step="1000" placeholder="Giá tối đa (đ)" class="hidden w-32 px-2 py-1.5 border border-slate-200 rounded-lg text-center font-bold">
+            <select id="ms-sort" class="px-2 py-1.5 border border-slate-200 rounded-lg font-bold">
+              <option value="match">Ưu tiên khớp nguyên liệu</option>
+              <option value="kcal-asc">Calo thấp → cao</option>
+              <option value="protein-desc">Nhiều đạm nhất</option>
+            </select>
+            <label class="flex items-center gap-1.5 font-bold bg-emerald-50 border border-emerald-200 text-emerald-700 px-2 py-1.5 rounded-lg cursor-pointer">
+              <input id="ms-only-match" type="checkbox" checked class="accent-emerald-600">
+              Chỉ hiện món khớp
+            </label>
+            <select id="ms-match-mode" class="px-2 py-1.5 border border-slate-200 rounded-lg font-bold" title="Khớp bất kỳ hay tất cả nguyên liệu">
+              <option value="any">Khớp ≥1 nguyên liệu</option>
+              <option value="all">Khớp TẤT CẢ nguyên liệu</option>
+            </select>
+            <button id="btn-ms-clear-filter" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg font-bold">Xóa lọc</button>
+          </div>
+          <p class="text-slate-400">Bật <b>"Chỉ hiện món khớp"</b> để ẩn món không dùng nguyên liệu bạn có. Chọn <b>"Khớp TẤT CẢ"</b> nếu muốn món phải dùng đủ mọi nguyên liệu đã nhập.</p>
+          <p id="ms-single-hint" class="hidden text-emerald-600 font-semibold">🍢 Chế độ mua ngoài quán: lọc theo <b>giá tiền + kcal</b>, không xét nguyên liệu ở nhà. Nhập giá tối đa (VD: 40000) rồi bấm <b>"Gợi ý 3 món mua ngoài"</b>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab chuyển: gợi ý hôm nay / thực đơn tổng -->
+    <div class="flex items-center gap-1 bg-white border border-slate-200 p-1 rounded-2xl w-fit text-xs">
+      <button id="btn-tab-today" class="px-4 py-2 font-bold rounded-xl bg-slate-900 text-white">📅 Gợi ý hôm nay</button>
+      <button id="btn-tab-full" class="px-4 py-2 font-bold rounded-xl text-slate-500 hover:text-slate-900">📚 Thực đơn tổng (42 món)</button>
+    </div>
+
+    <div id="ms-today-box" class="space-y-6">
+    <!-- 3 options -->
+    <div id="ms-options" class="grid grid-cols-1 md:grid-cols-3 gap-5"></div>
+
+    <!-- Nút thứ 4: suy nghĩ sau -->
+    <div id="ms-think-box" class="hidden bg-amber-50 border border-amber-200 rounded-3xl p-5 flex flex-wrap items-center justify-between gap-3">
+      <div class="text-xs text-amber-800">
+        <b>Chưa chọn được?</b> Bấm nút bên để suy nghĩ thêm — 3 gợi ý trên được giữ nguyên.
+      </div>
+      <button id="btn-ms-think" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl text-xs">🤔 Để tôi suy nghĩ / Quyết định sau</button>
+    </div>
+    </div><!-- /ms-today-box -->
+
+    <!-- Lọc trên THỰC ĐƠN TỔNG 42 món -->
+    <div id="ms-full-box" class="hidden space-y-4">
+      <div class="bg-white border border-slate-200 rounded-3xl p-5 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h3 class="font-extrabold text-sm">📚 Lọc trên thực đơn tổng — <span id="ms-full-count" class="text-emerald-600">42 món</span></h3>
+          <div class="flex flex-wrap items-center gap-1">
+            <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl text-xs">
+              <button id="btn-full-all" class="px-3 py-1.5 font-bold rounded-lg bg-white shadow-sm">Tất cả</button>
+              <button id="btn-full-lunch" class="px-3 py-1.5 font-bold rounded-lg text-slate-500">☀️ Trưa</button>
+              <button id="btn-full-dinner" class="px-3 py-1.5 font-bold rounded-lg text-slate-500">🌙 Tối</button>
+            </div>
+            <button id="btn-ai-generate" class="px-3 py-1.5 text-xs font-bold rounded-xl bg-violet-600 hover:bg-violet-700 text-white">✨ AI tạo thêm món</button>
+            <button id="btn-ai-clear" class="hidden px-3 py-1.5 text-xs font-bold rounded-xl bg-white border border-slate-200 hover:bg-slate-50">🗑 Xóa món AI</button>
+          </div>
+        </div>
+        <p class="text-xs text-slate-400">Dùng chung ô <b>nguyên liệu</b>, <b>kcal tối đa</b>, <b>sắp xếp</b> và <b>chế độ khớp</b> ở trên. Kết quả quét toàn bộ thực đơn (gốc + món AI đã tạo) — món ở đây chỉ để tham khảo (Thích / Sao chép), không bấm Chọn như gợi ý hôm nay. Món AI tạo cũng tham gia vào <b>"Gợi ý 3 thực đơn"</b>.</p>
+        <div id="ms-full-options" class="grid grid-cols-1 md:grid-cols-3 gap-5"></div>
+      </div>
+    </div>
+
+    <!-- Món yêu thích -->
+    <div class="bg-white border border-slate-200 rounded-3xl p-5 space-y-3">
+      <h3 class="font-extrabold text-sm">❤️ Món yêu thích</h3>
+      <div id="ms-favorites" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <p class="text-xs text-slate-400">Nhấn 🤍 Thích trên món ăn để lưu lại tại đây.</p>
+      </div>
+    </div>
+
+    <!-- Lịch sử -->
+    <div class="bg-white border border-slate-200 rounded-3xl p-5 space-y-3">
+      <h3 class="font-extrabold text-sm">Lịch sử lựa chọn theo ngày</h3>
+      <div id="ms-history" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <p class="text-xs text-slate-400">Nhấn "📜 Lịch sử" để tải 20 bản ghi gần nhất.</p>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="./api-client.js"></script>
+  <script src="./full-menus.js"></script>
+  <script src="./single-dishes.js"></script>
+  <script src="./ai-rank.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
