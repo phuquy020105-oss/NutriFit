@@ -1,4 +1,3 @@
-from datetime import datetime
 from app.extensions import db
 
 class User(db.Model):
@@ -8,7 +7,13 @@ class User(db.Model):
     Email = db.Column(db.String(100), unique=True, nullable=False)
     PasswordHash = db.Column(db.String(255), nullable=False)
     FullName = db.Column(db.String(100), nullable=False)
-    Role = db.Column(db.String(20), default='MEMBER')
-    CreatedAt = db.Column(db.DateTime, default=datetime.utcnow)
+    Role = db.Column(db.String(20), default='MEMBER', nullable=True)
+    CreatedAt = db.Column(db.DateTime, default=db.func.current_timestamp())
 
-    profile = db.relationship('UserProfile', backref='user', uselist=False, cascade="all, delete-orphan")
+    def to_dict(self):
+        return {
+            "id": self.UserId,
+            "email": self.Email,
+            "full_name": self.FullName,
+            "role": self.Role or 'MEMBER'
+        }
