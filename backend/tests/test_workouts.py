@@ -12,8 +12,8 @@ from app.extensions import db
 from app.routes.workouts import workout_bp, progress_bp, street_food_bp
 from app.services import workout_service as ws
 from app.services import progress_service as ps
-from app.services import street_food_service as sfs
-from app.data.street_foods import STREET_FOODS
+from app.data import street_foods as sfs
+from app.data.street_foods import STREET_FOODS, seed_street_foods_if_empty
 from app.data.workout_seed import EXTRA_WORKOUTS
 
 SCHEMA = [
@@ -47,7 +47,6 @@ def app():
         for stmt in SCHEMA:
             db.session.execute(text(stmt))
         db.session.commit()
-        from app.data.street_foods import seed_street_foods_if_empty
         seed_street_foods_if_empty()
         yield app
         db.session.remove()

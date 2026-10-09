@@ -10,7 +10,7 @@ from flask import Blueprint, request, jsonify
 
 from app.services import workout_service as ws
 from app.services import progress_service as ps
-from app.services import street_food_service as sfs
+from app.data import street_foods as sfs
 
 workout_bp = Blueprint('workout_bp', __name__)
 progress_bp = Blueprint('progress_bp', __name__)
