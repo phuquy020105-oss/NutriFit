@@ -1,7 +1,25 @@
-from werkzeug.security import generate_password_hash, check_password_hash
+from functools import wraps
+from flask import request, jsonify
+from app.models.user import User
 
-def hash_password(password: str) -> str:
-    return generate_password_hash(password)
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Lấy UserId từ header của request (Frontend gửi lên)
+        user_id = request.headers.get('X-User-Id')
+        
+        if not user_id:
+            return jsonify({
+                "success": False, 
+                "message": "Vui lòng đăng nhập để thực hiện chức năng này!"
+            }), 401
+            
+        user = User.query.get(user_id)
+        if not user or user.Role != 'ADMIN':
+            return jsonify({
+                "success": False, 
+                "message": "Truy cập bị từ chối! Yêu cầu quyền Quản trị viên (ADMIN)."
+            }), 403
 
-def verify_password(password: str, hashed_password: str) -> bool:
-    return check_password_hash(hashed_password, password)
+        return f(*args, **kwargs)
+    return decorated_function
