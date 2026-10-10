@@ -4,6 +4,7 @@ from app.repositories.meal_repository import MealRepository
 from app.services.meal_service import MealService, today
 from app.services.module_errors import api_errors, json_object, positive_id, ModuleError
 from app.services.nutrition_service import NutritionService
+from app.services.meal_preferences import replacement_request
 
 meals_bp = Blueprint("meals", __name__, url_prefix="/api/meals")
 
@@ -37,7 +38,27 @@ def generate():
         force = False
     if type(force) is not bool:
         raise ModuleError("forceRefresh phải là boolean.")
-    result, meta = MealService.generate(user_id, meal_type, force, data.get("revision"))
+    result, meta = MealService.generate(user_id, meal_type, force, data.get("revision"), data.get("preferences"))
+    return jsonify(success=True, data=result, meta=meta)
+
+
+@meals_bp.post("/replace")
+@api_errors
+@login_required
+def replace():
+    data = json_object()
+    user_id = check_user_identity(data)
+    meal_type = MealService.meal_type(field(data, "mealType", "meal_type"))
+    if data.get("apiKey") or data.get("api_key"):
+        raise ModuleError("Gemini key phải được cấu hình ở backend.", "SERVER_KEY_REQUIRED")
+    expected = data.get("revision")
+    if not isinstance(expected, str) or len(expected) != 24:
+        raise ModuleError("Cần revision hiện tại để đổi món.")
+    if MealRepository.load(user_id, today(), meal_type) is None:
+        raise ModuleError("Hãy tạo thực đơn trước khi đổi món.", "MEAL_NOT_FOUND", 404)
+    preferences, target = replacement_request(data.get("request"), data.get("preferences"), meal_type)
+    result, meta = MealService.generate(user_id, meal_type, True, expected, preferences, target)
+    meta["applied_preferences"] = preferences
     return jsonify(success=True, data=result, meta=meta)
 
 

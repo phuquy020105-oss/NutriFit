@@ -1,0 +1,9 @@
+/* NutriFit custom UI styles.
+   Tailwind utility classes remain unchanged to preserve the existing UI. */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Keep screen visibility correct even when the Tailwind CDN is unavailable. */
+.hidden { display: none !important; }

@@ -160,7 +160,7 @@ class ApiTests(unittest.TestCase):
 
     def test_initial_today_is_empty(self):
         response = self.client.get("/api/meals/today?userId=1", headers=self.headers)
-        self.assertEqual(response.get_json()["todayMeals"], {"lunch": None, "dinner": None})
+        self.assertEqual(response.get_json()["todayMeals"], {"breakfast": None, "lunch": None, "dinner": None})
 
     def test_generate_persists_three_complete_options(self):
         response = self.generate()
@@ -187,7 +187,7 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(db.session.execute(text("SELECT COUNT(*) FROM MealSuggestions")).scalar(), 1)
 
     def test_generate_json_and_fields_validation(self):
-        for payload in ([], {}, {"mealType": "breakfast"}, {"mealType": "lunch", "forceRefresh": "false"},
+        for payload in ([], {}, {"mealType": "snack"}, {"mealType": "lunch", "forceRefresh": "false"},
                         {"mealType": "lunch", "userId": True},
                         {"mealType": "lunch", "meal_type": "dinner"}):
             self.assertEqual(self.client.post("/api/meals/generate", headers=self.headers, json=payload).status_code, 400)

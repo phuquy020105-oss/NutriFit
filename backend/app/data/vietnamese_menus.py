@@ -4,6 +4,7 @@ Nutrition is a product estimate, not a laboratory food composition database.
 Portions and estimated totals are explicit and remain usable without Gemini.
 """
 from copy import deepcopy
+from app.data.breakfast_menus import breakfast_templates, LABELS
 
 COMPONENT_FIELDS = {"CARB": "carb", "PROTEIN": "protein", "SOUP": "soup",
                     "VEGGIE": "veggie", "DESSERT": "dessert"}
@@ -34,6 +35,10 @@ FRUITS = ("Thanh long", "Đu đủ", "Cam", "Chuối", "Ổi", "Dưa hấu", "T�
 
 
 def templates(meal_type):
+    if meal_type == "breakfast":
+        return breakfast_templates()
+    if meal_type not in ("lunch", "dinner"):
+        raise ValueError("Unknown meal type")
     proteins = LUNCH_PROTEINS if meal_type == "lunch" else DINNER_PROTEINS
     result = []
     for day in range(7):
@@ -64,9 +69,13 @@ def materialize(template, target_kcal, source="fallback", reason=None):
     scale = min(2.0, max(0.5, target_kcal / template["calories"]))
     components = {kind: f"{name} (~{round(grams * scale)} g)"
                   for kind, (name, grams) in template["components"].items()}
+    for kind, (name, recipe) in template.get("component_recipes", {}).items():
+        detail = ", ".join(f"{LABELS[food]} ~{round(grams * scale)} g" for food, grams in recipe.items() if food != "water")
+        components[kind] = f"{name}: {detail} (tổng ~{round(sum(recipe.values()) * scale)} g)"
     macros = {key: round(value * scale, 1) for key, value in template["macros"].items()}
     calories = round(4 * macros["carbs"] + 4 * macros["protein"] + 9 * macros["fat"], 1)
-    note = reason or ("Ưu tiên món hấp/luộc, ít dầu." if template["template_id"].startswith("dinner")
+    note = reason or ("Khẩu phần bữa sáng ước tính từ nguyên liệu tham khảo." if template["template_id"].startswith("breakfast")
+                      else "Ưu tiên món hấp/luộc, ít dầu." if template["template_id"].startswith("dinner")
                       else "Mâm cơm đa dạng thành phần.")
     # Persist provenance inside an existing text column, without a schema migration.
     return {"title": template["title"], "calories": calories, "macros": macros,

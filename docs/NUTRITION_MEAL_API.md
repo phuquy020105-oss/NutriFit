@@ -1,6 +1,7 @@
-# Nutrition, Meal và Gemini AI v2 — NutriFit
+# Nutrition, Meal và Gemini AI v3 — NutriFit
 
-Nhánh: feature/nutrition-ai-v2. Nền: origin/main tại f71c939.
+Nhánh v3: integration/frontend-nutrition, nền Nutrition v2 tại 6d21fe1.
+Nhánh v2 được tạo từ origin/main tại f71c939; giữ nguyên nhánh tham chiếu.
 Tái sử dụng chọn lọc Nutrition từ 257f938. Không thay schema/models hoặc nghiệp vụ Auth/Profile.
 
 ## Kiến trúc
@@ -9,7 +10,10 @@ Tái sử dụng chọn lọc Nutrition từ 257f938. Không thay schema/models 
 - Nutrition thêm BMI, macro và phân bổ mục tiêu bữa ăn.
 - Meal dùng các bảng MealSuggestions, MealOption, MealNutrition, MealComponentDish hiện có.
 - Gemini chọn 3 template có sẵn; không tự tạo con số dinh dưỡng.
-- Fallback có 42 mẫu Việt: 7 ngày × 3 lựa chọn × 2 bữa trưa/tối.
+- Có 63 mẫu Việt: 21 breakfast mới + 42 lunch/dinner cũ; một MealService dùng chung ba bữa.
+- breakfast_menus.py tách công thức sáng; vietnamese_menus.py giữ registry và 42 mẫu cũ để tránh refactor không cần thiết.
+- meal_preferences.py lọc trước cả Gemini/fallback và phân tích câu đổi món giới hạn.
+- Không lưu preferences vào UserProfiles hoặc bảng mới; không thay schema/models.
 - app/__init__.py chỉ thêm import và lời gọi init_nutrition(app).
 - nutrition_module.py đăng ký blueprint, cấu hình riêng module và kết nối session với login core.
 
@@ -120,9 +124,10 @@ Tất cả yêu cầu session.
 
 | Method | URL | Chức năng |
 |---|---|---|
-| GET | /api/meals/today | Hai bữa hôm nay; chưa có thì null |
+| GET | /api/meals/today | breakfast/lunch/dinner hôm nay; chưa có thì null |
 | POST | /api/meals/generate | Tạo/cache/làm mới 3 lựa chọn |
 | POST | /api/meals/select | Chọn hoặc Nghĩ sau |
+| POST | /api/meals/replace | Đổi bộ ba món theo yêu cầu giới hạn; bắt buộc revision |
 | GET | /api/meals/history?page=1&limit=20 | Lịch sử có phân trang |
 
 Generate:
@@ -131,7 +136,7 @@ Generate:
 {"mealType":"lunch","forceRefresh":false}
 ```
 
-Chỉ hỗ trợ lunch/dinner. forceRefresh mặc định false; alias meal_type/force_refresh được hỗ trợ.
+Hỗ trợ breakfast/lunch/dinner; snack chưa có generate. forceRefresh mặc định false; alias meal_type/force_refresh được hỗ trợ.
 Nếu đã có, generate thường trả nguyên options/selection từ DB, không gọi AI.
 Refresh gửi forceRefresh=true và revision hiện tại. Bữa đã decided không được refresh;
 chọn Nghĩ sau trước. Revision cũ trả STALE_MEAL (409).
@@ -146,8 +151,11 @@ selectedOption là 1..3, hoặc null để Nghĩ sau. Alias selected_option đư
 Có thể gửi suggestionId/optionId để đối chiếu; không dùng chúng làm danh tính.
 Response generate/select: success, data; generate có meta.
 data gồm suggestionId, date, mealType, selectedOption, status, options, revision, source, estimated.
-Mỗi option gồm id, optionId, title, calories, macros và carb/protein/soup/veggie/dessert,
-digestibility, nutritionNotes, estimated.
+Mỗi option gồm id, optionId, title, calories, macros, components (mảng {type,name}),
+reason, digestibility, nutritionNotes, estimated.
+Giữ carb/protein/soup/veggie/dessert cho các ComponentType cũ;
+breakfast dùng MAIN/SIDE/DRINK và có thể DESSERT, không bị ép năm thành phần.
+Repository giữ cả ComponentType chưa biết; không đổi cách tính revision.
 today trả success, todayMeals, date. history trả success, history, pagination.
 
 Summary trả data với targets, planned, selected_meals, remaining_planned_kcal,
@@ -164,10 +172,18 @@ Source được lưu bằng prefix [gemini]/[fallback] trong DigestibilityNote h
 ## Gemini và fallback
 
 Chỉ backend đọc GEMINI_API_KEY. Model do GEMINI_MODEL cấu hình.
-Prompt chỉ chứa mục tiêu bữa và template, không gửi user ID/email/profile chi tiết.
+Prompt chứa goal chuẩn hóa lose/gain/maintain, mục tiêu kcal/macro của bữa,
+preferences đã kiểm tra và template hợp lệ (ID, tên, nhóm, nguyên liệu,
+thời gian nếu có, kcal/macro ước tính sau scale khẩu phần).
+Không gửi user ID/email/profile chi tiết hoặc câu đổi món thô lên Gemini.
+User ID chỉ dùng nội bộ cho cooldown, không nằm trong payload HTTP.
 Thiếu key/model, HTTP lỗi, timeout hoặc output không hợp lệ đều dùng fallback.
 Timeout/retry/cooldown được giới hạn; cooldown chỉ trong từng process.
-Output phải có đúng 3 template hợp lệ thuộc 3 nhóm đạm; không lấy macro do AI sinh.
+Output chỉ có choices gồm đúng 3 template_id khác nhau và reason tiếng Việt theo prompt;
+không chấp nhận field dinh dưỡng do AI trả. Kiểm tra ở adapter và service.
+Đủ ba nhóm: sáng quick/soup/balanced, trưa/tối ba nhóm đạm.
+Nếu lọc còn ít nhóm hơn, chọn đủ các nhóm còn khả dụng và không lặp ID.
+Món bị hard filter không được gửi Gemini hoặc dùng lại khi fallback.
 Số dinh dưỡng là ước tính từ template. Khẩu phần scale giới hạn 0.5..2,
 nên calorie thực đơn có thể không khớp tuyệt đối mục tiêu cực thấp/cao.
 GEMINI_API_KEY do client gửi bị từ chối; không cần đặt key trên frontend.
@@ -176,7 +192,8 @@ GEMINI_API_KEY do client gửi bị từ chối; không cần đặt key trên f
 
 JSON lỗi Nutrition/Meal: {"success":false,"code":"...","message":"..."}.
 400: input/profile chưa hợp lệ; 401: thiếu/hỏng/hết hạn session; 403: sai user/origin;
-404: thiếu profile/meal; 409: stale/decided/transaction; 413: JSON body trên 64 KiB;
+404: thiếu profile/meal; 409: stale/decided/transaction/điều kiện mới cần refresh;
+422: không đủ 3 món thỏa hard filter; 413: JSON body trên 64 KiB;
 503: database/menu/timezone không hợp lệ.
 Giới hạn body chỉ ở endpoint module đọc JSON, không đổi MAX_CONTENT_LENGTH toàn core.
 Auth/Profile giữ format lỗi và nghiệp vụ core; không áp dụng error wrapper của Nutrition lên core.
@@ -195,6 +212,106 @@ Không chạy DROP, seed/migration hoặc đụng MySQL thật.
 HTTP Gemini mock; mail.send mock; không gửi SMTP thật. -B không tạo bytecode.
 Bao phủ calculator/core aliases, stored targets, login session/ownership/logout,
 core profile contract, registered routes, Meal transactions/cache/revision/history/summary,
-fallback và provider failures.
-SQLite không xác minh khóa/cạnh tranh MySQL. Chưa kiểm thử Gemini/SMTP/frontend thực tế.
+fallback, provider failures, breakfast, flexible components, preferences và smart replace.
+SQLite không xác minh khóa/cạnh tranh MySQL. Gemini thật và SMTP thật chưa kiểm thử.
 Không dùng kết quả unit/integration này để tuyên bố toàn hệ thống production đã an toàn.
+
+## Preferences v3
+
+Generate nhận thêm preferences tùy chọn, không làm thay đổi request cũ:
+
+```json
+{
+  "mealType": "breakfast",
+  "preferences": {
+    "avoid": ["trứng", "sữa"],
+    "dislikes": ["cá"],
+    "prefer": ["gà"],
+    "preferEasy": true,
+    "maxPrepMinutes": 25
+  }
+}
+```
+
+- avoid là bắt buộc. maxPrepMinutes là giới hạn thời gian tham khảo, chỉ breakfast.
+- dislikes/prefer là mềm: bỏ món không thích/ưu tiên nguyên liệu nếu vẫn còn ít nhất 3 món.
+  Nếu không đủ, nới sở thích mềm; không nới avoid hoặc maxPrepMinutes.
+- preferEasy chỉ breakfast; số phút là ước tính chuẩn bị với nguyên liệu có sẵn.
+- Chưa có giá món nên không hỗ trợ ngân sách. Field/thực phẩm chưa hỗ trợ trả
+  UNSUPPORTED_PREFERENCE (400), không âm thầm bỏ qua.
+- Hỗ trợ Việt/English: cá/fish, hải sản/seafood, trứng/egg, sữa/milk,
+  gà/chicken, bò/beef, heo/pork, đậu phụ/soy, bánh mì/wheat, yến mạch/oats,
+  cơm/rice, bún-phở-miến/noodles, chuối/banana, khoai lang/sweet_potato.
+- Cá/hải sản lọc bảo thủ; sợi tham khảo được xem là gạo khi tránh rice.
+  Lunch/dinner gắn tag theo tên nguyên liệu có sẵn, không đổi dinh dưỡng cũ.
+- Lọc theo công thức/tên món khai báo, không bảo đảm an toàn dị ứng:
+  catalog chưa mô tả đầy đủ nước mắm, gia vị hoặc nhiễm chéo.
+- Preferences không lưu DB. Frontend giữ theo từng bữa trong phiên trang;
+  F5 mất điều kiện nhập, nhưng thực đơn/lựa chọn đã lưu vẫn đọc từ DB.
+  Client phải gửi lại avoid khi refresh/replace.
+- Generate thường vẫn là cache: sở thích mới không tự thay bộ đã lưu.
+  Kiểm tra cả avoid, maxPrepMinutes và dislikes/prefer theo quy tắc nới mềm ở trên.
+  preferEasy cần Đổi thực đơn vì DB không lưu điều kiện xếp hạng trước đó.
+  Điều kiện mới không phù hợp cache (hoặc món cũ không xác minh được) trả
+  PREFERENCES_REQUIRE_REFRESH (409). Chọn Nghĩ sau nếu đã chốt rồi gửi
+  forceRefresh=true kèm revision; không tự thay thực đơn đã chốt.
+- Ít hơn 3 ứng viên sau hard filter hoặc loại món cũ khi refresh:
+  INSUFFICIENT_MENUS (422), giữ dữ liệu cũ. Có thể nới điều kiện hoặc giữ bộ đang dùng.
+
+## Đổi món thông minh
+
+```json
+{
+  "mealType": "lunch",
+  "revision": "<revision hiện tại>",
+  "request": "Tôi không thích cá, hãy đổi sang gà nhưng vẫn gần 700 kcal.",
+  "preferences": {"avoid": ["trứng"]}
+}
+```
+
+POST /api/meals/replace đổi bộ ba lựa chọn pending của hôm nay.
+Dùng lại generate/refresh, khóa user, revision và transaction;
+decided trả MEAL_DECIDED (409), revision cũ trả STALE_MEAL (409),
+chưa có thực đơn trả MEAL_NOT_FOUND (404). Chọn Nghĩ sau trước khi đổi bộ đã chốt.
+
+Parser hỗ trợ "không thích X", "tránh X", "không ăn X", "đổi sang X", "ưu tiên X",
+mỗi cụm một thực phẩm hỗ trợ, và một số nguyên 100–3000 kcal.
+Phần yêu cầu chưa hiểu trả UNSUPPORTED_REPLACEMENT (400); không phải chatbot.
+Điều kiện được gộp với preferences, không xóa avoid đã gửi.
+Kcal tùy chọn chỉ scale lần đổi này, không cập nhật TargetKcal Profile;
+không có số kcal thì dùng mục tiêu bữa từ Profile.
+
+Response giữ success/data/meta; meta thêm target_kcal, profile_target_kcal,
+macro_targets, applied_preferences. Dinh dưỡng luôn từ catalog,
+Gemini chỉ chọn ID và giải thích. Scale 0.5..2 và làm tròn không bảo đảm khớp kcal tuyệt đối.
+Không giữ phiên hội thoại/preferences trên server.
+
+## Dữ liệu breakfast và mức độ ước tính
+
+breakfast_menus.py có 7 ngày × quick/soup/balanced, 21 mẫu có khẩu phần gram.
+Macro là tổng profile nguyên liệu trên 100 g; kcal = carbs × 4 + protein × 4 + fat × 9.
+Component hiển thị gram sau scale. FOODS là ước tính làm tròn phục vụ đồ án,
+chưa đối chiếu từng recipe với mã thực phẩm được chứng nhận.
+Xôi/bánh cuốn/miến dùng profile cơm/sợi chín thay thế ghi rõ trong tên,
+không coi là số liệu phòng thí nghiệm. Giữ nguyên 42 mẫu lunch/dinner và materialization mặc định.
+
+Có thể cải thiện bảng nguyên liệu bằng dữ liệu có nguồn và khẩu phần đo được;
+tham khảo [USDA FoodData Central documentation](https://fdc.nal.usda.gov/data-documentation/).
+REST structured output tham khảo [Gemini structured output](https://ai.google.dev/gemini-api/docs/structured-output);
+khả năng gọi model thật phải kiểm tra riêng, không suy ra từ mock.
+
+## Frontend v3
+
+Frontend ở 127.0.0.1:5500, backend ở 127.0.0.1:5000.
+Ba tab dùng chung generate/select/refresh/history; renderer đọc components
+và fallback về alias năm thành phần để xem dữ liệu cũ.
+Dashboard lấy meal_targets/Summary từ backend, cộng ba bữa đã chọn,
+không gọi kế hoạch là lượng đã ăn. Giữ toast thành công hiện có;
+lỗi Meal dùng toast error, không alert chặn trang.
+Avoid/dislikes/prefer và thời gian sáng gửi cùng generate/replace.
+Không có Gemini key frontend; không thay Workout/Street Food.
+
+Nếu backend đang chạy process v2 cũ, restart để nạp v3.
+Không đăng ký qua server bình thường nếu SMTP chưa cấu hình/suppress:
+kiểm thử local chỉ suppress trong app kiểm thử, không sửa AuthService.
+Không bật Gemini key thật trước bước AI được phê duyệt.

@@ -1,10 +1,13 @@
 """Meal generation, seven-day fallback, selection and planned nutrition summary."""
 import math
+import re
 from datetime import datetime
 from flask import current_app
 from app.models.health import UserProfile
-from app.data.vietnamese_menus import templates, fallback_templates, materialize, COMPONENT_FIELDS
-from app.ai.gemini_client import AIUnavailable
+from app.data.vietnamese_menus import templates, fallback_templates, materialize
+from app.ai.gemini_client import AIUnavailable, GeminiClient
+from app.services.meal_preferences import (validate_preferences, cached_compatible, filter_candidates,
+                                         fallback_choices)
 from app.repositories.meal_repository import MealRepository
 from app.services.nutrition_service import NutritionService, NutritionValidationError
 from app.services.module_errors import ModuleError
@@ -26,8 +29,8 @@ def today():
 class MealService:
     @staticmethod
     def meal_type(value):
-        if not isinstance(value, str) or value not in ("lunch", "dinner"):
-            raise ModuleError("mealType phải là lunch hoặc dinner.")
+        if not isinstance(value, str) or value not in ("breakfast", "lunch", "dinner"):
+            raise ModuleError("mealType phải là breakfast, lunch hoặc dinner.")
         return value
 
     @staticmethod
@@ -46,7 +49,9 @@ class MealService:
         if not isinstance(options, list) or len(options) != 3:
             raise ModuleError("Bộ thực đơn phải có đúng 3 lựa chọn.", "INVALID_MENU", 503)
         for option in options:
-            if set(option.get("components", {})) != set(COMPONENT_FIELDS):
+            components = option.get("components", {})
+            if not isinstance(components, dict) or not 1 <= len(components) <= 10 or any(
+                    not isinstance(kind, str) or not re.fullmatch(r"[A-Z_]{1,20}", kind) for kind in components):
                 raise ModuleError("Thực đơn thiếu thành phần.", "INVALID_MENU", 503)
             strings = [option.get("title"), option.get("digestibility"), *option["components"].values()]
             if any(not isinstance(value, str) or not 1 <= len(value) <= 255 or "<" in value or ">" in value
@@ -63,13 +68,19 @@ class MealService:
     @staticmethod
     def get_today(user_id):
         day = today()
-        return {meal: MealRepository.load(user_id, day, meal) for meal in ("lunch", "dinner")}
+        return {meal: MealRepository.load(user_id, day, meal) for meal in ("breakfast", "lunch", "dinner")}
 
     @staticmethod
-    def generate(user_id, meal_type, force_refresh=False, expected_revision=None):
+    def generate(user_id, meal_type, force_refresh=False, expected_revision=None, preferences=None, target_override=None):
         day = today()
+        preferences = validate_preferences(preferences, meal_type)
         existing = MealRepository.load(user_id, day, meal_type)
         if existing and not force_refresh:
+            if preferences:
+                catalog = {t["title"]: t for t in templates(meal_type)}
+                if not cached_compatible(existing, catalog, preferences):
+                    raise ModuleError("Thực đơn đã lưu chưa phù hợp điều kiện mới. Chọn Nghĩ sau nếu đã chốt, rồi Đổi thực đơn.",
+                                      "PREFERENCES_REQUIRE_REFRESH", 409)
             return existing, {"cached": True}
         if existing and (existing["status"] == "decided" or existing["selectedOption"] is not None):
             raise ModuleError("Thực đơn đã chốt được giữ nguyên; hãy chọn Nghĩ sau trước khi làm mới.", "MEAL_DECIDED", 409)
@@ -78,7 +89,8 @@ class MealService:
         if not existing and expected_revision is not None:
             raise ModuleError("Thực đơn đã thay đổi. Hãy tải lại.", "STALE_MEAL", 409)
         nutrition = MealService.profile(user_id)
-        target = nutrition["meal_targets"][meal_type]
+        profile_target = nutrition["meal_targets"][meal_type]
+        target = target_override if target_override is not None else profile_target
         # A refresh advances the local cycle. The revision checks stop stale writes.
         variant = max((option["optionId"] for option in existing["options"]), default=0) if existing else 0
         old_title = existing["options"][0]["title"] if existing and existing["options"] else None
@@ -89,14 +101,25 @@ class MealService:
         if existing and force_refresh:
             old_titles = {option["title"] for option in existing["options"]}
             candidates = [template for template in candidates if template["title"] not in old_titles]
+        candidates = filter_candidates(candidates, preferences)
+        fallback = fallback_choices(candidates, fallback, preferences, target)
+        goal = str(nutrition["goal"] or "").lower()
+        goal = "lose" if goal in ("lose", "weight_loss", "giam_can") else "gain" if goal in ("gain", "weight_gain", "tang_can") else "maintain"
+        context = {"goal": goal, "macro_targets": NutritionService.macro_targets(target),
+                   "preferences": preferences}
         MealRepository.release_read_transaction()  # No DB transaction while waiting for Gemini.
-        meta = {"cached": False, "source": "fallback", "target_kcal": target}
+        meta = {"cached": False, "source": "fallback", "target_kcal": target,
+                "profile_target_kcal": profile_target, "macro_targets": context["macro_targets"]}
         try:
-            choices = current_app.extensions["nutrifit_gemini"].rank(candidates, meal_type, target, user_id)
+            choices = current_app.extensions["nutrifit_gemini"].rank(candidates, meal_type, target, user_id, context)
+            # Defend the service boundary too: only eligible catalog IDs/reasons are saved.
+            choices = GeminiClient.validate_choices({"choices": [
+                {"template_id": t["template_id"], "reason": reason} for t, reason in choices]}, candidates)
             options = [materialize(template, target, "gemini", reason) for template, reason in choices]
             meta["source"] = "gemini"
         except AIUnavailable as error:
-            options = [materialize(template, target) for template in fallback]
+            note = "Chọn từ món phù hợp điều kiện của bạn; khẩu phần và dinh dưỡng là ước tính." if preferences else None
+            options = [materialize(template, target, reason=note) for template in fallback]
             meta["fallback_reason"] = str(error)
         MealService.validate_options(options)
         result, cached = MealRepository.store(user_id, day, meal_type, options,
@@ -105,6 +128,11 @@ class MealService:
         meta["source"] = result["source"]
         if cached:
             meta = {"cached": True, "source": result["source"]}
+        # Concurrent requests may have saved a different set while AI was running.
+        if cached and preferences:
+            catalog = {t["title"]: t for t in templates(meal_type)}
+            if not cached_compatible(result, catalog, preferences):
+                raise ModuleError("Điều kiện mới cần làm mới thực đơn với revision hiện tại.", "PREFERENCES_REQUIRE_REFRESH", 409)
         return result, meta
 
     @staticmethod

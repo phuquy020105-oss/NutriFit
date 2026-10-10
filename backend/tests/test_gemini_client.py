@@ -92,3 +92,42 @@ class GeminiTests(unittest.TestCase):
         with patch("app.ai.gemini_client.requests.post", return_value=response):
             with self.assertRaises(AIUnavailable):
                 self.client.rank(self.catalog, "lunch", 800, 3)
+
+    def test_breakfast_context_contains_estimates_without_identity(self):
+        catalog = templates("breakfast")
+        choices = {"choices": [{"template_id": t["template_id"], "reason": "Bữa sáng đa dạng, khẩu phần tham khảo."} for t in catalog[:3]]}
+        with patch("app.ai.gemini_client.requests.post", return_value=self.response(choices)) as post:
+            result = self.client.rank(catalog, "breakfast", 500, 7654,
+                                      {"goal": "lose", "preferences": {"avoid": ["fish"]}, "user_id": 7654, "email": "private@example.invalid"})
+        self.assertEqual(len(result), 3)
+        prompt = json.loads(post.call_args.kwargs["json"]["contents"][0]["parts"][0]["text"])
+        self.assertEqual(prompt["goal"], "lose")
+        self.assertEqual(prompt["macro_targets"], {"carbs": 56.2, "protein": 31.2, "fat": 16.7})
+        self.assertEqual(prompt["preferences"]["avoid"], ["fish"])
+        self.assertNotIn("private@example.invalid", json.dumps(prompt))
+        self.assertNotIn("7654", json.dumps(prompt))
+        self.assertTrue(all("estimated_calories" in t and "estimated_macros" in t for t in prompt["candidates"]))
+
+    def test_filtered_catalog_may_have_fewer_families_but_unique_ids(self):
+        catalog = [t for t in self.catalog if t["family"] == "poultry"]
+        choices = {"choices": [{"template_id": t["template_id"], "reason": "Ưu tiên món gà theo sở thích."} for t in catalog[:3]]}
+        self.assertEqual(len(GeminiClient.validate_choices(choices, catalog)), 3)
+
+    def test_provider_cannot_supply_nutrient_values(self):
+        bad = {"choices": [{**self.choices["choices"][0], "calories": 1}, *self.choices["choices"][1:]]}
+        with self.assertRaises(AIUnavailable):
+            GeminiClient.validate_choices(bad, self.catalog)
+
+    def test_server_errors_are_bounded(self):
+        with patch("app.ai.gemini_client.requests.post", return_value=self.response(status=500)) as post:
+            with self.assertRaises(AIUnavailable) as error:
+                self.client.rank(self.catalog, "lunch", 800, 1)
+            self.assertEqual(str(error.exception), "provider_busy")
+            self.assertEqual(post.call_count, 2)
+
+    def test_two_remaining_families_still_require_available_diversity(self):
+        catalog = [t for t in self.catalog if t["family"] != "fish_seafood"]
+        poultry = [t for t in catalog if t["family"] == "poultry"]
+        choices = {"choices": [{"template_id": t["template_id"], "reason": "Theo sở thích."} for t in poultry[:3]]}
+        with self.assertRaises(AIUnavailable):
+            GeminiClient.validate_choices(choices, catalog)

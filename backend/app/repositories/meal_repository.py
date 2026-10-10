@@ -45,7 +45,10 @@ class MealRepository:
             "ORDER BY c.ComponentId"
         ), {"sid": row["SuggestionId"]}).mappings().all()
         components = {}
+        flexible_components = {}
         for component in component_rows:
+            flexible_components.setdefault(component["OptionId"], []).append({
+                "type": component["ComponentType"], "name": component["DishName"]})
             field = COMPONENT_FIELDS.get(component["ComponentType"])
             if field:
                 components.setdefault(component["OptionId"], {})[field] = component["DishName"]
@@ -61,6 +64,8 @@ class MealRepository:
                                        "protein": float(option["ProteinGrams"]),
                                        "fat": float(option["FatGrams"]), "fiber": float(option["FiberGrams"] or 0)},
                             **components.get(option["OptionId"], {}),
+                            "components": flexible_components.get(option["OptionId"], []),
+                            "reason": note.removeprefix(f"[{source}] "),
                             "digestibility": note.removeprefix(f"[{source}] "),
                             "nutritionNotes": "Dinh dưỡng ước tính cho khẩu phần hiển thị; lựa chọn là kế hoạch ăn.",
                             "estimated": True})
