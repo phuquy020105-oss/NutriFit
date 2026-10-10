@@ -9,6 +9,8 @@ USE NutriFitDB;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- Xóa bảng cũ nếu tồn tại để tái thiết lập schema sạch
+DROP TABLE IF EXISTS PaymentTransactions;
+DROP TABLE IF EXISTS SubscriptionPlans;
 DROP TABLE IF EXISTS WorkoutGoals;
 DROP TABLE IF EXISTS WorkoutLogs;
 DROP TABLE IF EXISTS Workouts;
@@ -37,6 +39,8 @@ CREATE TABLE Users (
     PasswordHash VARCHAR(255) NOT NULL,
     FullName VARCHAR(100) NOT NULL,
     Role VARCHAR(20) DEFAULT 'MEMBER',
+    SubscriptionStatus VARCHAR(20) DEFAULT 'FREE', -- 'FREE' hoặc 'PREMIUM'
+    PremiumExpiresAt DATETIME NULL,
     CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -200,14 +204,42 @@ CREATE TABLE WorkoutGoals (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================================
+-- MODULE 4: SUBSCRIPTION & PAYMENT MANAGEMENT (TV1 quản lý nghiệp vụ & schema)
+-- ============================================================================
+
+-- 15. Bảng Danh mục các gói đăng ký Premium
+CREATE TABLE SubscriptionPlans (
+    PlanId INT AUTO_INCREMENT PRIMARY KEY,
+    PlanName VARCHAR(100) NOT NULL,
+    PriceVnd INT NOT NULL,
+    DurationDays INT NOT NULL,
+    Description VARCHAR(255) NULL,
+    IsActive BOOLEAN DEFAULT TRUE,
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 16. Bảng Lịch sử giao dịch thanh toán (Lưu doanh thu hệ thống)
+CREATE TABLE PaymentTransactions (
+    TransactionId INT AUTO_INCREMENT PRIMARY KEY,
+    UserId INT NOT NULL,
+    PlanId INT NOT NULL,
+    AmountVnd INT NOT NULL,
+    PaymentMethod VARCHAR(50) NOT NULL,
+    TransactionCode VARCHAR(100) UNIQUE NOT NULL,
+    Status VARCHAR(20) DEFAULT 'SUCCESS',
+    CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT FK_Payments_Users FOREIGN KEY (UserId) REFERENCES Users(UserId) ON DELETE CASCADE,
+    CONSTRAINT FK_Payments_Plans FOREIGN KEY (PlanId) REFERENCES SubscriptionPlans(PlanId) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================================
 -- NẠP DỮ LIỆU BAN ĐẦU (SEED DATA TOÀN DIỆN CHO KIỂM THỬ)
 -- ============================================================================
 
 -- 1. Tài khoản kiểm thử (Mật khẩu mặc định: 123456 - scrypt băm an toàn)
-INSERT INTO Users (UserId, Email, PasswordHash, FullName, Role) VALUES
-(1, 'admin@nutrifit.vn', 'scrypt:32768:8:1$kYgqXv4e7Hj$2c354e605d5e5e6a0d4c18f773418d18471bbadca161a0b36873bc0ee04344bebfcf23d5bf9273c683b584d4715fbc706adab5416cb482ce3bb0535bc20c57ff', 'Quản Trị Viên', 'ADMIN'),
-(2, 'user@nutrifit.vn', 'scrypt:32768:8:1$kYgqXv4e7Hj$2c354e605d5e5e6a0d4c18f773418d18471bbadca161a0b36873bc0ee04344bebfcf23d5bf9273c683b584d4715fbc706adab5416cb482ce3bb0535bc20c57ff', 'Lê Phú Quý', 'MEMBER');
-
+INSERT INTO Users (UserId, Email, PasswordHash, FullName, Role, SubscriptionStatus, PremiumExpiresAt) VALUES
+(1, 'phuquy020105@gmail.com', 'scrypt:32768:8:1$bfTPZTdekAmv4hwO$b249dfac0193d0a54ab1c86042ae8ae7ba14a64ca07abb13ffd7fcbc9c65da4d0438706f68d8bf6ace877dd48feabd66441b710539cace7cc855703db850c05f', 'Lê Phú Quý', 'ADMIN', 'FREE', NULL),
+(2, 'user@nutrifit.vn', 'scrypt:32768:8:1$kYgqXv4e7Hj$2c354e605d5e5e6a0d4c18f773418d18471bbadca161a0b36873bc0ee04344bebfcf23d5bf9273c683b584d4715fbc706adab5416cb482ce3bb0535bc20c57ff', 'Người Dùng Test', 'MEMBER', 'PREMIUM', DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 30 DAY));
 -- 2. Hồ sơ thể trạng mẫu cho User 2 (Mục tiêu duy trì cân nặng: 2000 kcal, nước 2275ml)
 INSERT INTO UserProfiles (ProfileId, UserId, Gender, Age, HeightCm, WeightKg, ActivityLevel, Goal, Bmr, Tdee, TargetKcal, TargetWaterMl) VALUES
 (1, 2, 'male', 22, 172, 65, 1.375, 'maintain', 1610.0, 2213.8, 2000.0, 2275);
@@ -341,3 +373,13 @@ INSERT INTO StreetFoodDish (Title, PriceVnd, Calories, CarbsGrams, ProteinGrams,
 ('Cháo cá lóc rau đắng miền Tây', 40000, 380, 50, 24, 9, 'dinner', 'Phi lê cá lóc đồng hấp chín tới ngọt thịt', 'Cháo hoa nấu nở bung hạt', 'Nước mắm mặn ớt hiểm chấm cá', 'Đĩa rau đắng tươi mát, giá sống'),
 ('Cháo hàu sữa hạt sen', 45000, 410, 53, 23, 11, 'dinner', 'Hàu sữa tươi béo ngậy xào hành phi thơm phức', 'Cháo gạo sánh thơm hạt sen', 'Hành lá, ngò rí, tiêu xay mịn', 'Gừng sợi ấm bụng dễ tiêu'),
 ('Súp cua gà xé nấm tuyết', 35000, 320, 38, 22, 9, 'dinner', 'Thịt cua tươi, ức gà xé nhuyễn, nấm tuyết, trứng cút', 'Súp sánh mịn nấu từ nước dùng gà', 'Dầu mè, tiêu sọ, giấm tiều thơm lừng', 'Ngò rí tươi thái nhỏ');
+
+-- 15. Dữ liệu mẫu các gói dịch vụ Subscription (Module 4)
+INSERT INTO SubscriptionPlans (PlanId, PlanName, PriceVnd, DurationDays, Description, IsActive) VALUES
+(1, 'Gói Premium 1 Tháng', 99000, 30, 'Mở khóa toàn bộ gợi ý mâm cơm & phân tích dinh dưỡng chuyên sâu', TRUE),
+(2, 'Gói Premium 1 Năm', 990000, 365, 'Tiết kiệm 20% khi đăng ký trọn gói 1 năm', TRUE);
+
+-- 16. Lịch sử giao dịch thanh toán mẫu (Module 4)
+INSERT INTO PaymentTransactions (UserId, PlanId, AmountVnd, PaymentMethod, TransactionCode, Status, CreatedAt) VALUES
+(2, 1, 99000, 'BANK_TRANSFER', 'TXN_20261001_001', 'SUCCESS', '2026-10-01 10:15:00'),
+(2, 1, 99000, 'MOMO', 'TXN_20261010_002', 'SUCCESS', '2026-10-10 14:30:00');
