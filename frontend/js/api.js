@@ -35,13 +35,20 @@ const NutriFitAPI = {
   getNutritionSummary: () => request('/api/nutrition/summary'),
   logout: () => post('/api/nutrition/logout'),
   getTodayMeals: () => request('/api/meals/today'),
-  generateMeal: (mealType, forceRefresh = false, revision = null, preferences = {}) => post('/api/meals/generate', {
-    mealType, forceRefresh, ...(revision ? { revision } : {}), preferences
+  generateMeal: (mealType, forceRefresh = false, revision = null, preferences = {}, settings = {}) => post('/api/meals/generate', {
+    mealType, forceRefresh, ...(revision ? { revision } : {}), preferences, ...settings, plannerVersion: 'v4'
   }),
-  replaceMeal: (mealType, revision, requestText, preferences = {}) => post('/api/meals/replace', {
-    mealType, revision, request: requestText, preferences
+  replaceMeal: (mealType, revision, requestText, preferences = {}, settings = {}) => post('/api/meals/replace', {
+    mealType, revision, request: requestText, preferences, ...settings, plannerVersion: 'v4'
   }),
   selectMealOption: (mealType, selectedOption, revision) => post('/api/meals/select', { mealType, selectedOption, revision }),
-  getMealHistory: (page = 1) => request('/api/meals/history?page=' + page + '&limit=20')
+  getMealHistory: (page = 1) => request('/api/meals/history?page=' + page + '&limit=20'),
+  getFoodCatalog: () => request('/api/nutrition/catalog'),
+  getDailyIntake: date => request('/api/nutrition/daily' + (date ? '?date=' + encodeURIComponent(date) : '')),
+  componentSuggestions: data => post('/api/meals/component-suggestions', data),
+  replaceComponent: data => post('/api/meals/replace-component', data),
+  addIntake: data => post('/api/nutrition/intake', data),
+  updateIntake: (id, data) => post('/api/nutrition/intake/' + encodeURIComponent(id) + '/update', data),
+  deleteIntake: (id, version) => post('/api/nutrition/intake/' + encodeURIComponent(id) + '/delete', { version })
 };
 window.NutriFitAPI = NutriFitAPI;

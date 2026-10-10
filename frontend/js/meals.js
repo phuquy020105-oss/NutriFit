@@ -17,13 +17,32 @@
     function escapeMealText(value) {
       return String(value ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
     }
+    function mealDisplayText(value) {
+      return String(value ?? '').replace(/\bV[34]\b/gi, 'đã lưu').replace(/catalog/gi, 'danh sách món').replace(/revision/gi, 'thông tin thực đơn').replace(/fallback/gi, 'dự phòng');
+    }
+    function mealUserMessage(result, defaultMessage = 'Chưa thể hoàn tất. Vui lòng thử lại.') {
+      const messages = {
+        V4_MIGRATION_REQUIRED: 'Chức năng này chưa sẵn sàng. Vui lòng thử lại sau.',
+        V4_REFRESH_REQUIRED: 'Bạn đang có thực đơn đã lưu. Nhấn Đổi thực đơn để nhận gợi ý mới; nếu đã chốt, hãy chọn Nghĩ sau trước.',
+        LEGACY_COMPONENT_NUTRITION_REQUIRED: 'Thực đơn đã lưu chưa hỗ trợ đổi từng món. Hãy tạo thực đơn mới.',
+        STALE_INTAKE: 'Bữa ăn đã thay đổi. Hãy mở lại từ Lịch sử trước khi chỉnh sửa.',
+        INTAKE_DELETED: 'Bữa ăn này đã được xóa. Hãy kiểm tra Lịch sử.',
+        IDEMPOTENCY_CONFLICT: 'Lần ghi nhận này đã có nội dung khác. Hãy kiểm tra Lịch sử.',
+        UNKNOWN_DISH: 'Món này chưa có dữ liệu dinh dưỡng. Hãy chọn món khác.'
+      };
+      return messages[result.code] || mealDisplayText(result.isOffline ? 'Không thể kết nối. Hãy thử lại.' : result.message || defaultMessage);
+    }
     function mealComponents(option) {
       if (Array.isArray(option.components) && option.components.length) return option.components;
       return ['carb', 'protein', 'soup', 'veggie', 'dessert'].filter(key => option[key]).map(key => ({ type: key.toUpperCase(), name: option[key] }));
     }
     function renderMealComponents(option) {
       const labels = { MAIN: '🍽️ Món chính', SIDE: '🥗 Ăn kèm', DRINK: '🥛 Đồ uống', CARB: '🍚 Tinh bột', PROTEIN: '🥩 Món mặn', SOUP: '🥣 Canh', VEGGIE: '🥗 Rau', DESSERT: '🍌 Tráng miệng' };
-      return mealComponents(option).map(c => '<div class="flex items-start gap-2"><span class="text-emerald-700 font-bold shrink-0">' + (labels[c.type] || '🍽️ Thành phần') + ':</span><span class="font-semibold text-slate-800">' + escapeMealText(c.name) + '</span></div>').join('');
+      return mealComponents(option).map(c => {
+        const action = 'openV4ComponentPicker(' + Number(option.optionId) + ', ' + JSON.stringify(c.type) + ')';
+        const swap = option.recipe ? '<button type="button" onclick="' + escapeMealText(action) + '" class="text-brand-600 text-xs font-bold shrink-0">Đổi món</button>' : '';
+        return '<div class="flex items-start gap-2"><span class="text-emerald-700 font-bold shrink-0">' + (labels[c.type] || '🍽️ Thành phần') + ':</span><span class="font-semibold text-slate-800 flex-1">' + escapeMealText(c.name) + (c.grams ? ' · ' + escapeMealText(c.grams) + ' g' : '') + '</span>' + swap + '</div>';
+      }).join('');
     }
     function readMealPreferences() {
       const terms = id => document.getElementById(id).value.split(',').map(v => v.trim()).filter(Boolean);
@@ -54,6 +73,7 @@
       const res = await NutriFitAPI.getTodayMeals();
       if (res.success && res.todayMeals) {
         todayMealsCache = res.todayMeals;
+        if (typeof restoreV4Preferences === 'function') restoreV4Preferences();
         renderCurrentMealMode();
       } else if (res.httpStatus !== 401) {
         showMealToast(res.message || 'Không thể tải thực đơn hôm nay.', 'error');
@@ -83,8 +103,7 @@
     function renderCurrentMealMode() {
       const mealData = todayMealsCache[currentMealMode];
       const source = document.getElementById('meal-source-label');
-      if (source) source.textContent = !mealData ? '' :
-        (mealData.source === 'gemini' ? 'Gemini chọn thực đơn' : 'Thực đơn dự phòng') + ' · Dinh dưỡng ước tính';
+      if (source) source.textContent = mealData ? 'Dinh dưỡng ước tính theo khẩu phần' : '';
       const container = document.getElementById('meal-options-container');
       const boxThink = document.getElementById('box-think-later');
       const statusAlert = document.getElementById('meal-status-alert');
@@ -187,7 +206,7 @@
               <div class="space-y-1">
                 <div class="flex items-center gap-1.5 text-[11px] font-bold ${currentMealMode === 'lunch' ? 'text-amber-700' : 'text-teal-700'}">
                   <i data-lucide="${currentMealMode === 'lunch' ? 'zap' : 'shield-check'}" class="w-3.5 h-3.5 shrink-0"></i>
-                  <span>${escapeMealText(opt.reason || opt.digestibility || 'Thực đơn theo khẩu phần tham khảo.')}</span>
+                  <span>${escapeMealText(mealDisplayText(opt.reason || opt.digestibility || 'Thực đơn theo khẩu phần tham khảo.'))}</span>
                 </div>
                 <p class="text-[11px] text-slate-500 italic">
                   💡 ${escapeMealText(opt.nutritionNotes || 'Dinh dưỡng ước tính; đây là kế hoạch ăn.')}
@@ -201,6 +220,7 @@
                 <i data-lucide="${isSelected ? 'check-check' : 'plus-circle'}" class="w-4 h-4"></i>
                 <span>${isSelected ? 'Đang áp dụng thực đơn này' : `Chọn Lựa chọn ${optNum}`}</span>
               </button>
+              <button type="button" onclick="openV4IntakeForMeal(${Number(opt.optionId)})" class="w-full mt-2 py-2.5 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-700">Ghi nhận đã ăn</button>
             </div>
           </div>
         `;
@@ -240,7 +260,7 @@
       } else if (result.code === 'MEAL_DECIDED') {
         showMealToast('Thực đơn đã chốt. Chọn Nghĩ sau trước khi làm mới.', 'error');
       } else {
-        showMealToast(result.message || 'Không thể cập nhật thực đơn.', 'error');
+        showMealToast(mealUserMessage(result, 'Không thể cập nhật thực đơn.'), 'error');
       }
     }
 
@@ -251,7 +271,7 @@
       const button = document.getElementById(forceRefresh ? 'btn-refresh-meals' : 'btn-generate-ai');
       if (button) button.disabled = true;
       try {
-        const result = await NutriFitAPI.generateMeal(mode, forceRefresh, forceRefresh ? meal?.revision : null, readMealPreferences());
+        const result = await NutriFitAPI.generateMeal(mode, forceRefresh, forceRefresh ? meal?.revision : null, readMealPreferences(), typeof readV4Settings === 'function' ? readV4Settings() : {});
         if (!result.success) { await handleMealError(result); return; }
         todayMealsCache[mode] = result.data;
         renderCurrentMealMode();
@@ -274,7 +294,7 @@
       const button = document.getElementById('btn-replace-meal');
       button.disabled = true;
       try {
-        const result = await NutriFitAPI.replaceMeal(mode, meal.revision, text, readMealPreferences());
+        const result = await NutriFitAPI.replaceMeal(mode, meal.revision, text, readMealPreferences(), typeof readV4Settings === 'function' ? readV4Settings() : {});
         if (!result.success) { await handleMealError(result); return; }
         todayMealsCache[mode] = result.data;
         mealPreferences[mode] = result.meta?.applied_preferences || mealPreferences[mode];

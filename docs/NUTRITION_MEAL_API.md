@@ -1,4 +1,10 @@
-# Nutrition, Meal và Gemini AI v3 — NutriFit
+# Nutrition, Meal và Gemini AI v3/v4 — NutriFit
+
+V4 bổ sung catalog, recipe theo gram, thay một component và nhật ký đã ăn.
+V3 vẫn là mặc định để chạy với 14 bảng hiện tại. V4 cần migration độc lập
+[001_nutrition_v4.sql](../setup/migrations/001_nutrition_v4.sql), chỉ áp dụng sau
+backup và phê duyệt theo [hướng dẫn migration](NUTRITION_V4_MIGRATION.md).
+Không chạy lại schema gốc và không tự tạo bảng khi Flask khởi động.
 
 Nhánh v3: integration/frontend-nutrition, nền Nutrition v2 tại 6d21fe1.
 Nhánh v2 được tạo từ origin/main tại f71c939; giữ nguyên nhánh tham chiếu.
@@ -9,11 +15,13 @@ Tái sử dụng chọn lọc Nutrition từ 257f938. Không thay schema/models 
 - Quý sở hữu AuthService, ProfileService, BMR/TDEE/TargetKcal và dữ liệu profile.
 - Nutrition thêm BMI, macro và phân bổ mục tiêu bữa ăn.
 - Meal dùng các bảng MealSuggestions, MealOption, MealNutrition, MealComponentDish hiện có.
-- Gemini chọn 3 template có sẵn; không tự tạo con số dinh dưỡng.
+- V3: Gemini chọn 3 template có sẵn. V4: kết hợp ID món và gram trong catalog;
+  backend kiểm tra rồi tính dinh dưỡng. Không dùng số kcal/macro do AI tự tạo.
 - Có 63 mẫu Việt: 21 breakfast mới + 42 lunch/dinner cũ; một MealService dùng chung ba bữa.
 - breakfast_menus.py tách công thức sáng; vietnamese_menus.py giữ registry và 42 mẫu cũ để tránh refactor không cần thiết.
 - meal_preferences.py lọc trước cả Gemini/fallback và phân tích câu đổi món giới hạn.
-- Không lưu preferences vào UserProfiles hoặc bảng mới; không thay schema/models.
+- V3 không lưu preferences. V4 lưu preferences/focus cùng recipe trong bảng độc lập,
+  không sửa UserProfiles, models hay công thức ProfileService.
 - app/__init__.py chỉ thêm import và lời gọi init_nutrition(app).
 - nutrition_module.py đăng ký blueprint, cấu hình riêng module và kết nối session với login core.
 
@@ -314,4 +322,175 @@ Không có Gemini key frontend; không thay Workout/Street Food.
 Nếu backend đang chạy process v2 cũ, restart để nạp v3.
 Không đăng ký qua server bình thường nếu SMTP chưa cấu hình/suppress:
 kiểm thử local chỉ suppress trong app kiểm thử, không sửa AuthService.
-Không bật Gemini key thật trước bước AI được phê duyệt.
+Gemini key chỉ ở backend/.env đã ignore; không gửi từ trình duyệt.
+
+## V4: catalog và gợi ý theo mục tiêu
+
+GET /api/nutrition/catalog trả `success`, `data` (24 món), `estimated: true`.
+Mỗi món có dish_id, name, type/group, reference_grams, min_grams/max_grams,
+macros_per_100g (carbs/protein/fat/fiber), calories_per_100g, ingredients,
+prep_minutes, provenance và estimated. Đây là số làm tròn phục vụ đồ án,
+không phải bảng dinh dưỡng được kiểm định. Năng lượng = carbs×4 + protein×4 + fat×9.
+Catalog chưa bảo đảm an toàn dị ứng/nhiễm chéo.
+
+POST /api/meals/generate giữ contract V3, bổ sung opt-in:
+
+```json
+{
+  "mealType": "lunch",
+  "plannerVersion": "v4",
+  "planningFocus": "muscle_gain",
+  "preferences": {"avoid": ["cá"], "prefer": ["gà"]}
+}
+```
+
+planningFocus có lose/maintain/gain/muscle_gain; null dùng Goal đã lưu.
+Lose ưu tiên mật độ đạm, chất xơ và ít dầu; maintain cân bằng;
+gain ưu tiên mật độ năng lượng; muscle_gain ưu tiên mật độ và lượng đạm.
+Focus tác động xếp hạng món/prompt; không đổi Goal, BMR/TDEE, TargetKcal hoặc macro
+ngày của Profile. Avoid và thời gian chuẩn bị là điều kiện cứng; dislikes/prefer
+là điểm xếp hạng mềm. Không phải gợi ý điều trị.
+
+V4 trả ba options có recipe (version=4, focus, preferences, components, provider_source,
+change) và components có type/dish_id/name/grams/calories/macros. Backend từ chối
+ID lạ, nhóm sai, gram ngoài giới hạn, thiếu nhóm, ba bộ trùng hoặc số AI tự tạo.
+Output AI không hợp lệ chuyển fallback; reason trong digestibility chỉ là giải thích.
+meta.source là gemini/fallback khi tạo; cache có meta.cached=true.
+
+V4 fallback là tổ hợp catalog có kiểm soát. Toàn bộ 63 mẫu V3 vẫn nguyên vẹn và
+tiếp tục được dùng khi plannerVersion=v3. Giới hạn gram và scale có thể làm bộ
+fallback khác mục tiêu kcal; không cam kết khớp kcal tuyệt đối.
+
+Recipe V4 được lưu trong NutritionMealDetails và đọc lại sau F5.
+Cache kiểm tra preferences/focus đã lưu: khác trả PREFERENCES_REQUIRE_REFRESH (409),
+không âm thầm bỏ điều kiện. Đổi V3 đang cache sang V4 trả V4_REFRESH_REQUIRED (409):
+giữ bộ cũ, chọn Nghĩ sau nếu đã chốt rồi refresh với revision hiện hành.
+POST /api/meals/replace nhận plannerVersion/planningFocus tương tự, giữ parser V3;
+kcal trong câu đổi món chỉ áp dụng lần đổi đó, không thay mục tiêu Profile.
+
+## V4: đổi một component
+
+POST /api/meals/component-suggestions:
+
+```json
+{"mealType":"lunch","optionId":123,"componentType":"PROTEIN","revision":"<24 ký tự hiện hành>"}
+```
+
+Response data có choices (món cùng nhóm + reason), revision, source, fallback_reason.
+Gemini chỉ đề xuất ID hợp lệ; catalog hạn chế hoặc lỗi provider dùng fallback.
+POST /api/meals/replace-component gửi cùng field và thêm dishId/grams:
+
+```json
+{"mealType":"lunch","optionId":123,"componentType":"PROTEIN","revision":"<hiện hành>","dishId":"chicken","grams":130}
+```
+
+Response data là thực đơn được cập nhật: chỉ component được chỉ định trong đúng
+option thay đổi; tổng macro/kcal tính lại; recipe.change và revision thay đổi kể cả
+kcal bằng nhau. Không thêm nhật ký đã ăn. Các option khác giữ nguyên.
+MEAL_DECIDED/STALE_MEAL trả 409; món vi phạm avoid trả AVOID_CONFLICT (422).
+V3 không có gram/macro từng món: LEGACY_COMPONENT_NUTRITION_REQUIRED (409),
+không chia tổng kcal cũ để giả lập số dinh dưỡng từng component.
+
+## V4: nhật ký thực sự đã ăn
+
+Các endpoint dùng cùng session và kiểm tra quyền user; không tin userId client:
+
+| Method | URL | Chức năng |
+|---|---|---|
+| GET | /api/nutrition/daily?date=2026-10-10 | Nhật ký và ngân sách đúng user/ngày |
+| POST | /api/nutrition/intake | Xác nhận một lần ăn |
+| POST | /api/nutrition/intake/{id}/update | Sửa món/gram/thời gian với version |
+| POST | /api/nutrition/intake/{id}/delete | Xóa khỏi tổng với version |
+
+```json
+{
+  "requestId": "<UUID tạo một lần cho thao tác xác nhận>",
+  "confirmed": true,
+  "mealType": "breakfast",
+  "consumedAt": "2026-10-10T08:00:00+07:00",
+  "items": [{"dish_id":"bread_egg","grams":180}]
+}
+```
+
+mealType breakfast/lunch/dinner/snack. items gồm 1–20 món catalog, gram 1–2000/món;
+cho phép món ngoài thực đơn AI nhưng chưa cho phép món ngoài catalog không có dữ liệu.
+consumedAt cần ISO có timezone; bỏ trống dùng giờ UTC hiện tại. Ngày nhật ký tính
+UTC+7, OccurredAt lưu UTC. Không cộng calories Workout vào phần đã nạp.
+confirmed=true bắt buộc; Select/Generate/Replace không đồng nghĩa đã ăn.
+
+Có thể gửi thêm meal={optionId,revision} để xác minh bộ hôm nay của chính user.
+V4 vẫn yêu cầu items/gram thực tế. V3 có thể gửi servings 0.1–4 thay items để ghi
+tổng dinh dưỡng nguyên bộ ước tính; không suy diễn khẩu phần từng món.
+Snapshot được lưu tại thời điểm ghi, vẫn đọc/sửa tổng V3 được sau khi bộ gốc đổi.
+
+Tạo mới trả 201, retry cùng requestId và cùng payload trả 200/created=false.
+requestId có 16–64 ký tự, duy nhất trong từng user. Cùng key khác payload trả
+IDEMPOTENCY_CONFLICT (409). Client giữ UUID và payload khi retry sau lỗi mạng.
+Update nhận confirmed, mealType, consumedAt, items (hoặc servings V3), version.
+Delete nhận {"version":1}; xóa mềm để retry cũ không tái tạo nhật ký đã xóa.
+STALE_INTAKE/INTAKE_DELETED trả 409; nhật ký user khác trả 404.
+
+GET daily trả data: date, targets (Nutrition từ Profile), consumed, remaining,
+over_target, logs, consumed_meals, suggested_meal_targets, snack_reserve_kcal,
+requires_confirmation=true, tracking_mode=consumed, estimated=true.
+remaining[k] = mục tiêu[k] − tổng snapshot[k]; có thể âm, phần vượt hiển thị riêng.
+Phân bổ phần còn lại theo tỷ lệ các bữa chưa ghi nhận, dành phần snack nếu chưa ăn.
+Khi phần còn lại quá thấp/vượt mục tiêu, giữ mục tiêu bữa tham khảo thay vì 0 kcal
+hoặc khuyên bỏ bữa. Đây là đề xuất, không tự thay bộ chốt hay ghi bữa chưa ăn.
+Generate V4 dùng ngân sách hiện tại; người dùng xác nhận refresh với revision nếu
+muốn cập nhật bộ đã cache. Summary cũ vẫn chỉ là Planned; daily là Consumed.
+
+## V4: Gemini thật và kiểm thử
+
+Gemini REST dùng key trong header server, không trong URL; structured JSON,
+timeout/retry/cooldown giới hạn. Không ghi provider body hay secret vào log.
+400/403/404 => provider_error, 429/5xx => provider_busy; meta có status an toàn
+khi generate fallback. Thiếu key/model hoặc cooldown vẫn dùng fallback.
+
+Kiểm chứng riêng ngày 2026-10-10: models.get HTTP 200 cho gemini-3.5-flash-lite,
+hỗ trợ generateContent; đúng một lần generateContent qua GeminiClient.rank thành
+công với ba lựa chọn JSON hợp lệ. Compose/alternatives V4 được kiểm thử mock,
+chưa gọi thật riêng. Không suy ra V4 trên MySQL đã PASS từ test này.
+Không gửi temperature/topP/topK vì các tham số sampling đã bị model 3.5 bỏ hỗ trợ:
+[tài liệu model chính thức](https://ai.google.dev/gemini-api/docs/models/gemini-3.5-flash-lite).
+
+Chạy regression từ backend, không chạy helper ghi kết quả hay reset DB:
+
+```powershell
+Set-Location backend
+..\.venv\Scripts\python.exe -B -m unittest discover -s tests -p "test_*.py" -v
+```
+
+Fixtures tạo app factory gốc với SQLite in-memory, key/model rỗng, mock mail/HTTP;
+không dùng MySQL thật. Migration chỉ được dịch và chạy trong SQLite disposable.
+Chrome E2E kiểm tra giao diện thật + HTTP Flask trên SQLite, chuyển API sang server
+cô lập trong browser kiểm thử, mock CDN/SMTP và chặn Gemini thật.
+V4 MySQL local đã được phê duyệt migration và kiểm thử ngày 2026-10-10:
+16 bảng, backup ngoài Git; 14 bảng gốc không đổi cấu trúc/dữ liệu khi migration.
+Chrome + Flask HTTP tại đúng 5500/5000 PASS luồng V4, dữ liệu demo UserId=11;
+MySQL lưu 9 recipe và 2 dòng nhật ký (1 xóa mềm). App factory khởi tạo lại đọc
+được session/recipe/nhật ký. So sánh SHA của từng hàng có sẵn trước/sau lượt test
+trên 16 bảng: không đổi. Gemini bị chặn, SMTP suppress và chặn kết nối trong server test.
+Hai lượt đầu gặp server V3 cũ còn ở cổng 5000, đã để lại demo 9/10 với profile
+và thực đơn sáng V3; giữ nguyên, không tự xóa hoặc reset để che kết quả.
+
+Regression: 119/119 PASS (93 baseline + 26 mới), network socket bị chặn;
+Chrome SQLite 10 checkpoint PASS, Chrome MySQL 12 checkpoint PASS,
+8 kiểm tra UI V3/syntax PASS. Kiểm tra Python AST, ID HTML, script path,
+git diff --check và scan mẫu secret: PASS. Scan không bảo đảm phát hiện mọi secret.
+Backend kiểm thử 5000 đang dùng fallback và suppress mail trong bộ nhớ, không
+thay .env/AuthService; khởi động bình thường sẽ dùng Gemini key/model local và
+cấu hình mail của core. Không đăng ký email thật khi chưa thống nhất SMTP.
+
+Frontend chỉ hiển thị Meal Planner V4, kể cả sau F5 hoặc đăng nhập lại;
+backend vẫn giữ 63 mẫu V3, endpoint cũ và fallback. Giao diện giữ ưu tiên Nutrition
+và Đổi món từng component. Theo dõi dinh dưỡng hiển thị Mục tiêu/Đã nạp/Còn lại,
+thanh tiến độ và macro thu gọn; khi vượt mục tiêu, Còn lại hiển thị 0 và phần vượt
+hiển thị riêng, không thay giá trị remaining có thể âm trong API.
+Modal Ghi nhận bữa ăn cho phép tìm món, thêm/bỏ món khỏi bản nháp, chỉnh gram
+và xem tổng ước tính. Nút lưu gửi confirmed=true; chặn bữa rỗng, khẩu phần sai
+và double-submit, giữ UUID/payload khi retry. Giữ nhật ký sửa/xóa và lựa chọn ngày.
+Bỏ món khỏi bản nháp nhật ký không sửa thực đơn đã chốt; chọn thực đơn không
+ghi calories đã ăn.
+Gợi ý bữa còn lại chỉ điều hướng; phải nhấn Gợi ý/Đổi và xử lý bộ chốt như trước.
+Session/cookie/toast hiện có giữ nguyên. Chưa mở rộng Workout/Street Food.

@@ -11,6 +11,8 @@ from app.services.module_errors import ModuleError
 
 def revision(options):
     content = [(o["optionId"], o["title"], o["calories"]) for o in options]
+    if any(o.get("recipe") for o in options):
+        content.append([(o["optionId"], o.get("recipe")) for o in options])
     return hashlib.sha256(json.dumps(content, ensure_ascii=False).encode()).hexdigest()[:24]
 
 
@@ -53,6 +55,8 @@ class MealRepository:
             if field:
                 components.setdefault(component["OptionId"], {})[field] = component["DishName"]
         options = []
+        from app.repositories.nutrition_v4_repository import NutritionV4Repository
+        recipes = NutritionV4Repository.recipes(row["SuggestionId"])
         sources = set()
         for option in rows:
             note = option["DigestibilityNote"] or ""
@@ -69,6 +73,11 @@ class MealRepository:
                             "digestibility": note.removeprefix(f"[{source}] "),
                             "nutritionNotes": "Dinh dưỡng ước tính cho khẩu phần hiển thị; lựa chọn là kế hoạch ăn.",
                             "estimated": True})
+            if option["OptionId"] in recipes:
+                recipe = recipes[option["OptionId"]]
+                options[-1]["recipe"] = recipe
+                options[-1]["plannerVersion"] = "v4"
+                options[-1]["components"] = recipe["components"]
         day = row["SuggestionDate"]
         return {"suggestionId": row["SuggestionId"], "date": day.isoformat() if isinstance(day, date) else str(day),
                 "mealType": row["MealType"], "selectedOption": row["SelectedOption"],
@@ -128,6 +137,9 @@ class MealRepository:
                 db.session.execute(text(
                     "INSERT INTO MealComponentDish (OptionId, ComponentType, DishName) VALUES (:oid, :kind, :name)"
                 ), {"oid": option_id, "kind": kind, "name": name})
+            if option.get("recipe"):
+                from app.repositories.nutrition_v4_repository import NutritionV4Repository
+                NutritionV4Repository.save_recipe(option_id, option["recipe"])
         result = MealRepository.load(user_id, day, meal_type)
         db.session.commit()
         return result, False

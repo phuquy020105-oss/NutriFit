@@ -544,6 +544,22 @@
         <p class="text-xs text-slate-500"><span id="dash-selected-meals">0</span> bữa đã chọn · <span id="dash-progress-pct">0% kế hoạch</span>. Macro hiển thị kế hoạch/mục tiêu.</p>
       </section>
 
+      <section id="section-intake" class="nf-panel">
+        <div class="nf-panel-heading">
+          <div><h3>Theo dõi dinh dưỡng</h3><p id="v4-tracking-date" class="nf-muted">Hôm nay</p></div>
+          <div class="nf-actions"><button type="button" onclick="openV4IntakeHistory()" class="nf-btn nf-btn-soft">Lịch sử</button><button type="button" onclick="openV4IntakeOutside()" class="nf-btn nf-btn-primary">+ Thêm bữa ăn</button></div>
+        </div>
+        <div class="nf-metrics">
+          <div><span>Mục tiêu</span><strong id="v4-target-kcal">—</strong><small>kcal</small></div>
+          <div><span>Đã nạp</span><strong id="v4-consumed-kcal">—</strong><small>kcal</small></div>
+          <div><span>Còn lại</span><strong id="v4-remaining-kcal">—</strong><small>kcal</small></div>
+        </div>
+        <div id="v4-energy-progress" class="nf-progress" role="progressbar" aria-label="Năng lượng đã nạp trong ngày" aria-valuemin="0" aria-valuemax="100"><div id="v4-energy-fill"></div></div>
+        <div class="nf-progress-caption"><span id="v4-progress-label">Chưa có dữ liệu</span><span id="v4-over-message" class="hidden nf-over">Vượt mục tiêu <b id="v4-over-kcal">0</b> kcal</span></div>
+        <p id="v4-status" class="hidden nf-message" role="status"></p>
+        <details id="v4-macro-details" class="nf-details"><summary>Chi tiết dinh dưỡng <span>Ước tính</span></summary><div id="v4-macros" class="nf-macro-grid"></div></details>
+      </section>
+
       <section id="section-meals" class="bg-white border border-slate-200/80 rounded-3xl p-6 lg:p-8 shadow-sm space-y-6">
 
         <!-- Header & Công cụ điều khiển -->
@@ -605,6 +621,11 @@
               <span id="btn-generate-text">Gợi ý 3 thực đơn ngay</span>
             </button>
           </div>
+        </div>
+
+        <div class="nf-planner-settings">
+          <label>Ưu tiên của bạn <select id="meal-planning-focus" class="nf-input"><option value="">Theo mục tiêu hồ sơ</option><option value="lose">Giảm cân</option><option value="maintain">Giữ cân</option><option value="gain">Tăng cân</option><option value="muscle_gain">Ưu tiên tăng cơ</option></select></label>
+          <div id="v4-recommendations" class="nf-recommendations" aria-label="Gợi ý cho bữa chưa ăn"></div>
         </div>
 
         <details class="p-4 rounded-2xl border border-emerald-100 bg-emerald-50/40 space-y-3">
@@ -978,6 +999,7 @@
   <script src="js/profile.js"></script>
   <script src="js/dashboard.js"></script>
   <script src="js/meals.js"></script>
+  <script src="js/nutrition-v4.js"></script>
 
   <!-- MODAL XEM LỊCH SỬ THỰC ĐƠN THEO NGÀY -->
   <div id="modal-history" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4">
@@ -1062,6 +1084,47 @@
         </div>
       </form>
     </div>
+  </div>
+
+  <div id="modal-v4-component" role="dialog" aria-modal="true" aria-labelledby="v4-component-title" class="hidden nf-modal">
+    <div class="nf-dialog">
+      <div class="nf-dialog-heading"><h3 id="v4-component-title">Đổi món trong thực đơn</h3><button type="button" onclick="closeV4Modal('modal-v4-component')" class="nf-icon-btn" aria-label="Đóng">×</button></div>
+      <p id="v4-component-source" class="nf-muted"></p>
+      <label class="nf-date-label">Món thay thế<select id="v4-component-dish" onchange="updateV4ReplacementPortion()" class="nf-input"></select></label>
+      <p id="v4-component-reason" class="nf-muted"></p>
+      <label class="nf-date-label">Khẩu phần (g)<input id="v4-component-grams" type="number" step="0.01" class="nf-input"></label>
+      <div class="nf-dialog-footer"><button type="button" onclick="closeV4Modal('modal-v4-component')" class="nf-btn nf-btn-soft">Hủy</button><button type="button" id="v4-component-save" onclick="applyV4Component()" class="nf-btn nf-btn-primary">Xác nhận thay món</button></div>
+    </div>
+  </div>
+
+  <div id="modal-v4-intake" role="dialog" aria-modal="true" aria-labelledby="v4-intake-title" class="hidden nf-modal">
+    <div class="nf-dialog">
+      <div class="nf-dialog-heading"><div><h3 id="v4-intake-title">Ghi nhận bữa ăn</h3><p class="nf-muted">Chỉnh khẩu phần bạn đã thực sự ăn.</p></div><button type="button" onclick="closeV4Modal('modal-v4-intake')" class="nf-icon-btn" aria-label="Đóng">×</button></div>
+      <fieldset id="v4-intake-fields" class="nf-fieldset">
+        <div class="nf-form-grid"><label>Bữa ăn<select id="v4-intake-meal" class="nf-input"><option value="breakfast">Sáng</option><option value="lunch">Trưa</option><option value="dinner">Tối</option><option value="snack">Ăn nhẹ</option></select></label><label>Thời gian ăn<input id="v4-intake-time" type="datetime-local" class="nf-input"></label></div>
+        <div id="v4-intake-items" class="nf-food-list"></div>
+        <button type="button" id="v4-add-item" onclick="addV4IntakeItem()" class="nf-btn nf-btn-text">+ Thêm món khác</button>
+        <section id="v4-food-search" class="hidden nf-food-search" aria-label="Tìm món ăn">
+          <div class="nf-search-heading"><input id="v4-food-query" type="search" oninput="renderV4FoodSearch()" placeholder="Tìm tên món ăn…" class="nf-input" aria-label="Tìm món ăn"><button type="button" onclick="closeV4FoodSearch()" class="nf-icon-btn" aria-label="Đóng tìm kiếm">×</button></div>
+          <div id="v4-food-results" class="nf-search-results"></div>
+        </section>
+      </fieldset>
+      <div class="nf-intake-total" aria-live="polite"><div><span>Tổng bữa ăn</span><strong><b id="v4-intake-kcal">0</b> <small>kcal</small></strong></div><p id="v4-intake-macros"></p><small>Dinh dưỡng ước tính</small></div>
+      <p id="v4-intake-error" class="hidden nf-message nf-error" role="alert"></p>
+      <div class="nf-dialog-footer"><button type="button" onclick="closeV4Modal('modal-v4-intake')" class="nf-btn nf-btn-soft">Hủy</button><button type="button" id="v4-intake-save" onclick="saveV4Intake()" class="nf-btn nf-btn-primary">Ghi nhận bữa ăn</button></div>
+    </div>
+  </div>
+
+  <div id="modal-v4-history" role="dialog" aria-modal="true" aria-labelledby="v4-history-title" class="hidden nf-modal">
+    <div class="nf-dialog">
+      <div class="nf-dialog-heading"><div><h3 id="v4-history-title">Lịch sử bữa ăn</h3><p class="nf-muted">Các bữa đã ghi nhận</p></div><button type="button" onclick="closeV4Modal('modal-v4-history')" class="nf-icon-btn" aria-label="Đóng">×</button></div>
+      <label class="nf-date-label">Ngày<input id="v4-date" type="date" onchange="loadV4Daily()" class="nf-input"></label>
+      <p id="v4-history-status" class="nf-muted" role="status"></p><div id="v4-log-list" class="nf-log-list"></div>
+    </div>
+  </div>
+
+  <div id="modal-v4-delete" role="dialog" aria-modal="true" aria-labelledby="v4-delete-title" class="hidden nf-modal">
+    <div class="nf-dialog nf-dialog-small"><h3 id="v4-delete-title">Xóa bữa ăn này?</h3><p class="nf-muted">Lượng dinh dưỡng đã nạp sẽ được cập nhật lại.</p><div class="nf-dialog-footer"><button type="button" onclick="closeV4Modal('modal-v4-delete')" class="nf-btn nf-btn-soft">Hủy</button><button type="button" id="v4-delete-save" onclick="confirmV4Delete()" class="nf-btn nf-btn-danger">Xóa bữa ăn</button></div></div>
   </div>
 
   <!-- MODAL XEM LỊCH SỬ TẬP LUYỆN ĐÃ GHI NHẬN (FEATURE.TXT) -->

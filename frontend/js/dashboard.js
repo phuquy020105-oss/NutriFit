@@ -87,4 +87,5 @@
       text('dash-selected-meals', summary.selected_meals);
       const percent = Math.round(planned.calories / target.target_kcal * 100);
       text('dash-progress-pct', percent + '% kế hoạch');
+      if (typeof loadV4Daily === 'function') await loadV4Daily();
     }

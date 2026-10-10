@@ -131,3 +131,27 @@ class GeminiTests(unittest.TestCase):
         choices = {"choices": [{"template_id": t["template_id"], "reason": "Theo sở thích."} for t in poultry[:3]]}
         with self.assertRaises(AIUnavailable):
             GeminiClient.validate_choices(choices, catalog)
+
+    def test_v4_transport_uses_structured_catalog_prompt_without_identity_or_sampling(self):
+        from app.data.food_catalog import DISHES
+        with patch("app.ai.gemini_client.requests.post", return_value=self.response({"choices": []})) as post:
+            self.client.compose(list(DISHES), "lunch", 800, 7654321, "muscle_gain", {"protein": 50})
+        payload = post.call_args.kwargs["json"]
+        prompt = json.loads(payload["contents"][0]["parts"][0]["text"])
+        self.assertEqual(prompt["focus"], "muscle_gain")
+        self.assertEqual(prompt["macro_targets"], {"protein": 50})
+        self.assertNotIn("7654321", json.dumps(prompt))
+        self.assertNotIn(self.client.api_key, json.dumps(payload))
+        config = payload["generationConfig"]
+        self.assertEqual(config["responseMimeType"], "application/json")
+        self.assertEqual(config["maxOutputTokens"], 4096)
+        self.assertFalse({"temperature", "topP", "topK"} & set(config))
+
+    def test_provider_error_exposes_only_status_and_never_response_body(self):
+        for status in (400, 403, 404, 429):
+            with self.subTest(status=status), patch("app.ai.gemini_client.requests.post", return_value=self.response(status=status)) as post:
+                with self.assertRaises(AIUnavailable) as error:
+                    self.client.alternatives([], status, "maintain")
+                self.assertEqual(error.exception.http_status, status)
+                self.assertEqual(post.call_count, 2 if status == 429 else 1)
+                self.assertIn(str(error.exception), ("provider_error", "provider_busy"))

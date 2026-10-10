@@ -72,6 +72,7 @@
       renderMealPreferences();
       document.getElementById('meal-replace-request').value = '';
       currentWater = 0;
+      if (typeof clearV4State === 'function') clearV4State();
     }
 
     async function checkAutoLogin() {

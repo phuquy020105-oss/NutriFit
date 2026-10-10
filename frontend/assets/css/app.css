@@ -7,3 +7,97 @@ html {
 
 /* Keep screen visibility correct even when the Tailwind CDN is unavailable. */
 .hidden { display: none !important; }
+
+/* Nutrition uses NutriFit's existing emerald palette; styles stay scoped. */
+.nf-panel { background: #fff; border-radius: 24px; padding: 24px; box-shadow: 0 1px 3px #0f172a08; }
+.nf-panel-heading, .nf-dialog-heading, .nf-progress-caption, .nf-actions, .nf-dialog-footer, .nf-search-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.nf-panel h3, .nf-dialog h3 { font-size: 18px; font-weight: 700; letter-spacing: -.025em; margin: 0; }
+.nf-muted { color: #64748b; font-size: 12px; margin-top: 4px; }
+.nf-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 10px 15px; border-radius: 12px; font-size: 12px; font-weight: 600; border: 0; cursor: pointer; white-space: nowrap; }
+.nf-btn-primary { background: #059669; color: white; }
+.nf-btn-primary:hover { background: #047857; }
+.nf-btn-soft { background: #f1f5f9; color: #475569; }
+.nf-btn-danger { background: #fff1f2; color: #be123c; }
+.nf-btn-text { background: transparent; color: #047857; padding-left: 0; }
+.nf-btn:disabled, .nf-icon-btn:disabled, .nf-fieldset:disabled { opacity: .55; cursor: default; }
+.nf-btn:focus-visible, .nf-icon-btn:focus-visible, .nf-input:focus-visible, .nf-portion input:focus-visible, .nf-details summary:focus-visible { outline: 2px solid #10b981; outline-offset: 3px; }
+.nf-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 22px 0 16px; gap: 16px; }
+.nf-metrics > div { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 4px; }
+.nf-metrics span { grid-column: 1 / -1; font-size: 12px; color: #64748b; }
+.nf-metrics strong { font-size: clamp(22px, 3vw, 30px); font-weight: 700; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.nf-metrics small { color: #94a3b8; font-size: 11px; }
+.nf-metrics > div:nth-child(2) strong { color: #059669; }
+.nf-progress { height: 7px; background: #f1f5f9; border-radius: 8px; overflow: hidden; }
+.nf-progress > div { height: 100%; width: 0; background: #10b981; border-radius: inherit; }
+.nf-progress[data-over="true"] > div { background: #f59e0b; }
+.nf-progress-caption { margin-top: 8px; color: #64748b; font-size: 11px; flex-wrap: wrap; }
+.nf-over { color: #b45309; }
+.nf-details { margin-top: 16px; font-size: 12px; }
+.nf-details summary { cursor: pointer; color: #475569; }
+.nf-details summary span { float: right; color: #94a3b8; font-size: 11px; }
+.nf-macro-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid #f1f5f9; }
+.nf-macro-grid p { display: grid; gap: 5px; color: #64748b; font-size: 11px; }
+.nf-macro-grid b { font-size: 13px; color: #334155; }
+.nf-planner-settings { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; }
+.nf-planner-settings label { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #64748b; }
+.nf-recommendations { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.nf-recommendations button { border: 0; padding: 7px 10px; background: #ecfdf5; border-radius: 10px; color: #047857; font-size: 11px; cursor: pointer; }
+.nf-recommendations span { font-size: 11px; color: #64748b; }
+.nf-modal { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: #0f172a70; padding: 20px; }
+.nf-dialog { width: 100%; max-width: 560px; max-height: 90dvh; overflow-y: auto; background: #fff; border-radius: 24px; padding: 24px; box-shadow: 0 20px 60px #0f172a25; }
+.nf-dialog-small { max-width: 380px; }
+.nf-dialog-heading { align-items: flex-start; margin-bottom: 22px; }
+.nf-icon-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 34px; border: 0; background: #f8fafc; color: #64748b; border-radius: 10px; font-size: 20px; cursor: pointer; }
+.nf-fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.nf-form-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 12px; }
+.nf-form-grid label, .nf-date-label { display: grid; gap: 7px; font-size: 12px; color: #64748b; }
+.nf-input { width: 100%; min-width: 0; padding: 10px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; color: #334155; font: inherit; font-size: 12px; }
+.nf-food-list { margin-top: 18px; }
+.nf-food-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding: 14px 0; border-bottom: 1px solid #f1f5f9; }
+.nf-food-row h4 { font-size: 13px; font-weight: 600; color: #334155; }
+.nf-food-row p { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+.nf-food-controls { display: flex; align-items: center; gap: 8px; }
+.nf-portion { display: flex; align-items: center; background: #f8fafc; border-radius: 10px; padding: 3px; }
+.nf-portion .nf-icon-btn { min-width: 28px; height: 30px; background: transparent; font-size: 16px; }
+.nf-portion input { width: 60px; padding: 5px 2px; border: 0; background: transparent; text-align: center; font-size: 12px; color: #334155; -moz-appearance: textfield; }
+.nf-portion input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.nf-portion input[aria-invalid="true"] { color: #e11d48; outline: 1px solid #e11d48; border-radius: 5px; }
+.nf-food-kcal { font-weight: 600; color: #475569; font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.nf-food-empty { padding: 26px 12px; text-align: center; background: #f8fafc; border-radius: 14px; color: #64748b; font-size: 12px; }
+.nf-intake-total { background: #ecfdf5; padding: 16px; border-radius: 16px; margin-top: 16px; }
+.nf-intake-total > div { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; color: #047857; }
+.nf-intake-total strong { font-size: 23px; font-weight: 700; letter-spacing: -.03em; }
+.nf-intake-total strong b { font-weight: inherit; }
+.nf-intake-total small { color: #64748b; font-size: 10px; font-weight: 400; }
+.nf-intake-total p { margin: 8px 0 4px; color: #475569; font-size: 11px; }
+.nf-dialog-footer { justify-content: flex-end; margin-top: 20px; }
+.nf-dialog-footer .nf-btn-primary { min-width: 170px; }
+.nf-message { font-size: 12px; color: #64748b; margin-top: 12px; }
+.nf-error { color: #be123c; }
+.nf-food-search { background: #f8fafc; border-radius: 14px; padding: 12px; margin-top: 8px; }
+.nf-search-results { max-height: 220px; overflow-y: auto; margin-top: 8px; }
+.nf-search-results button { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; text-align: left; padding: 12px 6px; background: transparent; border: 0; cursor: pointer; font-size: 12px; color: #334155; }
+.nf-search-results button:hover { background: #ecfdf5; }
+.nf-search-results small { color: #64748b; font-size: 10px; white-space: nowrap; }
+.nf-date-label { margin-bottom: 16px; }
+.nf-log-list { margin-top: 12px; }
+.nf-log-row { padding: 16px 0; border-bottom: 1px solid #f1f5f9; }
+.nf-log-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 12px; color: #475569; }
+.nf-log-heading b { color: #334155; }
+.nf-log-row p { font-size: 12px; color: #64748b; margin: 8px 0; overflow-wrap: anywhere; }
+.nf-log-actions { display: flex; gap: 14px; }
+.nf-log-actions button { border: 0; background: transparent; padding: 4px 0; font-size: 11px; font-weight: 600; color: #047857; cursor: pointer; }
+.nf-log-actions button:last-child { color: #be123c; }
+body.nf-modal-open { overflow: hidden; }
+@media (max-width: 540px) {
+  .nf-panel, .nf-dialog { padding: 18px; border-radius: 20px; }
+  .nf-panel-heading { align-items: flex-start; flex-wrap: wrap; }
+  .nf-panel-heading .nf-actions { margin-left: auto; }
+  .nf-metrics { gap: 12px; margin-top: 20px; }
+  .nf-modal { padding: 12px; }
+  .nf-form-grid { grid-template-columns: 1fr; }
+  .nf-food-row { grid-template-columns: 1fr; gap: 8px; }
+  .nf-food-controls { justify-content: flex-end; }
+  .nf-dialog-footer .nf-btn-primary { flex: 1; min-width: 0; }
+  .nf-macro-grid { gap: 8px; }
+}

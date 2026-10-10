@@ -38,7 +38,14 @@ def generate():
         force = False
     if type(force) is not bool:
         raise ModuleError("forceRefresh phải là boolean.")
-    result, meta = MealService.generate(user_id, meal_type, force, data.get("revision"), data.get("preferences"))
+    version = data.get("plannerVersion", "v3")
+    if version not in ("v3", "v4"):
+        raise ModuleError("plannerVersion phải là v3 hoặc v4.")
+    if version == "v4":
+        from app.services.meal_planner_v4 import MealPlannerV4
+        result, meta = MealPlannerV4.generate(user_id, meal_type, force, data.get("revision"), data.get("preferences"), data.get("planningFocus"))
+    else:
+        result, meta = MealService.generate(user_id, meal_type, force, data.get("revision"), data.get("preferences"))
     return jsonify(success=True, data=result, meta=meta)
 
 
@@ -57,7 +64,14 @@ def replace():
     if MealRepository.load(user_id, today(), meal_type) is None:
         raise ModuleError("Hãy tạo thực đơn trước khi đổi món.", "MEAL_NOT_FOUND", 404)
     preferences, target = replacement_request(data.get("request"), data.get("preferences"), meal_type)
-    result, meta = MealService.generate(user_id, meal_type, True, expected, preferences, target)
+    version = data.get("plannerVersion", "v3")
+    if version not in ("v3", "v4"):
+        raise ModuleError("plannerVersion phải là v3 hoặc v4.")
+    if version == "v4":
+        from app.services.meal_planner_v4 import MealPlannerV4
+        result, meta = MealPlannerV4.generate(user_id, meal_type, True, expected, preferences, data.get("planningFocus"), target)
+    else:
+        result, meta = MealService.generate(user_id, meal_type, True, expected, preferences, target)
     meta["applied_preferences"] = preferences
     return jsonify(success=True, data=result, meta=meta)
 
@@ -96,3 +110,28 @@ def history():
     limit = NutritionService.number(request.args.get("limit", 20), "limit", 1, 100, integer=True)
     items, total = MealRepository.history(user_id, (page - 1) * limit, limit, today())
     return jsonify(success=True, history=items, pagination={"page": page, "limit": limit, "total": total})
+
+
+@meals_bp.post("/component-suggestions")
+@api_errors
+@login_required
+def component_suggestions():
+    from app.services.meal_planner_v4 import MealPlannerV4
+    data = json_object()
+    uid = check_user_identity(data)
+    result = MealPlannerV4.alternatives(uid, MealService.meal_type(data.get("mealType")),
+        positive_id(data.get("optionId"), "optionId"), data.get("componentType"), data.get("revision"))
+    return jsonify(success=True, data=result)
+
+
+@meals_bp.post("/replace-component")
+@api_errors
+@login_required
+def replace_component():
+    from app.services.meal_planner_v4 import MealPlannerV4
+    data = json_object()
+    uid = check_user_identity(data)
+    result = MealPlannerV4.replace_component(uid, MealService.meal_type(data.get("mealType")),
+        positive_id(data.get("optionId"), "optionId"), data.get("componentType"), data.get("revision"),
+        data.get("dishId"), data.get("grams"))
+    return jsonify(success=True, data=result)
