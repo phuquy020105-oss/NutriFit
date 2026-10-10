@@ -16,6 +16,11 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
 
+    from app.routes.workouts import workout_bp, progress_bp, street_food_bp
+    app.register_blueprint(workout_bp, url_prefix='/api/workouts')
+    app.register_blueprint(progress_bp, url_prefix='/api/progress')
+    app.register_blueprint(street_food_bp, url_prefix='/api/street-food')
+
     # Endpoint kiểm tra kết nối hệ thống
     @app.route('/api/health', methods=['GET'])
     def health_check():
