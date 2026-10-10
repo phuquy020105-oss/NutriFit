@@ -14,17 +14,11 @@ elif env_root.exists():
 else:
     load_dotenv()  
 
-def create_app():
+def create_app(test_config=None):
     app = Flask(__name__)
 
-    # Cấu hình Database
-    db_url = os.getenv('DATABASE_URL')
-    if not db_url:
-        # Giá trị dự phòng chuẩn xác theo cấu hình của bạn
-        db_url = "mysql+pymysql://root:Quy020105%40@localhost:3306/NutriFitDB"
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_url
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    from app.config import Config
+    app.config.from_object(Config)
 
     # Cấu hình Flask-Mail
     app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
@@ -33,20 +27,34 @@ def create_app():
     app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
     app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
     app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_DEFAULT_SENDER')
+    if test_config is not None:
+        app.config.update(test_config)
 
     # Khởi tạo các extensions
     db.init_app(app)
-    cors.init_app(app)
+    cors.init_app(app, resources={r"/api/*": {"origins": app.config['CORS_ORIGINS']}},
+                  allow_headers=['Content-Type', 'Authorization'])
     mail.init_app(app)
 
     # Đăng ký Blueprints
     from app.routes.auth import auth_bp
     from app.routes.profile import profile_bp
     from app.routes.admin import admin_bp
+    from app.routes.nutrition import nutrition_bp
+    from app.routes.meals import meals_bp
+    from app.ai.gemini_client import GeminiClient
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(profile_bp)
+    app.register_blueprint(profile_bp, url_prefix='/api/profile', name='profile_api')
     app.register_blueprint(admin_bp)
+    app.register_blueprint(nutrition_bp)
+    app.register_blueprint(meals_bp)
+    app.extensions['nutrifit_gemini'] = GeminiClient(
+        api_key=app.config['GEMINI_API_KEY'], model=app.config['GEMINI_MODEL'],
+        timeout=max(1, min(app.config['GEMINI_TIMEOUT_SECONDS'], 30)),
+        retries=max(0, min(app.config['GEMINI_MAX_RETRIES'], 2)),
+        cooldown=max(1, app.config['GEMINI_COOLDOWN_SECONDS']))
 
     @app.route('/api/health', methods=['GET'])
     def health_check():
