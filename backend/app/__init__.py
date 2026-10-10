@@ -48,6 +48,9 @@ def create_app():
     app.register_blueprint(profile_bp)
     app.register_blueprint(admin_bp)
 
+    from app.nutrition_module import init_nutrition
+    init_nutrition(app)
+
     @app.route('/api/health', methods=['GET'])
     def health_check():
         return {"status": "connected", "message": "NutriFit Backend running smoothly"}, 200
