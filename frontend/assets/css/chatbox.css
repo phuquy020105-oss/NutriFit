@@ -1,0 +1,246 @@
+/* NutriFit AI Chatbox - styles isolated from existing UI */
+
+.nf-chat-launcher {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 10000;
+    width: 60px;
+    height: 60px;
+    border: 0;
+    border-radius: 50%;
+    background: #087f5b;
+    color: #fff;
+    box-shadow: 0 5px 20px #0002;
+    font-size: 27px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.nf-chat-launcher:hover {
+    background: #066747;
+    transform: translateY(-3px);
+}
+
+.nf-chat-panel {
+    position: fixed;
+    right: 24px;
+    bottom: 96px;
+    z-index: 10000;
+    display: none;
+    flex-direction: column;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    height: 570px;
+    max-height: calc(100vh - 125px);
+    overflow: hidden;
+    border: 1px solid #e2e8e5;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 12px 40px #0002;
+    color: #24332c;
+    font-family: inherit;
+}
+
+.nf-chat-panel.nf-chat-open {
+    display: flex;
+}
+
+.nf-chat-header {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 15px;
+    background: #087f5b;
+    color: white;
+}
+
+.nf-chat-avatar {
+    display: grid;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 50%;
+    background: #ffffff25;
+    font-size: 22px;
+}
+
+.nf-chat-heading {
+    flex: 1;
+    min-width: 0;
+}
+
+.nf-chat-heading strong {
+    display: block;
+    font-size: 16px;
+}
+
+.nf-chat-heading small {
+    display: block;
+    margin-top: 4px;
+    color: #d8f8e8;
+    font-size: 12px;
+}
+
+.nf-chat-close {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.nf-chat-close:hover {
+    background: #ffffff20;
+}
+
+.nf-chat-messages {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    padding: 16px 13px;
+    background: #f8faf9;
+}
+
+.nf-chat-message {
+    max-width: 88%;
+    padding: 11px 13px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.nf-chat-message.nf-chat-assistant {
+    align-self: flex-start;
+    border: 1px solid #e6ece8;
+    border-bottom-left-radius: 4px;
+    background: #fff;
+}
+
+.nf-chat-message.nf-chat-user {
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+    background: #d9f5e7;
+    color: #174d39;
+}
+
+.nf-chat-message.nf-chat-error {
+    border-color: #fecaca;
+    background: #fff1f2;
+    color: #991b1b;
+}
+
+.nf-chat-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 2px;
+}
+
+.nf-chat-suggestion {
+    padding: 8px 10px;
+    border: 1px solid #b8ddca;
+    border-radius: 18px;
+    background: white;
+    color: #087f5b;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.nf-chat-suggestion:hover {
+    background: #e8f8ef;
+}
+
+.nf-chat-typing {
+    align-self: flex-start;
+    padding: 12px 15px;
+    border: 1px solid #e6ece8;
+    border-radius: 14px;
+    background: white;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.nf-chat-footer {
+    padding: 12px;
+    border-top: 1px solid #e7eeea;
+    background: white;
+}
+
+.nf-chat-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.nf-chat-input {
+    flex: 1;
+    min-width: 0;
+    max-height: 100px;
+    resize: none;
+    padding: 11px 12px;
+    border: 1px solid #d8e2dc;
+    border-radius: 13px;
+    outline: none;
+    background: #fff;
+    color: #24332c;
+    font: inherit;
+    font-size: 13px;
+}
+
+.nf-chat-input:focus {
+    border-color: #087f5b;
+    box-shadow: 0 0 0 2px #087f5b18;
+}
+
+.nf-chat-send {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 12px;
+    background: #087f5b;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.nf-chat-send:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.nf-chat-note {
+    margin: 8px 3px 0;
+    color: #7b8b82;
+    font-size: 10.5px;
+    line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+    .nf-chat-launcher {
+        right: 16px;
+        bottom: 16px;
+        width: 54px;
+        height: 54px;
+    }
+
+    .nf-chat-panel {
+        right: 12px;
+        bottom: 82px;
+        width: calc(100vw - 24px);
+        max-width: none;
+        height: min(570px, calc(100vh - 100px));
+        max-height: calc(100vh - 100px);
+    }
+}

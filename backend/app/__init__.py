@@ -13,8 +13,10 @@ def create_app():
     # Đăng ký Blueprints của TV1
     from app.routes.auth import auth_bp
     from app.routes.profile import profile_bp
+    from app.routes.chatbot import chatbot_bp
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(profile_bp, url_prefix='/api/profile')
+    app.register_blueprint(chatbot_bp)
 
     # Endpoint kiểm tra kết nối hệ thống
     @app.route('/api/health', methods=['GET'])
