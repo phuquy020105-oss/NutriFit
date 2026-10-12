@@ -1,35 +1,16 @@
 // NutriFit Frontend
 // Extracted from the existing UI logic; behavior preserved.
 
+    window.lucide = window.lucide || { createIcons() {} };
     let currentStep = 1;
     let currentWater = 0;
     let isEditingProfile = false;
     let currentAuthMode = 'login';
     let isDbConnected = false;
-
-    // Danh sách tài khoản dự phòng khi offline
-    let registeredUsers = [
-      {
-        email: "demo@nutrifit.vn",
-        password: "123456",
-        fullname: "Lê Phú Quý"
-      },
-      {
-        email: "admin1",
-        password: "123456",
-        fullname: "admin1"
-      },
-      {
-        email: "test",
-        password: "123456",
-        fullname: "Khoa"
-      }
-    ];
-
     let userProfile = {
-      id: 1,
-      fullname: "Lê Phú Quý",
-      email: "demo@nutrifit.vn",
+      id: null,
+      fullname: "Thành viên NutriFit",
+      email: "",
       gender: "male",
       age: 24,
       height: 172,
@@ -68,46 +49,77 @@
     }
 
     // Quản lý phiên đăng nhập (Tránh bị bắt đăng nhập lại khi F5)
-    function saveSession(userObj, profileObj) {
-      try {
-        localStorage.setItem('nutrifit_session_user', JSON.stringify({
-          user: userObj,
-          profile: profileObj
-        }));
-      } catch (e) {
-        console.warn("Không thể lưu session:", e);
-      }
+    function saveSession(user, profile) {
+      NutriFitAuth.saveSession(user, profile);
     }
 
-    function checkAutoLogin() {
-      const raw = localStorage.getItem('nutrifit_session_user');
-      if (!raw) return false;
-      try {
-        const session = JSON.parse(raw);
-        if (session && session.user && session.user.id) {
-          userProfile.id = session.user.id;
-          userProfile.fullname = session.user.fullname || "Thành viên NutriFit";
-          userProfile.email = session.user.email || "";
-
-          if (session.profile) {
-            applyLoadedProfile(session.profile);
-          } else {
-            updateDashboardUI();
-          }
-
-          switchScreen('screen-dashboard');
-          return true;
-        }
-      } catch (e) {
-        console.error("Lỗi parse session:", e);
-      }
-      return false;
+    function clearUserState() {
+      NutriFitAuth.clearSession();
+      document.dispatchEvent(new Event('nutrifit:session-cleared'));
+      Object.assign(userProfile, {
+        id: null, fullname: 'Thành viên NutriFit', email: '',
+        gender: 'male', age: 24, height: 172, weight: 68, activity: 1.2, goal: 'lose',
+        bmr: 0, tdee: 0, targetKcal: 0, carbs: 0, protein: 0, fat: 0, fiber: 0, bmi: 0, waterTarget: 0
+      });
+      document.getElementById('inp-height').value = 172;
+      document.getElementById('inp-weight').value = 68;
+      document.getElementById('inp-age-range').value = 24;
+      document.getElementById('age-val').innerText = '24 tuổi';
+      document.querySelectorAll('input[name="goal"]').forEach(el => { el.checked = el.value === 'lose'; });
+      document.querySelectorAll('input[name="act"]').forEach(el => { el.checked = el.value === '1.2'; });
+      todayMealsCache = { breakfast: null, lunch: null, dinner: null };
+      mealPreferences = { breakfast: {}, lunch: {}, dinner: {} };
+      mealTargets = {};
+      renderMealPreferences();
+      document.getElementById('meal-replace-request').value = '';
+      currentWater = 0;
+      if (typeof clearV4State === 'function') clearV4State();
     }
 
-    function handleLogout() {
-      localStorage.removeItem('nutrifit_session_user');
+    async function checkAutoLogin() {
+      const cached = NutriFitAuth.getSession();
+      const user = NutriFitAuth.normalizeUser(cached?.user);
+      if (!user) return false;
+      const result = await NutriFitAPI.getNutrition(user.id);
+      if (result.isOffline) {
+        showAuthAlert(result.message);
+        return false;
+      }
+      if (!result.success && result.code !== 'PROFILE_REQUIRED') {
+        clearUserState();
+        return false;
+      }
+      Object.assign(userProfile, user);
+      if (result.success) {
+        const profile = NutriFitAuth.normalizeProfile(result.data);
+        saveSession(user, profile);
+        applyLoadedProfile(profile);
+        switchScreen('screen-dashboard');
+      } else {
+        saveSession(user, null);
+        isEditingProfile = false;
+        currentStep = 1;
+        updateStepUI();
+        switchScreen('screen-onboarding');
+      }
+      return true;
+    }
+
+    async function handleLogout() {
+      const result = await NutriFitAPI.logout();
+      if (!result.success && result.httpStatus !== 401) {
+        alert(result.message || 'Chưa thể đăng xuất. Hãy thử lại.');
+        return;
+      }
+      clearUserState();
       switchScreen('screen-auth');
     }
+
+    document.addEventListener('nutrifit:session-expired', () => {
+      clearUserState();
+      switchScreen('screen-auth');
+      showAuthAlert('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.');
+    });
 
     // Đổi màu và gạch chân nút chức năng đầu trang khi user chọn hoặc cuộn tới
     function setActiveNav(targetId) {
@@ -160,7 +172,7 @@
       initScrollSpy();
 
       // Tự động kiểm tra đăng nhập khi F5
-      checkAutoLogin();
+      await checkAutoLogin();
     });
 
     async function checkDbStatus() {
@@ -185,8 +197,10 @@
       lucide.createIcons();
 
       if (screenId === 'screen-dashboard') {
-        loadWorkoutsFromDB();
         loadTodayMeals();
+        loadDashboardSummary();
+        if (typeof loadWorkoutsFromDB === 'function') loadWorkoutsFromDB();
+        if (typeof loadStreetFoodDishes === 'function') loadStreetFoodDishes();
       }
     }
 
@@ -228,118 +242,54 @@
         tabLogin.className = "flex-1 py-2 text-xs font-bold rounded-lg text-slate-500 hover:text-slate-900 transition-all";
         nameField.classList.remove('hidden');
         submitBtn.innerHTML = `<span>Tạo tài khoản & Thiết lập thể trạng</span><i data-lucide="arrow-right" class="w-4 h-4"></i>`;
-        passHint.innerText = "(Tối thiểu 6 ký tự)";
+        passHint.innerText = '';
       } else {
         tabLogin.className = "flex-1 py-2 text-xs font-bold rounded-lg bg-white text-slate-900 shadow-sm transition-all";
         tabRegister.className = "flex-1 py-2 text-xs font-bold rounded-lg text-slate-500 hover:text-slate-900 transition-all";
         nameField.classList.add('hidden');
         submitBtn.innerHTML = `<span>Đăng nhập vào hệ thống</span><i data-lucide="arrow-right" class="w-4 h-4"></i>`;
-        passHint.innerText = "(Mẫu: 123456)";
+        passHint.innerText = '';
       }
       lucide.createIcons();
     }
 
-    // XỬ LÝ ĐĂNG NHẬP / ĐĂNG KÝ VỚI SQL SERVER
     async function handleAuth(e) {
       e.preventDefault();
       hideAuthAlert();
-
       const email = document.getElementById('input-email').value.trim();
       const password = document.getElementById('input-password').value;
       const fullname = document.getElementById('input-fullname').value.trim();
-      const submitBtn = document.getElementById('btn-auth-submit');
-
-      const originalBtnText = submitBtn.innerHTML;
-      submitBtn.innerHTML = `<span>Đang đăng nhập...</span><i data-lucide="loader" class="w-4 h-4 animate-spin"></i>`;
-      lucide.createIcons();
-
+      const button = document.getElementById('btn-auth-submit');
+      const original = button.innerHTML;
+      button.disabled = true;
       try {
-        if (currentAuthMode === 'login') {
-          // Thử đăng nhập qua SQL Server Backend
-          let result = await NutriFitAuth.login(email, password);
-
-          if (!result.success) {
-            // NẾU MÁY CHỦ CHƯA BẬT (Backend offline) -> Tự động kiểm tra danh sách tài khoản dự phòng
-            if (result.isOffline || (result.message && (result.message.includes('kết nối máy chủ') || result.message.includes('Failed to fetch')))) {
-              const matchedLocal = registeredUsers.find(u => 
-                u.email.toLowerCase() === email.toLowerCase() || 
-                (u.fullname && u.fullname.toLowerCase() === email.toLowerCase())
-              );
-              if (matchedLocal && matchedLocal.password === password) {
-                userProfile.id = 1;
-                userProfile.fullname = matchedLocal.fullname;
-                userProfile.email = matchedLocal.email;
-                saveSession({ id: 1, email: matchedLocal.email, fullname: matchedLocal.fullname }, null);
-                showAuthAlert("Đăng nhập thành công (Chế độ Ngoại tuyến)!", true);
-                setTimeout(() => {
-                  switchScreen('screen-dashboard');
-                }, 600);
-                return;
-              } else {
-                submitBtn.innerHTML = originalBtnText;
-                showAuthAlert("Máy chủ Backend chưa bật! Hãy chạy lệnh 'python server.py' trong terminal hoặc đăng nhập bằng tài khoản: demo@nutrifit.vn / mật khẩu: 123456", false);
-                return;
-              }
-            }
-
-            submitBtn.innerHTML = originalBtnText;
-            showAuthAlert(result.message || "Tài khoản hoặc mật khẩu không chính xác!", false);
-            const pwdInput = document.getElementById('input-password');
-            pwdInput.classList.add('border-rose-500', 'bg-rose-50/30');
-            setTimeout(() => pwdInput.classList.remove('border-rose-500', 'bg-rose-50/30'), 1500);
-            return;
-          }
-
-          // Đăng nhập thành công từ SQL Server
-          userProfile.id = result.user.id;
-          userProfile.fullname = result.user.fullname;
-          userProfile.email = result.user.email;
-
-          // Lưu session tự động
-          saveSession(result.user, result.profile);
-
-          // Nếu có Profile lưu sẵn trong SQL Server, áp dụng luôn vào Dashboard
-          if (result.profile) {
-            applyLoadedProfile(result.profile);
-            switchScreen('screen-dashboard');
-          } else {
-            isEditingProfile = false;
-            currentStep = 1;
-            updateStepUI();
-            switchScreen('screen-onboarding');
-          }
-
+        const result = currentAuthMode === 'login'
+          ? await NutriFitAuth.login(email, password)
+          : await NutriFitAuth.register(email, password, fullname);
+        if (!result.success) {
+          showAuthAlert(result.message || 'Không thể đăng nhập.');
+          return;
+        }
+        todayMealsCache = { breakfast: null, lunch: null, dinner: null };
+        mealPreferences = { breakfast: {}, lunch: {}, dinner: {} };
+        mealTargets = {};
+        renderMealPreferences();
+        document.getElementById('meal-replace-request').value = '';
+        Object.assign(userProfile, result.user);
+        saveSession(result.user, result.profile);
+        document.getElementById('input-password').value = '';
+        if (result.profile) {
+          applyLoadedProfile(result.profile);
+          switchScreen('screen-dashboard');
         } else {
-          // Đăng ký mới vào SQL Server
-          if (password.length < 6) {
-            submitBtn.innerHTML = originalBtnText;
-            showAuthAlert("Mật khẩu phải có độ dài từ 6 ký tự trở lên!", false);
-            return;
-          }
-
-          let regResult = await NutriFitAuth.register(email, password, fullname);
-          if (!regResult.success) {
-            submitBtn.innerHTML = originalBtnText;
-            showAuthAlert(regResult.message, false);
-            return;
-          }
-
-          userProfile.id = regResult.user.id;
-          userProfile.fullname = regResult.user.fullname;
-          userProfile.email = regResult.user.email;
-
-          // Lưu session
-          saveSession(regResult.user, null);
-
           isEditingProfile = false;
           currentStep = 1;
           updateStepUI();
           switchScreen('screen-onboarding');
         }
-      } catch (err) {
-        showAuthAlert("Lỗi: " + err.message, false);
       } finally {
-        submitBtn.innerHTML = originalBtnText;
+        button.disabled = false;
+        button.innerHTML = original;
         lucide.createIcons();
       }
     }

@@ -8,25 +8,66 @@
     let workoutChartInstance = null;
     let currentChartMetric = 'duration'; // 'duration', 'calories', 'count'
     let workoutStatsCache = null;
+    function escapeWorkoutHtml(value) {
+      return String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+    }
+    function workoutJsString(value) {
+      return JSON.stringify(String(value ?? ''))
+        .replace(/'/g, '\\u0027')
+        .replace(/</g, '\\u003c')
+        .replace(/>/g, '\\u003e')
+        .replace(/&/g, '\\u0026');
+    }
 
     // 1. Tải danh mục bài tập và số liệu thống kê tần suất từ SQL Server
     async function loadWorkoutsFromDB() {
       await Promise.all([
+        loadWorkoutCategories(),
         loadWorkoutsList(),
         loadWorkoutStats()
       ]);
+    }
+
+    function setWorkoutStatus(message, kind = 'info') {
+      const node = document.getElementById('workout-status');
+      if (!node) return;
+      node.textContent = message || '';
+      node.dataset.kind = kind;
+      node.classList.toggle('hidden', !message);
+    }
+
+    async function loadWorkoutCategories() {
+      const select = document.getElementById('inp-custom-category');
+      if (!select) return;
+      const result = await NutriFitAPI.getWorkoutCategories();
+      const categories = result.success && Array.isArray(result.data) ? result.data : [];
+      select.replaceChildren();
+      const fallback = document.createElement('option');
+      fallback.value = '';
+      fallback.textContent = categories.length ? 'Chọn nhóm hoạt động (mặc định nếu bỏ trống)' : 'Nhóm mặc định';
+      select.append(fallback);
+      categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = String(category.category_id);
+        option.textContent = category.name;
+        select.append(option);
+      });
     }
 
     async function loadWorkoutsList() {
       const container = document.getElementById('workouts-list-container');
       if (!container) return;
 
-      const res = await NutriFitAPI.getWorkouts(userProfile.id || 1);
-      if (res.success && res.workouts) {
+      if (!userProfile.id) {
+        container.textContent = 'Vui lòng đăng nhập để tải danh mục bài tập.';
+        return;
+      }
+      const res = await NutriFitAPI.getWorkouts(userProfile.id);
+      if (res.success && Array.isArray(res.workouts)) {
         allWorkoutsCache = res.workouts;
         renderWorkoutsList();
       } else {
-        container.innerHTML = `<div class="col-span-full py-8 text-center text-rose-500 text-xs font-semibold">Lỗi tải danh mục bài tập: ${res.message || 'Không thể kết nối máy chủ.'}</div>`;
+        container.textContent = `Lỗi tải danh mục bài tập: ${res.message || 'Không thể kết nối máy chủ.'}`;
       }
     }
 
@@ -82,7 +123,7 @@
             <div class="space-y-3">
               <div class="flex items-center justify-between gap-2">
                 <span class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full border ${categoryColor}">
-                  ${isCustom ? '⭐ Tự tạo' : 'Hệ thống'} • ${w.category || 'Vận động'}
+                  ${isCustom ? '⭐ Tự tạo' : 'Hệ thống'} • ${escapeWorkoutHtml(w.category || 'Vận động')}
                 </span>
                 <span class="text-xs font-black text-rose-600 flex items-center gap-1">
                   <i data-lucide="flame" class="w-3.5 h-3.5"></i>
@@ -90,7 +131,7 @@
                 </span>
               </div>
               <div>
-                <h4 class="font-black text-sm text-slate-800 line-clamp-1">${w.name}</h4>
+                <h4 class="font-black text-sm text-slate-800 line-clamp-1">${escapeWorkoutHtml(w.name)}</h4>
                 <p class="text-xs text-slate-400 mt-0.5 flex items-center gap-1">
                   <i data-lucide="clock" class="w-3 h-3"></i> Thời gian: <b class="text-slate-600 font-bold">${w.durationMinutes} phút</b>
                 </p>
@@ -100,17 +141,17 @@
                 <span class="font-bold text-slate-700">~${Math.round((w.caloriesBurned / w.durationMinutes) * 10) / 10} kcal/phút</span>
               </div>
             </div>
-            
+
             <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
               ${isCustom ? `
-                <button onclick="handleDeleteCustomWorkout(${w.id}, '${w.name.replace(/'/g, "\\'")}')" 
-                        class="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-all flex items-center gap-1 text-[11px] font-medium" 
+                <button onclick='handleDeleteCustomWorkout(${w.id}, ${workoutJsString(w.name)})'
+                        class="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-all flex items-center gap-1 text-[11px] font-medium"
                         title="Xóa hoạt động này khỏi danh mục">
                   <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                   <span>Xóa</span>
                 </button>
               ` : `<span></span>`}
-              <button onclick="handleLogWorkout(${w.id}, ${w.durationMinutes}, ${w.caloriesBurned}, '${w.name.replace(/'/g, "\\'")}')" 
+              <button onclick='handleLogWorkout(${w.id}, ${w.durationMinutes}, ${w.caloriesBurned}, ${workoutJsString(w.name)})'
                       class="px-3.5 py-1.5 bg-purple-50 hover:bg-purple-600 text-purple-700 hover:text-white rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm">
                 <i data-lucide="check" class="w-3.5 h-3.5"></i>
                 <span>Ghi nhận tập</span>
@@ -125,11 +166,15 @@
 
     // 2. Tải và cập nhật thống kê tần suất tập luyện 7 ngày
     async function loadWorkoutStats() {
-      const res = await NutriFitAPI.getWorkoutStats(userProfile.id || 1);
+      if (!userProfile.id) return;
+      const res = await NutriFitAPI.getWorkoutStats(userProfile.id);
       if (res.success && res.stats) {
         workoutStatsCache = res.stats;
         updateWorkoutSummaryMetrics(res.stats.summary);
         renderWorkoutChart();
+        setWorkoutStatus('', 'success');
+      } else {
+        setWorkoutStatus(`Chưa tải được thống kê luyện tập: ${res.message || 'API TV4 chưa sẵn sàng.'}`, 'error');
       }
     }
 
@@ -256,15 +301,16 @@
 
     // 3. Ghi nhận một buổi tập luyện
     async function handleLogWorkout(workoutId, duration, calories, name) {
+      if (!userProfile.id) { alert('Vui lòng đăng nhập để ghi nhận buổi tập.'); return; }
       const res = await NutriFitAPI.logWorkout({
-        userId: userProfile.id || 1,
+        userId: userProfile.id,
         workoutId: workoutId,
-        durationMinutes: duration,
-        caloriesBurned: calories
+        durationMinutes: duration
       });
 
       if (res.success) {
-        showToast("Ghi nhận tập luyện thành công!", `Đã lưu: ${name} (${duration} phút, ${calories} kcal).`);
+        const savedCalories = Number(res.data?.calories_burned ?? calories);
+        showToast("Ghi nhận tập luyện thành công!", `Đã lưu: ${name} (${duration} phút, ${Math.round(savedCalories)} kcal).`);
         // Làm mới dữ liệu biểu đồ và số liệu thống kê
         await loadWorkoutStats();
       } else {
@@ -312,12 +358,18 @@
       submitBtn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i><span>Đang lưu...</span>`;
       lucide.createIcons();
 
+      if (!userProfile.id) {
+        submitBtn.innerHTML = originalText;
+        lucide.createIcons();
+        alert('Vui lòng đăng nhập để tạo bài tập.');
+        return;
+      }
       const res = await NutriFitAPI.createCustomWorkout({
-        userId: userProfile.id || 1,
+        userId: userProfile.id,
         name: name,
         durationMinutes: duration,
         caloriesBurned: calories,
-        category: category
+        categoryId: category
       });
 
       submitBtn.innerHTML = originalText;
@@ -336,7 +388,8 @@
       if (!confirm(`Bạn có chắc chắn muốn xóa bài tập "${name}" khỏi danh mục không?`)) {
         return;
       }
-      const res = await NutriFitAPI.deleteCustomWorkout(workoutId, userProfile.id || 1);
+      if (!userProfile.id) { alert('Vui lòng đăng nhập để xóa bài tập.'); return; }
+      const res = await NutriFitAPI.deleteCustomWorkout(workoutId, userProfile.id);
       if (res.success) {
         showToast("Đã xóa hoạt động!", `Đã gỡ bỏ bài tập "${name}".`);
         await loadWorkoutsList();
@@ -357,7 +410,8 @@
       modal.classList.add('flex');
       lucide.createIcons();
 
-      const res = await NutriFitAPI.getWorkoutLogs(userProfile.id || 1);
+      if (!userProfile.id) { content.textContent = 'Vui lòng đăng nhập để xem lịch sử.'; return; }
+      const res = await NutriFitAPI.getWorkoutLogs(userProfile.id);
       if (!res.success || !res.logs || res.logs.length === 0) {
         content.innerHTML = `
           <div class="py-12 text-center bg-slate-50 border border-dashed border-slate-200 rounded-2xl space-y-2">
@@ -377,19 +431,19 @@
               </div>
               <div>
                 <div class="flex items-center gap-2">
-                  <span class="font-extrabold text-slate-800 text-sm">${log.workoutName}</span>
+                  <span class="font-extrabold text-slate-800 text-sm">${escapeWorkoutHtml(log.workoutName)}</span>
                   <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${log.isCustom ? 'bg-amber-50 text-amber-700' : 'bg-purple-50 text-purple-700'}">
                     ${log.isCustom ? 'Tự tạo' : 'Mặc định'}
                   </span>
                 </div>
                 <div class="flex items-center gap-3 text-[11px] text-slate-400 mt-0.5">
-                  <span>📅 ${log.date} ${log.createdAt ? `(${log.createdAt})` : ''}</span>
+                  <span>📅 ${escapeWorkoutHtml(log.date)} ${log.createdAt ? `(${escapeWorkoutHtml(log.createdAt)})` : ''}</span>
                   <span>⏱️ <b>${log.durationMinutes} phút</b></span>
                   <span class="text-rose-600 font-bold">🔥 ${log.caloriesBurned} kcal</span>
                 </div>
               </div>
             </div>
-            <button onclick="handleDeleteWorkoutLog(${log.logId})" title="Xóa buổi tập này" 
+            <button onclick="handleDeleteWorkoutLog(${log.logId})" title="Xóa buổi tập này"
                     class="w-8 h-8 rounded-xl bg-slate-50 hover:bg-rose-50 text-slate-400 hover:text-rose-600 flex items-center justify-center transition-all shrink-0">
               <i data-lucide="trash-2" class="w-4 h-4"></i>
             </button>
@@ -408,7 +462,8 @@
 
     async function handleDeleteWorkoutLog(logId) {
       if (!confirm("Bạn có chắc chắn muốn xóa bản ghi buổi tập này?")) return;
-      const res = await NutriFitAPI.deleteWorkoutLog(logId, userProfile.id || 1);
+      if (!userProfile.id) { alert('Vui lòng đăng nhập để xóa bản ghi.'); return; }
+      const res = await NutriFitAPI.deleteWorkoutLog(logId, userProfile.id);
       if (res.success) {
         showToast("Đã xóa bản ghi!", "Dữ liệu tần suất tập đã được đồng bộ lại.");
         await openWorkoutHistoryModal();

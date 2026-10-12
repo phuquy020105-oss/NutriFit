@@ -1,0 +1,41 @@
+/* Street-food catalog: responsive cards matching NutriFit's existing palette. */
+.nf-street-toolbar { display:grid; grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(120px,1fr)); gap:10px; }
+.nf-street-toolbar label { display:block; min-width:0; color:#475569; font-size:11px; font-weight:700; }
+.nf-street-toolbar input,.nf-street-toolbar select { display:block; width:100%; min-width:0; margin-top:5px; padding:10px 11px; border:1px solid #dbe4e0; border-radius:12px; background:#fff; color:#0f172a; font-size:12px; outline:none; }
+.nf-street-toolbar input:focus,.nf-street-toolbar select:focus { border-color:#d97706; box-shadow:0 0 0 3px rgb(217 119 6 / 10%); }
+.nf-street-actions { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.nf-street-btn { display:inline-flex; align-items:center; justify-content:center; gap:7px; padding:10px 14px; border:1px solid #e2e8f0; border-radius:12px; background:#fff; color:#334155; font-size:12px; font-weight:800; cursor:pointer; transition:background .15s,border-color .15s,opacity .15s; }
+.nf-street-btn:hover:not(:disabled) { background:#f8fafc; border-color:#cbd5e1; }
+.nf-street-btn-primary { border-color:#d97706; background:#d97706; color:#fff; }
+.nf-street-btn-primary:hover:not(:disabled) { background:#b45309; border-color:#b45309; }
+.nf-street-btn:disabled { opacity:.5; cursor:not-allowed; }
+.nf-street-status { padding:10px 12px; border:1px solid #e2e8f0; border-radius:12px; background:#f8fafc; color:#475569; font-size:12px; line-height:1.5; }
+.nf-street-status[data-kind="error"] { border-color:#fecdd3; background:#fff1f2; color:#9f1239; }
+.nf-street-status[data-kind="success"] { border-color:#a7f3d0; background:#ecfdf5; color:#065f46; }
+.nf-street-results { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.nf-street-card { display:flex; min-width:0; flex-direction:column; gap:11px; padding:16px; border:1px solid #e2e8f0; border-radius:18px; background:#fff; transition:transform .15s,border-color .15s,box-shadow .15s; }
+.nf-street-card:hover { transform:translateY(-2px); border-color:#fcd34d; box-shadow:0 10px 24px rgb(15 23 42 / 6%); }
+.nf-street-card-top { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
+.nf-street-title { color:#0f172a; font-size:14px; font-weight:900; line-height:1.45; }
+.nf-street-subtitle { margin-top:4px; color:#94a3b8; font-size:10px; font-weight:700; }
+.nf-street-tag { display:inline-flex; align-items:center; gap:4px; padding:4px 7px; border:1px solid #e2e8f0; border-radius:999px; background:#f8fafc; color:#475569; font-size:10px; font-weight:800; }
+.nf-street-tag-score { flex-shrink:0; border-color:#fde68a; background:#fffbeb; color:#92400e; }
+.nf-street-metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+.nf-street-metric { min-width:0; padding:9px 8px; border-radius:12px; background:#f8fafc; }
+.nf-street-metric span { display:block; color:#64748b; font-size:10px; }
+.nf-street-metric strong { display:block; margin-top:4px; color:#0f172a; font-size:12px; font-weight:900; overflow-wrap:anywhere; }
+.nf-street-metric-price { background:#fffbeb; }
+.nf-street-metric-kcal { background:#fff7ed; }
+.nf-street-metric-macro { background:#f0fdf4; }
+.nf-street-macros { color:#64748b; font-size:11px; }
+.nf-street-details { padding-top:10px; border-top:1px solid #f1f5f9; color:#475569; font-size:11px; line-height:1.55; }
+.nf-street-details summary { color:#92400e; font-weight:800; cursor:pointer; }
+.nf-street-details p { margin-top:8px; }
+.nf-street-details b { color:#334155; }
+.nf-street-reasons { display:flex; flex-wrap:wrap; gap:5px; }
+.nf-street-card-note { margin-top:auto; color:#94a3b8; font-size:9.5px; line-height:1.45; }
+.nf-street-empty { grid-column:1/-1; padding:42px 18px; border:1px dashed #cbd5e1; border-radius:18px; background:#f8fafc; text-align:center; color:#64748b; font-size:12px; }
+.nf-street-empty strong { color:#334155; font-size:14px; }
+.nf-street-empty p { margin-top:6px; }
+@media(max-width:950px) { .nf-street-results { grid-template-columns:repeat(2,minmax(0,1fr)); } .nf-street-toolbar { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:560px) { .nf-street-results { grid-template-columns:1fr; } .nf-street-toolbar { grid-template-columns:1fr; } .nf-street-actions .nf-street-btn { flex:1; } }

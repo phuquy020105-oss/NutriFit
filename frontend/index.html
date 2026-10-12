@@ -14,17 +14,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- API Client kết nối SQL Server -->
+  <!-- API client: authentication uses the backend session cookie. -->
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>
-  <!-- Module AI dùng chung với meal-suggest (rank + generateDishes, gọi Gemini) -->
   <!--
-  <script src="meal-suggest/full-menus.js"></script>
-  <script src="meal-suggest/single-dishes.js"></script>
-  <script src="meal-suggest/ai-rank.js"></script>
 -->
   <script>
-    tailwind.config = {
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
       theme: {
         extend: {
           fontFamily: { sans: ['Inter', 'sans-serif'] },
@@ -42,6 +39,9 @@
     }
   </script>
   <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/chatbox.css">
+  <link rel="stylesheet" href="assets/css/quick-food.css">
+  <link rel="stylesheet" href="assets/css/street-food.css">
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen selection:bg-brand-500 selection:text-white">
 
@@ -82,7 +82,7 @@
       <form onsubmit="handleAuth(event)" class="space-y-4">
         <div id="fullname-field" class="hidden">
           <label class="block text-xs font-semibold text-slate-600 mb-1">Họ và tên</label>
-          <input type="text" id="input-fullname" placeholder="Lê Phú Quý" value="Lê Phú Quý" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-500 focus:bg-white transition-all">
+          <input type="text" id="input-fullname" placeholder="Thành viên NutriFit" value="Thành viên NutriFit" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-brand-500 focus:bg-white transition-all">
         </div>
 
         <div>
@@ -236,6 +236,14 @@
               <p class="text-xs text-slate-500">Khả năng đốt calo cao</p>
             </div>
           </label>
+          <label class="flex items-center gap-4 p-4 border-2 border-slate-200 rounded-2xl cursor-pointer">
+            <input type="radio" name="act" value="1.725" class="accent-brand-600">
+            <div><p class="text-sm font-bold text-slate-800">Vận động nhiều</p><p class="text-xs text-slate-500">Tập luyện thường xuyên, cường độ cao</p></div>
+          </label>
+          <label class="flex items-center gap-4 p-4 border-2 border-slate-200 rounded-2xl cursor-pointer">
+            <input type="radio" name="act" value="1.9" class="accent-brand-600">
+            <div><p class="text-sm font-bold text-slate-800">Vận động rất nhiều</p><p class="text-xs text-slate-500">Tập nặng kết hợp công việc thể lực</p></div>
+          </label>
         </div>
       </div>
 
@@ -256,7 +264,7 @@
   <!-- 3. MÀN HÌNH DASHBOARD WEB (DESKTOP FULL LAYOUT) -->
   <!-- ========================================================================= -->
   <section id="screen-dashboard" class="hidden min-h-screen flex flex-col">
-    
+
     <!-- Top Navbar Ngang -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-30 px-6 lg:px-12 py-3.5 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -289,7 +297,7 @@
       <!-- Hồ sơ góc phải -->
       <div class="flex items-center gap-3">
         <a href="#section-profile" class="text-right hidden sm:block hover:opacity-80 transition-opacity">
-          <p class="text-xs font-bold text-slate-800" id="dash-fullname">Lê Phú Quý</p>
+          <p class="text-xs font-bold text-slate-800" id="dash-fullname">Thành viên NutriFit</p>
           <span class="text-[11px] text-emerald-600 font-medium bg-emerald-50 px-2 py-0.5 rounded-md" id="dash-goal-badge">Chế độ: Cân Bằng</span>
         </a>
         <a href="#section-profile" class="w-9 h-9 rounded-full bg-slate-900 text-white font-bold flex items-center justify-center text-xs hover:ring-2 hover:ring-brand-500 transition-all" id="dash-avatar">
@@ -303,7 +311,7 @@
 
     <!-- Main Content Desktop -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-6 lg:p-8 space-y-8">
-      
+
       <!-- Top Banner (Ngày thực tế tự động, bỏ cột chọn ngày) -->
       <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
@@ -311,7 +319,7 @@
             <span>🐝</span>
             <span id="dash-real-date">Hôm nay • Hãy theo dõi dinh dưỡng và vận động đầy đủ nhé!</span>
           </div>
-          <h2 class="text-2xl font-black text-slate-800">Xin chào, <span id="dash-greeting-name" class="text-brand-600">Lê Phú Quý</span></h2>
+          <h2 class="text-2xl font-black text-slate-800">Xin chào, <span id="dash-greeting-name" class="text-brand-600">Thành viên NutriFit</span></h2>
         </div>
         <div class="px-4 py-2 rounded-2xl bg-emerald-50/70 border border-emerald-100 flex items-center gap-2.5 text-xs text-brand-700 font-bold">
           <i data-lucide="calendar" class="w-4 h-4 text-brand-600"></i>
@@ -474,7 +482,7 @@
               <div class="mt-2 pt-2 border-t border-slate-800 text-[10px] text-slate-300 space-y-0.5">
                 <p>• <b>Giảm mỡ:</b> TDEE - 500 kcal (thâm hụt lành mạnh)</p>
                 <p>• <b>Cân bằng:</b> Bằng đúng mức TDEE</p>
-                <p>• <b>Tăng cơ:</b> TDEE + 350 kcal (thặng dư lành mạnh)</p>
+                <p>• <b>Tăng cơ:</b> TDEE + 500 kcal (thặng dư lành mạnh)</p>
               </div>
             </div>
             <div class="my-1 flex items-baseline gap-1.5 flex-wrap">
@@ -519,8 +527,44 @@
       <!-- ========================================================================= -->
       <!-- PHẦN 3: GỢI Ý MÓN ĂN BẰNG AI GEMINI FLASH (CHUẨN DINH DƯỠNG GIA ĐÌNH VIỆT NAM) -->
       <!-- ========================================================================= -->
+      <section id="section-nutrition" class="bg-white border border-slate-200 rounded-3xl p-6 space-y-4">
+        <div>
+          <h3 class="font-extrabold text-lg text-slate-800">Kế hoạch dinh dưỡng hôm nay</h3>
+          <p class="text-xs text-slate-500 mt-1">Dinh dưỡng ước tính từ thực đơn đã chọn, không phải lượng đã ăn thực tế.</p>
+        </div>
+        <p id="nutrition-summary-error" class="hidden text-sm text-rose-600"></p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="rounded-2xl bg-emerald-50 p-4"><p class="text-xs text-slate-600">Mục tiêu ngày</p><b id="dash-target-kcal">--</b> kcal</div>
+          <div class="rounded-2xl bg-blue-50 p-4"><p class="text-xs text-slate-600">Theo thực đơn đã chọn</p><b id="dash-planned-kcal">--</b> kcal</div>
+          <div class="rounded-2xl bg-amber-50 p-4"><p class="text-xs text-slate-600">Còn lại so với kế hoạch</p><b id="dash-remaining-kcal">--</b> kcal</div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
+          <p>Tinh bột: <b id="dash-carb">--</b></p>
+          <p>Đạm: <b id="dash-protein">--</b></p>
+          <p>Chất béo: <b id="dash-fat">--</b></p>
+          <p>Chất xơ: <b id="dash-fiber">--</b></p>
+        </div>
+        <p class="text-xs text-slate-500"><span id="dash-selected-meals">0</span> bữa đã chọn · <span id="dash-progress-pct">0% kế hoạch</span>. Macro hiển thị kế hoạch/mục tiêu.</p>
+      </section>
+
+      <section id="section-intake" class="nf-panel">
+        <div class="nf-panel-heading">
+          <div><h3>Theo dõi dinh dưỡng</h3><p id="v4-tracking-date" class="nf-muted">Hôm nay</p></div>
+          <div class="nf-actions"><button type="button" onclick="openV4IntakeHistory()" class="nf-btn nf-btn-soft">Lịch sử</button><button type="button" id="btn-open-quick-food" class="nf-btn nf-btn-soft">Tìm món nhanh · Premium</button><button type="button" onclick="openV4IntakeOutside()" class="nf-btn nf-btn-primary">+ Thêm bữa ăn</button></div>
+        </div>
+        <div class="nf-metrics">
+          <div><span>Mục tiêu</span><strong id="v4-target-kcal">—</strong><small>kcal</small></div>
+          <div><span>Đã nạp</span><strong id="v4-consumed-kcal">—</strong><small>kcal</small></div>
+          <div><span>Còn lại</span><strong id="v4-remaining-kcal">—</strong><small>kcal</small></div>
+        </div>
+        <div id="v4-energy-progress" class="nf-progress" role="progressbar" aria-label="Năng lượng đã nạp trong ngày" aria-valuemin="0" aria-valuemax="100"><div id="v4-energy-fill"></div></div>
+        <div class="nf-progress-caption"><span id="v4-progress-label">Chưa có dữ liệu</span><span id="v4-over-message" class="hidden nf-over">Vượt mục tiêu <b id="v4-over-kcal">0</b> kcal</span></div>
+        <p id="v4-status" class="hidden nf-message" role="status"></p>
+        <details id="v4-macro-details" class="nf-details"><summary>Chi tiết dinh dưỡng <span>Ước tính</span></summary><div id="v4-macros" class="nf-macro-grid"></div></details>
+      </section>
+
       <section id="section-meals" class="bg-white border border-slate-200/80 rounded-3xl p-6 lg:p-8 shadow-sm space-y-6">
-        
+
         <!-- Header & Công cụ điều khiển -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-slate-100">
           <div>
@@ -530,7 +574,7 @@
               </span>
               <div>
                 <h3 class="text-lg font-black text-slate-800">Gợi ý Món Ăn Sức Khỏe</h3>
-                <p class="text-xs text-slate-400">Đầy đủ 4 nhóm chất: Tinh bột • Đạm • Canh • Rau củ & Tráng miệng</p>
+                <p class="text-xs text-slate-400">Ba bữa Việt theo mục tiêu của bạn • Khẩu phần và dinh dưỡng ước tính</p>
               </div>
             </div>
           </div>
@@ -539,6 +583,9 @@
           <div class="flex flex-wrap items-center gap-2.5">
             <!-- 2 Chế độ Bữa ăn theo ngày -->
             <div class="flex p-1 bg-slate-100 rounded-xl">
+              <button id="btn-mode-breakfast" onclick="switchMealMode('breakfast')" class="px-4 py-1.5 text-xs font-bold rounded-lg text-slate-500 hover:text-slate-900 flex items-center gap-1.5 transition-all">
+                <span>🌅</span> <span>Bữa sáng</span>
+              </button>
               <button id="btn-mode-lunch" onclick="switchMealMode('lunch')" class="px-4 py-1.5 text-xs font-bold rounded-lg bg-white text-slate-900 shadow-sm flex items-center gap-1.5 transition-all">
                 <span>☀️</span> <span>Bữa trưa (Ăn no)</span>
               </button>
@@ -560,10 +607,10 @@
           <div class="space-y-1">
             <div class="flex items-center gap-2">
               <span id="meal-banner-icon" class="text-base">☀️</span>
-              <span id="meal-banner-title" class="font-extrabold text-sm text-slate-800">Chế độ: Bữa Trưa (Năng lượng dồi dào, ăn no làm việc chiều)</span>
+              <span id="meal-banner-title" class="font-extrabold text-sm text-slate-800">Chế độ: Bữa trưa</span>
             </div>
             <p id="meal-banner-desc" class="text-xs text-slate-500">
-              Định mức calo khuyến nghị: <b id="meal-banner-kcal" class="text-brand-600">~590 kcal</b> (38-42% calo ngày). 3 lựa chọn đa dạng nguồn đạm & có đổi vị tinh bột.
+              Mục tiêu từ hồ sơ: <b id="meal-banner-kcal" class="text-brand-600">—</b>. Chọn ba thực đơn phù hợp khẩu vị.
             </p>
           </div>
 
@@ -578,6 +625,37 @@
             </button>
           </div>
         </div>
+
+        <div class="nf-planner-settings">
+          <label>Ưu tiên của bạn <select id="meal-planning-focus" class="nf-input"><option value="">Theo mục tiêu hồ sơ</option><option value="lose">Giảm cân</option><option value="maintain">Giữ cân</option><option value="gain">Tăng cân</option><option value="muscle_gain">Ưu tiên tăng cơ</option></select></label>
+          <div id="v4-recommendations" class="nf-recommendations" aria-label="Gợi ý cho bữa chưa ăn"></div>
+        </div>
+
+        <details class="p-4 rounded-2xl border border-emerald-100 bg-emerald-50/40 space-y-3">
+          <summary class="text-xs font-bold text-emerald-800 cursor-pointer">Khẩu vị và đổi món theo ý bạn</summary>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3 text-xs">
+            <label class="space-y-1 font-semibold text-slate-600">Thực phẩm cần tránh (bắt buộc)
+              <input id="meal-avoid" maxlength="250" placeholder="Ví dụ: cá, trứng" class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white">
+            </label>
+            <label class="space-y-1 font-semibold text-slate-600">Thực phẩm không thích (ưu tiên hạn chế)
+              <input id="meal-dislikes" maxlength="250" placeholder="Ví dụ: heo, bò" class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white">
+            </label>
+            <label class="space-y-1 font-semibold text-slate-600">Thực phẩm muốn ưu tiên (tùy chọn)
+              <input id="meal-prefer" maxlength="250" placeholder="Ví dụ: gà" class="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white">
+            </label>
+          </div>
+          <div id="meal-breakfast-prep" class="hidden flex flex-wrap items-center gap-3 text-xs text-slate-600">
+            <label class="flex items-center gap-2"><input type="checkbox" id="meal-prefer-easy">Ưu tiên dễ chuẩn bị</label>
+            <label>Thời gian tối đa (phút) <input id="meal-prep-minutes" type="number" min="1" max="120" class="w-20 px-2 py-1 rounded-lg border border-slate-200" placeholder="Tùy chọn"></label>
+          </div>
+          <p class="text-[11px] text-slate-500">Hỗ trợ: cá, hải sản, trứng, sữa, gà, bò, heo, đậu phụ, bánh mì, yến mạch, cơm, bún/phở, chuối, khoai lang. Điều kiện áp dụng khi tạo/đổi thực đơn; lưu trong phiên trang hiện tại. Lọc theo nguyên liệu khai báo, không bảo đảm an toàn dị ứng hay thành phần gia vị.</p>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <label class="flex-1 text-xs font-semibold text-slate-600">Yêu cầu đổi món
+              <input id="meal-replace-request" maxlength="250" placeholder="Tôi không thích cá, hãy đổi sang gà nhưng vẫn gần 700 kcal." class="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 bg-white">
+            </label>
+            <button id="btn-replace-meal" onclick="replaceMealSuggestions()" class="self-end px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold">Đổi theo yêu cầu</button>
+          </div>
+        </details>
 
         <!-- Trạng thái lựa chọn hiện tại -->
         <div id="meal-status-alert" class="hidden p-3 rounded-xl text-xs font-semibold flex items-center justify-between transition-all">
@@ -616,6 +694,7 @@
         </div>
 
         <!-- KHU VỰC 3 CARDS LỰA CHỌN THỰC ĐƠN -->
+        <p id="meal-source-label" class="text-xs text-slate-500"></p>
         <div id="meal-options-container" class="grid grid-cols-1 lg:grid-cols-3 gap-5">
           <!-- Placeholder khi chưa nhấn gợi ý -->
           <div class="col-span-full py-12 text-center bg-slate-50 border border-dashed border-slate-200 rounded-3xl space-y-3">
@@ -656,124 +735,56 @@
       <!-- PHẦN: MÓN LẺ MUA NGOÀI QUÁN (ĐƯỜNG PHỐ & TIỆM CƠM BÌNH DÂN) -->
       <!-- ========================================================================= -->
       <section id="section-single-dishes" class="bg-white border border-slate-200/80 rounded-3xl p-6 lg:p-8 shadow-sm space-y-6">
-        
-        <!-- Header Section -->
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4 pb-5 border-b border-slate-100">
           <div>
-            <div class="flex items-center gap-2">
-              <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shadow-sm text-base">
-                🍢
-              </span>
-              <h3 class="text-lg font-black text-slate-800">Món Lẻ Mua Ngoài Quán</h3>
-            </div>
-            <p class="text-xs text-slate-500 mt-1">
-              Gợi ý hơn 40 món ăn đường phố & quán cơm tiện lợi • Lọc theo ngân sách, cân bằng calo và tìm quán gần nhất
-            </p>
-          </div>
-
-          <!-- Các nút điều khiển & Bộ lọc ngân sách -->
-          <div class="flex flex-wrap items-center gap-3">
-            <!-- 2 Chế độ Bữa ăn cho món lẻ -->
-            <div class="flex p-1 bg-slate-100 rounded-xl">
-              <button id="btn-single-mode-lunch" onclick="switchSingleMealMode('lunch')" class="px-4 py-1.5 text-xs font-bold rounded-lg bg-white text-slate-900 shadow-sm flex items-center gap-1.5 transition-all">
-                <span>☀️</span> <span>Trưa</span>
-              </button>
-              <button id="btn-single-mode-dinner" onclick="switchSingleMealMode('dinner')" class="px-4 py-1.5 text-xs font-bold rounded-lg text-slate-500 hover:text-slate-900 flex items-center gap-1.5 transition-all">
-                <span>🌙</span> <span>Tối</span>
-              </button>
-            </div>
-
-            <!-- Ô nhập Ngân sách tối đa kèm Ràng buộc logic -->
-            <div class="relative flex flex-col">
-              <div class="flex items-center gap-1.5">
-                <div class="relative">
-                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 font-bold">₫</span>
-                  <input id="single-max-price-input" type="number" min="0" max="500000" step="5000"
-                    placeholder="Ngân sách tối đa (đ)"
-                    title="Nhập ngân sách tối đa mỗi phần ăn (10.000đ - 500.000đ)"
-                    oninput="handleSinglePriceInput(this.value)"
-                    class="w-48 pl-7 pr-3 py-2 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all">
-                </div>
-                <button onclick="clearSinglePriceFilter()" title="Xóa bộ lọc giá" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-all text-xs font-bold">
-                  ✕
-                </button>
+            <div class="flex items-center gap-2.5">
+              <span class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl">🍢</span>
+              <div>
+                <h3 class="text-lg font-black text-slate-800">Món lẻ mua ngoài quán</h3>
+                <p class="text-xs text-slate-500 mt-1">Tra cứu món Việt theo giá, calo và loại bữa · Dữ liệu lấy từ Backend TV4</p>
               </div>
-              <!-- Dòng thông báo / cảnh báo lỗi ràng buộc ngân sách -->
-              <span id="single-price-hint" class="text-[11px] font-semibold text-slate-400 mt-1 pl-1">Không giới hạn ngân sách</span>
             </div>
           </div>
+          <span class="inline-flex w-fit items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-[11px] font-bold text-amber-800">
+            <span class="h-2 w-2 rounded-full bg-amber-500"></span> Catalog món Việt
+          </span>
         </div>
 
-        <!-- Banner thông tin & nút gọi gợi ý -->
-        <div id="single-banner" class="p-4 rounded-2xl bg-gradient-to-r from-amber-50 via-orange-50 to-slate-50 border border-amber-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span id="single-banner-icon" class="text-base">☀️</span>
-              <span id="single-banner-title" class="font-extrabold text-sm text-slate-800">Chế độ: Bữa Trưa (Món nhanh, năng lượng dồi dào)</span>
-            </div>
-            <p id="single-banner-desc" class="text-xs text-slate-500">
-              Định mức calo khuyến nghị: <b id="single-banner-kcal" class="text-amber-600">~590 kcal</b> (38-42% calo ngày). Món mua ngoài giàu đạm & tinh bột bền để làm việc chiều.
-            </p>
+        <form id="street-food-filter-form" class="space-y-3">
+          <div class="nf-street-toolbar">
+            <label>Tìm tên món
+              <input id="street-food-query" type="search" maxlength="120" placeholder="Ví dụ: cơm gà, phở bò">
+            </label>
+            <label>Loại bữa
+              <select id="street-food-meal-type">
+                <option value="all">Tất cả</option>
+                <option value="breakfast">Bữa sáng</option>
+                <option value="lunch">Bữa trưa</option>
+                <option value="dinner">Bữa tối</option>
+              </select>
+            </label>
+            <label>Ngân sách tối đa (đ)
+              <input id="street-food-max-price" type="number" min="1" max="500000" step="5000" value="50000" inputmode="numeric">
+            </label>
+            <label>Calo tối đa (kcal)
+              <input id="street-food-max-kcal" type="number" min="1" max="5000" step="10" value="600" inputmode="numeric">
+            </label>
           </div>
+          <div class="nf-street-actions">
+            <button id="street-food-filter-btn" type="submit" class="nf-street-btn nf-street-btn-primary">⌕ Tìm món theo bộ lọc</button>
+            <button id="street-food-recommend-btn" type="button" class="nf-street-btn">✦ Gợi ý theo ngân sách & calo</button>
+            <button id="street-food-reset-btn" type="button" class="nf-street-btn">Đặt lại</button>
+          </div>
+        </form>
 
-          <div class="flex items-center gap-2 shrink-0">
-            <button id="btn-single-refresh" onclick="generateSingleSuggestions(true)" title="Đổi sang 3 món khác" class="hidden px-4 py-2.5 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-xs border border-slate-200 flex items-center gap-2 shadow-sm transition-all">
-              <i data-lucide="refresh-cw" class="w-4 h-4 text-amber-600"></i>
-              <span>Đổi món khác</span>
-            </button>
-            <button id="btn-single-generate" onclick="generateSingleSuggestions(false)" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 transition-all">
-              <i data-lucide="sparkles" class="w-4 h-4"></i>
-              <span id="btn-single-generate-text">Gợi ý 3 món mua ngoài</span>
-            </button>
-          </div>
+        <p id="street-food-status" class="nf-street-status" role="status" aria-live="polite">Đang chuẩn bị tải catalog món ăn…</p>
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <h4 class="font-extrabold text-sm text-slate-800">Kết quả món ăn</h4>
+          <span id="street-food-count" class="text-xs font-bold text-slate-500">0 món</span>
         </div>
-
-        <!-- Trạng thái lựa chọn món lẻ -->
-        <div id="single-status-alert" class="hidden p-3 rounded-xl text-xs font-semibold flex items-center justify-between transition-all">
-          <div class="flex items-center gap-2">
-            <i data-lucide="info" id="single-status-icon" class="w-4 h-4 shrink-0"></i>
-            <span id="single-status-text">Trạng thái</span>
-          </div>
-          <span id="single-status-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold">Chưa chọn</span>
+        <div id="street-food-results" class="nf-street-results">
+          <div class="nf-street-empty"><strong>Đang tải món ăn…</strong><p>Dữ liệu sẽ được lấy từ API, không dùng món giả phía trình duyệt.</p></div>
         </div>
-
-        <!-- BẢNG CHÚ THÍCH CÁC KÝ HIỆU DINH DƯỠNG (MACRO) CHO MÓN LẺ -->
-        <div id="single-macro-legend" class="hidden p-3.5 bg-slate-50 border border-slate-200/90 rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs shadow-sm">
-          <div class="flex items-center gap-2 font-bold text-slate-700">
-            <span class="w-5 h-5 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-[11px]">💡</span>
-            <span>Chú giải thành phần dinh dưỡng (Macro) mỗi phần ăn:</span>
-          </div>
-          <div class="flex items-center gap-4 flex-wrap text-[11px]">
-            <div class="flex items-center gap-1.5"><span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-900 border border-amber-200 font-extrabold">🌾 C</span><span class="text-slate-600">Tinh bột (Carbs)</span></div>
-            <div class="flex items-center gap-1.5"><span class="px-2 py-0.5 rounded-md bg-rose-50 text-rose-900 border border-rose-200 font-extrabold">🥩 P</span><span class="text-slate-600">Chất đạm (Protein)</span></div>
-            <div class="flex items-center gap-1.5"><span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-900 border border-emerald-200 font-extrabold">🥑 F</span><span class="text-slate-600">Chất béo (Fat)</span></div>
-          </div>
-        </div>
-
-        <!-- Container 3 Món Mua Ngoài -->
-        <div id="single-dishes-container" class="grid grid-cols-1 lg:grid-cols-3 gap-6"></div>
-
-        <!-- Hộp Để tôi suy nghĩ / Quyết định sau của món lẻ -->
-        <div id="box-single-think-later" class="hidden p-4 sm:p-5 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 transition-all">
-          <div class="flex items-start gap-3.5">
-            <span class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
-              <i data-lucide="hourglass" class="w-5 h-5"></i>
-            </span>
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-slate-800">Chưa chọn được món ưng ý ngay?</span>
-              </div>
-              <p class="text-xs text-slate-600 mt-1">
-                Nhấn nút bên cạnh để suy nghĩ thêm. <b>Hệ thống bảo toàn 3 món gợi ý</b> và mở Google Maps tìm quán bất cứ lúc nào!
-              </p>
-            </div>
-          </div>
-          <button onclick="handleSingleThinkLater()" id="btn-single-think-later" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl text-xs flex items-center gap-2 shadow-md shadow-amber-500/20 whitespace-nowrap shrink-0 transition-all">
-            <i data-lucide="clock" class="w-4 h-4"></i>
-            <span>Để tôi suy nghĩ / Quyết định sau</span>
-          </button>
-        </div>
-
       </section>
 
 
@@ -781,7 +792,9 @@
       <!-- PHẦN 4: LẬP LỊCH TẬP & VẬN ĐỘNG (HOẠT ĐỘNG CÓ SẴN + TỰ TẠO + LỊCH SỬ + BIỂU ĐỒ TẦN SUẤT) -->
       <!-- ========================================================================= -->
       <section id="section-workouts" class="bg-white border border-slate-200/80 rounded-3xl p-6 lg:p-8 shadow-sm space-y-6">
-        
+
+
+
         <!-- Header -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div>
@@ -807,9 +820,11 @@
           </div>
         </div>
 
+        <p id="workout-status" class="nf-street-status hidden" role="status" aria-live="polite"></p>
+
         <!-- KHUNG BIỂU ĐỒ TRỰC QUAN HÓA TẦN SUẤT TẬP (YÊU CẦU FEATURE.TXT) -->
         <div class="bg-gradient-to-br from-slate-50 to-purple-50/30 border border-slate-200/80 rounded-3xl p-5 lg:p-6 space-y-5">
-          
+
           <!-- Thống kê tổng quan 4 chỉ số -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div class="bg-white p-3.5 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
@@ -861,7 +876,7 @@
                 Biểu đồ tần suất tập luyện (7 ngày gần nhất)
               </h4>
             </div>
-            
+
             <div class="inline-flex p-1 bg-slate-200/70 rounded-xl text-xs font-bold gap-1 self-start sm:self-auto">
               <button onclick="switchChartMetric('duration')" id="chart-btn-duration" class="px-3 py-1 rounded-lg bg-white text-slate-900 shadow-sm transition-all">
                 ⏱️ Thời gian (phút)
@@ -887,7 +902,7 @@
             <div class="flex items-center gap-2">
               <h4 class="font-black text-sm text-slate-800">Danh Mục Hoạt Động Cài Đặt Sẵn & Tùy Chọn</h4>
             </div>
-            
+
             <div class="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl text-xs font-bold">
               <button onclick="filterWorkouts('all')" id="filter-btn-all" class="px-3 py-1 bg-white text-slate-800 rounded-lg shadow-sm transition-all">Tất cả</button>
               <button onclick="filterWorkouts('default')" id="filter-btn-default" class="px-3 py-1 text-slate-600 hover:text-slate-900 rounded-lg transition-all">Cài đặt sẵn</button>
@@ -903,17 +918,63 @@
           </div>
         </div>
 
-      </section>
+</section>
 
     </main>
   </section>
 
-  <!-- JAVASCRIPT: LOGIC KẾT NỐI SQL SERVER & TÍNH TOÁN -->
+  <!-- Frontend modules use Flask/MySQL through the API client. -->
   <script src="js/app.js"></script>
   <script src="js/profile.js"></script>
   <script src="js/dashboard.js"></script>
-  <script src="js/workouts.js"></script>
   <script src="js/meals.js"></script>
+  <script src="js/nutrition-v4.js"></script>
+  <script src="js/workouts.js"></script>
+  <script src="js/street-food.js"></script>
+  <script src="js/quick-food.js"></script>
+  <script src="js/chatbox.js"></script>
+
+  <!-- PREMIUM QUICK FOOD: Search -> explicit selection -> server preview -> confirm consumed -->
+  <div id="modal-quick-food" role="dialog" aria-modal="true" aria-labelledby="quick-food-title" class="hidden nf-modal">
+    <div class="nf-dialog nf-quickfood-dialog">
+      <div class="nf-dialog-heading">
+        <div><h3 id="quick-food-title">Món ăn nhanh</h3><p class="nf-muted">Tìm trong Food Catalog, kiểm tra khẩu phần và xác nhận sau khi đã ăn.</p></div>
+        <button type="button" id="quick-food-close" class="nf-icon-btn" aria-label="Đóng">×</button>
+      </div>
+      <p class="nf-quickfood-intro">Quick Food yêu cầu Premium còn hiệu lực. Calo và macro trong bước preview do Backend trả về; tìm thấy món không đồng nghĩa món đã được ghi vào nhật ký.</p>
+      <div class="nf-quickfood-searchbar">
+        <input id="quick-food-query" type="search" maxlength="120" class="nf-input" placeholder="Tìm tên món, ví dụ: cơm trắng" aria-label="Tên món cần tìm">
+        <button type="button" id="quick-food-search-btn" class="nf-btn nf-btn-primary">Tìm món</button>
+      </div>
+      <div id="quick-food-results" class="nf-quickfood-results" aria-label="Kết quả tìm món"></div>
+      <p id="quick-food-status" class="nf-quickfood-status" data-kind="info" role="status" aria-live="polite">Tìm món, chọn đúng kết quả, xem preview và chỉ xác nhận sau khi đã ăn.</p>
+
+      <section id="quick-food-selected" class="nf-quickfood-panel hidden" aria-labelledby="quick-food-selected-name">
+        <h4 id="quick-food-selected-name">Món đã chọn</h4>
+        <div class="nf-quickfood-fields">
+          <label class="nf-date-label">Khối lượng đã ăn (g)
+            <input id="quick-food-grams" type="number" min="1" max="2000" step="0.01" class="nf-input" inputmode="decimal">
+          </label>
+          <label class="nf-date-label">Bữa ăn
+            <select id="quick-food-meal-type" class="nf-input">
+              <option value="breakfast">Bữa sáng</option>
+              <option value="lunch">Bữa trưa</option>
+              <option value="dinner">Bữa tối</option>
+              <option value="snack" selected>Ăn nhẹ</option>
+            </select>
+          </label>
+          <label class="nf-date-label">Thời gian ăn (không bắt buộc)
+            <input id="quick-food-consumed-at" type="datetime-local" class="nf-input">
+          </label>
+          <div class="flex items-end"><button type="button" id="quick-food-preview-btn" class="nf-btn nf-btn-soft w-full">Xem dinh dưỡng</button></div>
+        </div>
+        <div id="quick-food-preview" class="nf-quickfood-preview hidden" aria-live="polite"></div>
+        <label class="nf-quickfood-confirm"><input id="quick-food-confirm-checkbox" type="checkbox"><span>Tôi xác nhận đã thực sự ăn món này với định lượng đã nhập. Tôi hiểu thao tác tiếp theo sẽ ghi vào nhật ký lượng đã ăn.</span></label>
+        <div class="nf-dialog-footer"><button type="button" id="quick-food-confirm-btn" class="nf-btn nf-btn-primary" disabled>Xác nhận đã ăn</button></div>
+        <p class="nf-quickfood-disclaimer">Nếu mạng lỗi sau khi gửi xác nhận, hãy dùng nút thử lại trên cùng phiên thao tác; hệ thống giữ nguyên request ID để hạn chế ghi trùng.</p>
+      </section>
+    </div>
+  </div>
 
   <!-- MODAL XEM LỊCH SỬ THỰC ĐƠN THEO NGÀY -->
   <div id="modal-history" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4">
@@ -1000,6 +1061,47 @@
     </div>
   </div>
 
+  <div id="modal-v4-component" role="dialog" aria-modal="true" aria-labelledby="v4-component-title" class="hidden nf-modal">
+    <div class="nf-dialog">
+      <div class="nf-dialog-heading"><h3 id="v4-component-title">Đổi món trong thực đơn</h3><button type="button" onclick="closeV4Modal('modal-v4-component')" class="nf-icon-btn" aria-label="Đóng">×</button></div>
+      <p id="v4-component-source" class="nf-muted"></p>
+      <label class="nf-date-label">Món thay thế<select id="v4-component-dish" onchange="updateV4ReplacementPortion()" class="nf-input"></select></label>
+      <p id="v4-component-reason" class="nf-muted"></p>
+      <label class="nf-date-label">Khẩu phần (g)<input id="v4-component-grams" type="number" step="0.01" class="nf-input"></label>
+      <div class="nf-dialog-footer"><button type="button" onclick="closeV4Modal('modal-v4-component')" class="nf-btn nf-btn-soft">Hủy</button><button type="button" id="v4-component-save" onclick="applyV4Component()" class="nf-btn nf-btn-primary">Xác nhận thay món</button></div>
+    </div>
+  </div>
+
+  <div id="modal-v4-intake" role="dialog" aria-modal="true" aria-labelledby="v4-intake-title" class="hidden nf-modal">
+    <div class="nf-dialog">
+      <div class="nf-dialog-heading"><div><h3 id="v4-intake-title">Ghi nhận bữa ăn</h3><p class="nf-muted">Chỉnh khẩu phần bạn đã thực sự ăn.</p></div><button type="button" onclick="closeV4Modal('modal-v4-intake')" class="nf-icon-btn" aria-label="Đóng">×</button></div>
+      <fieldset id="v4-intake-fields" class="nf-fieldset">
+        <div class="nf-form-grid"><label>Bữa ăn<select id="v4-intake-meal" class="nf-input"><option value="breakfast">Sáng</option><option value="lunch">Trưa</option><option value="dinner">Tối</option><option value="snack">Ăn nhẹ</option></select></label><label>Thời gian ăn<input id="v4-intake-time" type="datetime-local" class="nf-input"></label></div>
+        <div id="v4-intake-items" class="nf-food-list"></div>
+        <button type="button" id="v4-add-item" onclick="addV4IntakeItem()" class="nf-btn nf-btn-text">+ Thêm món khác</button>
+        <section id="v4-food-search" class="hidden nf-food-search" aria-label="Tìm món ăn">
+          <div class="nf-search-heading"><input id="v4-food-query" type="search" oninput="renderV4FoodSearch()" placeholder="Tìm tên món ăn…" class="nf-input" aria-label="Tìm món ăn"><button type="button" onclick="closeV4FoodSearch()" class="nf-icon-btn" aria-label="Đóng tìm kiếm">×</button></div>
+          <div id="v4-food-results" class="nf-search-results"></div>
+        </section>
+      </fieldset>
+      <div class="nf-intake-total" aria-live="polite"><div><span>Tổng bữa ăn</span><strong><b id="v4-intake-kcal">0</b> <small>kcal</small></strong></div><p id="v4-intake-macros"></p><small>Dinh dưỡng ước tính</small></div>
+      <p id="v4-intake-error" class="hidden nf-message nf-error" role="alert"></p>
+      <div class="nf-dialog-footer"><button type="button" onclick="closeV4Modal('modal-v4-intake')" class="nf-btn nf-btn-soft">Hủy</button><button type="button" id="v4-intake-save" onclick="saveV4Intake()" class="nf-btn nf-btn-primary">Ghi nhận bữa ăn</button></div>
+    </div>
+  </div>
+
+  <div id="modal-v4-history" role="dialog" aria-modal="true" aria-labelledby="v4-history-title" class="hidden nf-modal">
+    <div class="nf-dialog">
+      <div class="nf-dialog-heading"><div><h3 id="v4-history-title">Lịch sử bữa ăn</h3><p class="nf-muted">Các bữa đã ghi nhận</p></div><button type="button" onclick="closeV4Modal('modal-v4-history')" class="nf-icon-btn" aria-label="Đóng">×</button></div>
+      <label class="nf-date-label">Ngày<input id="v4-date" type="date" onchange="loadV4Daily()" class="nf-input"></label>
+      <p id="v4-history-status" class="nf-muted" role="status"></p><div id="v4-log-list" class="nf-log-list"></div>
+    </div>
+  </div>
+
+  <div id="modal-v4-delete" role="dialog" aria-modal="true" aria-labelledby="v4-delete-title" class="hidden nf-modal">
+    <div class="nf-dialog nf-dialog-small"><h3 id="v4-delete-title">Xóa bữa ăn này?</h3><p class="nf-muted">Lượng dinh dưỡng đã nạp sẽ được cập nhật lại.</p><div class="nf-dialog-footer"><button type="button" onclick="closeV4Modal('modal-v4-delete')" class="nf-btn nf-btn-soft">Hủy</button><button type="button" id="v4-delete-save" onclick="confirmV4Delete()" class="nf-btn nf-btn-danger">Xóa bữa ăn</button></div></div>
+  </div>
+
   <!-- MODAL XEM LỊCH SỬ TẬP LUYỆN ĐÃ GHI NHẬN (FEATURE.TXT) -->
   <div id="modal-workout-history" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4">
     <div class="w-full max-w-2xl bg-white rounded-3xl p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[85vh] flex flex-col">
@@ -1038,6 +1140,14 @@
         <p class="text-xs font-bold" id="toast-workout-title">Ghi nhận tập luyện thành công!</p>
         <p class="text-[11px] text-slate-300" id="toast-workout-desc">Đã cập nhật biểu đồ tần suất tuần.</p>
       </div>
+    </div>
+  </div>
+
+  <div id="toast-meal" role="status" aria-live="polite" aria-atomic="true" class="fixed bottom-6 right-6 left-6 sm:left-auto z-50 hidden">
+    <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-700">
+      <span class="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center shrink-0" aria-hidden="true">✓</span>
+      <p id="toast-meal-message" class="text-xs font-bold flex-1"></p>
+      <button type="button" onclick="hideMealToast()" aria-label="Đóng thông báo" class="text-slate-300 hover:text-white p-1">×</button>
     </div>
   </div>
 

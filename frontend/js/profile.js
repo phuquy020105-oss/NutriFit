@@ -2,31 +2,21 @@
 // Extracted from the existing UI logic; behavior preserved.
 
     function applyLoadedProfile(p) {
-      userProfile.gender = p.Gender || 'male';
-      userProfile.age = p.Age || 24;
-      userProfile.height = p.HeightCm || 172;
-      userProfile.weight = p.WeightKg || 68;
-      userProfile.goal = p.Goal || 'lose';
-      userProfile.activity = p.ActivityLevel || 1.2;
-      userProfile.bmr = p.Bmr || 1650;
-      userProfile.tdee = p.Tdee || 1980;
-      userProfile.targetKcal = p.TargetKcal || 1480;
-      userProfile.carbs = p.TargetCarbs || 166;
-      userProfile.protein = p.TargetProtein || 92;
-      userProfile.fat = p.TargetFat || 49;
-      userProfile.fiber = p.TargetFiber || 31;
-      userProfile.waterTarget = p.TargetWaterMl || 2400;
-
-      // Tính chính xác chỉ số BMI theo công thức khoa học: Cân nặng (kg) / [Chiều cao (m)]²
-      const hM = (userProfile.height || 172) / 100;
-      userProfile.bmi = (userProfile.weight / (hM * hM)).toFixed(1);
-
-      // Điền ngược vào các trường Onboarding
+      const goals = { weight_loss: 'lose', giam_can: 'lose', weight_gain: 'gain', tang_can: 'gain' };
+      Object.assign(userProfile, {
+        gender: String(p.Gender).toLowerCase(), age: p.Age, height: p.HeightCm, weight: p.WeightKg,
+        goal: goals[String(p.Goal).toLowerCase()] || String(p.Goal).toLowerCase(),
+        activity: p.ActivityLevel, bmr: p.Bmr, tdee: p.Tdee, targetKcal: p.TargetKcal,
+        carbs: p.TargetCarbs, protein: p.TargetProtein, fat: p.TargetFat,
+        fiber: p.TargetFiber, waterTarget: p.TargetWaterMl, bmi: p.Bmi
+      });
       document.getElementById('inp-height').value = userProfile.height;
       document.getElementById('inp-weight').value = userProfile.weight;
-      document.getElementById('age-val').innerText = `${userProfile.age} tuổi`;
+      document.getElementById('inp-age-range').value = userProfile.age;
+      document.getElementById('age-val').innerText = userProfile.age + ' tuổi';
+      document.querySelectorAll('input[name="goal"]').forEach(el => { el.checked = el.value === userProfile.goal; });
+      document.querySelectorAll('input[name="act"]').forEach(el => { el.checked = Number(el.value) === userProfile.activity; });
       setGender(userProfile.gender);
-
       updateDashboardUI();
     }
 
@@ -190,7 +180,7 @@
       }
     }
 
-    function nextStep() {
+    async function nextStep() {
       if (!validateStep(currentStep)) {
         return;
       }
@@ -199,8 +189,7 @@
         updateStepUI();
         if (currentStep === 3) updateStep3Preview();
       } else {
-        calculateAndApplyNutrition();
-        switchScreen('screen-dashboard');
+        if (await calculateAndApplyNutrition()) switchScreen('screen-dashboard');
       }
     }
 
@@ -249,71 +238,32 @@
     }
 
     async function calculateAndApplyNutrition() {
-      let h = parseFloat(document.getElementById('inp-height')?.value) || 172;
-      let w = parseFloat(document.getElementById('inp-weight')?.value) || 68;
-      let age = parseInt(document.getElementById('inp-age-range')?.value) || parseInt(document.getElementById('age-val')?.innerText) || 24;
-      const goal = document.querySelector('input[name="goal"]:checked')?.value || 'lose';
-      const act = parseFloat(document.querySelector('input[name="act"]:checked')?.value) || 1.2;
-
-      // Giới hạn ràng buộc logic an toàn
-      h = Math.min(Math.max(h, 100), 250);
-      w = Math.min(Math.max(w, 30), 250);
-      age = Math.min(Math.max(age, 12), 95);
-
-      userProfile.height = h;
-      userProfile.weight = w;
-      userProfile.age = age;
-      userProfile.goal = goal;
-      userProfile.activity = act;
-
-      let bmr = (10 * w) + (6.25 * h) - (5 * age);
-      bmr = userProfile.gender === 'male' ? bmr + 5 : bmr - 161;
-
-      const tdee = Math.round(bmr * act);
-      let targetKcal = tdee;
-      if (goal === 'lose') targetKcal = Math.round(tdee - 500);
-      else if (goal === 'gain') targetKcal = Math.round(tdee + 350);
-
-      const carbs = Math.round((targetKcal * 0.45) / 4);
-      const protein = Math.round((targetKcal * 0.25) / 4);
-      const fat = Math.round((targetKcal * 0.30) / 9);
-      const fiber = Math.round(w * 0.45);
-      const bmi = (w / ((h / 100) ** 2)).toFixed(1);
-      const water = Math.round(w * 35);
-
-      userProfile.targetKcal = targetKcal;
-      userProfile.bmr = Math.round(bmr);
-      userProfile.tdee = tdee;
-      userProfile.carbs = carbs;
-      userProfile.protein = protein;
-      userProfile.fat = fat;
-      userProfile.fiber = fiber;
-      userProfile.bmi = bmi;
-      userProfile.waterTarget = water;
-
-      updateDashboardUI();
-
-      // Cập nhật session với hồ sơ mới
-      saveSession({ id: userProfile.id, email: userProfile.email, fullname: userProfile.fullname }, userProfile);
-
-      // Lưu hồ sơ vào bảng UserProfiles trong SQL Server
-      NutriFitAPI.saveProfile({
-        userId: userProfile.id || 1,
+      if (!Number.isInteger(userProfile.id) || userProfile.id <= 0) {
+        showAuthAlert('Vui lòng đăng nhập trước khi lưu hồ sơ.');
+        switchScreen('screen-auth');
+        return false;
+      }
+      const fields = {
         gender: userProfile.gender,
-        age: userProfile.age,
-        height: userProfile.height,
-        weight: userProfile.weight,
-        activity: userProfile.activity,
-        goal: userProfile.goal,
-        bmr: userProfile.bmr,
-        tdee: userProfile.tdee,
-        targetKcal: userProfile.targetKcal,
-        carbs: userProfile.carbs,
-        protein: userProfile.protein,
-        fat: userProfile.fat,
-        fiber: userProfile.fiber,
-        waterTarget: userProfile.waterTarget
-      }).then(res => {
-        console.log("Kết quả lưu SQL Server:", res);
-      });
+        age: Number(document.getElementById('inp-age-range').value),
+        height: Number(document.getElementById('inp-height').value),
+        weight: Number(document.getElementById('inp-weight').value),
+        activity_level: Number(document.querySelector('input[name="act"]:checked')?.value),
+        goal: document.querySelector('input[name="goal"]:checked')?.value
+      };
+      const button = document.getElementById('btn-next-step');
+      button.disabled = true;
+      try {
+        const calculated = await NutriFitAPI.calculateNutrition(fields);
+        if (!calculated.success) { alert(calculated.message || 'Hồ sơ không hợp lệ.'); return false; }
+        const saved = await NutriFitAPI.saveProfile({ user_id: userProfile.id, ...fields });
+        if (!saved.success) { alert(saved.message || 'Chưa lưu được hồ sơ.'); return false; }
+        const profile = await NutriFitAuth.loadProfile(userProfile.id);
+        if (!profile) { alert('Đã lưu hồ sơ nhưng chưa tải được mục tiêu. Hãy thử lại.'); return false; }
+        applyLoadedProfile(profile);
+        saveSession(userProfile, profile);
+        return true;
+      } finally {
+        button.disabled = false;
+      }
     }

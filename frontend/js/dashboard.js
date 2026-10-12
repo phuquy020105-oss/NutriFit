@@ -59,7 +59,33 @@
       document.getElementById('profile-water').innerText = Number(userProfile.waterTarget).toLocaleString('vi-VN');
     }
 
-    function addWaterQuick() {
-      currentWater += 250;
-      document.getElementById('dash-water-current').innerText = currentWater.toLocaleString('vi-VN');
+
+    async function loadDashboardSummary() {
+      const result = await NutriFitAPI.getNutritionSummary();
+      const error = document.getElementById('nutrition-summary-error');
+      if (!result.success) {
+        if (error) {
+          error.textContent = result.message || 'Không thể tải kế hoạch dinh dưỡng.';
+          error.classList.remove('hidden');
+        }
+        return;
+      }
+      if (error) error.classList.add('hidden');
+      const summary = result.data;
+      const target = summary.targets;
+      mealTargets = target.meal_targets || {};
+      switchMealMode(currentMealMode);
+      const planned = summary.planned;
+      const text = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
+      text('dash-target-kcal', target.target_kcal);
+      text('dash-planned-kcal', planned.calories);
+      text('dash-remaining-kcal', summary.remaining_planned_kcal);
+      for (const [id, key] of [['dash-carb', 'carbs'], ['dash-protein', 'protein'], ['dash-fat', 'fat']]) {
+        text(id, planned[key] + '/' + target.macros[key] + 'g');
+      }
+      text('dash-fiber', planned.fiber + '/' + target.target_fiber + 'g');
+      text('dash-selected-meals', summary.selected_meals);
+      const percent = Math.round(planned.calories / target.target_kcal * 100);
+      text('dash-progress-pct', percent + '% kế hoạch');
+      if (typeof loadV4Daily === 'function') await loadV4Daily();
     }
