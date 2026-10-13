@@ -1,21 +1,22 @@
+# Environment variables
 .env
+.env.*
+!.env.example
+
+# Python
 .venv/
+venv/
 __pycache__/
 *.pyc
-.DS_Store
-*/.DS_Store
-*.py[cod]
-.pytest_cache/
 
-# Duplicate package, local reports and private backups are not release source.
-NutriFit-publish/
-*.log
-.coverage
-htmlcov/
-backups/
-dumps/
-*.dump
-*.bak
-*.sql.gz
-release-check/
-test-results/
+# Node.js / Next.js
+node_modules/
+.next/
+out/
+
+# Build files
+dist/
+build/
+
+# Editor
+.vscode/
