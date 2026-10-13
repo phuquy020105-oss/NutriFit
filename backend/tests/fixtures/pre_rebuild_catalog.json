@@ -1,0 +1,6986 @@
+{
+  "version": 1,
+  "dataset": {
+    "name": "NutriFit migrated estimates + USDA SR Legacy",
+    "usda_archive_url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+    "usda_archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+    "usda_documentation": "https://fdc.nal.usda.gov/data-documentation/",
+    "nutrient_basis": "100 g edible food; respect preparation state",
+    "note": "Seed is an import artifact, never read by runtime APIs; existing IDs are not overwritten."
+  },
+  "dishes": [
+    {
+      "dish_id": "rice",
+      "name": "Cơm trắng",
+      "type": "CARB",
+      "group": "carb",
+      "reference_grams": 180,
+      "min_grams": 90,
+      "max_grams": 360,
+      "macros_per_100g": {
+        "carbs": 28.2,
+        "protein": 2.7,
+        "fat": 0.3,
+        "fiber": 0.4
+      },
+      "calories_per_100g": 126.3,
+      "ingredients": [
+        "rice"
+      ],
+      "prep_minutes": 15,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "rice",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "sweet_potato",
+      "name": "Khoai lang hấp",
+      "type": "CARB",
+      "group": "carb",
+      "reference_grams": 230,
+      "min_grams": 115,
+      "max_grams": 460,
+      "macros_per_100g": {
+        "carbs": 20.0,
+        "protein": 1.6,
+        "fat": 0.1,
+        "fiber": 3.0
+      },
+      "calories_per_100g": 87.3,
+      "ingredients": [
+        "sweet_potato"
+      ],
+      "prep_minutes": 20,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "sweet_potato",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "rice_noodles",
+      "name": "Bún chín",
+      "type": "CARB",
+      "group": "carb",
+      "reference_grams": 200,
+      "min_grams": 100,
+      "max_grams": 400,
+      "macros_per_100g": {
+        "carbs": 25.0,
+        "protein": 1.8,
+        "fat": 0.2,
+        "fiber": 1.0
+      },
+      "calories_per_100g": 109.0,
+      "ingredients": [
+        "rice",
+        "noodles"
+      ],
+      "prep_minutes": 10,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "rice_noodles",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "chicken",
+      "name": "Ức gà hấp",
+      "type": "PROTEIN",
+      "group": "protein",
+      "reference_grams": 130,
+      "min_grams": 65,
+      "max_grams": 260,
+      "macros_per_100g": {
+        "carbs": 0.0,
+        "protein": 31.0,
+        "fat": 3.6,
+        "fiber": 0.0
+      },
+      "calories_per_100g": 156.4,
+      "ingredients": [
+        "chicken"
+      ],
+      "prep_minutes": 20,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "chicken",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "chicken_oil",
+      "name": "Gà áp chảo ít dầu",
+      "type": "PROTEIN",
+      "group": "protein",
+      "reference_grams": 135,
+      "min_grams": 68,
+      "max_grams": 270,
+      "macros_per_100g": {
+        "carbs": 0.0,
+        "protein": 29.8519,
+        "fat": 7.1704,
+        "fiber": 0.0
+      },
+      "calories_per_100g": 183.9412,
+      "ingredients": [
+        "chicken"
+      ],
+      "prep_minutes": 20,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "chicken_oil",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "beef",
+      "name": "Bò áp chảo",
+      "type": "PROTEIN",
+      "group": "protein",
+      "reference_grams": 134,
+      "min_grams": 67,
+      "max_grams": 268,
+      "macros_per_100g": {
+        "carbs": 0.0,
+        "protein": 25.2239,
+        "fat": 12.6866,
+        "fiber": 0.0
+      },
+      "calories_per_100g": 215.075,
+      "ingredients": [
+        "beef"
+      ],
+      "prep_minutes": 20,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "beef",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "pork",
+      "name": "Heo nạc hấp",
+      "type": "PROTEIN",
+      "group": "protein",
+      "reference_grams": 130,
+      "min_grams": 65,
+      "max_grams": 260,
+      "macros_per_100g": {
+        "carbs": 0.0,
+        "protein": 27.0,
+        "fat": 9.0,
+        "fiber": 0.0
+      },
+      "calories_per_100g": 189.0,
+      "ingredients": [
+        "pork"
+      ],
+      "prep_minutes": 20,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "pork",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "fish",
+      "name": "Cá hấp",
+      "type": "PROTEIN",
+      "group": "protein",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "macros_per_100g": {
+        "carbs": 0.0,
+        "protein": 22.0,
+        "fat": 5.0,
+        "fiber": 0.0
+      },
+      "calories_per_100g": 133.0,
+      "ingredients": [
+        "fish",
+        "seafood"
+      ],
+      "prep_minutes": 20,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "fish",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "shrimp",
+      "name": "Tôm hấp",
+      "type": "PROTEIN",
+      "group": "protein",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "macros_per_100g": {
+        "carbs": 0.0,
+        "protein": 24.0,
+        "fat": 0.3,
+        "fiber": 0.0
+      },
+      "calories_per_100g": 98.7,
+      "ingredients": [
+        "seafood"
+      ],
+      "prep_minutes": 15,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "shrimp",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "tofu",
+      "name": "Đậu phụ hấp",
+      "type": "PROTEIN",
+      "group": "protein",
+      "reference_grams": 180,
+      "min_grams": 90,
+      "max_grams": 360,
+      "macros_per_100g": {
+        "carbs": 1.9,
+        "protein": 8.0,
+        "fat": 4.8,
+        "fiber": 0.3
+      },
+      "calories_per_100g": 82.8,
+      "ingredients": [
+        "soy"
+      ],
+      "prep_minutes": 10,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "tofu",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "eggs",
+      "name": "Trứng luộc",
+      "type": "PROTEIN",
+      "group": "protein",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "macros_per_100g": {
+        "carbs": 0.7,
+        "protein": 12.6,
+        "fat": 10.6,
+        "fiber": 0.0
+      },
+      "calories_per_100g": 148.6,
+      "ingredients": [
+        "egg"
+      ],
+      "prep_minutes": 10,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "eggs",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "vegetables",
+      "name": "Rau luộc",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "macros_per_100g": {
+        "carbs": 5.0,
+        "protein": 2.0,
+        "fat": 0.2,
+        "fiber": 2.0
+      },
+      "calories_per_100g": 29.8,
+      "ingredients": [
+        "vegetables"
+      ],
+      "prep_minutes": 10,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "vegetables",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "vegetables_oil",
+      "name": "Rau xào ít dầu",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "reference_grams": 155,
+      "min_grams": 78,
+      "max_grams": 310,
+      "macros_per_100g": {
+        "carbs": 4.8387,
+        "protein": 1.9355,
+        "fat": 3.4194,
+        "fiber": 1.9355
+      },
+      "calories_per_100g": 57.8714,
+      "ingredients": [
+        "vegetables"
+      ],
+      "prep_minutes": 15,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "vegetables_oil",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "tofu_vegetables",
+      "name": "Rau hấp với đậu phụ",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "reference_grams": 180,
+      "min_grams": 90,
+      "max_grams": 360,
+      "macros_per_100g": {
+        "carbs": 3.6222,
+        "protein": 4.6667,
+        "fat": 2.2444,
+        "fiber": 1.2444
+      },
+      "calories_per_100g": 53.3552,
+      "ingredients": [
+        "soy",
+        "vegetables"
+      ],
+      "prep_minutes": 15,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "tofu_vegetables",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "soup",
+      "name": "Canh rau",
+      "type": "SOUP",
+      "group": "soup",
+      "reference_grams": 280,
+      "min_grams": 140,
+      "max_grams": 560,
+      "macros_per_100g": {
+        "carbs": 1.4286,
+        "protein": 0.5714,
+        "fat": 0.0571,
+        "fiber": 0.5714
+      },
+      "calories_per_100g": 8.5139,
+      "ingredients": [
+        "vegetables"
+      ],
+      "prep_minutes": 15,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "soup",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "chicken_soup",
+      "name": "Canh rau thịt gà",
+      "type": "SOUP",
+      "group": "soup",
+      "reference_grams": 320,
+      "min_grams": 160,
+      "max_grams": 640,
+      "macros_per_100g": {
+        "carbs": 1.25,
+        "protein": 4.375,
+        "fat": 0.5,
+        "fiber": 0.5
+      },
+      "calories_per_100g": 27.0,
+      "ingredients": [
+        "chicken",
+        "vegetables"
+      ],
+      "prep_minutes": 20,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "chicken_soup",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "banana",
+      "name": "Chuối",
+      "type": "DESSERT",
+      "group": "dessert",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "macros_per_100g": {
+        "carbs": 23.0,
+        "protein": 1.1,
+        "fat": 0.3,
+        "fiber": 2.6
+      },
+      "calories_per_100g": 99.1,
+      "ingredients": [
+        "banana"
+      ],
+      "prep_minutes": 5,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "banana",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "yogurt",
+      "name": "Sữa chua không đường",
+      "type": "DESSERT",
+      "group": "dessert",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "macros_per_100g": {
+        "carbs": 4.7,
+        "protein": 3.5,
+        "fat": 3.3,
+        "fiber": 0.0
+      },
+      "calories_per_100g": 62.5,
+      "ingredients": [
+        "milk"
+      ],
+      "prep_minutes": 5,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "yogurt",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "bread_egg",
+      "name": "Bánh mì trứng",
+      "type": "MAIN",
+      "group": "main",
+      "reference_grams": 213,
+      "min_grams": 106,
+      "max_grams": 426,
+      "macros_per_100g": {
+        "carbs": 19.4366,
+        "protein": 9.5775,
+        "fat": 7.615,
+        "fiber": 1.2958
+      },
+      "calories_per_100g": 184.5914,
+      "ingredients": [
+        "wheat",
+        "egg",
+        "vegetables"
+      ],
+      "prep_minutes": 10,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "bread_egg",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "bread_chicken",
+      "name": "Bánh mì gà",
+      "type": "MAIN",
+      "group": "main",
+      "reference_grams": 220,
+      "min_grams": 110,
+      "max_grams": 440,
+      "macros_per_100g": {
+        "carbs": 21.1818,
+        "protein": 15.4091,
+        "fat": 2.6636,
+        "fiber": 1.5591
+      },
+      "calories_per_100g": 170.336,
+      "ingredients": [
+        "wheat",
+        "chicken",
+        "vegetables"
+      ],
+      "prep_minutes": 10,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "bread_chicken",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "oats_yogurt",
+      "name": "Yến mạch sữa chua",
+      "type": "MAIN",
+      "group": "main",
+      "reference_grams": 210,
+      "min_grams": 105,
+      "max_grams": 420,
+      "macros_per_100g": {
+        "carbs": 22.5,
+        "protein": 6.2143,
+        "fat": 4.3571,
+        "fiber": 2.8571
+      },
+      "calories_per_100g": 154.0711,
+      "ingredients": [
+        "oats",
+        "milk"
+      ],
+      "prep_minutes": 5,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "oats_yogurt",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "oats_tofu",
+      "name": "Yến mạch đậu phụ",
+      "type": "MAIN",
+      "group": "main",
+      "reference_grams": 280,
+      "min_grams": 140,
+      "max_grams": 560,
+      "macros_per_100g": {
+        "carbs": 15.1714,
+        "protein": 6.2143,
+        "fat": 3.5571,
+        "fiber": 2.2714
+      },
+      "calories_per_100g": 117.5567,
+      "ingredients": [
+        "oats",
+        "soy"
+      ],
+      "prep_minutes": 15,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "oats_tofu",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "pho_chicken",
+      "name": "Phở gà",
+      "type": "MAIN",
+      "group": "main",
+      "reference_grams": 620,
+      "min_grams": 310,
+      "max_grams": 1000,
+      "macros_per_100g": {
+        "carbs": 9.3548,
+        "protein": 5.3323,
+        "fat": 0.6129,
+        "fiber": 0.5484
+      },
+      "calories_per_100g": 64.2645,
+      "ingredients": [
+        "rice",
+        "noodles",
+        "chicken"
+      ],
+      "prep_minutes": 25,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "pho_chicken",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "pho_beef",
+      "name": "Phở bò",
+      "type": "MAIN",
+      "group": "main",
+      "reference_grams": 580,
+      "min_grams": 290,
+      "max_grams": 1000,
+      "macros_per_100g": {
+        "carbs": 9.0517,
+        "protein": 4.3793,
+        "fat": 1.4655,
+        "fiber": 0.5172
+      },
+      "calories_per_100g": 66.9135,
+      "ingredients": [
+        "rice",
+        "noodles",
+        "beef"
+      ],
+      "prep_minutes": 30,
+      "provenance": {
+        "source": "NutriFit V4 reference estimate",
+        "source_id": "pho_beef",
+        "note": "Ước tính NutriFit từ khẩu phần nguyên liệu chín; không phải số liệu xét nghiệm.",
+        "basis": "cooked edible grams; dry oats/bread in listed recipes",
+        "energy_method": "4/4/9"
+      },
+      "estimated": true,
+      "preparation_state": "ready",
+      "meal_types": [
+        "breakfast"
+      ],
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169704",
+      "name": "Cơm gạo lứt hạt dài, chín",
+      "type": "CARB",
+      "group": "carb",
+      "preparation_state": "cooked",
+      "reference_grams": 180,
+      "min_grams": 90,
+      "max_grams": 360,
+      "calories_per_100g": 123.0,
+      "macros_per_100g": {
+        "protein": 2.74,
+        "fat": 0.97,
+        "carbs": 25.58,
+        "fiber": 1.6
+      },
+      "ingredients": [
+        "rice"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169704",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169704/nutrients",
+        "description": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_168928",
+      "name": "Mì pasta luộc không muối",
+      "type": "CARB",
+      "group": "carb",
+      "preparation_state": "cooked",
+      "reference_grams": 180,
+      "min_grams": 90,
+      "max_grams": 360,
+      "calories_per_100g": 158.0,
+      "macros_per_100g": {
+        "protein": 5.8,
+        "fat": 0.93,
+        "carbs": 30.86,
+        "fiber": 1.8
+      },
+      "ingredients": [
+        "wheat",
+        "noodles"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "168928",
+        "source_url": "https://fdc.nal.usda.gov/food-details/168928/nutrients",
+        "description": "Pasta, cooked, unenriched, without added salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_170438",
+      "name": "Khoai tây luộc không muối, phần thịt",
+      "type": "CARB",
+      "group": "carb",
+      "preparation_state": "cooked",
+      "reference_grams": 200,
+      "min_grams": 100,
+      "max_grams": 400,
+      "calories_per_100g": 87.0,
+      "macros_per_100g": {
+        "protein": 1.87,
+        "fat": 0.1,
+        "carbs": 20.13,
+        "fiber": 1.8
+      },
+      "ingredients": [
+        "potato"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "170438",
+        "source_url": "https://fdc.nal.usda.gov/food-details/170438/nutrients",
+        "description": "Potatoes, boiled, cooked in skin, flesh, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_168873",
+      "name": "Cám yến mạch nấu chín",
+      "type": "CARB",
+      "group": "carb",
+      "preparation_state": "cooked",
+      "reference_grams": 180,
+      "min_grams": 90,
+      "max_grams": 360,
+      "calories_per_100g": 40.0,
+      "macros_per_100g": {
+        "protein": 3.21,
+        "fat": 0.86,
+        "carbs": 11.44,
+        "fiber": 2.6
+      },
+      "ingredients": [
+        "oats"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "168873",
+        "source_url": "https://fdc.nal.usda.gov/food-details/168873/nutrients",
+        "description": "Oat bran, cooked",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_168399",
+      "name": "Hạt bắp vàng đông lạnh luộc không muối",
+      "type": "CARB",
+      "group": "carb",
+      "preparation_state": "cooked",
+      "reference_grams": 180,
+      "min_grams": 90,
+      "max_grams": 360,
+      "calories_per_100g": 81.0,
+      "macros_per_100g": {
+        "protein": 2.55,
+        "fat": 0.67,
+        "carbs": 19.3,
+        "fiber": 2.4
+      },
+      "ingredients": [
+        "corn"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "168399",
+        "source_url": "https://fdc.nal.usda.gov/food-details/168399/nutrients",
+        "description": "Corn, sweet, yellow, frozen, kernels cut off cob, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_172688",
+      "name": "Bánh mì nguyên cám",
+      "type": "CARB",
+      "group": "carb",
+      "preparation_state": "ready",
+      "reference_grams": 80,
+      "min_grams": 40,
+      "max_grams": 160,
+      "calories_per_100g": 252.0,
+      "macros_per_100g": {
+        "protein": 12.45,
+        "fat": 3.5,
+        "carbs": 42.71,
+        "fiber": 6.0
+      },
+      "ingredients": [
+        "wheat"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "172688",
+        "source_url": "https://fdc.nal.usda.gov/food-details/172688/nutrients",
+        "description": "Bread, whole-wheat, commercially prepared",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_172818",
+      "name": "Bánh mì trắng không muối",
+      "type": "CARB",
+      "group": "carb",
+      "preparation_state": "ready",
+      "reference_grams": 80,
+      "min_grams": 40,
+      "max_grams": 160,
+      "calories_per_100g": 267.0,
+      "macros_per_100g": {
+        "protein": 8.2,
+        "fat": 3.6,
+        "carbs": 49.6,
+        "fiber": 2.3
+      },
+      "ingredients": [
+        "wheat"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "172818",
+        "source_url": "https://fdc.nal.usda.gov/food-details/172818/nutrients",
+        "description": "Bread, white, commercially prepared, low sodium, no salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_171477",
+      "name": "Ức gà nướng bỏ da",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 130,
+      "min_grams": 65,
+      "max_grams": 260,
+      "calories_per_100g": 165.0,
+      "macros_per_100g": {
+        "protein": 31.02,
+        "fat": 3.57,
+        "carbs": 0.0,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "chicken"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "171477",
+        "source_url": "https://fdc.nal.usda.gov/food-details/171477/nutrients",
+        "description": "Chicken, broilers or fryers, breast, meat only, cooked, roasted",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_172388",
+      "name": "Thịt đùi gà nướng bỏ da",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 130,
+      "min_grams": 65,
+      "max_grams": 260,
+      "calories_per_100g": 179.0,
+      "macros_per_100g": {
+        "protein": 24.76,
+        "fat": 8.15,
+        "carbs": 0.0,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "chicken"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "172388",
+        "source_url": "https://fdc.nal.usda.gov/food-details/172388/nutrients",
+        "description": "Chicken, broilers or fryers, thigh, meat only, cooked, roasted",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_167904",
+      "name": "Heo thăn nướng, gồm nạc và mỡ",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 130,
+      "min_grams": 65,
+      "max_grams": 260,
+      "calories_per_100g": 201.0,
+      "macros_per_100g": {
+        "protein": 29.86,
+        "fat": 8.11,
+        "carbs": 0.0,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "pork"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "167904",
+        "source_url": "https://fdc.nal.usda.gov/food-details/167904/nutrients",
+        "description": "Pork, fresh, loin, tenderloin, separable lean and fat, cooked, broiled",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_175177",
+      "name": "Cá rô phi chín bằng nhiệt khô",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 128.0,
+      "macros_per_100g": {
+        "protein": 26.15,
+        "fat": 2.65,
+        "carbs": 0.0,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "fish",
+        "seafood"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "175177",
+        "source_url": "https://fdc.nal.usda.gov/food-details/175177/nutrients",
+        "description": "Fish, tilapia, cooked, dry heat",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_171998",
+      "name": "Cá hồi Đại Tây Dương hoang dã, chín bằng nhiệt khô",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 182.0,
+      "macros_per_100g": {
+        "protein": 25.44,
+        "fat": 8.13,
+        "carbs": 0.0,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "fish",
+        "seafood"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "171998",
+        "source_url": "https://fdc.nal.usda.gov/food-details/171998/nutrients",
+        "description": "Fish, salmon, Atlantic, wild, cooked, dry heat",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_171994",
+      "name": "Cá thu Thái Bình Dương, chín bằng nhiệt khô",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 201.0,
+      "macros_per_100g": {
+        "protein": 25.73,
+        "fat": 10.12,
+        "carbs": 0.0,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "fish",
+        "seafood"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "171994",
+        "source_url": "https://fdc.nal.usda.gov/food-details/171994/nutrients",
+        "description": "Fish, mackerel, Pacific and jack, mixed species, cooked, dry heat",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_173714",
+      "name": "Cá da trơn channel hoang dã, chín bằng nhiệt khô",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 105.0,
+      "macros_per_100g": {
+        "protein": 18.47,
+        "fat": 2.85,
+        "carbs": 0.0,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "fish",
+        "seafood"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "173714",
+        "source_url": "https://fdc.nal.usda.gov/food-details/173714/nutrients",
+        "description": "Fish, catfish, channel, wild, cooked, dry heat",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_172185",
+      "name": "Trứng omelet",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 154.0,
+      "macros_per_100g": {
+        "protein": 10.57,
+        "fat": 11.66,
+        "carbs": 0.64,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "egg"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "172185",
+        "source_url": "https://fdc.nal.usda.gov/food-details/172185/nutrients",
+        "description": "Egg, whole, cooked, omelet",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_172186",
+      "name": "Trứng chần",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 143.0,
+      "macros_per_100g": {
+        "protein": 12.51,
+        "fat": 9.47,
+        "carbs": 0.71,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "egg"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "172186",
+        "source_url": "https://fdc.nal.usda.gov/food-details/172186/nutrients",
+        "description": "Egg, whole, cooked, poached",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_172448",
+      "name": "Đậu phụ firm, dùng calcium sulfate và nigari",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "ready",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 78.0,
+      "macros_per_100g": {
+        "protein": 9.04,
+        "fat": 4.17,
+        "carbs": 2.85,
+        "fiber": 0.9
+      },
+      "ingredients": [
+        "soy"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "172448",
+        "source_url": "https://fdc.nal.usda.gov/food-details/172448/nutrients",
+        "description": "Tofu, firm, prepared with calcium sulfate and magnesium chloride (nigari)",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_173735",
+      "name": "Đậu đen luộc không muối",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 132.0,
+      "macros_per_100g": {
+        "protein": 8.86,
+        "fat": 0.54,
+        "carbs": 23.71,
+        "fiber": 8.7
+      },
+      "ingredients": [
+        "black_bean"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "173735",
+        "source_url": "https://fdc.nal.usda.gov/food-details/173735/nutrients",
+        "description": "Beans, black, mature seeds, cooked, boiled, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_172421",
+      "name": "Đậu lăng luộc không muối",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 116.0,
+      "macros_per_100g": {
+        "protein": 9.02,
+        "fat": 0.38,
+        "carbs": 20.13,
+        "fiber": 7.9
+      },
+      "ingredients": [
+        "lentil"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "172421",
+        "source_url": "https://fdc.nal.usda.gov/food-details/172421/nutrients",
+        "description": "Lentils, mature seeds, cooked, boiled, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_172429",
+      "name": "Đậu Hà Lan tách hạt luộc không muối",
+      "type": "PROTEIN",
+      "group": "protein",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 118.0,
+      "macros_per_100g": {
+        "protein": 8.34,
+        "fat": 0.39,
+        "carbs": 21.1,
+        "fiber": 8.3
+      },
+      "ingredients": [
+        "pea"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "172429",
+        "source_url": "https://fdc.nal.usda.gov/food-details/172429/nutrients",
+        "description": "Peas, split, mature seeds, cooked, boiled, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169967",
+      "name": "Bông cải xanh luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 35.0,
+      "macros_per_100g": {
+        "protein": 2.38,
+        "fat": 0.41,
+        "carbs": 7.18,
+        "fiber": 3.3
+      },
+      "ingredients": [
+        "broccoli",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169967",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169967/nutrients",
+        "description": "Broccoli, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_170394",
+      "name": "Cà rốt luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 35.0,
+      "macros_per_100g": {
+        "protein": 0.76,
+        "fat": 0.18,
+        "carbs": 8.22,
+        "fiber": 3.0
+      },
+      "ingredients": [
+        "carrot",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "170394",
+        "source_url": "https://fdc.nal.usda.gov/food-details/170394/nutrients",
+        "description": "Carrots, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169976",
+      "name": "Bắp cải luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 23.0,
+      "macros_per_100g": {
+        "protein": 1.27,
+        "fat": 0.06,
+        "carbs": 5.51,
+        "fiber": 1.9
+      },
+      "ingredients": [
+        "cabbage",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169976",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169976/nutrients",
+        "description": "Cabbage, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_170397",
+      "name": "Súp lơ trắng luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 23.0,
+      "macros_per_100g": {
+        "protein": 1.84,
+        "fat": 0.45,
+        "carbs": 4.11,
+        "fiber": 2.3
+      },
+      "ingredients": [
+        "cauliflower",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "170397",
+        "source_url": "https://fdc.nal.usda.gov/food-details/170397/nutrients",
+        "description": "Cauliflower, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_168463",
+      "name": "Rau chân vịt luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 23.0,
+      "macros_per_100g": {
+        "protein": 2.97,
+        "fat": 0.26,
+        "carbs": 3.75,
+        "fiber": 2.4
+      },
+      "ingredients": [
+        "spinach",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "168463",
+        "source_url": "https://fdc.nal.usda.gov/food-details/168463/nutrients",
+        "description": "Spinach, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_168449",
+      "name": "Bí đỏ luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 20.0,
+      "macros_per_100g": {
+        "protein": 0.72,
+        "fat": 0.07,
+        "carbs": 4.9,
+        "fiber": 1.1
+      },
+      "ingredients": [
+        "pumpkin",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "168449",
+        "source_url": "https://fdc.nal.usda.gov/food-details/168449/nutrients",
+        "description": "Pumpkin, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_168465",
+      "name": "Bí mùa hè crookneck/straightneck luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 19.0,
+      "macros_per_100g": {
+        "protein": 1.04,
+        "fat": 0.39,
+        "carbs": 3.79,
+        "fiber": 1.1
+      },
+      "ingredients": [
+        "squash",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "168465",
+        "source_url": "https://fdc.nal.usda.gov/food-details/168465/nutrients",
+        "description": "Squash, summer, crookneck and straightneck, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169252",
+      "name": "Nấm trắng luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 28.0,
+      "macros_per_100g": {
+        "protein": 2.17,
+        "fat": 0.47,
+        "carbs": 5.29,
+        "fiber": 2.2
+      },
+      "ingredients": [
+        "mushroom",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169252",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169252/nutrients",
+        "description": "Mushrooms, white, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_170050",
+      "name": "Cà chua đỏ chín, nấu chín",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 18.0,
+      "macros_per_100g": {
+        "protein": 0.95,
+        "fat": 0.11,
+        "carbs": 4.01,
+        "fiber": 0.7
+      },
+      "ingredients": [
+        "tomato",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "170050",
+        "source_url": "https://fdc.nal.usda.gov/food-details/170050/nutrients",
+        "description": "Tomatoes, red, ripe, cooked",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_168409",
+      "name": "Dưa leo còn vỏ, sống",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "raw_edible",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 15.0,
+      "macros_per_100g": {
+        "protein": 0.65,
+        "fat": 0.11,
+        "carbs": 3.63,
+        "fiber": 0.5
+      },
+      "ingredients": [
+        "cucumber",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "168409",
+        "source_url": "https://fdc.nal.usda.gov/food-details/168409/nutrients",
+        "description": "Cucumber, with peel, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169249",
+      "name": "Xà lách lá xanh, sống",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "raw_edible",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 15.0,
+      "macros_per_100g": {
+        "protein": 1.36,
+        "fat": 0.15,
+        "carbs": 2.87,
+        "fiber": 1.3
+      },
+      "ingredients": [
+        "lettuce",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169249",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169249/nutrients",
+        "description": "Lettuce, green leaf, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_170001",
+      "name": "Hành tây luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 44.0,
+      "macros_per_100g": {
+        "protein": 1.36,
+        "fat": 0.19,
+        "carbs": 10.15,
+        "fiber": 1.4
+      },
+      "ingredients": [
+        "onion",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "170001",
+        "source_url": "https://fdc.nal.usda.gov/food-details/170001/nutrients",
+        "description": "Onions, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169229",
+      "name": "Cà tím luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 35.0,
+      "macros_per_100g": {
+        "protein": 0.83,
+        "fat": 0.23,
+        "carbs": 8.73,
+        "fiber": 2.5
+      },
+      "ingredients": [
+        "eggplant",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169229",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169229/nutrients",
+        "description": "Eggplant, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_168390",
+      "name": "Măng tây luộc",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 22.0,
+      "macros_per_100g": {
+        "protein": 2.4,
+        "fat": 0.22,
+        "carbs": 4.11,
+        "fiber": 2.0
+      },
+      "ingredients": [
+        "asparagus",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "168390",
+        "source_url": "https://fdc.nal.usda.gov/food-details/168390/nutrients",
+        "description": "Asparagus, cooked, boiled, drained",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169261",
+      "name": "Đậu bắp luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 22.0,
+      "macros_per_100g": {
+        "protein": 1.87,
+        "fat": 0.21,
+        "carbs": 4.51,
+        "fiber": 2.5
+      },
+      "ingredients": [
+        "okra",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169261",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169261/nutrients",
+        "description": "Okra, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169211",
+      "name": "Măng luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 12.0,
+      "macros_per_100g": {
+        "protein": 1.53,
+        "fat": 0.22,
+        "carbs": 1.92,
+        "fiber": 1.0
+      },
+      "ingredients": [
+        "bamboo",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169211",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169211/nutrients",
+        "description": "Bamboo shoots, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169146",
+      "name": "Củ dền luộc",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 44.0,
+      "macros_per_100g": {
+        "protein": 1.68,
+        "fat": 0.18,
+        "carbs": 9.96,
+        "fiber": 2.0
+      },
+      "ingredients": [
+        "beet",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169146",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169146/nutrients",
+        "description": "Beets, cooked, boiled, drained",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169988",
+      "name": "Cần tây sống",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "raw_edible",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 14.0,
+      "macros_per_100g": {
+        "protein": 0.69,
+        "fat": 0.17,
+        "carbs": 2.97,
+        "fiber": 1.6
+      },
+      "ingredients": [
+        "celery",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169988",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169988/nutrients",
+        "description": "Celery, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169238",
+      "name": "Cải xoăn luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 36.0,
+      "macros_per_100g": {
+        "protein": 2.94,
+        "fat": 1.21,
+        "carbs": 5.3,
+        "fiber": 4.0
+      },
+      "ingredients": [
+        "kale",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169238",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169238/nutrients",
+        "description": "Kale, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169276",
+      "name": "Củ cải radish sống",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "raw_edible",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 16.0,
+      "macros_per_100g": {
+        "protein": 0.68,
+        "fat": 0.1,
+        "carbs": 3.4,
+        "fiber": 1.6
+      },
+      "ingredients": [
+        "radish",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169276",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169276/nutrients",
+        "description": "Radishes, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_170407",
+      "name": "Cải collard luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 33.0,
+      "macros_per_100g": {
+        "protein": 2.71,
+        "fat": 0.72,
+        "carbs": 5.65,
+        "fiber": 4.0
+      },
+      "ingredients": [
+        "collard",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "170407",
+        "source_url": "https://fdc.nal.usda.gov/food-details/170407/nutrients",
+        "description": "Collards, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_170058",
+      "name": "Củ cải turnip luộc không muối",
+      "type": "VEGGIE",
+      "group": "veggie",
+      "preparation_state": "cooked",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 22.0,
+      "macros_per_100g": {
+        "protein": 0.71,
+        "fat": 0.08,
+        "carbs": 5.06,
+        "fiber": 2.0
+      },
+      "ingredients": [
+        "turnip",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "170058",
+        "source_url": "https://fdc.nal.usda.gov/food-details/170058/nutrients",
+        "description": "Turnips, cooked, boiled, drained, without salt",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_167793",
+      "name": "Táo Fuji có vỏ, sống",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 63.0,
+      "macros_per_100g": {
+        "protein": 0.2,
+        "fat": 0.18,
+        "carbs": 15.22,
+        "fiber": 2.1
+      },
+      "ingredients": [
+        "apple"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "167793",
+        "source_url": "https://fdc.nal.usda.gov/food-details/167793/nutrients",
+        "description": "Apples, raw, fuji, with skin (Includes foods for USDA's Food Distribution Program)",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169097",
+      "name": "Cam tươi, phần ăn được",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 47.0,
+      "macros_per_100g": {
+        "protein": 0.94,
+        "fat": 0.12,
+        "carbs": 11.75,
+        "fiber": 2.4
+      },
+      "ingredients": [
+        "orange"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169097",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169097/nutrients",
+        "description": "Oranges, raw, all commercial varieties",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169926",
+      "name": "Đu đủ tươi",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 43.0,
+      "macros_per_100g": {
+        "protein": 0.47,
+        "fat": 0.26,
+        "carbs": 10.82,
+        "fiber": 1.7
+      },
+      "ingredients": [
+        "papaya"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169926",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169926/nutrients",
+        "description": "Papayas, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169910",
+      "name": "Xoài tươi",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 60.0,
+      "macros_per_100g": {
+        "protein": 0.82,
+        "fat": 0.38,
+        "carbs": 14.98,
+        "fiber": 1.6
+      },
+      "ingredients": [
+        "mango"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169910",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169910/nutrients",
+        "description": "Mangos, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_173044",
+      "name": "Ổi tươi",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 68.0,
+      "macros_per_100g": {
+        "protein": 2.55,
+        "fat": 0.95,
+        "carbs": 14.32,
+        "fiber": 5.4
+      },
+      "ingredients": [
+        "guava"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "173044",
+        "source_url": "https://fdc.nal.usda.gov/food-details/173044/nutrients",
+        "description": "Guavas, common, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169124",
+      "name": "Dứa tươi",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 50.0,
+      "macros_per_100g": {
+        "protein": 0.54,
+        "fat": 0.12,
+        "carbs": 13.12,
+        "fiber": 1.4
+      },
+      "ingredients": [
+        "pineapple"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169124",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169124/nutrients",
+        "description": "Pineapple, raw, all varieties",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_167765",
+      "name": "Dưa hấu tươi",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 200,
+      "min_grams": 100,
+      "max_grams": 400,
+      "calories_per_100g": 30.0,
+      "macros_per_100g": {
+        "protein": 0.61,
+        "fat": 0.15,
+        "carbs": 7.55,
+        "fiber": 0.4
+      },
+      "ingredients": [
+        "watermelon"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "167765",
+        "source_url": "https://fdc.nal.usda.gov/food-details/167765/nutrients",
+        "description": "Watermelon, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_174683",
+      "name": "Nho đỏ hoặc xanh tươi",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 69.0,
+      "macros_per_100g": {
+        "protein": 0.72,
+        "fat": 0.16,
+        "carbs": 18.1,
+        "fiber": 0.9
+      },
+      "ingredients": [
+        "grape"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "174683",
+        "source_url": "https://fdc.nal.usda.gov/food-details/174683/nutrients",
+        "description": "Grapes, red or green (European type, such as Thompson seedless), raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_167776",
+      "name": "Lê Bartlett tươi",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 63.0,
+      "macros_per_100g": {
+        "protein": 0.39,
+        "fat": 0.16,
+        "carbs": 15.01,
+        "fiber": 3.1
+      },
+      "ingredients": [
+        "pear"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "167776",
+        "source_url": "https://fdc.nal.usda.gov/food-details/167776/nutrients",
+        "description": "Pears, raw, bartlett (Includes foods for USDA's Food Distribution Program)",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_167762",
+      "name": "Dâu tây tươi",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 32.0,
+      "macros_per_100g": {
+        "protein": 0.67,
+        "fat": 0.3,
+        "carbs": 7.68,
+        "fiber": 2.0
+      },
+      "ingredients": [
+        "strawberry"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "167762",
+        "source_url": "https://fdc.nal.usda.gov/food-details/167762/nutrients",
+        "description": "Strawberries, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_171705",
+      "name": "Quả bơ tươi, phần ăn được",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 160.0,
+      "macros_per_100g": {
+        "protein": 2.0,
+        "fat": 14.66,
+        "carbs": 8.53,
+        "fiber": 6.7
+      },
+      "ingredients": [
+        "avocado"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "171705",
+        "source_url": "https://fdc.nal.usda.gov/food-details/171705/nutrients",
+        "description": "Avocados, raw, all commercial varieties",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169086",
+      "name": "Vải tươi, phần ăn được",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 66.0,
+      "macros_per_100g": {
+        "protein": 0.83,
+        "fat": 0.44,
+        "carbs": 16.53,
+        "fiber": 1.3
+      },
+      "ingredients": [
+        "lychee"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169086",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169086/nutrients",
+        "description": "Litchis, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169089",
+      "name": "Nhãn tươi, phần ăn được",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 60.0,
+      "macros_per_100g": {
+        "protein": 1.31,
+        "fat": 0.1,
+        "carbs": 15.14,
+        "fiber": 1.1
+      },
+      "ingredients": [
+        "longan"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169089",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169089/nutrients",
+        "description": "Longans, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_174687",
+      "name": "Mít tươi, phần ăn được",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 100,
+      "min_grams": 50,
+      "max_grams": 200,
+      "calories_per_100g": 95.0,
+      "macros_per_100g": {
+        "protein": 1.72,
+        "fat": 0.64,
+        "carbs": 23.25,
+        "fiber": 1.5
+      },
+      "ingredients": [
+        "jackfruit"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "174687",
+        "source_url": "https://fdc.nal.usda.gov/food-details/174687/nutrients",
+        "description": "Jackfruit, raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_169105",
+      "name": "Quýt tươi, phần ăn được",
+      "type": "DESSERT",
+      "group": "dessert",
+      "preparation_state": "raw_edible",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 53.0,
+      "macros_per_100g": {
+        "protein": 0.81,
+        "fat": 0.31,
+        "carbs": 13.34,
+        "fiber": 1.8
+      },
+      "ingredients": [
+        "tangerine"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "169105",
+        "source_url": "https://fdc.nal.usda.gov/food-details/169105/nutrients",
+        "description": "Tangerines, (mandarin oranges), raw",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_171265",
+      "name": "Sữa bò nguyên kem 3,25%, bổ sung vitamin D",
+      "type": "DRINK",
+      "group": "drink",
+      "preparation_state": "ready",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 61.0,
+      "macros_per_100g": {
+        "protein": 3.15,
+        "fat": 3.25,
+        "carbs": 4.8,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "milk"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "171265",
+        "source_url": "https://fdc.nal.usda.gov/food-details/171265/nutrients",
+        "description": "Milk, whole, 3.25% milkfat, with added vitamin D",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_170872",
+      "name": "Sữa bò ít béo 1%, bổ sung vitamin A và D",
+      "type": "DRINK",
+      "group": "drink",
+      "preparation_state": "ready",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 42.0,
+      "macros_per_100g": {
+        "protein": 3.37,
+        "fat": 0.97,
+        "carbs": 4.99,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "milk"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "170872",
+        "source_url": "https://fdc.nal.usda.gov/food-details/170872/nutrients",
+        "description": "Milk, lowfat, fluid, 1% milkfat, with added vitamin A and vitamin D",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_171269",
+      "name": "Sữa bò tách béo, bổ sung vitamin A và D",
+      "type": "DRINK",
+      "group": "drink",
+      "preparation_state": "ready",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 34.0,
+      "macros_per_100g": {
+        "protein": 3.37,
+        "fat": 0.08,
+        "carbs": 4.96,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "milk"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "171269",
+        "source_url": "https://fdc.nal.usda.gov/food-details/171269/nutrients",
+        "description": "Milk, nonfat, fluid, with added vitamin A and vitamin D (fat free or skim)",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_170886",
+      "name": "Sữa chua plain ít béo",
+      "type": "SIDE",
+      "group": "side",
+      "preparation_state": "ready",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 63.0,
+      "macros_per_100g": {
+        "protein": 5.25,
+        "fat": 1.55,
+        "carbs": 7.04,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "milk"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "170886",
+        "source_url": "https://fdc.nal.usda.gov/food-details/170886/nutrients",
+        "description": "Yogurt, plain, low fat",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_170887",
+      "name": "Sữa chua plain tách béo",
+      "type": "SIDE",
+      "group": "side",
+      "preparation_state": "ready",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 56.0,
+      "macros_per_100g": {
+        "protein": 5.73,
+        "fat": 0.18,
+        "carbs": 7.68,
+        "fiber": 0.0
+      },
+      "ingredients": [
+        "milk"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "170887",
+        "source_url": "https://fdc.nal.usda.gov/food-details/170887/nutrients",
+        "description": "Yogurt, plain, skim milk",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "usda_172446",
+      "name": "Sữa đậu nành original/vanilla, không tăng cường vi chất",
+      "type": "DRINK",
+      "group": "drink",
+      "preparation_state": "ready",
+      "reference_grams": 150,
+      "min_grams": 75,
+      "max_grams": 300,
+      "calories_per_100g": 54.0,
+      "macros_per_100g": {
+        "protein": 3.27,
+        "fat": 1.75,
+        "carbs": 6.28,
+        "fiber": 0.6
+      },
+      "ingredients": [
+        "soy"
+      ],
+      "meal_types": [
+        "breakfast",
+        "lunch",
+        "dinner"
+      ],
+      "prep_minutes": null,
+      "provenance": {
+        "source": "USDA FoodData Central SR Legacy 2018-04",
+        "source_id": "172446",
+        "source_url": "https://fdc.nal.usda.gov/food-details/172446/nutrients",
+        "description": "Soymilk, original and vanilla, unfortified",
+        "basis": "per 100 g edible food in the specified preparation state",
+        "note": "Tham khảo USDA; không đồng nhất mọi giống/cách nấu tại Việt Nam. Thời gian chuẩn bị chưa được xác minh."
+      },
+      "estimated": true,
+      "active": true,
+      "data_version": 1
+    },
+    {
+      "dish_id": "breakfast_main_d2_o1",
+      "name": "Xôi gà (ước tính theo cơm chín)",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 303,
+      "min_grams": 152,
+      "max_grams": 606,
+      "calories_per_100g": 141.9072,
+      "macros_per_100g": {
+        "carbs": 20.4752,
+        "protein": 10.1452,
+        "fat": 2.1584,
+        "fiber": 0.2904
+      },
+      "ingredients": [
+        "chicken",
+        "oil",
+        "rice"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 20,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d2-o1",
+        "recipe_grams": {
+          "rice": 220,
+          "chicken": 80,
+          "oil": 3
+        },
+        "ingredient_profiles_per_100g": {
+          "rice": [
+            28.2,
+            2.7,
+            0.3,
+            0.4
+          ],
+          "chicken": [
+            0,
+            31,
+            3.6,
+            0
+          ],
+          "oil": [
+            0,
+            0,
+            100,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d2_o3",
+      "name": "Khoai lang hấp",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 250,
+      "min_grams": 125,
+      "max_grams": 500,
+      "calories_per_100g": 87.3,
+      "macros_per_100g": {
+        "carbs": 20.0,
+        "protein": 1.6,
+        "fat": 0.1,
+        "fiber": 3.0
+      },
+      "ingredients": [
+        "sweet_potato"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 20,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d2-o3",
+        "recipe_grams": {
+          "sweet_potato": 250
+        },
+        "ingredient_profiles_per_100g": {
+          "sweet_potato": [
+            20,
+            1.6,
+            0.1,
+            3
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d3_o1",
+      "name": "Bánh cuốn thịt (ước tính bánh gạo chín)",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 325,
+      "min_grams": 162,
+      "max_grams": 650,
+      "calories_per_100g": 131.0896,
+      "macros_per_100g": {
+        "carbs": 17.3846,
+        "protein": 7.2185,
+        "fat": 3.6308,
+        "fiber": 0.8615
+      },
+      "ingredients": [
+        "noodles",
+        "oil",
+        "pork",
+        "rice",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 25,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d3-o1",
+        "recipe_grams": {
+          "noodles": 220,
+          "pork": 70,
+          "vegetables": 30,
+          "oil": 5
+        },
+        "ingredient_profiles_per_100g": {
+          "noodles": [
+            25,
+            1.8,
+            0.2,
+            1
+          ],
+          "pork": [
+            0,
+            27,
+            9,
+            0
+          ],
+          "vegetables": [
+            5,
+            2,
+            0.2,
+            2
+          ],
+          "oil": [
+            0,
+            0,
+            100,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d3_o2",
+      "name": "Bún mọc (thịt heo nạc)",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 620,
+      "min_grams": 310,
+      "max_grams": 1000,
+      "calories_per_100g": 68.9968,
+      "macros_per_100g": {
+        "carbs": 9.3548,
+        "protein": 4.7516,
+        "fat": 1.3968,
+        "fiber": 0.5484
+      },
+      "ingredients": [
+        "noodles",
+        "pork",
+        "rice",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 30,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d3-o2",
+        "recipe_grams": {
+          "noodles": 220,
+          "pork": 90,
+          "vegetables": 60,
+          "water": 250
+        },
+        "ingredient_profiles_per_100g": {
+          "noodles": [
+            25,
+            1.8,
+            0.2,
+            1
+          ],
+          "pork": [
+            0,
+            27,
+            9,
+            0
+          ],
+          "vegetables": [
+            5,
+            2,
+            0.2,
+            2
+          ],
+          "water": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d3_o3",
+      "name": "Cháo yến mạch trứng",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 340,
+      "min_grams": 170,
+      "max_grams": 680,
+      "calories_per_100g": 111.2937,
+      "macros_per_100g": {
+        "carbs": 12.0294,
+        "protein": 6.0,
+        "fat": 4.3529,
+        "fiber": 1.7647
+      },
+      "ingredients": [
+        "egg",
+        "oats"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 12,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d3-o3",
+        "recipe_grams": {
+          "oats": 60,
+          "egg": 100,
+          "water": 180
+        },
+        "ingredient_profiles_per_100g": {
+          "oats": [
+            67,
+            13,
+            7,
+            10
+          ],
+          "egg": [
+            0.7,
+            12.6,
+            10.6,
+            0
+          ],
+          "water": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d4_o2",
+      "name": "Miến gà (ước tính sợi chín)",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 630,
+      "min_grams": 315,
+      "max_grams": 1000,
+      "calories_per_100g": 64.9743,
+      "macros_per_100g": {
+        "carbs": 9.6032,
+        "protein": 5.2762,
+        "fat": 0.6063,
+        "fiber": 0.5556
+      },
+      "ingredients": [
+        "chicken",
+        "noodles",
+        "rice",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 25,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d4-o2",
+        "recipe_grams": {
+          "noodles": 230,
+          "chicken": 90,
+          "vegetables": 60,
+          "water": 250
+        },
+        "ingredient_profiles_per_100g": {
+          "noodles": [
+            25,
+            1.8,
+            0.2,
+            1
+          ],
+          "chicken": [
+            0,
+            31,
+            3.6,
+            0
+          ],
+          "vegetables": [
+            5,
+            2,
+            0.2,
+            2
+          ],
+          "water": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d5_o1",
+      "name": "Cơm trứng",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 283,
+      "min_grams": 142,
+      "max_grams": 566,
+      "calories_per_100g": 142.3817,
+      "macros_per_100g": {
+        "carbs": 18.1837,
+        "protein": 6.1696,
+        "fat": 4.9965,
+        "fiber": 0.2544
+      },
+      "ingredients": [
+        "egg",
+        "oil",
+        "rice"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 12,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d5-o1",
+        "recipe_grams": {
+          "rice": 180,
+          "egg": 100,
+          "oil": 3
+        },
+        "ingredient_profiles_per_100g": {
+          "rice": [
+            28.2,
+            2.7,
+            0.3,
+            0.4
+          ],
+          "egg": [
+            0.7,
+            12.6,
+            10.6,
+            0
+          ],
+          "oil": [
+            0,
+            0,
+            100,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d5_o2",
+      "name": "Cháo gà",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 640,
+      "min_grams": 320,
+      "max_grams": 1000,
+      "calories_per_100g": 62.7528,
+      "macros_per_100g": {
+        "carbs": 8.4,
+        "protein": 5.7906,
+        "fat": 0.6656,
+        "fiber": 0.3
+      },
+      "ingredients": [
+        "chicken",
+        "rice",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 30,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d5-o2",
+        "recipe_grams": {
+          "rice": 180,
+          "chicken": 100,
+          "vegetables": 60,
+          "water": 300
+        },
+        "ingredient_profiles_per_100g": {
+          "rice": [
+            28.2,
+            2.7,
+            0.3,
+            0.4
+          ],
+          "chicken": [
+            0,
+            31,
+            3.6,
+            0
+          ],
+          "vegetables": [
+            5,
+            2,
+            0.2,
+            2
+          ],
+          "water": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d5_o3",
+      "name": "Yến mạch sữa",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 255,
+      "min_grams": 128,
+      "max_grams": 510,
+      "calories_per_100g": 131.2352,
+      "macros_per_100g": {
+        "carbs": 18.3725,
+        "protein": 5.3922,
+        "fat": 4.0196,
+        "fiber": 2.1569
+      },
+      "ingredients": [
+        "milk",
+        "oats"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 12,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d5-o3",
+        "recipe_grams": {
+          "oats": 55,
+          "milk": 200
+        },
+        "ingredient_profiles_per_100g": {
+          "oats": [
+            67,
+            13,
+            7,
+            10
+          ],
+          "milk": [
+            5,
+            3.3,
+            3.2,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d6_o1",
+      "name": "Bánh mì đậu phụ",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 290,
+      "min_grams": 145,
+      "max_grams": 580,
+      "calories_per_100g": 128.9031,
+      "macros_per_100g": {
+        "carbs": 17.0517,
+        "protein": 7.2759,
+        "fat": 3.5103,
+        "fiber": 1.3379
+      },
+      "ingredients": [
+        "soy",
+        "vegetables",
+        "wheat"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 10,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d6-o1",
+        "recipe_grams": {
+          "bread": 90,
+          "tofu": 150,
+          "vegetables": 50
+        },
+        "ingredient_profiles_per_100g": {
+          "bread": [
+            49,
+            9,
+            3.2,
+            2.7
+          ],
+          "tofu": [
+            1.9,
+            8,
+            4.8,
+            0.3
+          ],
+          "vegetables": [
+            5,
+            2,
+            0.2,
+            2
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d6_o2",
+      "name": "Bún bò rau cải",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 620,
+      "min_grams": 310,
+      "max_grams": 1000,
+      "calories_per_100g": 67.1675,
+      "macros_per_100g": {
+        "carbs": 8.7097,
+        "protein": 4.6129,
+        "fat": 1.5419,
+        "fiber": 0.5806
+      },
+      "ingredients": [
+        "beef",
+        "noodles",
+        "rice",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 30,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d6-o2",
+        "recipe_grams": {
+          "noodles": 200,
+          "beef": 90,
+          "vegetables": 80,
+          "water": 250
+        },
+        "ingredient_profiles_per_100g": {
+          "noodles": [
+            25,
+            1.8,
+            0.2,
+            1
+          ],
+          "beef": [
+            0,
+            26,
+            10,
+            0
+          ],
+          "vegetables": [
+            5,
+            2,
+            0.2,
+            2
+          ],
+          "water": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d6_o3",
+      "name": "Khoai lang hấp",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 220,
+      "min_grams": 110,
+      "max_grams": 440,
+      "calories_per_100g": 87.3,
+      "macros_per_100g": {
+        "carbs": 20.0,
+        "protein": 1.6,
+        "fat": 0.1,
+        "fiber": 3.0
+      },
+      "ingredients": [
+        "sweet_potato"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 20,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d6-o3",
+        "recipe_grams": {
+          "sweet_potato": 220
+        },
+        "ingredient_profiles_per_100g": {
+          "sweet_potato": [
+            20,
+            1.6,
+            0.1,
+            3
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d7_o1",
+      "name": "Xôi trứng (ước tính theo cơm chín)",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 303,
+      "min_grams": 152,
+      "max_grams": 606,
+      "calories_per_100g": 141.3205,
+      "macros_per_100g": {
+        "carbs": 18.8449,
+        "protein": 5.9406,
+        "fat": 4.6865,
+        "fiber": 0.264
+      },
+      "ingredients": [
+        "egg",
+        "oil",
+        "rice"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 20,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d7-o1",
+        "recipe_grams": {
+          "rice": 200,
+          "egg": 100,
+          "oil": 3
+        },
+        "ingredient_profiles_per_100g": {
+          "rice": [
+            28.2,
+            2.7,
+            0.3,
+            0.4
+          ],
+          "egg": [
+            0.7,
+            12.6,
+            10.6,
+            0
+          ],
+          "oil": [
+            0,
+            0,
+            100,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d7_o2",
+      "name": "Cháo thịt heo",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 640,
+      "min_grams": 320,
+      "max_grams": 1000,
+      "calories_per_100g": 67.847,
+      "macros_per_100g": {
+        "carbs": 8.4,
+        "protein": 5.1656,
+        "fat": 1.5094,
+        "fiber": 0.3
+      },
+      "ingredients": [
+        "pork",
+        "rice",
+        "vegetables"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 30,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d7-o2",
+        "recipe_grams": {
+          "rice": 180,
+          "pork": 100,
+          "vegetables": 60,
+          "water": 300
+        },
+        "ingredient_profiles_per_100g": {
+          "rice": [
+            28.2,
+            2.7,
+            0.3,
+            0.4
+          ],
+          "pork": [
+            0,
+            27,
+            9,
+            0
+          ],
+          "vegetables": [
+            5,
+            2,
+            0.2,
+            2
+          ],
+          "water": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    },
+    {
+      "dish_id": "breakfast_main_d7_o3",
+      "name": "Yến mạch nấu nước",
+      "type": "MAIN",
+      "group": "main",
+      "preparation_state": "ready",
+      "reference_grams": 245,
+      "min_grams": 122,
+      "max_grams": 490,
+      "calories_per_100g": 101.6119,
+      "macros_per_100g": {
+        "carbs": 17.7755,
+        "protein": 3.449,
+        "fat": 1.8571,
+        "fiber": 2.6531
+      },
+      "ingredients": [
+        "oats"
+      ],
+      "meal_types": [
+        "breakfast"
+      ],
+      "prep_minutes": 10,
+      "estimated": true,
+      "active": true,
+      "data_version": 1,
+      "provenance": {
+        "source": "NutriFit V3 explicit breakfast recipe",
+        "source_id": "breakfast-d7-o3",
+        "recipe_grams": {
+          "oats": 65,
+          "water": 180
+        },
+        "ingredient_profiles_per_100g": {
+          "oats": [
+            67,
+            13,
+            7,
+            10
+          ],
+          "water": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "basis": "reference edible cooked ingredients; oats/bread as specified, broth included in final reference weight",
+        "note": "Ước tính từ công thức có gram; không phải phân tích món ăn thực tế.",
+        "energy_method": "4/4/9"
+      }
+    }
+  ],
+  "legacy_menus": [
+    {
+      "template_id": "breakfast-d1-o1",
+      "day": 0,
+      "family": "quick",
+      "title": "Bánh mì trứng và chuối",
+      "components": {
+        "MAIN": [
+          "Bánh mì trứng (bánh mì 80 g, trứng 100 g, rau 30 g, dầu 3 g)",
+          213
+        ],
+        "SIDE": [
+          "Chuối (chuối 100 g)",
+          100
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Bánh mì trứng",
+          {
+            "bread": 80,
+            "egg": 100,
+            "vegetables": 30,
+            "oil": 3
+          }
+        ],
+        "SIDE": [
+          "Chuối",
+          {
+            "banana": 100
+          }
+        ]
+      },
+      "ingredients": [
+        "banana",
+        "bread",
+        "egg",
+        "oil",
+        "vegetables"
+      ],
+      "prep_minutes": 10,
+      "macros": {
+        "carbs": 64.4,
+        "protein": 21.5,
+        "fat": 16.5,
+        "fiber": 5.4
+      },
+      "calories": 492.1,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d1-o2",
+      "day": 0,
+      "family": "soup",
+      "title": "Phở bò",
+      "components": {
+        "MAIN": [
+          "Phở bò (bánh phở/bún/miến 200 g, bò 80 g, rau 50 g)",
+          580
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Phở bò",
+          {
+            "noodles": 200,
+            "beef": 80,
+            "vegetables": 50,
+            "water": 250
+          }
+        ]
+      },
+      "ingredients": [
+        "beef",
+        "noodles",
+        "vegetables"
+      ],
+      "prep_minutes": 30,
+      "macros": {
+        "carbs": 52.5,
+        "protein": 25.4,
+        "fat": 8.5,
+        "fiber": 3.0
+      },
+      "calories": 388.1,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d1-o3",
+      "day": 0,
+      "family": "balanced",
+      "title": "Yến mạch sữa chua và chuối",
+      "components": {
+        "MAIN": [
+          "Yến mạch với sữa chua (yến mạch khô 60 g, sữa chua 150 g)",
+          210
+        ],
+        "SIDE": [
+          "Chuối (chuối 100 g)",
+          100
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Yến mạch với sữa chua",
+          {
+            "oats": 60,
+            "yogurt": 150
+          }
+        ],
+        "SIDE": [
+          "Chuối",
+          {
+            "banana": 100
+          }
+        ]
+      },
+      "ingredients": [
+        "banana",
+        "oats",
+        "yogurt"
+      ],
+      "prep_minutes": 5,
+      "macros": {
+        "carbs": 70.2,
+        "protein": 14.2,
+        "fat": 9.5,
+        "fiber": 8.6
+      },
+      "calories": 423.1,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d2-o1",
+      "day": 1,
+      "family": "quick",
+      "title": "Xôi gà và rau",
+      "components": {
+        "MAIN": [
+          "Xôi gà (ước tính theo cơm chín) (cơm 220 g, gà 80 g, dầu 3 g)",
+          303
+        ],
+        "SIDE": [
+          "Rau ăn kèm (rau 80 g)",
+          80
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Xôi gà (ước tính theo cơm chín)",
+          {
+            "rice": 220,
+            "chicken": 80,
+            "oil": 3
+          }
+        ],
+        "SIDE": [
+          "Rau ăn kèm",
+          {
+            "vegetables": 80
+          }
+        ]
+      },
+      "ingredients": [
+        "chicken",
+        "oil",
+        "rice",
+        "vegetables"
+      ],
+      "prep_minutes": 20,
+      "macros": {
+        "carbs": 66.0,
+        "protein": 32.3,
+        "fat": 6.7,
+        "fiber": 2.5
+      },
+      "calories": 453.5,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d2-o2",
+      "day": 1,
+      "family": "soup",
+      "title": "Phở gà",
+      "components": {
+        "MAIN": [
+          "Phở gà (bánh phở/bún/miến 220 g, gà 90 g, rau 60 g)",
+          620
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Phở gà",
+          {
+            "noodles": 220,
+            "chicken": 90,
+            "vegetables": 60,
+            "water": 250
+          }
+        ]
+      },
+      "ingredients": [
+        "chicken",
+        "noodles",
+        "vegetables"
+      ],
+      "prep_minutes": 25,
+      "macros": {
+        "carbs": 58.0,
+        "protein": 33.1,
+        "fat": 3.8,
+        "fiber": 3.4
+      },
+      "calories": 398.6,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d2-o3",
+      "day": 1,
+      "family": "balanced",
+      "title": "Khoai lang, trứng và sữa",
+      "components": {
+        "MAIN": [
+          "Khoai lang hấp (khoai lang 250 g)",
+          250
+        ],
+        "SIDE": [
+          "Trứng luộc (trứng 100 g)",
+          100
+        ],
+        "DRINK": [
+          "Sữa không đường (sữa 150 g)",
+          150
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Khoai lang hấp",
+          {
+            "sweet_potato": 250
+          }
+        ],
+        "SIDE": [
+          "Trứng luộc",
+          {
+            "egg": 100
+          }
+        ],
+        "DRINK": [
+          "Sữa không đường",
+          {
+            "milk": 150
+          }
+        ]
+      },
+      "ingredients": [
+        "egg",
+        "milk",
+        "sweet_potato"
+      ],
+      "prep_minutes": 20,
+      "macros": {
+        "carbs": 58.2,
+        "protein": 21.6,
+        "fat": 15.6,
+        "fiber": 7.5
+      },
+      "calories": 459.6,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d3-o1",
+      "day": 2,
+      "family": "quick",
+      "title": "Bánh cuốn thịt và chuối",
+      "components": {
+        "MAIN": [
+          "Bánh cuốn thịt (ước tính bánh gạo chín) (bánh phở/bún/miến 220 g, heo 70 g, rau 30 g, dầu 5 g)",
+          325
+        ],
+        "SIDE": [
+          "Chuối (chuối 80 g)",
+          80
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Bánh cuốn thịt (ước tính bánh gạo chín)",
+          {
+            "noodles": 220,
+            "pork": 70,
+            "vegetables": 30,
+            "oil": 5
+          }
+        ],
+        "SIDE": [
+          "Chuối",
+          {
+            "banana": 80
+          }
+        ]
+      },
+      "ingredients": [
+        "banana",
+        "noodles",
+        "oil",
+        "pork",
+        "vegetables"
+      ],
+      "prep_minutes": 25,
+      "macros": {
+        "carbs": 74.9,
+        "protein": 24.3,
+        "fat": 12.0,
+        "fiber": 4.9
+      },
+      "calories": 504.8,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d3-o2",
+      "day": 2,
+      "family": "soup",
+      "title": "Bún mọc",
+      "components": {
+        "MAIN": [
+          "Bún mọc (thịt heo nạc) (bánh phở/bún/miến 220 g, heo 90 g, rau 60 g)",
+          620
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Bún mọc (thịt heo nạc)",
+          {
+            "noodles": 220,
+            "pork": 90,
+            "vegetables": 60,
+            "water": 250
+          }
+        ]
+      },
+      "ingredients": [
+        "noodles",
+        "pork",
+        "vegetables"
+      ],
+      "prep_minutes": 30,
+      "macros": {
+        "carbs": 58.0,
+        "protein": 29.5,
+        "fat": 8.7,
+        "fiber": 3.4
+      },
+      "calories": 428.3,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d3-o3",
+      "day": 2,
+      "family": "balanced",
+      "title": "Yến mạch trứng và rau",
+      "components": {
+        "MAIN": [
+          "Cháo yến mạch trứng (yến mạch khô 60 g, trứng 100 g)",
+          340
+        ],
+        "SIDE": [
+          "Rau hấp (rau 100 g)",
+          100
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Cháo yến mạch trứng",
+          {
+            "oats": 60,
+            "egg": 100,
+            "water": 180
+          }
+        ],
+        "SIDE": [
+          "Rau hấp",
+          {
+            "vegetables": 100
+          }
+        ]
+      },
+      "ingredients": [
+        "egg",
+        "oats",
+        "vegetables"
+      ],
+      "prep_minutes": 12,
+      "macros": {
+        "carbs": 45.9,
+        "protein": 22.4,
+        "fat": 15.0,
+        "fiber": 8.0
+      },
+      "calories": 408.2,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d4-o1",
+      "day": 3,
+      "family": "quick",
+      "title": "Bánh mì gà và sữa chua",
+      "components": {
+        "MAIN": [
+          "Bánh mì gà (bánh mì 90 g, gà 80 g, rau 50 g)",
+          220
+        ],
+        "SIDE": [
+          "Sữa chua không đường (sữa chua 100 g)",
+          100
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Bánh mì gà",
+          {
+            "bread": 90,
+            "chicken": 80,
+            "vegetables": 50
+          }
+        ],
+        "SIDE": [
+          "Sữa chua không đường",
+          {
+            "yogurt": 100
+          }
+        ]
+      },
+      "ingredients": [
+        "bread",
+        "chicken",
+        "vegetables",
+        "yogurt"
+      ],
+      "prep_minutes": 10,
+      "macros": {
+        "carbs": 51.3,
+        "protein": 37.4,
+        "fat": 9.2,
+        "fiber": 3.4
+      },
+      "calories": 437.6,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d4-o2",
+      "day": 3,
+      "family": "soup",
+      "title": "Miến gà",
+      "components": {
+        "MAIN": [
+          "Miến gà (ước tính sợi chín) (bánh phở/bún/miến 230 g, gà 90 g, rau 60 g)",
+          630
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Miến gà (ước tính sợi chín)",
+          {
+            "noodles": 230,
+            "chicken": 90,
+            "vegetables": 60,
+            "water": 250
+          }
+        ]
+      },
+      "ingredients": [
+        "chicken",
+        "noodles",
+        "vegetables"
+      ],
+      "prep_minutes": 25,
+      "macros": {
+        "carbs": 60.5,
+        "protein": 33.2,
+        "fat": 3.8,
+        "fiber": 3.5
+      },
+      "calories": 409.0,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d4-o3",
+      "day": 3,
+      "family": "balanced",
+      "title": "Khoai lang, đậu phụ và chuối",
+      "components": {
+        "MAIN": [
+          "Khoai lang hấp (khoai lang 230 g)",
+          230
+        ],
+        "SIDE": [
+          "Đậu phụ hấp (đậu phụ 150 g)",
+          150
+        ],
+        "DESSERT": [
+          "Chuối (chuối 80 g)",
+          80
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Khoai lang hấp",
+          {
+            "sweet_potato": 230
+          }
+        ],
+        "SIDE": [
+          "Đậu phụ hấp",
+          {
+            "tofu": 150
+          }
+        ],
+        "DESSERT": [
+          "Chuối",
+          {
+            "banana": 80
+          }
+        ]
+      },
+      "ingredients": [
+        "banana",
+        "sweet_potato",
+        "tofu"
+      ],
+      "prep_minutes": 20,
+      "macros": {
+        "carbs": 67.2,
+        "protein": 16.6,
+        "fat": 7.7,
+        "fiber": 9.4
+      },
+      "calories": 404.5,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d5-o1",
+      "day": 4,
+      "family": "quick",
+      "title": "Cơm trứng và rau",
+      "components": {
+        "MAIN": [
+          "Cơm trứng (cơm 180 g, trứng 100 g, dầu 3 g)",
+          283
+        ],
+        "SIDE": [
+          "Rau luộc (rau 100 g)",
+          100
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Cơm trứng",
+          {
+            "rice": 180,
+            "egg": 100,
+            "oil": 3
+          }
+        ],
+        "SIDE": [
+          "Rau luộc",
+          {
+            "vegetables": 100
+          }
+        ]
+      },
+      "ingredients": [
+        "egg",
+        "oil",
+        "rice",
+        "vegetables"
+      ],
+      "prep_minutes": 12,
+      "macros": {
+        "carbs": 56.5,
+        "protein": 19.5,
+        "fat": 14.3,
+        "fiber": 2.7
+      },
+      "calories": 432.7,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d5-o2",
+      "day": 4,
+      "family": "soup",
+      "title": "Cháo gà",
+      "components": {
+        "MAIN": [
+          "Cháo gà (cơm 180 g, gà 100 g, rau 60 g)",
+          640
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Cháo gà",
+          {
+            "rice": 180,
+            "chicken": 100,
+            "vegetables": 60,
+            "water": 300
+          }
+        ]
+      },
+      "ingredients": [
+        "chicken",
+        "rice",
+        "vegetables"
+      ],
+      "prep_minutes": 30,
+      "macros": {
+        "carbs": 53.8,
+        "protein": 37.1,
+        "fat": 4.3,
+        "fiber": 1.9
+      },
+      "calories": 402.3,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d5-o3",
+      "day": 4,
+      "family": "balanced",
+      "title": "Yến mạch sữa và trứng",
+      "components": {
+        "MAIN": [
+          "Yến mạch sữa (yến mạch khô 55 g, sữa 200 g)",
+          255
+        ],
+        "SIDE": [
+          "Trứng luộc (trứng 50 g)",
+          50
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Yến mạch sữa",
+          {
+            "oats": 55,
+            "milk": 200
+          }
+        ],
+        "SIDE": [
+          "Trứng luộc",
+          {
+            "egg": 50
+          }
+        ]
+      },
+      "ingredients": [
+        "egg",
+        "milk",
+        "oats"
+      ],
+      "prep_minutes": 12,
+      "macros": {
+        "carbs": 47.2,
+        "protein": 20.1,
+        "fat": 15.6,
+        "fiber": 5.5
+      },
+      "calories": 409.6,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d6-o1",
+      "day": 5,
+      "family": "quick",
+      "title": "Bánh mì đậu phụ và chuối",
+      "components": {
+        "MAIN": [
+          "Bánh mì đậu phụ (bánh mì 90 g, đậu phụ 150 g, rau 50 g)",
+          290
+        ],
+        "SIDE": [
+          "Chuối (chuối 80 g)",
+          80
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Bánh mì đậu phụ",
+          {
+            "bread": 90,
+            "tofu": 150,
+            "vegetables": 50
+          }
+        ],
+        "SIDE": [
+          "Chuối",
+          {
+            "banana": 80
+          }
+        ]
+      },
+      "ingredients": [
+        "banana",
+        "bread",
+        "tofu",
+        "vegetables"
+      ],
+      "prep_minutes": 10,
+      "macros": {
+        "carbs": 67.8,
+        "protein": 22.0,
+        "fat": 10.4,
+        "fiber": 6.0
+      },
+      "calories": 452.8,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d6-o2",
+      "day": 5,
+      "family": "soup",
+      "title": "Bún bò rau cải",
+      "components": {
+        "MAIN": [
+          "Bún bò rau cải (bánh phở/bún/miến 200 g, bò 90 g, rau 80 g)",
+          620
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Bún bò rau cải",
+          {
+            "noodles": 200,
+            "beef": 90,
+            "vegetables": 80,
+            "water": 250
+          }
+        ]
+      },
+      "ingredients": [
+        "beef",
+        "noodles",
+        "vegetables"
+      ],
+      "prep_minutes": 30,
+      "macros": {
+        "carbs": 54.0,
+        "protein": 28.6,
+        "fat": 9.6,
+        "fiber": 3.6
+      },
+      "calories": 416.8,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d6-o3",
+      "day": 5,
+      "family": "balanced",
+      "title": "Khoai lang, sữa chua và trứng",
+      "components": {
+        "MAIN": [
+          "Khoai lang hấp (khoai lang 220 g)",
+          220
+        ],
+        "SIDE": [
+          "Trứng luộc (trứng 100 g)",
+          100
+        ],
+        "DRINK": [
+          "Sữa chua không đường (sữa chua 100 g)",
+          100
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Khoai lang hấp",
+          {
+            "sweet_potato": 220
+          }
+        ],
+        "SIDE": [
+          "Trứng luộc",
+          {
+            "egg": 100
+          }
+        ],
+        "DRINK": [
+          "Sữa chua không đường",
+          {
+            "yogurt": 100
+          }
+        ]
+      },
+      "ingredients": [
+        "egg",
+        "sweet_potato",
+        "yogurt"
+      ],
+      "prep_minutes": 20,
+      "macros": {
+        "carbs": 49.4,
+        "protein": 19.6,
+        "fat": 14.1,
+        "fiber": 6.6
+      },
+      "calories": 402.9,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d7-o1",
+      "day": 6,
+      "family": "quick",
+      "title": "Xôi trứng và rau",
+      "components": {
+        "MAIN": [
+          "Xôi trứng (ước tính theo cơm chín) (cơm 200 g, trứng 100 g, dầu 3 g)",
+          303
+        ],
+        "SIDE": [
+          "Rau ăn kèm (rau 80 g)",
+          80
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Xôi trứng (ước tính theo cơm chín)",
+          {
+            "rice": 200,
+            "egg": 100,
+            "oil": 3
+          }
+        ],
+        "SIDE": [
+          "Rau ăn kèm",
+          {
+            "vegetables": 80
+          }
+        ]
+      },
+      "ingredients": [
+        "egg",
+        "oil",
+        "rice",
+        "vegetables"
+      ],
+      "prep_minutes": 20,
+      "macros": {
+        "carbs": 61.1,
+        "protein": 19.6,
+        "fat": 14.4,
+        "fiber": 2.4
+      },
+      "calories": 452.4,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d7-o2",
+      "day": 6,
+      "family": "soup",
+      "title": "Cháo thịt heo",
+      "components": {
+        "MAIN": [
+          "Cháo thịt heo (cơm 180 g, heo 100 g, rau 60 g)",
+          640
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Cháo thịt heo",
+          {
+            "rice": 180,
+            "pork": 100,
+            "vegetables": 60,
+            "water": 300
+          }
+        ]
+      },
+      "ingredients": [
+        "pork",
+        "rice",
+        "vegetables"
+      ],
+      "prep_minutes": 30,
+      "macros": {
+        "carbs": 53.8,
+        "protein": 33.1,
+        "fat": 9.7,
+        "fiber": 1.9
+      },
+      "calories": 434.9,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "breakfast-d7-o3",
+      "day": 6,
+      "family": "balanced",
+      "title": "Yến mạch chuối và đậu phụ",
+      "components": {
+        "MAIN": [
+          "Yến mạch nấu nước (yến mạch khô 65 g)",
+          245
+        ],
+        "SIDE": [
+          "Đậu phụ hấp (đậu phụ 150 g)",
+          150
+        ],
+        "DESSERT": [
+          "Chuối (chuối 100 g)",
+          100
+        ]
+      },
+      "component_recipes": {
+        "MAIN": [
+          "Yến mạch nấu nước",
+          {
+            "oats": 65,
+            "water": 180
+          }
+        ],
+        "SIDE": [
+          "Đậu phụ hấp",
+          {
+            "tofu": 150
+          }
+        ],
+        "DESSERT": [
+          "Chuối",
+          {
+            "banana": 100
+          }
+        ]
+      },
+      "ingredients": [
+        "banana",
+        "oats",
+        "tofu"
+      ],
+      "prep_minutes": 10,
+      "macros": {
+        "carbs": 69.4,
+        "protein": 21.6,
+        "fat": 12.1,
+        "fiber": 9.6
+      },
+      "calories": 472.9,
+      "meal_type": "breakfast",
+      "ingredient_labels": {
+        "bread": "bánh mì",
+        "rice": "cơm",
+        "noodles": "bánh phở/bún/miến",
+        "oats": "yến mạch khô",
+        "egg": "trứng",
+        "chicken": "gà",
+        "beef": "bò",
+        "pork": "heo",
+        "tofu": "đậu phụ",
+        "milk": "sữa",
+        "yogurt": "sữa chua",
+        "banana": "chuối",
+        "sweet_potato": "khoai lang",
+        "vegetables": "rau",
+        "oil": "dầu",
+        "water": "nước dùng"
+      }
+    },
+    {
+      "template_id": "lunch-d1-o1",
+      "day": 0,
+      "family": "pork_beef",
+      "title": "Mâm cơm trưa: Thịt heo nạc kho tiêu",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Thịt heo nạc kho tiêu",
+          130
+        ],
+        "SOUP": [
+          "Canh bí xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Rau muống luộc",
+          150
+        ],
+        "DESSERT": [
+          "Thanh long",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 78,
+        "protein": 38,
+        "fat": 20,
+        "fiber": 7.0
+      },
+      "calories": 644,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d1-o2",
+      "day": 0,
+      "family": "fish_seafood",
+      "title": "Mâm cơm trưa: Cá thu kho cà chua",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá thu kho cà chua",
+          130
+        ],
+        "SOUP": [
+          "Canh bí xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Rau muống luộc",
+          150
+        ],
+        "DESSERT": [
+          "Thanh long",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 75,
+        "protein": 40,
+        "fat": 19,
+        "fiber": 7.0
+      },
+      "calories": 631,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d1-o3",
+      "day": 0,
+      "family": "poultry",
+      "title": "Mâm cơm trưa: Gà kho gừng",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà kho gừng",
+          130
+        ],
+        "SOUP": [
+          "Canh bí xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Rau muống luộc",
+          150
+        ],
+        "DESSERT": [
+          "Thanh long",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 80,
+        "protein": 37,
+        "fat": 18,
+        "fiber": 7.0
+      },
+      "calories": 630,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d2-o1",
+      "day": 1,
+      "family": "pork_beef",
+      "title": "Mâm cơm trưa: Bò xào hành tây",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Bò xào hành tây",
+          130
+        ],
+        "SOUP": [
+          "Canh rau ngót",
+          200
+        ],
+        "VEGGIE": [
+          "Bông cải hấp",
+          150
+        ],
+        "DESSERT": [
+          "Đu đủ",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 78,
+        "protein": 38,
+        "fat": 20,
+        "fiber": 7.0
+      },
+      "calories": 644,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d2-o2",
+      "day": 1,
+      "family": "fish_seafood",
+      "title": "Mâm cơm trưa: Cá hồi áp chảo",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá hồi áp chảo",
+          130
+        ],
+        "SOUP": [
+          "Canh rau ngót",
+          200
+        ],
+        "VEGGIE": [
+          "Bông cải hấp",
+          150
+        ],
+        "DESSERT": [
+          "Đu đủ",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 75,
+        "protein": 40,
+        "fat": 19,
+        "fiber": 7.0
+      },
+      "calories": 631,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d2-o3",
+      "day": 1,
+      "family": "poultry",
+      "title": "Mâm cơm trưa: Gà luộc bỏ da",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà luộc bỏ da",
+          130
+        ],
+        "SOUP": [
+          "Canh rau ngót",
+          200
+        ],
+        "VEGGIE": [
+          "Bông cải hấp",
+          150
+        ],
+        "DESSERT": [
+          "Đu đủ",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 80,
+        "protein": 37,
+        "fat": 18,
+        "fiber": 7.0
+      },
+      "calories": 630,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d3-o1",
+      "day": 2,
+      "family": "pork_beef",
+      "title": "Mâm cơm trưa: Thịt heo nạc rim sả",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Thịt heo nạc rim sả",
+          130
+        ],
+        "SOUP": [
+          "Canh cải xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Cải thìa luộc",
+          150
+        ],
+        "DESSERT": [
+          "Cam",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 78,
+        "protein": 38,
+        "fat": 20,
+        "fiber": 7.0
+      },
+      "calories": 644,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d3-o2",
+      "day": 2,
+      "family": "fish_seafood",
+      "title": "Mâm cơm trưa: Cá basa kho nghệ",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá basa kho nghệ",
+          130
+        ],
+        "SOUP": [
+          "Canh cải xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Cải thìa luộc",
+          150
+        ],
+        "DESSERT": [
+          "Cam",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 75,
+        "protein": 40,
+        "fat": 19,
+        "fiber": 7.0
+      },
+      "calories": 631,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d3-o3",
+      "day": 2,
+      "family": "poultry",
+      "title": "Mâm cơm trưa: Gà kho nấm",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà kho nấm",
+          130
+        ],
+        "SOUP": [
+          "Canh cải xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Cải thìa luộc",
+          150
+        ],
+        "DESSERT": [
+          "Cam",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 80,
+        "protein": 37,
+        "fat": 18,
+        "fiber": 7.0
+      },
+      "calories": 630,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d4-o1",
+      "day": 3,
+      "family": "pork_beef",
+      "title": "Mâm cơm trưa: Bò xào bông cải",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Bò xào bông cải",
+          130
+        ],
+        "SOUP": [
+          "Canh bầu",
+          200
+        ],
+        "VEGGIE": [
+          "Đậu que luộc",
+          150
+        ],
+        "DESSERT": [
+          "Chuối",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 78,
+        "protein": 38,
+        "fat": 20,
+        "fiber": 7.0
+      },
+      "calories": 644,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d4-o2",
+      "day": 3,
+      "family": "fish_seafood",
+      "title": "Mâm cơm trưa: Tôm hấp sả",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Tôm hấp sả",
+          130
+        ],
+        "SOUP": [
+          "Canh bầu",
+          200
+        ],
+        "VEGGIE": [
+          "Đậu que luộc",
+          150
+        ],
+        "DESSERT": [
+          "Chuối",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 75,
+        "protein": 40,
+        "fat": 19,
+        "fiber": 7.0
+      },
+      "calories": 631,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d4-o3",
+      "day": 3,
+      "family": "poultry",
+      "title": "Mâm cơm trưa: Gà nướng lá chanh",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà nướng lá chanh",
+          130
+        ],
+        "SOUP": [
+          "Canh bầu",
+          200
+        ],
+        "VEGGIE": [
+          "Đậu que luộc",
+          150
+        ],
+        "DESSERT": [
+          "Chuối",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 80,
+        "protein": 37,
+        "fat": 18,
+        "fiber": 7.0
+      },
+      "calories": 630,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d5-o1",
+      "day": 4,
+      "family": "pork_beef",
+      "title": "Mâm cơm trưa: Thịt heo nạc luộc",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Thịt heo nạc luộc",
+          130
+        ],
+        "SOUP": [
+          "Canh mồng tơi",
+          200
+        ],
+        "VEGGIE": [
+          "Cải ngọt hấp",
+          150
+        ],
+        "DESSERT": [
+          "Ổi",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 78,
+        "protein": 38,
+        "fat": 20,
+        "fiber": 7.0
+      },
+      "calories": 644,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d5-o2",
+      "day": 4,
+      "family": "fish_seafood",
+      "title": "Mâm cơm trưa: Cá rô phi hấp gừng",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá rô phi hấp gừng",
+          130
+        ],
+        "SOUP": [
+          "Canh mồng tơi",
+          200
+        ],
+        "VEGGIE": [
+          "Cải ngọt hấp",
+          150
+        ],
+        "DESSERT": [
+          "Ổi",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 75,
+        "protein": 40,
+        "fat": 19,
+        "fiber": 7.0
+      },
+      "calories": 631,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d5-o3",
+      "day": 4,
+      "family": "poultry",
+      "title": "Mâm cơm trưa: Gà xào ớt chuông",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà xào ớt chuông",
+          130
+        ],
+        "SOUP": [
+          "Canh mồng tơi",
+          200
+        ],
+        "VEGGIE": [
+          "Cải ngọt hấp",
+          150
+        ],
+        "DESSERT": [
+          "Ổi",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 80,
+        "protein": 37,
+        "fat": 18,
+        "fiber": 7.0
+      },
+      "calories": 630,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d6-o1",
+      "day": 5,
+      "family": "pork_beef",
+      "title": "Mâm cơm trưa: Bò kho cà rốt",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Bò kho cà rốt",
+          130
+        ],
+        "SOUP": [
+          "Canh nấm",
+          200
+        ],
+        "VEGGIE": [
+          "Rau dền luộc",
+          150
+        ],
+        "DESSERT": [
+          "Dưa hấu",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 78,
+        "protein": 38,
+        "fat": 20,
+        "fiber": 7.0
+      },
+      "calories": 644,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d6-o2",
+      "day": 5,
+      "family": "fish_seafood",
+      "title": "Mâm cơm trưa: Cá lóc kho tiêu",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá lóc kho tiêu",
+          130
+        ],
+        "SOUP": [
+          "Canh nấm",
+          200
+        ],
+        "VEGGIE": [
+          "Rau dền luộc",
+          150
+        ],
+        "DESSERT": [
+          "Dưa hấu",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 75,
+        "protein": 40,
+        "fat": 19,
+        "fiber": 7.0
+      },
+      "calories": 631,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d6-o3",
+      "day": 5,
+      "family": "poultry",
+      "title": "Mâm cơm trưa: Gà hấp hành",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà hấp hành",
+          130
+        ],
+        "SOUP": [
+          "Canh nấm",
+          200
+        ],
+        "VEGGIE": [
+          "Rau dền luộc",
+          150
+        ],
+        "DESSERT": [
+          "Dưa hấu",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 80,
+        "protein": 37,
+        "fat": 18,
+        "fiber": 7.0
+      },
+      "calories": 630,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d7-o1",
+      "day": 6,
+      "family": "pork_beef",
+      "title": "Mâm cơm trưa: Thịt heo nạc kho trứng",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Thịt heo nạc kho trứng",
+          130
+        ],
+        "SOUP": [
+          "Canh bí đỏ",
+          200
+        ],
+        "VEGGIE": [
+          "Su su luộc",
+          150
+        ],
+        "DESSERT": [
+          "Táo",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 78,
+        "protein": 38,
+        "fat": 20,
+        "fiber": 7.0
+      },
+      "calories": 644,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d7-o2",
+      "day": 6,
+      "family": "fish_seafood",
+      "title": "Mâm cơm trưa: Cá diêu hồng sốt cà",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá diêu hồng sốt cà",
+          130
+        ],
+        "SOUP": [
+          "Canh bí đỏ",
+          200
+        ],
+        "VEGGIE": [
+          "Su su luộc",
+          150
+        ],
+        "DESSERT": [
+          "Táo",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 75,
+        "protein": 40,
+        "fat": 19,
+        "fiber": 7.0
+      },
+      "calories": 631,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "lunch-d7-o3",
+      "day": 6,
+      "family": "poultry",
+      "title": "Mâm cơm trưa: Gà kho sả",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà kho sả",
+          130
+        ],
+        "SOUP": [
+          "Canh bí đỏ",
+          200
+        ],
+        "VEGGIE": [
+          "Su su luộc",
+          150
+        ],
+        "DESSERT": [
+          "Táo",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 80,
+        "protein": 37,
+        "fat": 18,
+        "fiber": 7.0
+      },
+      "calories": 630,
+      "meal_type": "lunch"
+    },
+    {
+      "template_id": "dinner-d1-o1",
+      "day": 0,
+      "family": "pork_beef",
+      "title": "Mâm cơm tối: Thịt heo nạc hấp gừng",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Thịt heo nạc hấp gừng",
+          130
+        ],
+        "SOUP": [
+          "Canh bí xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Rau muống luộc",
+          150
+        ],
+        "DESSERT": [
+          "Thanh long",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 58.5,
+        "protein": 32.3,
+        "fat": 14.0,
+        "fiber": 7.0
+      },
+      "calories": 489.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d1-o2",
+      "day": 0,
+      "family": "fish_seafood",
+      "title": "Mâm cơm tối: Cá lóc hấp hành",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá lóc hấp hành",
+          130
+        ],
+        "SOUP": [
+          "Canh bí xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Rau muống luộc",
+          150
+        ],
+        "DESSERT": [
+          "Thanh long",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 56.25,
+        "protein": 34.0,
+        "fat": 13.299999999999999,
+        "fiber": 7.0
+      },
+      "calories": 480.7,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d1-o3",
+      "day": 0,
+      "family": "poultry",
+      "title": "Mâm cơm tối: Gà luộc bỏ da",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà luộc bỏ da",
+          130
+        ],
+        "SOUP": [
+          "Canh bí xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Rau muống luộc",
+          150
+        ],
+        "DESSERT": [
+          "Thanh long",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 60.0,
+        "protein": 31.45,
+        "fat": 12.6,
+        "fiber": 7.0
+      },
+      "calories": 479.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d2-o1",
+      "day": 1,
+      "family": "pork_beef",
+      "title": "Mâm cơm tối: Bò luộc cuốn rau",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Bò luộc cuốn rau",
+          130
+        ],
+        "SOUP": [
+          "Canh rau ngót",
+          200
+        ],
+        "VEGGIE": [
+          "Bông cải hấp",
+          150
+        ],
+        "DESSERT": [
+          "Đu đủ",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 58.5,
+        "protein": 32.3,
+        "fat": 14.0,
+        "fiber": 7.0
+      },
+      "calories": 489.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d2-o2",
+      "day": 1,
+      "family": "fish_seafood",
+      "title": "Mâm cơm tối: Tôm hấp",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Tôm hấp",
+          130
+        ],
+        "SOUP": [
+          "Canh rau ngót",
+          200
+        ],
+        "VEGGIE": [
+          "Bông cải hấp",
+          150
+        ],
+        "DESSERT": [
+          "Đu đủ",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 56.25,
+        "protein": 34.0,
+        "fat": 13.299999999999999,
+        "fiber": 7.0
+      },
+      "calories": 480.7,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d2-o3",
+      "day": 1,
+      "family": "poultry",
+      "title": "Mâm cơm tối: Gà hấp nấm",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà hấp nấm",
+          130
+        ],
+        "SOUP": [
+          "Canh rau ngót",
+          200
+        ],
+        "VEGGIE": [
+          "Bông cải hấp",
+          150
+        ],
+        "DESSERT": [
+          "Đu đủ",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 60.0,
+        "protein": 31.45,
+        "fat": 12.6,
+        "fiber": 7.0
+      },
+      "calories": 479.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d3-o1",
+      "day": 2,
+      "family": "pork_beef",
+      "title": "Mâm cơm tối: Thịt heo nạc luộc",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Thịt heo nạc luộc",
+          130
+        ],
+        "SOUP": [
+          "Canh cải xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Cải thìa luộc",
+          150
+        ],
+        "DESSERT": [
+          "Cam",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 58.5,
+        "protein": 32.3,
+        "fat": 14.0,
+        "fiber": 7.0
+      },
+      "calories": 489.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d3-o2",
+      "day": 2,
+      "family": "fish_seafood",
+      "title": "Mâm cơm tối: Cá diêu hồng hấp",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá diêu hồng hấp",
+          130
+        ],
+        "SOUP": [
+          "Canh cải xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Cải thìa luộc",
+          150
+        ],
+        "DESSERT": [
+          "Cam",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 56.25,
+        "protein": 34.0,
+        "fat": 13.299999999999999,
+        "fiber": 7.0
+      },
+      "calories": 480.7,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d3-o3",
+      "day": 2,
+      "family": "poultry",
+      "title": "Mâm cơm tối: Gà hấp lá chanh",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà hấp lá chanh",
+          130
+        ],
+        "SOUP": [
+          "Canh cải xanh",
+          200
+        ],
+        "VEGGIE": [
+          "Cải thìa luộc",
+          150
+        ],
+        "DESSERT": [
+          "Cam",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 60.0,
+        "protein": 31.45,
+        "fat": 12.6,
+        "fiber": 7.0
+      },
+      "calories": 479.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d4-o1",
+      "day": 3,
+      "family": "pork_beef",
+      "title": "Mâm cơm tối: Bò áp chảo ít dầu",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Bò áp chảo ít dầu",
+          130
+        ],
+        "SOUP": [
+          "Canh bầu",
+          200
+        ],
+        "VEGGIE": [
+          "Đậu que luộc",
+          150
+        ],
+        "DESSERT": [
+          "Chuối",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 58.5,
+        "protein": 32.3,
+        "fat": 14.0,
+        "fiber": 7.0
+      },
+      "calories": 489.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d4-o2",
+      "day": 3,
+      "family": "fish_seafood",
+      "title": "Mâm cơm tối: Cá thu hấp gừng",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá thu hấp gừng",
+          130
+        ],
+        "SOUP": [
+          "Canh bầu",
+          200
+        ],
+        "VEGGIE": [
+          "Đậu que luộc",
+          150
+        ],
+        "DESSERT": [
+          "Chuối",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 56.25,
+        "protein": 34.0,
+        "fat": 13.299999999999999,
+        "fiber": 7.0
+      },
+      "calories": 480.7,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d4-o3",
+      "day": 3,
+      "family": "poultry",
+      "title": "Mâm cơm tối: Gà luộc gừng",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà luộc gừng",
+          130
+        ],
+        "SOUP": [
+          "Canh bầu",
+          200
+        ],
+        "VEGGIE": [
+          "Đậu que luộc",
+          150
+        ],
+        "DESSERT": [
+          "Chuối",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 60.0,
+        "protein": 31.45,
+        "fat": 12.6,
+        "fiber": 7.0
+      },
+      "calories": 479.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d5-o1",
+      "day": 4,
+      "family": "pork_beef",
+      "title": "Mâm cơm tối: Thịt heo nạc hấp nấm",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Thịt heo nạc hấp nấm",
+          130
+        ],
+        "SOUP": [
+          "Canh mồng tơi",
+          200
+        ],
+        "VEGGIE": [
+          "Cải ngọt hấp",
+          150
+        ],
+        "DESSERT": [
+          "Ổi",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 58.5,
+        "protein": 32.3,
+        "fat": 14.0,
+        "fiber": 7.0
+      },
+      "calories": 489.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d5-o2",
+      "day": 4,
+      "family": "fish_seafood",
+      "title": "Mâm cơm tối: Cá hồi hấp",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá hồi hấp",
+          130
+        ],
+        "SOUP": [
+          "Canh mồng tơi",
+          200
+        ],
+        "VEGGIE": [
+          "Cải ngọt hấp",
+          150
+        ],
+        "DESSERT": [
+          "Ổi",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 56.25,
+        "protein": 34.0,
+        "fat": 13.299999999999999,
+        "fiber": 7.0
+      },
+      "calories": 480.7,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d5-o3",
+      "day": 4,
+      "family": "poultry",
+      "title": "Mâm cơm tối: Gà hấp hành",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà hấp hành",
+          130
+        ],
+        "SOUP": [
+          "Canh mồng tơi",
+          200
+        ],
+        "VEGGIE": [
+          "Cải ngọt hấp",
+          150
+        ],
+        "DESSERT": [
+          "Ổi",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 60.0,
+        "protein": 31.45,
+        "fat": 12.6,
+        "fiber": 7.0
+      },
+      "calories": 479.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d6-o1",
+      "day": 5,
+      "family": "pork_beef",
+      "title": "Mâm cơm tối: Bò hầm rau củ",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Bò hầm rau củ",
+          130
+        ],
+        "SOUP": [
+          "Canh nấm",
+          200
+        ],
+        "VEGGIE": [
+          "Rau dền luộc",
+          150
+        ],
+        "DESSERT": [
+          "Dưa hấu",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 58.5,
+        "protein": 32.3,
+        "fat": 14.0,
+        "fiber": 7.0
+      },
+      "calories": 489.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d6-o2",
+      "day": 5,
+      "family": "fish_seafood",
+      "title": "Mâm cơm tối: Cá basa hấp sả",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá basa hấp sả",
+          130
+        ],
+        "SOUP": [
+          "Canh nấm",
+          200
+        ],
+        "VEGGIE": [
+          "Rau dền luộc",
+          150
+        ],
+        "DESSERT": [
+          "Dưa hấu",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 56.25,
+        "protein": 34.0,
+        "fat": 13.299999999999999,
+        "fiber": 7.0
+      },
+      "calories": 480.7,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d6-o3",
+      "day": 5,
+      "family": "poultry",
+      "title": "Mâm cơm tối: Gà luộc bỏ da",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà luộc bỏ da",
+          130
+        ],
+        "SOUP": [
+          "Canh nấm",
+          200
+        ],
+        "VEGGIE": [
+          "Rau dền luộc",
+          150
+        ],
+        "DESSERT": [
+          "Dưa hấu",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 60.0,
+        "protein": 31.45,
+        "fat": 12.6,
+        "fiber": 7.0
+      },
+      "calories": 479.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d7-o1",
+      "day": 6,
+      "family": "pork_beef",
+      "title": "Mâm cơm tối: Thịt heo nạc luộc sả",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Thịt heo nạc luộc sả",
+          130
+        ],
+        "SOUP": [
+          "Canh bí đỏ",
+          200
+        ],
+        "VEGGIE": [
+          "Su su luộc",
+          150
+        ],
+        "DESSERT": [
+          "Táo",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 58.5,
+        "protein": 32.3,
+        "fat": 14.0,
+        "fiber": 7.0
+      },
+      "calories": 489.2,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d7-o2",
+      "day": 6,
+      "family": "fish_seafood",
+      "title": "Mâm cơm tối: Cá rô phi hấp",
+      "components": {
+        "CARB": [
+          "Cơm gạo lứt",
+          180
+        ],
+        "PROTEIN": [
+          "Cá rô phi hấp",
+          130
+        ],
+        "SOUP": [
+          "Canh bí đỏ",
+          200
+        ],
+        "VEGGIE": [
+          "Su su luộc",
+          150
+        ],
+        "DESSERT": [
+          "Táo",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 56.25,
+        "protein": 34.0,
+        "fat": 13.299999999999999,
+        "fiber": 7.0
+      },
+      "calories": 480.7,
+      "meal_type": "dinner"
+    },
+    {
+      "template_id": "dinner-d7-o3",
+      "day": 6,
+      "family": "poultry",
+      "title": "Mâm cơm tối: Gà hấp gừng",
+      "components": {
+        "CARB": [
+          "Cơm gạo trắng",
+          180
+        ],
+        "PROTEIN": [
+          "Gà hấp gừng",
+          130
+        ],
+        "SOUP": [
+          "Canh bí đỏ",
+          200
+        ],
+        "VEGGIE": [
+          "Su su luộc",
+          150
+        ],
+        "DESSERT": [
+          "Táo",
+          100
+        ]
+      },
+      "macros": {
+        "carbs": 60.0,
+        "protein": 31.45,
+        "fat": 12.6,
+        "fiber": 7.0
+      },
+      "calories": 479.2,
+      "meal_type": "dinner"
+    }
+  ]
+}

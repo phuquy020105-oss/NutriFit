@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f7f8f5" />
+  <meta name="description" content="NutriFit Studio – Không gian quản lý dinh dưỡng, thực đơn, luyện tập và AI." />
+  <title>NutriFit Studio | Khỏe hơn mỗi ngày</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/studio.css" />
+</head>
+<body>
+<div class="shell" id="shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="logo" href="#dashboard" aria-label="NutriFit Studio"><span class="logo-mark"><span class="logo-leaf">✳</span></span><span class="logo-copy">nutri<span>fit</span><small>YOUR WELLNESS SPACE</small></span></a>
+    <div class="workspace-switch"><span class="ws-icon">✦</span><span><b>Không gian của bạn</b><small>Personal wellness</small></span><span class="ws-chevrons">⌄</span></div>
+    <div class="nav-caption">KHÁM PHÁ</div>
+    <nav id="main-nav" class="navigation" aria-label="Điều hướng chính"></nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-promo"><span class="promo-sparkle">✦</span><span class="promo-eyebrow">NUTRIFIT PREMIUM</span><strong>Đầu tư cho một phiên bản khỏe mạnh hơn</strong><button type="button" data-page="premium">Khám phá gói Pro <span>↗</span></button></div>
+      <a class="legacy-link" href="legacy/index.html" title="Mở giao diện cũ đầy đủ chức năng">↗ <span>Giao diện gốc</span></a>
+      <button type="button" class="user-switch" data-action="profile"><span class="user-avatar" id="sidebar-avatar">N</span><span class="user-meta"><b id="sidebar-user">Bạn của NutriFit</b><small id="sidebar-user-plan">Khách tham quan</small></span><span class="user-dots">•••</span></button>
+    </div>
+  </aside>
+  <div class="main-area">
+    <header class="topbar">
+      <div class="top-left"><button type="button" class="icon-button mobile-menu" data-action="toggle-menu" aria-label="Mở menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" /></svg></button><span class="crumb">Ứng dụng</span><span class="crumb-sep">/</span><strong id="page-crumb">Tổng quan</strong></div>
+      <div class="top-right"><div class="status-pill" id="connection-status"><span class="status-dot"></span><span>Đang kiểm tra</span></div><button type="button" class="icon-button" data-action="refresh" aria-label="Tải lại dữ liệu" title="Tải lại dữ liệu"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9a7 7 0 0 1 12-2l2.5 5M18.5 15a7 7 0 0 1-12 2L4 12"/></svg></button><button type="button" class="top-avatar" data-action="profile" aria-label="Tài khoản">N</button></div>
+    </header>
+    <main id="page-content" class="page-content" tabindex="-1"></main>
+    <footer class="site-footer"><span>© 2026 NutriFit Studio</span><span>Được tạo để mỗi ngày tốt hơn một chút <span class="heart">♥</span></span></footer>
+  </div>
+</div>
+<div id="modal-root"></div>
+<div id="toast-root" role="status" aria-live="polite"></div>
+<script src="js/studio.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,480 @@
+{
+  "mode": "in_memory_baseline_replay",
+  "database_writes": 0,
+  "gemini_requests": 0,
+  "new_draft_nutritional_replay": "NOT_RUN: all 40 drafts PENDING; no invented values",
+  "results": [
+    {
+      "meal_type": "lunch",
+      "target_kcal": 891,
+      "macro_targets": {
+        "protein": 55.7,
+        "carbs": 100.2,
+        "fat": 29.7
+      },
+      "preferences": {
+        "avoid": [
+          "fish"
+        ]
+      },
+      "catalog_scope": "81 existing KEEP_VIETNAM_FOCUS records, read-only MySQL capture; no PENDING drafts",
+      "candidate_count": 32,
+      "candidate_ms": 86.86,
+      "fallback_ms": 196.16,
+      "diversity": {
+        "score": 0.9931972789115646,
+        "penalty": 0.0004761904761904762,
+        "repetition": {
+          "carb": 0.0,
+          "primary": 0.0,
+          "overlap": 0.047619047619047616
+        },
+        "shared_components": [
+          0,
+          0,
+          1
+        ]
+      },
+      "options": [
+        {
+          "dish_ids": [
+            "rice",
+            "beef",
+            "usda_169146",
+            "yogurt"
+          ],
+          "components": [
+            {
+              "dish_id": "rice",
+              "name": "Cơm trắng",
+              "grams": 241.71,
+              "kcal": 305.2797
+            },
+            {
+              "dish_id": "beef",
+              "name": "Bò áp chảo",
+              "grams": 170.52,
+              "kcal": 366.7459
+            },
+            {
+              "dish_id": "usda_169146",
+              "name": "Củ dền luộc",
+              "grams": 160.55,
+              "kcal": 70.642
+            },
+            {
+              "dish_id": "yogurt",
+              "name": "Sữa chua không đường",
+              "grams": 164.06,
+              "kcal": 102.5375
+            }
+          ],
+          "kcal": 845.2,
+          "macros": {
+            "carbs": 91.9,
+            "protein": 58.0,
+            "fat": 28.1,
+            "fiber": 4.2
+          },
+          "mass_g": 736.84,
+          "quality_score": 0.0285141380815781
+        },
+        {
+          "dish_ids": [
+            "usda_172688",
+            "usda_173735",
+            "tofu_vegetables",
+            "usda_171705"
+          ],
+          "components": [
+            {
+              "dish_id": "usda_172688",
+              "name": "Bánh mì nguyên cám",
+              "grams": 102.5,
+              "kcal": 258.3
+            },
+            {
+              "dish_id": "usda_173735",
+              "name": "Đậu đen luộc không muối",
+              "grams": 193.29,
+              "kcal": 255.1428
+            },
+            {
+              "dish_id": "tofu_vegetables",
+              "name": "Rau hấp với đậu phụ",
+              "grams": 219.3,
+              "kcal": 117.008
+            },
+            {
+              "dish_id": "usda_171705",
+              "name": "Quả bơ tươi, phần ăn được",
+              "grams": 126.51,
+              "kcal": 202.416
+            }
+          ],
+          "kcal": 832.9,
+          "macros": {
+            "carbs": 108.3,
+            "protein": 42.7,
+            "fat": 28.1,
+            "fiber": 34.2
+          },
+          "mass_g": 641.6,
+          "quality_score": 0.06761553237174665
+        },
+        {
+          "dish_ids": [
+            "usda_169704",
+            "chicken_oil",
+            "usda_169238",
+            "usda_171705"
+          ],
+          "components": [
+            {
+              "dish_id": "usda_169704",
+              "name": "Cơm gạo lứt hạt dài, chín",
+              "grams": 272.81,
+              "kcal": 335.5563
+            },
+            {
+              "dish_id": "chicken_oil",
+              "name": "Gà áp chảo ít dầu",
+              "grams": 144.46,
+              "kcal": 265.7215
+            },
+            {
+              "dish_id": "usda_169238",
+              "name": "Cải xoăn luộc không muối",
+              "grams": 153.52,
+              "kcal": 55.2672
+            },
+            {
+              "dish_id": "usda_171705",
+              "name": "Quả bơ tươi, phần ăn được",
+              "grams": 109.38,
+              "kcal": 175.008
+            }
+          ],
+          "kcal": 831.6,
+          "macros": {
+            "carbs": 87.3,
+            "protein": 57.3,
+            "fat": 30.9,
+            "fiber": 17.8
+          },
+          "mass_g": 680.1700000000001,
+          "quality_score": 0.038103000737998716
+        }
+      ]
+    },
+    {
+      "meal_type": "dinner",
+      "target_kcal": 600,
+      "macro_targets": {
+        "protein": 37.5,
+        "carbs": 67.5,
+        "fat": 20
+      },
+      "preferences": {
+        "avoid": [
+          "fish",
+          "milk"
+        ]
+      },
+      "catalog_scope": "81 existing KEEP_VIETNAM_FOCUS records, read-only MySQL capture; no PENDING drafts",
+      "candidate_count": 32,
+      "candidate_ms": 81.59,
+      "fallback_ms": 186.8,
+      "diversity": {
+        "score": 0.9920634920634921,
+        "penalty": 0.0005555555555555556,
+        "repetition": {
+          "carb": 0.0,
+          "primary": 0.0,
+          "overlap": 0.05555555555555555
+        },
+        "shared_components": [
+          0,
+          0,
+          1
+        ]
+      },
+      "options": [
+        {
+          "dish_ids": [
+            "usda_169704",
+            "beef",
+            "usda_169146",
+            "usda_167762"
+          ],
+          "components": [
+            {
+              "dish_id": "usda_169704",
+              "name": "Cơm gạo lứt hạt dài, chín",
+              "grams": 177.74,
+              "kcal": 218.6202
+            },
+            {
+              "dish_id": "beef",
+              "name": "Bò áp chảo",
+              "grams": 129.17,
+              "kcal": 277.8124
+            },
+            {
+              "dish_id": "usda_169146",
+              "name": "Củ dền luộc",
+              "grams": 150.0,
+              "kcal": 66.0
+            },
+            {
+              "dish_id": "usda_167762",
+              "name": "Dâu tây tươi",
+              "grams": 100.0,
+              "kcal": 32.0
+            }
+          ],
+          "kcal": 594.4,
+          "macros": {
+            "carbs": 68.1,
+            "protein": 40.6,
+            "fat": 18.7,
+            "fiber": 7.8
+          },
+          "mass_g": 556.91,
+          "quality_score": 0.006970604032321812
+        },
+        {
+          "dish_ids": [
+            "usda_172818",
+            "tofu",
+            "tofu_vegetables"
+          ],
+          "components": [
+            {
+              "dish_id": "usda_172818",
+              "name": "Bánh mì trắng không muối",
+              "grams": 106.25,
+              "kcal": 283.6875
+            },
+            {
+              "dish_id": "tofu",
+              "name": "Đậu phụ hấp",
+              "grams": 222.19,
+              "kcal": 183.9733
+            },
+            {
+              "dish_id": "tofu_vegetables",
+              "name": "Rau hấp với đậu phụ",
+              "grams": 205.31,
+              "kcal": 109.5436
+            }
+          ],
+          "kcal": 577.2,
+          "macros": {
+            "carbs": 64.4,
+            "protein": 36.1,
+            "fat": 19.1,
+            "fiber": 5.7
+          },
+          "mass_g": 533.75,
+          "quality_score": 0.02009565392966567
+        },
+        {
+          "dish_ids": [
+            "usda_172688",
+            "usda_173735",
+            "tofu_vegetables",
+            "usda_171705"
+          ],
+          "components": [
+            {
+              "dish_id": "usda_172688",
+              "name": "Bánh mì nguyên cám",
+              "grams": 68.75,
+              "kcal": 173.25
+            },
+            {
+              "dish_id": "usda_173735",
+              "name": "Đậu đen luộc không muối",
+              "grams": 135.94,
+              "kcal": 179.4408
+            },
+            {
+              "dish_id": "tofu_vegetables",
+              "name": "Rau hấp với đậu phụ",
+              "grams": 192.66,
+              "kcal": 102.7941
+            },
+            {
+              "dish_id": "usda_171705",
+              "name": "Quả bơ tươi, phần ăn được",
+              "grams": 88.27,
+              "kcal": 141.232
+            }
+          ],
+          "kcal": 596.7,
+          "macros": {
+            "carbs": 76.1,
+            "protein": 31.4,
+            "fat": 20.4,
+            "fiber": 24.3
+          },
+          "mass_g": 485.62,
+          "quality_score": 0.02684936560088573
+        }
+      ]
+    },
+    {
+      "meal_type": "breakfast",
+      "target_kcal": 600,
+      "macro_targets": {
+        "protein": 37.5,
+        "carbs": 67.5,
+        "fat": 20
+      },
+      "preferences": {
+        "avoid": [
+          "fish"
+        ],
+        "prefer": [
+          "chicken"
+        ]
+      },
+      "catalog_scope": "81 existing KEEP_VIETNAM_FOCUS records, read-only MySQL capture; no PENDING drafts",
+      "candidate_count": 17,
+      "candidate_ms": 32.65,
+      "fallback_ms": 153.85,
+      "diversity": {
+        "score": 0.9634920634920635,
+        "penalty": 0.002555555555555556,
+        "repetition": {
+          "carb": 0.0,
+          "primary": 0.0,
+          "overlap": 0.2555555555555556
+        },
+        "shared_components": [
+          1,
+          1,
+          2
+        ]
+      },
+      "options": [
+        {
+          "dish_ids": [
+            "pho_chicken",
+            "usda_171265",
+            "usda_171705"
+          ],
+          "components": [
+            {
+              "dish_id": "pho_chicken",
+              "name": "Phở gà",
+              "grams": 576.88,
+              "kcal": 370.729
+            },
+            {
+              "dish_id": "usda_171265",
+              "name": "Sữa bò nguyên kem 3,25%, bổ sung vitamin D",
+              "grams": 142.97,
+              "kcal": 87.2117
+            },
+            {
+              "dish_id": "usda_171705",
+              "name": "Quả bơ tươi, phần ăn được",
+              "grams": 88.28,
+              "kcal": 141.248
+            }
+          ],
+          "kcal": 599.2,
+          "macros": {
+            "carbs": 68.4,
+            "protein": 37.0,
+            "fat": 21.1,
+            "fiber": 9.1
+          },
+          "mass_g": 808.13,
+          "quality_score": 0.015709200036420398
+        },
+        {
+          "dish_ids": [
+            "bread_chicken",
+            "usda_172446",
+            "usda_171705"
+          ],
+          "components": [
+            {
+              "dish_id": "bread_chicken",
+              "name": "Bánh mì gà",
+              "grams": 214.36,
+              "kcal": 365.1322
+            },
+            {
+              "dish_id": "usda_172446",
+              "name": "Sữa đậu nành original/vanilla, không tăng cường vi chất",
+              "grams": 132.09,
+              "kcal": 71.3286
+            },
+            {
+              "dish_id": "usda_171705",
+              "name": "Quả bơ tươi, phần ăn được",
+              "grams": 88.06,
+              "kcal": 140.896
+            }
+          ],
+          "kcal": 577.4,
+          "macros": {
+            "carbs": 61.2,
+            "protein": 39.1,
+            "fat": 20.9,
+            "fiber": 10.0
+          },
+          "mass_g": 434.51,
+          "quality_score": 0.03995308062293265
+        },
+        {
+          "dish_ids": [
+            "breakfast_main_d5_o2",
+            "usda_170886",
+            "usda_172446",
+            "usda_171705"
+          ],
+          "components": [
+            {
+              "dish_id": "breakfast_main_d5_o2",
+              "name": "Cháo gà",
+              "grams": 457.16,
+              "kcal": 286.8807
+            },
+            {
+              "dish_id": "usda_170886",
+              "name": "Sữa chua plain ít béo",
+              "grams": 139.66,
+              "kcal": 87.9858
+            },
+            {
+              "dish_id": "usda_172446",
+              "name": "Sữa đậu nành original/vanilla, không tăng cường vi chất",
+              "grams": 142.97,
+              "kcal": 77.2038
+            },
+            {
+              "dish_id": "usda_171705",
+              "name": "Quả bơ tươi, phần ăn được",
+              "grams": 88.42,
+              "kcal": 141.472
+            }
+          ],
+          "kcal": 593.5,
+          "macros": {
+            "carbs": 64.8,
+            "protein": 40.2,
+            "fat": 20.7,
+            "fiber": 8.2
+          },
+          "mass_g": 828.21,
+          "quality_score": 0.032618121433919275
+        }
+      ]
+    }
+  ]
+}

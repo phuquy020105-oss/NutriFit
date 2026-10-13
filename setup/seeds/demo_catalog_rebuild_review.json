@@ -1,0 +1,965 @@
+{
+  "target": "NutriFitDB",
+  "baseline_table_count": 20,
+  "before_count": 141,
+  "after_count": 77,
+  "baseline_catalog_sha256": "50f868c4bc096e326159f1b51037b4750d2d0b943b8a509ccf62b1b41f1c81e6",
+  "classifications": [
+    {
+      "dish_id": "banana",
+      "name": "Chuối",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "beef",
+      "name": "Bò áp chảo",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "bread_chicken",
+      "name": "Bánh mì gà",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "bread_egg",
+      "name": "Bánh mì trứng",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d2_o1",
+      "name": "Xôi gà (ước tính theo cơm chín)",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d2_o3",
+      "name": "Khoai lang hấp",
+      "class": "C",
+      "reason": "Duplicate steamed sweet potato; representative sweet_potato retained"
+    },
+    {
+      "dish_id": "breakfast_main_d3_o1",
+      "name": "Bánh cuốn thịt (ước tính bánh gạo chín)",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d3_o2",
+      "name": "Bún mọc (thịt heo nạc)",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d3_o3",
+      "name": "Cháo yến mạch trứng",
+      "class": "D",
+      "reason": "Oat-based meal not selected for Vietnamese demo; historical snapshot retained"
+    },
+    {
+      "dish_id": "breakfast_main_d4_o2",
+      "name": "Miến gà (ước tính sợi chín)",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d5_o1",
+      "name": "Cơm trứng",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d5_o2",
+      "name": "Cháo gà",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d5_o3",
+      "name": "Yến mạch sữa",
+      "class": "D",
+      "reason": "Oat-based meal not selected for Vietnamese demo; historical snapshot retained"
+    },
+    {
+      "dish_id": "breakfast_main_d6_o1",
+      "name": "Bánh mì đậu phụ",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d6_o2",
+      "name": "Bún bò rau cải",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d6_o3",
+      "name": "Khoai lang hấp",
+      "class": "C",
+      "reason": "Duplicate steamed sweet potato; representative sweet_potato retained"
+    },
+    {
+      "dish_id": "breakfast_main_d7_o1",
+      "name": "Xôi trứng (ước tính theo cơm chín)",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d7_o2",
+      "name": "Cháo thịt heo",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "breakfast_main_d7_o3",
+      "name": "Yến mạch nấu nước",
+      "class": "D",
+      "reason": "Oat-based meal not selected for Vietnamese demo; historical snapshot retained"
+    },
+    {
+      "dish_id": "chicken",
+      "name": "Ức gà hấp",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "chicken_oil",
+      "name": "Gà áp chảo ít dầu",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "chicken_soup",
+      "name": "Canh rau thịt gà",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "eggs",
+      "name": "Trứng luộc",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "fish",
+      "name": "Cá hấp",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "oats_tofu",
+      "name": "Yến mạch đậu phụ",
+      "class": "D",
+      "reason": "Oat-based meal not selected for Vietnamese demo; historical snapshot retained"
+    },
+    {
+      "dish_id": "oats_yogurt",
+      "name": "Yến mạch sữa chua",
+      "class": "D",
+      "reason": "Oat-based meal not selected for Vietnamese demo; historical snapshot retained"
+    },
+    {
+      "dish_id": "pho_beef",
+      "name": "Phở bò",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "pho_chicken",
+      "name": "Phở gà",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "pork",
+      "name": "Heo nạc hấp",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "rice",
+      "name": "Cơm trắng",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "rice_noodles",
+      "name": "Bún chín",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "shrimp",
+      "name": "Tôm hấp",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "soup",
+      "name": "Canh rau",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "sweet_potato",
+      "name": "Khoai lang hấp",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "tofu",
+      "name": "Đậu phụ hấp",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "tofu_vegetables",
+      "name": "Rau hấp với đậu phụ",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "usda_167762",
+      "name": "Dâu tây tươi",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_167765",
+      "name": "Dưa hấu tươi",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_167776",
+      "name": "Lê Bartlett tươi",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_167793",
+      "name": "Táo Fuji có vỏ, sống",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_167904",
+      "name": "Heo thăn nướng, gồm nạc và mỡ",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_168390",
+      "name": "Măng tây luộc",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_168399",
+      "name": "Hạt bắp vàng đông lạnh luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_168409",
+      "name": "Dưa leo còn vỏ, sống",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_168449",
+      "name": "Bí đỏ luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_168463",
+      "name": "Rau chân vịt luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_168465",
+      "name": "Bí mùa hè crookneck/straightneck luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_168873",
+      "name": "Cám yến mạch nấu chín",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_168928",
+      "name": "Mì pasta luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169086",
+      "name": "Vải tươi, phần ăn được",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169089",
+      "name": "Nhãn tươi, phần ăn được",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169097",
+      "name": "Cam tươi, phần ăn được",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169105",
+      "name": "Quýt tươi, phần ăn được",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169124",
+      "name": "Dứa tươi",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169146",
+      "name": "Củ dền luộc",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169211",
+      "name": "Măng luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169229",
+      "name": "Cà tím luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169238",
+      "name": "Cải xoăn luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169249",
+      "name": "Xà lách lá xanh, sống",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169252",
+      "name": "Nấm trắng luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169261",
+      "name": "Đậu bắp luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169276",
+      "name": "Củ cải radish sống",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169704",
+      "name": "Cơm gạo lứt hạt dài, chín",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169910",
+      "name": "Xoài tươi",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169926",
+      "name": "Đu đủ tươi",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169967",
+      "name": "Bông cải xanh luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169976",
+      "name": "Bắp cải luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_169988",
+      "name": "Cần tây sống",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_170001",
+      "name": "Hành tây luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_170050",
+      "name": "Cà chua đỏ chín, nấu chín",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_170058",
+      "name": "Củ cải turnip luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_170394",
+      "name": "Cà rốt luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_170397",
+      "name": "Súp lơ trắng luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_170407",
+      "name": "Cải collard luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_170438",
+      "name": "Khoai tây luộc không muối, phần thịt",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_170872",
+      "name": "Sữa bò ít béo 1%, bổ sung vitamin A và D",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_170886",
+      "name": "Sữa chua plain ít béo",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_170887",
+      "name": "Sữa chua plain tách béo",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_171265",
+      "name": "Sữa bò nguyên kem 3,25%, bổ sung vitamin D",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_171269",
+      "name": "Sữa bò tách béo, bổ sung vitamin A và D",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_171477",
+      "name": "Ức gà nướng bỏ da",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_171705",
+      "name": "Quả bơ tươi, phần ăn được",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_171994",
+      "name": "Cá thu Thái Bình Dương, chín bằng nhiệt khô",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_171998",
+      "name": "Cá hồi Đại Tây Dương hoang dã, chín bằng nhiệt khô",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_172185",
+      "name": "Trứng omelet",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_172186",
+      "name": "Trứng chần",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_172388",
+      "name": "Thịt đùi gà nướng bỏ da",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_172421",
+      "name": "Đậu lăng luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_172429",
+      "name": "Đậu Hà Lan tách hạt luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_172446",
+      "name": "Sữa đậu nành original/vanilla, không tăng cường vi chất",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_172448",
+      "name": "Đậu phụ firm, dùng calcium sulfate và nigari",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_172688",
+      "name": "Bánh mì nguyên cám",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_172818",
+      "name": "Bánh mì trắng không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_173044",
+      "name": "Ổi tươi",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_173714",
+      "name": "Cá da trơn channel hoang dã, chín bằng nhiệt khô",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_173735",
+      "name": "Đậu đen luộc không muối",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_174683",
+      "name": "Nho đỏ hoặc xanh tươi",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_174687",
+      "name": "Mít tươi, phần ăn được",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "usda_175177",
+      "name": "Cá rô phi chín bằng nhiệt khô",
+      "class": "D",
+      "reason": "Direct external catalog entry; remove, retain frozen history"
+    },
+    {
+      "dish_id": "vegetables",
+      "name": "Rau luộc",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vegetables_oil",
+      "name": "Rau xào ít dầu",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_banh_canh_gao_chin",
+      "name": "Bánh canh gạo chín",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_banh_pho_chin",
+      "name": "Bánh phở chín",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_bun_bo_hue",
+      "name": "Bún bò Huế",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_bun_rieu_cua",
+      "name": "Bún riêu cua",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_bun_thit_nuong",
+      "name": "Bún thịt nướng",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_ca_loc_kho_to",
+      "name": "Cá lóc kho tộ",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_ca_nuc_kho_ca_chua",
+      "name": "Cá nục kho cà chua",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_ca_tim_nuong_mo_hanh",
+      "name": "Cà tím nướng mỡ hành",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_cai_ngot_luoc",
+      "name": "Cải ngọt luộc",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_cai_thia_xao_nam",
+      "name": "Cải thìa xào nấm",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_canh_bau_nau_tom",
+      "name": "Canh bầu nấu tôm",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_canh_bi_dao_thit_bam",
+      "name": "Canh bí đao thịt băm",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_canh_ca_chua_trung",
+      "name": "Canh cà chua trứng",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_canh_chua_ca_loc",
+      "name": "Canh chua cá lóc",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_canh_kho_qua_nhoi_thit_va_ca",
+      "name": "Canh khổ qua nhồi thịt và cá",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_canh_mong_toi_cua",
+      "name": "Canh mồng tơi cua",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_canh_muop_nam",
+      "name": "Canh mướp nấm",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_canh_rau_ngot_thit_bam",
+      "name": "Canh rau ngót thịt băm",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_canh_tom_rau_ngot_bap",
+      "name": "Canh tôm rau ngót bắp",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_com_nep",
+      "name": "Cơm nếp",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_dau_phu_kho_nam",
+      "name": "Đậu phụ kho nấm",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_dau_phu_nhoi_thit",
+      "name": "Đậu phụ nhồi thịt",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_dau_phu_sot_ca_chua",
+      "name": "Đậu phụ sốt cà chua",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_ga_kho_gung",
+      "name": "Gà kho gừng",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_ga_luoc",
+      "name": "Gà luộc",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_hu_tieu_chin",
+      "name": "Hủ tiếu chín",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_kho_qua_xao_trung",
+      "name": "Khổ qua xào trứng",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_khoai_mon_hap",
+      "name": "Khoai môn hấp",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_mi_quang_ga",
+      "name": "Mì Quảng gà",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_mien_dong_chin",
+      "name": "Miến dong chín",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_muop_xao_dau_phong",
+      "name": "Mướp xào đậu phộng",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_nom_du_du_xanh",
+      "name": "Nộm đu đủ xanh",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_rau_muong_luoc",
+      "name": "Rau muống luộc",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_rau_muong_xao_toi",
+      "name": "Rau muống xào tỏi",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_sua_dau_nanh_khong_duong",
+      "name": "Sữa đậu nành không đường",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_thit_kho_tieu",
+      "name": "Thịt kho tiêu",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_thit_kho_trung",
+      "name": "Thịt kho trứng",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_tom_rim_man_ngot",
+      "name": "Tôm rim mặn ngọt",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_trung_chien_hanh",
+      "name": "Trứng chiên hành",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "yogurt",
+      "name": "Sữa chua không đường",
+      "class": "B",
+      "reason": "Retain stable ID; recalculate reference recipe, clean name/meal eligibility/ingredient tags with explicit assumptions"
+    },
+    {
+      "dish_id": "vn_cam",
+      "name": "Cam",
+      "class": "E",
+      "reason": "Common Vietnamese fruit/snack, independent reference estimate"
+    },
+    {
+      "dish_id": "vn_oi",
+      "name": "Ổi",
+      "class": "E",
+      "reason": "Common Vietnamese fruit/snack, independent reference estimate"
+    },
+    {
+      "dish_id": "vn_thanh_long",
+      "name": "Thanh long",
+      "class": "E",
+      "reason": "Common Vietnamese fruit/snack, independent reference estimate"
+    },
+    {
+      "dish_id": "vn_du_du_chin",
+      "name": "Đu đủ chín",
+      "class": "E",
+      "reason": "Common Vietnamese fruit/snack, independent reference estimate"
+    },
+    {
+      "dish_id": "vn_dua_hau",
+      "name": "Dưa hấu",
+      "class": "E",
+      "reason": "Common Vietnamese fruit/snack, independent reference estimate"
+    },
+    {
+      "dish_id": "vn_dau_phong_rang",
+      "name": "Đậu phộng rang",
+      "class": "E",
+      "reason": "Common Vietnamese fruit/snack, independent reference estimate"
+    }
+  ],
+  "removed_ids": [
+    "breakfast_main_d2_o3",
+    "breakfast_main_d3_o3",
+    "breakfast_main_d5_o3",
+    "breakfast_main_d6_o3",
+    "breakfast_main_d7_o3",
+    "oats_tofu",
+    "oats_yogurt",
+    "usda_167762",
+    "usda_167765",
+    "usda_167776",
+    "usda_167793",
+    "usda_167904",
+    "usda_168390",
+    "usda_168399",
+    "usda_168409",
+    "usda_168449",
+    "usda_168463",
+    "usda_168465",
+    "usda_168873",
+    "usda_168928",
+    "usda_169086",
+    "usda_169089",
+    "usda_169097",
+    "usda_169105",
+    "usda_169124",
+    "usda_169146",
+    "usda_169211",
+    "usda_169229",
+    "usda_169238",
+    "usda_169249",
+    "usda_169252",
+    "usda_169261",
+    "usda_169276",
+    "usda_169704",
+    "usda_169910",
+    "usda_169926",
+    "usda_169967",
+    "usda_169976",
+    "usda_169988",
+    "usda_170001",
+    "usda_170050",
+    "usda_170058",
+    "usda_170394",
+    "usda_170397",
+    "usda_170407",
+    "usda_170438",
+    "usda_170872",
+    "usda_170886",
+    "usda_170887",
+    "usda_171265",
+    "usda_171269",
+    "usda_171477",
+    "usda_171705",
+    "usda_171994",
+    "usda_171998",
+    "usda_172185",
+    "usda_172186",
+    "usda_172388",
+    "usda_172421",
+    "usda_172429",
+    "usda_172446",
+    "usda_172448",
+    "usda_172688",
+    "usda_172818",
+    "usda_173044",
+    "usda_173714",
+    "usda_173735",
+    "usda_174683",
+    "usda_174687",
+    "usda_175177"
+  ],
+  "protected_legacy_templates": 63,
+  "note": "Old catalog archived outside Git; seed fixture under backend/tests/fixtures is historical regression data only, never runtime seeding."
+}

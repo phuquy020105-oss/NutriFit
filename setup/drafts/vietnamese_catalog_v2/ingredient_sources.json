@@ -1,0 +1,3028 @@
+{
+  "format": "nutrifit-vietnamese-ingredient-research-v2",
+  "not_importable": true,
+  "checked_on": "2026-10-12",
+  "sources": [
+    {
+      "source_id": "vnt2007_3025",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "3025",
+      "locator": {
+        "pdf_page_1_based": 91,
+        "printed_food_page": 74
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Đậu phụ",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "state_note": "Trạng thái raw được ghi rõ trong tên tiếng Anh.",
+      "nutrients_per_100g": {
+        "calories": 95,
+        "protein": 10.9,
+        "carbs": 0.7,
+        "fat": 5.4,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 0.4,
+      "reported_refuse_percent": 0,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_7016",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "7016",
+      "locator": {
+        "pdf_page_1_based": 320,
+        "printed_food_page": 294
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Thịt lợn mỡ",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 394,
+        "protein": 14.5,
+        "carbs": 0,
+        "fat": 37.3,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 0,
+      "reported_refuse_percent": 2,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_7017",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "7017",
+      "locator": {
+        "pdf_page_1_based": 321,
+        "printed_food_page": 295
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Thịt lợn nạc",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 139,
+        "protein": 19,
+        "carbs": 0,
+        "fat": 7,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 0,
+      "reported_refuse_percent": 2,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_7018",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "7018",
+      "locator": {
+        "pdf_page_1_based": 322,
+        "printed_food_page": 296
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Thịt lợn nửa nạc, nửa mỡ",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 260,
+        "protein": 16.5,
+        "carbs": 0,
+        "fat": 21.5,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 0,
+      "reported_refuse_percent": 2,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_8022",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "8022",
+      "locator": {
+        "pdf_page_1_based": 410,
+        "printed_food_page": 382
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Cá quả (snake head)",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 97,
+        "protein": 18.2,
+        "carbs": 0,
+        "fat": 2.7,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 0,
+      "reported_refuse_percent": 40,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_4083",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "4083",
+      "locator": {
+        "pdf_page_1_based": 185,
+        "printed_food_page": 165
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Rau muống",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 25,
+        "protein": 3.2,
+        "carbs": 2.1,
+        "fat": 0.4,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 1,
+      "reported_refuse_percent": 37.5,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_4086",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "4086",
+      "locator": {
+        "pdf_page_1_based": 188,
+        "printed_food_page": 168
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Rau ngót",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 35,
+        "protein": 5.3,
+        "carbs": 3.4,
+        "fat": null,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 2.5,
+      "reported_refuse_percent": 23,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_4002",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "4002",
+      "locator": {
+        "pdf_page_1_based": 104,
+        "printed_food_page": 84
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Bí đao (bí xanh)",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 12,
+        "protein": 0.6,
+        "carbs": 2.4,
+        "fat": null,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 1,
+      "reported_refuse_percent": 25,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_4015",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "4015",
+      "locator": {
+        "pdf_page_1_based": 117,
+        "printed_food_page": 97
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Cải thìa (cải trắng)",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 17,
+        "protein": 1.4,
+        "carbs": 2.4,
+        "fat": 0.2,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 1.8,
+      "reported_refuse_percent": 25,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_4005",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "4005",
+      "locator": {
+        "pdf_page_1_based": 107,
+        "printed_food_page": 87
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Cà chua",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 20,
+        "protein": 0.6,
+        "carbs": 4,
+        "fat": 0.2,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 0.8,
+      "reported_refuse_percent": 5,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_4103",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "4103",
+      "locator": {
+        "pdf_page_1_based": 205,
+        "printed_food_page": 185
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Tỏi ta",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 121,
+        "protein": 6,
+        "carbs": 23,
+        "fat": 0.5,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 1.5,
+      "reported_refuse_percent": 20,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_9001",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "9001",
+      "locator": {
+        "pdf_page_1_based": 450,
+        "printed_food_page": 420
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Trứng gà nguyên quả",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "state_note": "Trạng thái raw được ghi rõ trong tên tiếng Anh.",
+      "nutrients_per_100g": {
+        "calories": 166,
+        "protein": 14.8,
+        "carbs": 0.5,
+        "fat": 11.6,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 0,
+      "reported_refuse_percent": 14,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_1013",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "1013",
+      "locator": {
+        "pdf_page_1_based": 26,
+        "printed_food_page": 13
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Bánh phở",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 143,
+        "protein": 3.2,
+        "carbs": 31.7,
+        "fat": 0.4,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 0,
+      "reported_refuse_percent": 0,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "vnt2007_1020",
+      "source_name": "Viện Dinh dưỡng — Bảng thành phần thực phẩm Việt Nam 2007 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/pdf/VTN_FCT_2007.pdf",
+      "food_code": "1020",
+      "locator": {
+        "pdf_page_1_based": 33,
+        "printed_food_page": 20
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Bún",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": false,
+      "state_note": "Ứng viên theo tên bảng; trạng thái và dạng chế biến phải được đối chiếu trước khi tính recipe.",
+      "nutrients_per_100g": {
+        "calories": 110,
+        "protein": 1.7,
+        "carbs": 25.7,
+        "fat": null,
+        "fiber": null
+      },
+      "carbohydrate_method": "Glucid theo bảng Việt Nam 2007; không tự đồng nhất carbohydrate-by-difference.",
+      "fiber_method": "cellulose",
+      "cellulose_g_per_100g": 0.5,
+      "reported_refuse_percent": 0,
+      "missing_value_policy": "Dấu gạch là NULL, không phải 0; số 0 chỉ giữ khi bảng công bố 0. Không áp dụng refuse % cho lượng đã sơ chế.",
+      "reuse_status": "PENDING",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; recipe matching not established"
+    },
+    {
+      "source_id": "usda_169230",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169230",
+      "locator": {
+        "food_csv_fdc_id": "169230",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Garlic, raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 149,
+        "protein": 6.36,
+        "carbs": 33.06,
+        "fat": 0.5,
+        "fiber": 2.1
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_169655",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169655",
+      "locator": {
+        "food_csv_fdc_id": "169655",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Sugars, granulated",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 387,
+        "protein": 0,
+        "carbs": 99.98,
+        "fat": 0,
+        "fiber": 0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_170005",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "170005",
+      "locator": {
+        "food_csv_fdc_id": "170005",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Onions, spring or scallions (includes tops and bulb), raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 32,
+        "protein": 1.83,
+        "carbs": 7.34,
+        "fat": 0.19,
+        "fiber": 2.6
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_170457",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "170457",
+      "locator": {
+        "food_csv_fdc_id": "170457",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Tomatoes, red, ripe, raw, year round average",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 18,
+        "protein": 0.88,
+        "carbs": 3.89,
+        "fat": 0.2,
+        "fiber": 1.2
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_170499",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "170499",
+      "locator": {
+        "food_csv_fdc_id": "170499",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Shallots, raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 72,
+        "protein": 2.5,
+        "carbs": 16.8,
+        "fat": 0.1,
+        "fiber": 3.2
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_170931",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "170931",
+      "locator": {
+        "food_csv_fdc_id": "170931",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Spices, pepper, black",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 251,
+        "protein": 10.39,
+        "carbs": 63.95,
+        "fat": 3.26,
+        "fiber": 25.3
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_171287",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "171287",
+      "locator": {
+        "food_csv_fdc_id": "171287",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Egg, whole, raw, fresh",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 143,
+        "protein": 12.56,
+        "carbs": 0.72,
+        "fat": 9.51,
+        "fiber": 0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_171411",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "171411",
+      "locator": {
+        "food_csv_fdc_id": "171411",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Oil, soybean, salad or cooking",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 884,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 100,
+        "fiber": 0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_173468",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "173468",
+      "locator": {
+        "food_csv_fdc_id": "173468",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Salt, table",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 0,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 0,
+        "fiber": 0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_173647",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "173647",
+      "locator": {
+        "food_csv_fdc_id": "173647",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Beverages, water, tap, drinking",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 0,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 0,
+        "fiber": 0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_174529",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "174529",
+      "locator": {
+        "food_csv_fdc_id": "174529",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Sauce, oyster, ready-to-serve",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 51,
+        "protein": 1.35,
+        "carbs": 10.92,
+        "fat": 0.25,
+        "fiber": 0.3
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "usda_174531",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "174531",
+      "locator": {
+        "food_csv_fdc_id": "174531",
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        },
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Sauce, fish, ready-to-serve",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 35,
+        "protein": 5.06,
+        "carbs": 3.64,
+        "fat": 0.01,
+        "fiber": 0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference; not available carbohydrate or VN glucid",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Generic US ingredient profile; brand/product/species equivalence still requires recipe-level review. Published zero kept, missing values never zero-filled."
+      ]
+    },
+    {
+      "source_id": "afcd3_F001990",
+      "source_name": "Food Standards Australia New Zealand, Australian Food Composition Database Release 3 (December 2025)",
+      "url": "https://www.foodstandards.gov.au/sites/default/files/2025-12/AFCD%20Release%203%20-%20Nutrient%20profiles.xlsx",
+      "food_code": "F001990",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet2.xml",
+        "excel_row": 1395,
+        "columns": {
+          "energy_kj": "E",
+          "protein": "H",
+          "carbs": "AM",
+          "fat": "J",
+          "fiber": "L"
+        },
+        "file_sha256": "14cb3e73dbf58987b440e6299624c0fefd7a4e61591fc1f753995d9534e0efc9"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Cabbage, Chinese flowering, raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 16.96940726577438,
+        "protein": 1.3,
+        "carbs": 0.9,
+        "fat": 0.3,
+        "fiber": 2.8
+      },
+      "original_energy": {
+        "value": 71,
+        "unit": "kJ",
+        "includes_dietary_fiber": true,
+        "kJ_per_kcal": 4.184
+      },
+      "carbohydrate_method": "Available carbohydrate without sugar alcohols (AM); fiber separate",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC-BY-SA-3.0-AU with FSANZ additional conditions",
+      "license_url": "https://www.foodstandards.gov.au/science-data/monitoringnutrients/afcd/datauserlicenceagreement",
+      "attribution": "Food Standards Australia New Zealand, Australian Food Composition Database Release 3; translated and scaled by NutriFit, no FSANZ endorsement. Food-data derivative must retain attribution, notices and share-alike terms.",
+      "confidence": "PRIMARY_RAW_ANALYTICAL_PROFILE",
+      "limitations": [
+        "Australian samples are not a lab assay of a Vietnamese batch. Raw composite sampled Sydney 1983/84; some micronutrients imputed, not used here. Cooked profile is recipe-derived, not a cooked lab measurement. Yield indicative only per FSANZ About AFCD Release 3 p.5."
+      ]
+    },
+    {
+      "source_id": "afcd3_F001988",
+      "source_name": "Food Standards Australia New Zealand, Australian Food Composition Database Release 3 (December 2025)",
+      "url": "https://www.foodstandards.gov.au/sites/default/files/2025-12/AFCD%20Release%203%20-%20Nutrient%20profiles.xlsx",
+      "food_code": "F001988",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet2.xml",
+        "excel_row": 1396,
+        "columns": {
+          "energy_kj": "E",
+          "protein": "H",
+          "carbs": "AM",
+          "fat": "J",
+          "fiber": "L"
+        },
+        "file_sha256": "14cb3e73dbf58987b440e6299624c0fefd7a4e61591fc1f753995d9534e0efc9"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Cabbage, Chinese flowering, boiled, drained",
+      "basis": "100g_edible_input",
+      "state": "cooked",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 17.68642447418738,
+        "protein": 1.4,
+        "carbs": 0.9,
+        "fat": 0.3,
+        "fiber": 2.9
+      },
+      "original_energy": {
+        "value": 74,
+        "unit": "kJ",
+        "includes_dietary_fiber": true,
+        "kJ_per_kcal": 4.184
+      },
+      "carbohydrate_method": "Available carbohydrate without sugar alcohols (AM); fiber separate",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC-BY-SA-3.0-AU with FSANZ additional conditions",
+      "license_url": "https://www.foodstandards.gov.au/science-data/monitoringnutrients/afcd/datauserlicenceagreement",
+      "attribution": "Food Standards Australia New Zealand, Australian Food Composition Database Release 3; translated and scaled by NutriFit, no FSANZ endorsement. Food-data derivative must retain attribution, notices and share-alike terms.",
+      "confidence": "PRIMARY_COOKED_RECIPE_PROFILE",
+      "limitations": [
+        "Australian samples are not a lab assay of a Vietnamese batch. Raw composite sampled Sydney 1983/84; some micronutrients imputed, not used here. Cooked profile is recipe-derived, not a cooked lab measurement. Yield indicative only per FSANZ About AFCD Release 3 p.5."
+      ],
+      "recipe_yield": {
+        "input_source_id": "afcd3_F001990",
+        "weight_change_percent": -4,
+        "input_basis": "100g_edible_input",
+        "method": "boil_drain_unsalted",
+        "url": "https://www.foodstandards.gov.au/sites/default/files/2025-12/AFCD%20Release%203%20-%20Recipes.xlsx",
+        "locator": {
+          "worksheet_xml": "xl/worksheets/sheet2.xml",
+          "excel_row": 743,
+          "cells": "A743:H743",
+          "file_sha256": "81925cd790b4d914e9016fe71e273e4b5823cbcea7d6aafc277ebbc160e762ef"
+        },
+        "input_grams": 100,
+        "retention_factor_id": "3005",
+        "retention_description": "Vegetables, green, boiled, covered with water, drained",
+        "application": "Cooking is already reflected in cooked F001988 profile; do not apply retention factors again."
+      }
+    },
+    {
+      "source_id": "usda_169231",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169231",
+      "locator": {
+        "fdc_id": "169231",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Ginger root, raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 80,
+        "protein": 1.82,
+        "carbs": 17.77,
+        "fat": 0.75,
+        "fiber": 2
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_169242",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169242",
+      "locator": {
+        "fdc_id": "169242",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Mushrooms, shiitake, raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 34,
+        "protein": 2.24,
+        "carbs": 6.79,
+        "fat": 0.49,
+        "fiber": 2.5
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_169997",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169997",
+      "locator": {
+        "fdc_id": "169997",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Coriander (cilantro) leaves, raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 23,
+        "protein": 2.13,
+        "carbs": 3.67,
+        "fat": 0.52,
+        "fiber": 2.8
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_170000",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "170000",
+      "locator": {
+        "fdc_id": "170000",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Onions, raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 40,
+        "protein": 1.1,
+        "carbs": 9.34,
+        "fat": 0.1,
+        "fiber": 1.7
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_170174",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "170174",
+      "locator": {
+        "fdc_id": "170174",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Nuts, coconut water (liquid from coconuts)",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 19,
+        "protein": 0.72,
+        "carbs": 3.71,
+        "fat": 0.2,
+        "fiber": 1.1
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_170390",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "170390",
+      "locator": {
+        "fdc_id": "170390",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Cabbage, chinese (pak-choi), raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 13,
+        "protein": 1.5,
+        "carbs": 2.18,
+        "fat": 0.2,
+        "fiber": 1
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_171016",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "171016",
+      "locator": {
+        "fdc_id": "171016",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Oil, sesame, salad or cooking",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 884,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 100,
+        "fiber": 0
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_171316",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "171316",
+      "locator": {
+        "fdc_id": "171316",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Spices, anise seed",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 337,
+        "protein": 17.6,
+        "carbs": 50.02,
+        "fat": 15.9,
+        "fiber": 14.6
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_172451",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "172451",
+      "locator": {
+        "fdc_id": "172451",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Tofu, fried",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 270,
+        "protein": 18.82,
+        "carbs": 8.86,
+        "fat": 20.18,
+        "fiber": 3.9
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_172476",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "172476",
+      "locator": {
+        "fdc_id": "172476",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Tofu, raw, regular, prepared with calcium sulfate",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 76,
+        "protein": 8.08,
+        "carbs": 1.87,
+        "fat": 4.78,
+        "fiber": 0.3
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_174277",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "174277",
+      "locator": {
+        "fdc_id": "174277",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Soy sauce made from soy and wheat (shoyu)",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 53,
+        "protein": 8.14,
+        "carbs": 4.93,
+        "fat": 0.57,
+        "fiber": 0.8
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_168914",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "168914",
+      "locator": {
+        "fdc_id": "168914",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Rice noodles, cooked",
+      "basis": "100g_edible_input",
+      "state": "cooked",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 108,
+        "protein": 1.79,
+        "carbs": 24.01,
+        "fat": 0.2,
+        "fiber": 1
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_169742",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169742",
+      "locator": {
+        "fdc_id": "169742",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Rice noodles, dry",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 364,
+        "protein": 5.95,
+        "carbs": 80.18,
+        "fat": 0.56,
+        "fiber": 1.6
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_172883",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "172883",
+      "locator": {
+        "fdc_id": "172883",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Soup, stock, beef, home-prepared",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 13,
+        "protein": 1.97,
+        "carbs": 1.2,
+        "fat": 0.09,
+        "fiber": 0
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_172884",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "172884",
+      "locator": {
+        "fdc_id": "172884",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Soup, stock, chicken, home-prepared",
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 36,
+        "protein": 2.52,
+        "carbs": 3.53,
+        "fat": 1.2,
+        "fiber": 0
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_171734",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "171734",
+      "locator": {
+        "fdc_id": "171734",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Beef, Australian, imported, grass-fed, loin, top sirloin cap-off steak/roast, boneless, separable lean only, raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 122,
+        "protein": 21.9,
+        "carbs": 0,
+        "fat": 3.87,
+        "fiber": 0
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "usda_171804",
+      "source_name": "USDA FoodData Central SR Legacy 2018 archive",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "171804",
+      "locator": {
+        "fdc_id": "171804",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "files": [
+          "food.csv",
+          "food_nutrient.csv"
+        ],
+        "nutrient_ids": {
+          "calories": "1008",
+          "protein": "1003",
+          "carbs": "1005",
+          "fat": "1004",
+          "fiber": "1079"
+        }
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Beef, top sirloin, steak, separable lean only, trimmed to 1/8\" fat, select, raw",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 127,
+        "protein": 22.27,
+        "carbs": 0,
+        "fat": 3.54,
+        "fiber": 0
+      },
+      "fiber_method": "total_dietary_fiber",
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "SOURCE_TRANSCRIPTION; reference cooking/product assumptions remain estimates"
+    },
+    {
+      "source_id": "smiling2013_3025",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "3025",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 34,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Tofu, raw / Đậu phụ",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 95.0,
+        "protein": 10.9,
+        "fat": 5.4,
+        "carbs": 0.7,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 0.4,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "smiling2013_4002",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "4002",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 36,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Asgourd Waxgoured, Winter melon, raw / Bí đao (bí xanh)",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 12.0,
+        "protein": 0.6,
+        "fat": 0.0,
+        "carbs": 2.4,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 1.0,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "smiling2013_4005",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "4005",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 38,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Tomato, raw / Cà chua",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 20.2,
+        "protein": 0.6,
+        "fat": 0.2,
+        "carbs": 4.0,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 0.8,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "smiling2013_4083",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "4083",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 68,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Water spinach, raw / Rau muống",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 22.8,
+        "protein": 3.2,
+        "fat": 0.0,
+        "carbs": 2.5,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 1.0,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "smiling2013_4086",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "4086",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 70,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Sauropus, Leaves, raw / Rau ngót",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 34.8,
+        "protein": 5.3,
+        "fat": 0.0,
+        "carbs": 3.4,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 2.5,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "smiling2013_4103",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "4103",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 74,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Garlic bulbs, raw / Tỏi ta",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 118.0,
+        "protein": 6.0,
+        "fat": 0.0,
+        "carbs": 23.5,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 1.5,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "smiling2013_7017",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "7017",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 98,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Pork meat, lean, raw / Thịt lợn nạc",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 139.0,
+        "protein": 19.0,
+        "fat": 7.0,
+        "carbs": 0.0,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 0.0,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "smiling2013_7018",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "7018",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 99,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Pork meat, medium fat, raw / Thịt lợn nửa nạc, nửa mỡ",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 259.5,
+        "protein": 16.5,
+        "fat": 21.5,
+        "carbs": 0.0,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 0.0,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "smiling2013_8022",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "8022",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 130,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Fish, snake head, raw / Cá quả",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 97.1,
+        "protein": 18.2,
+        "fat": 2.7,
+        "carbs": 0.0,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 0.0,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "smiling2013_8034",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "8034",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 137,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Crab, fresh water, raw / Cua đồng",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 86.9,
+        "protein": 12.3,
+        "fat": 3.3,
+        "carbs": 2.0,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 0.0,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "smiling2013_9001",
+      "source_name": "National Institute of Nutrition Vietnam and Wageningen University, SMILING Food Composition Table Vietnam 2013 (FAO-hosted)",
+      "url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+      "food_code": "9001",
+      "locator": {
+        "worksheet_xml": "xl/worksheets/sheet4.xml",
+        "excel_row": 148,
+        "columns": {
+          "calories": "F",
+          "protein": "G",
+          "fat": "I",
+          "carbs": "J",
+          "crude_fiber": "K"
+        },
+        "file_sha256": "b0a5ca117dc831ade88b34b6ff998ec885468070c95c3b1ed2aefaf78f77432f"
+      },
+      "checked_on": "2026-10-12",
+      "verified": true,
+      "name": "Chicken egg, whole, raw / Trứng gà",
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 165.6,
+        "protein": 14.8,
+        "fat": 11.6,
+        "carbs": 0.5,
+        "fiber": null
+      },
+      "fiber_method": "crude_fiber",
+      "crude_fiber_g_per_100g": 0.0,
+      "carbohydrate_method": "SMILING CHOCDF carbohydrate by difference, not total dietary fiber; no celluloza/TDF substitution",
+      "reuse_status": "REVIEW_ATTRIBUTION_BEFORE_DISTRIBUTION",
+      "confidence": "PRIMARY_TABLE_TRANSCRIPTION; some zero/energy/carbohydrate values can be imputed or calculated, not claimed new lab measurements",
+      "limitations": [
+        "Published zero kept from this full profile, never patched into missing VN2007 fat. Different source versions can differ. Raw edible weight and cooking losses are engineering assumptions in prepared recipes."
+      ],
+      "attribution": "Le et al. 2013, SMILING Food Composition Table Vietnam, NIN Vietnam / Wageningen University; checked via FAO; reuse attribution to review before publishing derived dataset."
+    },
+    {
+      "source_id": "usda_172385",
+      "name": "Chicken, broilers or fryers, thigh, meat and skin, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "172385",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "172385",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 221.0,
+        "protein": 16.52,
+        "carbs": 0.25,
+        "fat": 16.61,
+        "fiber": 0.0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_173626",
+      "name": "Chicken, broilers or fryers, thigh, meat and skin, cooked, stewed",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "173626",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "173626",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "cooked",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 232.0,
+        "protein": 23.26,
+        "carbs": 0.0,
+        "fat": 14.74,
+        "fiber": 0.0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_173672",
+      "name": "Fish, mackerel, Pacific and jack, mixed species, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "173672",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "173672",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 158.0,
+        "protein": 20.07,
+        "carbs": 0.0,
+        "fat": 7.89,
+        "fiber": 0.0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_175179",
+      "name": "Crustaceans, shrimp, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "175179",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "175179",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 85.0,
+        "protein": 20.1,
+        "carbs": 0.0,
+        "fat": 0.51,
+        "fiber": null
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_168414",
+      "name": "Gourd, dishcloth (towelgourd), raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "168414",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "168414",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 20.0,
+        "protein": 1.2,
+        "carbs": 4.35,
+        "fat": 0.2,
+        "fiber": 1.1
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169232",
+      "name": "Gourd, white-flowered (calabash), raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169232",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169232",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 14.0,
+        "protein": 0.62,
+        "carbs": 3.39,
+        "fat": 0.02,
+        "fiber": 0.5
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169400",
+      "name": "Malabar spinach, cooked",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169400",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169400",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "cooked",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 23.0,
+        "protein": 2.98,
+        "carbs": 2.71,
+        "fat": 0.78,
+        "fiber": 2.1
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_168393",
+      "name": "Balsam-pear (bitter gourd), pods, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "168393",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "168393",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 17.0,
+        "protein": 1.0,
+        "carbs": 3.7,
+        "fat": 0.17,
+        "fiber": 2.8
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169228",
+      "name": "Eggplant, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169228",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169228",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 25.0,
+        "protein": 0.98,
+        "carbs": 5.88,
+        "fat": 0.18,
+        "fiber": 3.0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_173806",
+      "name": "Peanuts, all types, dry-roasted, without salt",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "173806",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "173806",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 587.0,
+        "protein": 24.35,
+        "carbs": 21.26,
+        "fat": 49.66,
+        "fiber": 8.4
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169926",
+      "name": "Papayas, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169926",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169926",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 43.0,
+        "protein": 0.47,
+        "carbs": 10.82,
+        "fat": 0.26,
+        "fiber": 1.7
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_170393",
+      "name": "Carrots, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "170393",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "170393",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 41.0,
+        "protein": 0.93,
+        "carbs": 9.58,
+        "fat": 0.24,
+        "fiber": 2.8
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_168156",
+      "name": "Lime juice, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "168156",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "168156",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 25.0,
+        "protein": 0.42,
+        "carbs": 8.42,
+        "fat": 0.07,
+        "fiber": 0.4
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_168399",
+      "name": "Corn, sweet, yellow, frozen, kernels cut off cob, boiled, drained, without salt",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "168399",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "168399",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "cooked",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 81.0,
+        "protein": 2.55,
+        "carbs": 19.3,
+        "fat": 0.67,
+        "fiber": 2.4
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169124",
+      "name": "Pineapple, raw, all varieties",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169124",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169124",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 50.0,
+        "protein": 0.54,
+        "carbs": 13.12,
+        "fat": 0.12,
+        "fiber": 1.4
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169260",
+      "name": "Okra, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169260",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169260",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 33.0,
+        "protein": 1.93,
+        "carbs": 7.45,
+        "fat": 0.19,
+        "fiber": 3.2
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169136",
+      "name": "Lima beans, immature seeds, canned, regular pack, solids and liquids",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169136",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169136",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 71.0,
+        "protein": 4.07,
+        "carbs": 13.33,
+        "fat": 0.29,
+        "fiber": 3.6
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_167763",
+      "name": "Tamarinds, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "167763",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "167763",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 239.0,
+        "protein": 2.8,
+        "carbs": 62.5,
+        "fat": 0.6,
+        "fiber": 5.1
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_168573",
+      "name": "Lemon grass (citronella), raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "168573",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "168573",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 99.0,
+        "protein": 1.82,
+        "carbs": 25.31,
+        "fat": 0.49,
+        "fiber": null
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169757",
+      "name": "Rice, white, long-grain, regular, unenriched, cooked without salt",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169757",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169757",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "cooked",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 130.0,
+        "protein": 2.69,
+        "carbs": 28.17,
+        "fat": 0.28,
+        "fiber": 0.4
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169249",
+      "name": "Lettuce, green leaf, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169249",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169249",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 15.0,
+        "protein": 1.36,
+        "carbs": 2.87,
+        "fat": 0.15,
+        "fiber": 1.3
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_168409",
+      "name": "Cucumber, with peel, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "168409",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "168409",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 15.0,
+        "protein": 0.65,
+        "carbs": 3.63,
+        "fat": 0.11,
+        "fiber": 0.5
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_172231",
+      "name": "Spices, turmeric, ground",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "172231",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "172231",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 312.0,
+        "protein": 9.68,
+        "carbs": 67.14,
+        "fat": 3.25,
+        "fiber": 22.7
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169711",
+      "name": "Rice, white, glutinous, unenriched, cooked",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169711",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169711",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "cooked",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 97.0,
+        "protein": 2.02,
+        "carbs": 21.09,
+        "fat": 0.19,
+        "fiber": 1.0
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_174258",
+      "name": "Noodles, chinese, cellophane or long rice (mung beans), dehydrated",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "174258",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "174258",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 351.0,
+        "protein": 0.16,
+        "carbs": 86.09,
+        "fat": 0.06,
+        "fiber": 0.5
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_169308",
+      "name": "Taro, raw",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "169308",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "169308",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "raw",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 112.0,
+        "protein": 1.5,
+        "carbs": 26.46,
+        "fat": 0.2,
+        "fiber": 4.1
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    },
+    {
+      "source_id": "usda_175215",
+      "name": "Soymilk (all flavors), unsweetened, with added calcium, vitamins A and D",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "food_code": "175215",
+      "checked_on": "2026-10-12",
+      "locator": {
+        "fdc_id": "175215",
+        "food_csv": "food.csv",
+        "nutrient_csv": "food_nutrient.csv"
+      },
+      "verified": true,
+      "basis": "100g_edible_input",
+      "state": "ready",
+      "state_verified": true,
+      "nutrients_per_100g": {
+        "calories": 33.0,
+        "protein": 2.86,
+        "carbs": 1.74,
+        "fat": 1.61,
+        "fiber": 0.5
+      },
+      "carbohydrate_method": "USDA carbohydrate by difference",
+      "fiber_method": "total_dietary_fiber",
+      "reuse_status": "VERIFIED_FOR_REUSE",
+      "license": "CC0-1.0",
+      "license_url": "https://fdc.nal.usda.gov/api-guide/",
+      "confidence": "VERIFIED_SOURCE_TRANSCRIPTION_NOT_AUTOMATIC_RECIPE_MATCH",
+      "limitations": [
+        "Read from official CSV; recipe equivalence, quantities and yields remain estimates."
+      ]
+    }
+  ],
+  "notes": "Nguồn nguyên liệu riêng, không phải profile dinh dưỡng món chín. Không trộn các cột dinh dưỡng hoặc tự điền dữ liệu thiếu từ proxy.",
+  "phase3_source_review": {
+    "checked_on": "2026-10-12",
+    "smiling_vietnam_url": "https://www.fao.org/fileadmin/templates/food_composition/documents/FCT_SMILING_PROJECT_ASIA/D3_5a_SMILING_FCT_Vietnam_180713_protected.xlsx",
+    "smiling_findings": "WP3 FCT row34 tofu3025 explicitly raw; row68 water spinach4083 raw has fat0/CHO2.5/energy22.8, different from VN2007 fat0.4/Glucid2.1/25. No record merging or replacing missing nutrients. No choy sum entry found in inspected workbook.",
+    "bognar_url": "https://publikationen.bibliothek.kit.edu/9642002/1928",
+    "yield_review": [
+      {
+        "table": "Part1 table18 PDFp29",
+        "row": "Leafy vegetables, boiled, FR/TK o.Z a",
+        "yield": 0.98,
+        "reported_confidence_interval_half_width": 0.1,
+        "sample_count": 7,
+        "decision": "Not used: exact choy-sum FSANZ recipe -4% is available; group average is not a measured dish yield."
+      },
+      {
+        "table": "Part1 table14 PDFp25",
+        "row": "Tomato cream soup TP o.Z a*",
+        "yield": 10.4,
+        "decision": "REJECTED_FOR_TOMATO_EGG_SOUP: dried commercial preparation, not fresh tomato/egg/water."
+      }
+    ],
+    "scope": "Research-only, no runtime food additions."
+  }
+}

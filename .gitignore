@@ -1,0 +1,21 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+*/.DS_Store
+*.py[cod]
+.pytest_cache/
+
+# Duplicate package, local reports and private backups are not release source.
+NutriFit-publish/
+*.log
+.coverage
+htmlcov/
+backups/
+dumps/
+*.dump
+*.bak
+*.sql.gz
+release-check/
+test-results/
