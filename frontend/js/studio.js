@@ -916,8 +916,27 @@
     const parts=option.recipe?.components;
     if(!Array.isArray(parts)||!parts.length){toast('Bộ thực đơn cũ chưa có khẩu phần riêng. Vui lòng đổi sang bộ V4 để ghi nhận.',true);return;}
     node.disabled=true;
-    const payload={requestId:`nfmeal_${id()}_${m.date||today()}_${state.mealType}`,confirmed:true,mealType:state.mealType,
-      meal:{optionId:option.optionId,revision:m.revision},items:parts.map(part=>({dish_id:part.dish_id,grams:part.grams}))};
+    const payload={confirmed:true,mealType:state.mealType,
+      meal:{optionId:option.optionId,revision:m.revision},
+      items:parts.map(part=>({dish_id:part.dish_id,grams:part.grams}))};
+    // Same exact meal request -> same key; a changed menu -> a new key.
+    // Back end still verifies ownership, revision and actual nutrition.
+    if(!globalThis.crypto?.subtle){
+      node.disabled=false;
+      toast('Trình duyệt chưa hỗ trợ xác nhận an toàn. Hãy dùng localhost hoặc HTTPS.',true);
+      return;
+    }
+    try{
+      const fingerprint=JSON.stringify({userId:id(),day:m.date||today(),...payload});
+      const bytes=new TextEncoder().encode(fingerprint);
+      const digest=await globalThis.crypto.subtle.digest('SHA-256',bytes);
+      const hex=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
+      payload.requestId='nfmeal_'+hex.slice(0,48);
+    }catch(_error){
+      node.disabled=false;
+      toast('Không tạo được mã xác nhận bữa ăn. Vui lòng thử lại.',true);
+      return;
+    }
     const res=await req('/api/nutrition/intake',payload,'POST',30000);
     node.disabled=false;
     if(!res.success){toast(res.message||'Chưa thể ghi bữa ăn vào Dinh dưỡng.',true);return;}
