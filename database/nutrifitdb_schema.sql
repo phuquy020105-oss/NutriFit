@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.4.11, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: nutrifitdb
+-- Host: localhost    Database: NutriFitDB
 -- ------------------------------------------------------
 -- Server version	8.4.11
 
@@ -190,7 +190,7 @@ CREATE TABLE `nutritionfoodintake` (
   UNIQUE KEY `uq_nutrition_request` (`UserId`,`RequestKey`),
   KEY `ix_nutrition_intake_day` (`UserId`,`IntakeDate`,`Deleted`),
   CONSTRAINT `fk_nutrition_intake_user` FOREIGN KEY (`UserId`) REFERENCES `users` (`UserId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,7 +249,7 @@ CREATE TABLE `paymenttransactions` (
   KEY `FK_Payments_Plans` (`PlanId`),
   CONSTRAINT `FK_Payments_Plans` FOREIGN KEY (`PlanId`) REFERENCES `subscriptionplans` (`PlanId`) ON DELETE RESTRICT,
   CONSTRAINT `FK_Payments_Users` FOREIGN KEY (`UserId`) REFERENCES `users` (`UserId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -474,15 +474,11 @@ CREATE TABLE `workouts` (
   KEY `FK_Workouts_User` (`CreatedBy`),
   CONSTRAINT `FK_Workouts_Category` FOREIGN KEY (`CategoryId`) REFERENCES `workoutcategories` (`CategoryId`) ON DELETE SET NULL,
   CONSTRAINT `FK_Workouts_User` FOREIGN KEY (`CreatedBy`) REFERENCES `users` (`UserId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping events for database 'nutrifitdb'
---
-
---
--- Dumping routines for database 'nutrifitdb'
+-- Dumping routines for database 'NutriFitDB'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -494,4 +490,4 @@ CREATE TABLE `workouts` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-14 18:53:31
+-- Dump completed on 2026-10-15  0:17:01
