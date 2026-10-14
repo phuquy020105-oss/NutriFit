@@ -47,7 +47,7 @@ def test_demo_checkout_creates_qr_without_real_payment(env):
         data = _checkout(client)
         assert data["amount_vnd"] == 99000
         assert data["recipient_name"] == "NUTRIFIT"
-        assert data["account_number"].startswith("NF-DEMO")
+        assert data["account_number"] == payment_routes._DEMO_ACCOUNT
         assert data["qr_data_url"].startswith("data:image/png;base64,")
         assert data["confirm_url"].startswith("http://localhost/api/payment/confirm/")
         txn = db.session.get(PaymentTransaction, data["transaction_id"])
@@ -65,7 +65,15 @@ def test_confirm_requires_user_agreement_and_sends_only_once(env, monkeypatch):
         path = data["confirm_url"].replace("http://localhost", "")
         page = client.get(path)
         assert page.status_code == 200
-        assert "99.000" in page.get_data(as_text=True)
+        html = page.get_data(as_text=True)
+        assert "99.000" in html
+        assert "Chọn phương thức thanh toán" in html
+        assert 'value="QR"' in html
+        assert 'value="BANK"' in html
+        assert 'value="CARD"' in html
+        assert 'value="WALLET"' in html
+        assert "NUTRIFIT PREMIUM" in html
+        assert "VNPAY" not in html  # never pretend this is the official gateway
         assert client.post(path, data={}).status_code == 400
         assert sent == []
         assert client.post(path, data={"agree":"yes"}).status_code == 200
@@ -125,3 +133,32 @@ def test_checkout_rejects_browser_backend_account_mismatch(env):
         response = client.post('/api/payment/demo-checkout', json={'plan_id': 4}, headers={'X-User-Id': '2'})
         assert response.status_code == 403
         assert PaymentTransaction.query.count() == 0
+
+
+def test_portal_rejects_unrecognized_method_without_granting(env, monkeypatch):
+    monkeypatch.setattr(payment_routes, "_demo_email", lambda txn: None)
+    with env.test_client() as client:
+        data = _checkout(client)
+        path = data["confirm_url"].replace("http://localhost", "")
+        response = client.post(path, data={"agree": "yes", "payment_method": "UNSUPPORTED"})
+        assert response.status_code == 400
+        assert db.session.get(User, 1).SubscriptionStatus != "PREMIUM"
+        assert db.session.get(PaymentTransaction, data["transaction_id"]).Status == "DEMO_PENDING"
+
+
+@pytest.mark.parametrize("method", ["QR", "BANK", "CARD", "WALLET"])
+def test_each_portal_method_confirms_once(env, monkeypatch, method):
+    notices = []
+    monkeypatch.setattr(payment_routes, "_demo_email", lambda txn: notices.append(txn.TransactionCode))
+    with env.test_client() as client:
+        data = _checkout(client)
+        path = data["confirm_url"].replace("http://localhost", "")
+        response = client.post(path, data={"agree": "yes", "payment_method": method})
+        assert response.status_code == 200
+        customer = db.session.get(User, 1)
+        assert customer.SubscriptionStatus == "PREMIUM"
+        assert len(notices) == 1
+        first_expiry = customer.PremiumExpiresAt
+        client.post(path, data={"agree": "yes", "payment_method": method})
+        assert customer.PremiumExpiresAt == first_expiry
+        assert len(notices) == 1

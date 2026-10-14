@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import base64
 from io import BytesIO
+from pathlib import Path
 from html import escape as html_escape
 from urllib.parse import urlparse
 import secrets
@@ -311,39 +312,40 @@ def _demo_email(txn):
     ))
 
 
-_DEMO_PAGE = """<!doctype html><html lang="vi"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NutriFit – Xác nhận Premium</title><style>
-*{box-sizing:border-box}body{margin:0;background:#f2f6f0;color:#183429;font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh;display:grid;place-items:center;padding:18px}
-main{max-width:480px;width:100%;padding:28px;border-radius:22px;background:white;box-shadow:0 18px 45px #18342920}.logo{font-weight:850;font-size:25px;color:#256647}
-.label{display:inline-block;border-radius:99px;background:#fff0ce;color:#93631c;font-size:12px;font-weight:850;padding:6px 11px;margin:14px 0}.sub{color:#809187;font-size:14px}
-.detail{background:#f4f8f3;border:1px solid #e4eee4;border-radius:12px;padding:16px;margin:18px 0}.detail div{display:flex;justify-content:space-between;gap:12px;margin:8px 0;flex-wrap:wrap}
-.detail b{max-width:100%;overflow-wrap:anywhere}label{display:flex;gap:9px;align-items:start;font-size:14px;margin:20px 0}button{background:#2e8055;border:0;color:white;border-radius:11px;width:100%;padding:14px;font-weight:800;cursor:pointer;font-size:15px}button:hover{background:#236b46}
-.notice{font-size:13px;color:#97632b;background:#fff8e8;padding:12px;border-radius:10px}h1{font-size:22px;margin:0}p{margin:8px 0 14px}
-</style></head><body><main><div class="logo">✳ NutriFit</div><span class="label">NUTRIFIT PREMIUM</span>
-<h1>{{ title }}</h1><p class="sub">{{ message }}</p>
-<div class="detail"><div><span>Người nhận</span><b>NUTRIFIT</b></div><div><span>Số tài khoản</span><b>{{ account }}</b></div>
-<div><span>Gói</span><b>{{ plan }}</b></div><div><span>Số tiền</span><b>{{ amount }}</b></div><div><span>Mã giao dịch</span><b>{{ code }}</b></div></div>
-{% if can_confirm %}<form method="post"><label><input type="checkbox" name="agree" value="yes" required>
-Tôi xác nhận đăng ký gói Premium với thông tin hiển thị ở trên.</label>
-<button type="submit">Xác nhận thanh toán</button></form>{% endif %}
-<p class="notice">Quét QR hoặc mở liên kết để xác nhận đăng ký trên NutriFit.</p></main></body></html>"""
+# NutriFit-branded checkout portal. Render from a bundled HTML template instead of
+# impersonating a third-party payment gateway. All transactions remain internal.
+_PAYMENT_GATEWAY_TEMPLATE = (Path(__file__).resolve().parents[1] / 'templates' / 'payment_gateway.html').read_text(encoding='utf-8')
 
 
 def _demo_page(txn, title, message, can_confirm=False, http_status=200):
     plan = db.session.get(SubscriptionPlan, txn.PlanId) if txn else None
-    page = render_template_string(_DEMO_PAGE, title=title, message=message,
-                                  account=_DEMO_ACCOUNT,
-                                  plan=plan.PlanName if plan else "—",
-                                  amount=f"{int(txn.AmountVnd):,} đ".replace(",", ".") if txn else "—",
-                                  code=(txn.TransactionCode.replace('DEMO_', 'NF_', 1) if txn and txn.TransactionCode.startswith('DEMO_')
-                                        else txn.TransactionCode if txn else '—'),
-                                  can_confirm=can_confirm)
+    nonce = secrets.token_urlsafe(18)
+    qr_src = _demo_qr_data_url(_demo_url(_demo_token(txn))) if can_confirm and txn else ''
+    page = render_template_string(
+        _PAYMENT_GATEWAY_TEMPLATE,
+        title=title,
+        message=message,
+        account=_DEMO_ACCOUNT,
+        plan=plan.PlanName if plan else '—',
+        amount=f"{int(txn.AmountVnd):,} đ".replace(',', '.') if txn else '—',
+        code=(txn.TransactionCode.replace('DEMO_', 'NF_', 1)
+              if txn and txn.TransactionCode.startswith('DEMO_')
+              else txn.TransactionCode if txn else '—'),
+        can_confirm=can_confirm,
+        outcome=('pending' if can_confirm else 'success' if (txn and txn.Status in (_DEMO_STATUS_SUCCESS, _DEMO_STATUS_EMAIL_FAILED)) else 'info'),
+        qr_src=qr_src,
+        back_url='http://127.0.0.1:5500/frontend/index.html#premium',
+        script_nonce=nonce,
+    )
     resp = make_response(page, http_status)
-    resp.headers["Cache-Control"] = "no-store"
-    resp.headers["X-Robots-Tag"] = "noindex, nofollow"
-    resp.headers["Referrer-Policy"] = "no-referrer"
-    resp.headers["Content-Security-Policy"] = "default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; base-uri 'none'"
+    resp.headers['Cache-Control'] = 'no-store, private'
+    resp.headers['X-Robots-Tag'] = 'noindex, nofollow'
+    resp.headers['Referrer-Policy'] = 'no-referrer'
+    resp.headers['X-Content-Type-Options'] = 'nosniff'
+    resp.headers['Content-Security-Policy'] = (
+        "default-src 'none'; img-src data:; style-src 'unsafe-inline'; "
+        f"script-src 'nonce-{nonce}'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'"
+    )
     return resp
 
 
@@ -451,6 +453,10 @@ def demo_confirm(token):
         return _demo_page(txn, "Xác nhận thanh toán Premium", "Vui lòng kiểm tra thông tin gói trước khi xác nhận.", True)
     if request.form.get('agree') != 'yes':
         return _demo_page(txn, "Chưa xác nhận", "Vui lòng đánh dấu đồng ý trước khi tiếp tục.", True, 400)
+    # Method choice changes presentation only. Real banking/card details are never collected.
+    if request.form.get('payment_method', 'QR') not in {'QR', 'BANK', 'CARD', 'WALLET'}:
+        return _demo_page(txn, 'Phương thức không hợp lệ',
+                          'Vui lòng chọn lại phương thức thanh toán.', True, 400)
 
     # Claim the transaction once; a duplicate scan or click cannot grant twice.
     claimed = PaymentTransaction.query.filter_by(

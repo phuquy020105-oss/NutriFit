@@ -981,20 +981,23 @@
       const res=await req('/api/payment/demo-checkout',{plan_id:Number(node.dataset.checkout)});
       if(res.success){
         const d=res.data||{};
-        openModal('Thanh toán Premium',`<div class="demo-payment-modal">
+        openModal('Thanh toán Premium',`<div class="demo-payment-modal nf-gateway-modal">
           <span class="demo-payment-tag">NUTRIFIT PREMIUM</span>
-          <p class="modal-intro">Quét QR bằng camera điện thoại hoặc mở liên kết để xác nhận đăng ký gói Premium.</p>
-          <div class="demo-payment-qr"><img src="${E(d.qr_data_url)}" alt="QR mở trang xác nhận NutriFit"></div>
+          <h3 class="nf-gateway-modal-title">Đơn hàng của bạn đã sẵn sàng</h3>
+          <p class="modal-intro">Chọn phương thức thanh toán trên cổng NutriFit Pay, hoặc quét QR để mở trang xác nhận bằng điện thoại.</p>
           <div class="demo-payment-info">
+            <div><span>Gói đăng ký</span><strong>${E(d.plan_name)}</strong></div>
             <div><span>Người nhận</span><strong>${E(d.recipient_name)}</strong></div>
-            <div><span>Số tài khoản</span><strong>${E(d.account_number)}</strong></div>
-            <div><span>Gói đã chọn</span><strong>${E(d.plan_name)}</strong></div>
-            <div><span>Số tiền</span><strong class="demo-payment-money">${money(d.amount_vnd)}</strong></div>
-            <div><span>Mã giao dịch</span><strong class="demo-payment-code">${E(d.transaction_code)}</strong></div>
+            <div><span>Mã đơn hàng</span><strong class="demo-payment-code">${E(displayTransactionCode(d.transaction_code))}</strong></div>
+            <div class="nf-gateway-modal-total"><span>Tổng thanh toán</span><strong class="demo-payment-money">${money(d.amount_vnd)}</strong></div>
           </div>
-          <a class="btn btn-primary full" href="${E(d.confirm_url)}" target="_blank" rel="noopener noreferrer">Mở trang xác nhận trên máy này ↗</a>
-          <div class="demo-payment-wait">${icon('clock',16)} Đang chờ xác nhận từ trang quét QR…</div>
-          <div class="mini-note">Sau khi xác nhận đăng ký, quyền Premium sẽ được cập nhật tự động trên tài khoản này.</div>
+          <div class="nf-gateway-method-preview" aria-label="Phương thức trên cổng thanh toán">
+            <span>▦ Quét QR</span><span>▤ Ngân hàng</span><span>▰ Thẻ quốc tế</span><span>◈ Ví điện tử</span>
+          </div>
+          <a class="btn btn-primary full nf-gateway-launch" href="${E(d.confirm_url)}" target="_blank" rel="noopener noreferrer">Đến cổng thanh toán <span aria-hidden="true">↗</span></a>
+          <details class="nf-gateway-qr-toggle"><summary>Quét QR để mở trên điện thoại</summary><div class="demo-payment-qr"><img src="${E(d.qr_data_url)}" alt="QR mở cổng thanh toán NutriFit"></div></details>
+          <div class="demo-payment-wait">${icon('clock',16)} Đang chờ xác nhận đăng ký…</div>
+          <div class="mini-note">Khi hoàn tất, hệ thống tự kích hoạt gói Premium trên tài khoản của bạn.</div>
         </div>`);
         demoPaymentPoll=setTimeout(()=>pollDemoPayment(d.transaction_id), 1500);
       } else toast(res.message||'Chưa thể tạo yêu cầu thanh toán.',true);
