@@ -1,6 +1,7 @@
 """One database source for recipes and food intake; estimates keep provenance."""
 import math
 from copy import deepcopy
+from flask import g, has_request_context
 from app.repositories.food_catalog_repository import FoodCatalogRepository
 from app.services.nutrition_service import NutritionService
 from app.services.module_errors import ModuleError
@@ -22,11 +23,21 @@ def usable(dish):
 
 
 def catalog_dishes(meal_type=None):
-    dishes = [dish for dish in FoodCatalogRepository.dishes() if usable(dish)]
-    if meal_type is not None:
-        dishes = [dish for dish in dishes if meal_type in dish["meal_types"]
-                  and dish["preparation_state"] != "raw"]
-    return dishes
+    """Read the catalog once per HTTP request, not once per filter pass.
+
+    Generating meal candidates can inspect the same catalog hundreds of times.
+    Keep a request-local snapshot only; never cache across users/requests or
+    across management scripts that run without a Flask request context.
+    """
+    snapshot = getattr(g, "nutrifit_catalog_snapshot", None) if has_request_context() else None
+    if snapshot is None:
+        snapshot = [dish for dish in FoodCatalogRepository.dishes() if usable(dish)]
+        if has_request_context():
+            g.nutrifit_catalog_snapshot = snapshot
+    if meal_type is None:
+        return list(snapshot)
+    return [dish for dish in snapshot if meal_type in dish["meal_types"]
+            and dish["preparation_state"] != "raw"]
 
 
 def catalog_by_id():

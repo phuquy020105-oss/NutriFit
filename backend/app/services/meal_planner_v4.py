@@ -42,7 +42,11 @@ def score(item, focus, preferences):
 
 
 def eligible(preferences, meal_type=None):
-    return [d for d in catalog_dishes(meal_type) if not violates(d, v4_preferences(preferences, meal_type))]
+    # Canonicalize user preferences ONCE, not once for every catalog item.
+    # The old comprehension repeated an expensive validation/alias lookup for
+    # every dish, causing meal generation to exceed the browser timeout.
+    validated = v4_preferences(preferences, meal_type)
+    return [dish for dish in catalog_dishes(meal_type) if not violates(dish, validated)]
 
 
 def candidate_pool(preferences, meal_type, focus, salt, recent=(), target=None, macro_targets=None, diversify=False, fast=False):

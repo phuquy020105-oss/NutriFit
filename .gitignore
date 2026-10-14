@@ -1,22 +1,15 @@
-# Environment variables
 .env
 .env.*
 !.env.example
+!.env.demo.example
 
-# Python
 .venv/
 venv/
 __pycache__/
 *.pyc
 
-# Node.js / Next.js
 node_modules/
-.next/
-out/
-
-# Build files
 dist/
 build/
 
-# Editor
 .vscode/

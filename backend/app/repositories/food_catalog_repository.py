@@ -27,13 +27,27 @@ class FoodCatalogRepository:
                     or (row["PrepMinutes"] is not None and not 1 <= row["PrepMinutes"] <= 120)):
                 raise ValueError()
             number = lambda key: None if row[key] is None else float(row[key])
+            # Existing seeded recipes often lack FiberPer100G in MySQL. Estimate
+            # it from documented ingredient masses at read time, without DB
+            # writes and without falsely treating missing data as zero.
+            fiber = number("FiberPer100G")
+            if fiber is None:
+                from app.services.fiber_estimates import estimate_fiber_per_100g
+                fiber = estimate_fiber_per_100g(provenance)
+                if fiber is not None:
+                    provenance = dict(provenance)
+                    provenance["fiber_estimate"] = {
+                        "method": "weighted_ingredient_grams",
+                        "verified": False,
+                        "source": "approximate_reference_values",
+                    }
             return {"dish_id": row["DishId"], "name": row["NameVi"], "type": row["ComponentType"],
                     "group": row["ComponentType"].lower(), "preparation_state": row["PreparationState"],
                     "reference_grams": number("ReferenceGrams"), "min_grams": number("MinGrams"),
                     "max_grams": number("MaxGrams"), "calories_per_100g": number("KcalPer100G"),
-                    "macros_per_100g": {k: number(column) for k, column in (
+                    "macros_per_100g": {**{k: number(column) for k, column in (
                         ("carbs", "CarbsPer100G"), ("protein", "ProteinPer100G"),
-                        ("fat", "FatPer100G"), ("fiber", "FiberPer100G"))},
+                        ("fat", "FatPer100G"))}, "fiber": fiber},
                     "ingredients": ingredients, "meal_types": meals, "prep_minutes": row["PrepMinutes"],
                     "provenance": provenance, "estimated": bool(row["Estimated"]),
                     "active": bool(row["IsActive"]), "data_version": row["DataVersion"]}

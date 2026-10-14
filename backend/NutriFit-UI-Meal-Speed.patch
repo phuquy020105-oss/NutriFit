@@ -1,0 +1,62 @@
+--- a/backend/app/services/meal_planner_v4.py
++++ b/backend/app/services/meal_planner_v4.py
+@@ -40,11 +40,15 @@
+     base -= 100 * len(tags & set(preferences.get("dislikes", [])))
+     return round(base, 4)
+ 
+ 
+ def eligible(preferences, meal_type=None):
+-    return [d for d in catalog_dishes(meal_type) if not violates(d, v4_preferences(preferences, meal_type))]
++    # Canonicalize user preferences ONCE, not once for every catalog item.
++    # The old comprehension repeated an expensive validation/alias lookup for
++    # every dish, causing meal generation to exceed the browser timeout.
++    validated = v4_preferences(preferences, meal_type)
++    return [dish for dish in catalog_dishes(meal_type) if not violates(dish, validated)]
+ 
+ 
+ def candidate_pool(preferences, meal_type, focus, salt, recent=(), target=None, macro_targets=None, diversify=False, fast=False):
+     """Bound the prompt while keeping every required role and varied food choices."""
+     preferences = v4_preferences(preferences, meal_type)
+--- a/backend/app/services/food_catalog_service.py
++++ b/backend/app/services/food_catalog_service.py
+@@ -1,8 +1,9 @@
+ """One database source for recipes and food intake; estimates keep provenance."""
+ import math
+ from copy import deepcopy
++from flask import g, has_request_context
+ from app.repositories.food_catalog_repository import FoodCatalogRepository
+ from app.services.nutrition_service import NutritionService
+ from app.services.module_errors import ModuleError
+ 
+ # Actual-intake bounds are unchanged; expose them for legacy snapshot editing.
+@@ -20,15 +21,25 @@
+             and all(type(v) in (int, float) and math.isfinite(v) for v in portions)
+             and 1 <= portions[0] <= portions[1] <= portions[2] <= 2000)
+ 
+ 
+ def catalog_dishes(meal_type=None):
+-    dishes = [dish for dish in FoodCatalogRepository.dishes() if usable(dish)]
+-    if meal_type is not None:
+-        dishes = [dish for dish in dishes if meal_type in dish["meal_types"]
+-                  and dish["preparation_state"] != "raw"]
+-    return dishes
++    """Read the catalog once per HTTP request, not once per filter pass.
++
++    Generating meal candidates can inspect the same catalog hundreds of times.
++    Keep a request-local snapshot only; never cache across users/requests or
++    across management scripts that run without a Flask request context.
++    """
++    snapshot = getattr(g, "nutrifit_catalog_snapshot", None) if has_request_context() else None
++    if snapshot is None:
++        snapshot = [dish for dish in FoodCatalogRepository.dishes() if usable(dish)]
++        if has_request_context():
++            g.nutrifit_catalog_snapshot = snapshot
++    if meal_type is None:
++        return list(snapshot)
++    return [dish for dish in snapshot if meal_type in dish["meal_types"]
++            and dish["preparation_state"] != "raw"]
+ 
+ 
+ def catalog_by_id():
+     return {dish["dish_id"]: dish for dish in catalog_dishes()}
+ 
