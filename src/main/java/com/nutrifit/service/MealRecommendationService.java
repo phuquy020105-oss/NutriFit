@@ -24,11 +24,20 @@ import java.util.Set;
 public class MealRecommendationService {
     private final FoodPreferenceDAO preferences = new FoodPreferenceDAO();
     private final RecipeReadPort recipes = new JdbcRecipeReadAdapter();
+    private final ConnectionProvider connections;
+
+    public MealRecommendationService() {
+        this(DatabaseConfig::getConnection);
+    }
+
+    MealRecommendationService(ConnectionProvider connections) {
+        this.connections = connections;
+    }
 
     /** Preliminary premium check: must be replaced/approved by Payment owner at integration. */
     public boolean hasPremiumAccess(long userId) throws SQLException {
         if (userId <= 0) return false;
-        try (Connection c = DatabaseConfig.getConnection()) {
+        try (Connection c = connections.open()) {
             return premiumInConnection(c, userId);
         }
     }
@@ -39,7 +48,7 @@ public class MealRecommendationService {
         if (type == null || limit < 1 || limit > 30) {
             throw new IllegalArgumentException("Invalid recommendation filters");
         }
-        try (Connection c = DatabaseConfig.getConnection()) {
+        try (Connection c = connections.open()) {
             if (!premiumInConnection(c, userId)) {
                 throw new SecurityException("Premium subscription required");
             }

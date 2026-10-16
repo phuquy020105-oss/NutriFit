@@ -2,7 +2,6 @@ package com.nutrifit.controller;
 
 import com.nutrifit.config.DatabaseConfig;
 import com.nutrifit.dao.FoodCatalogDAO;
-import com.nutrifit.model.FoodPreference;
 import com.nutrifit.service.FoodPreferenceService;
 import com.nutrifit.util.Csrf;
 import jakarta.servlet.ServletException;
@@ -34,15 +33,17 @@ public class FoodPreferenceServlet extends NutritionServletSupport {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("UTF-8");
         Long user = requireUser(req, resp);
         if (user == null || !requireCsrf(req, resp)) return;
         try {
+            String action = required(req.getParameter("action"));
             long foodId = parseId(req.getParameter("foodId"));
-            if ("delete".equals(req.getParameter("action"))) {
+            if ("delete".equals(action)) {
                 service.removePreference(user, foodId);
-            } else if ("save".equals(req.getParameter("action"))) {
+            } else if ("save".equals(action)) {
                 service.setPreference(user, foodId,
-                        FoodPreference.PreferenceType.valueOf(req.getParameter("type")));
+                        parsePreferenceType(req.getParameter("type")));
             } else {
                 throw new IllegalArgumentException("Unknown preference action");
             }

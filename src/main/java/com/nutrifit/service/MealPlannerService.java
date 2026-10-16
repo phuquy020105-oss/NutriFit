@@ -26,6 +26,7 @@ public class MealPlannerService {
     private final RecipeReadPort recipes;
     private final NutritionCalculator calculator;
     private final Clock clock;
+    private final ConnectionProvider connections;
 
     public MealPlannerService() {
         this(new MealPlanDAO(), new MealEntryDAO(), new JdbcRecipeReadAdapter(),
@@ -34,11 +35,17 @@ public class MealPlannerService {
 
     public MealPlannerService(MealPlanDAO plans, MealEntryDAO entries, RecipeReadPort recipes,
                               NutritionCalculator calculator, Clock clock) {
+        this(plans, entries, recipes, calculator, clock, DatabaseConfig::getConnection);
+    }
+
+    MealPlannerService(MealPlanDAO plans, MealEntryDAO entries, RecipeReadPort recipes,
+                       NutritionCalculator calculator, Clock clock, ConnectionProvider connections) {
         this.plans = plans;
         this.entries = entries;
         this.recipes = recipes;
         this.calculator = calculator;
         this.clock = clock;
+        this.connections = connections;
     }
 
     public LocalDate today() { return LocalDate.now(clock); }
@@ -56,7 +63,7 @@ public class MealPlannerService {
 
     private DaySummary getDay(long userId, LocalDate day) throws SQLException {
         checkUser(userId);
-        try (Connection c = DatabaseConfig.getConnection()) {
+        try (Connection c = connections.open()) {
             Optional<MealPlan> plan = plans.findByUserAndDate(c, userId, day);
             List<MealEntry> list = plan.isPresent() ? entries.findByPlan(c, plan.get().getPlanId()) : List.of();
             NutritionFacts sum = NutritionFacts.ZERO;
@@ -66,7 +73,7 @@ public class MealPlannerService {
     }
 
     public List<RecipeCandidate> listAvailableRecipes() throws SQLException {
-        try (Connection c = DatabaseConfig.getConnection()) {
+        try (Connection c = connections.open()) {
             return recipes.listCandidates(c);
         }
     }
@@ -77,7 +84,7 @@ public class MealPlannerService {
         checkId(recipeId);
         BigDecimal amount = validServings(servings);
         if (type == null) throw new IllegalArgumentException("Select a meal type");
-        try (Connection c = DatabaseConfig.getConnection()) {
+        try (Connection c = connections.open()) {
             c.setAutoCommit(false);
             try {
                 RecipeNutritionInput recipe = requireRecipe(c, recipeId, type);
@@ -100,7 +107,7 @@ public class MealPlannerService {
                 c.commit();
                 return e;
             } catch (SQLException | RuntimeException e) {
-                c.rollback();
+                rollback(c, e);
                 throw e;
             }
         }
@@ -113,7 +120,7 @@ public class MealPlannerService {
         checkId(recipeId);
         BigDecimal amount = validServings(servings);
         if (type == null) throw new IllegalArgumentException("Select a meal type");
-        try (Connection c = DatabaseConfig.getConnection()) {
+        try (Connection c = connections.open()) {
             c.setAutoCommit(false);
             try {
                 MealEntry e = entries.findByIdAndUser(c, entryId, userId)
@@ -138,7 +145,7 @@ public class MealPlannerService {
                 c.commit();
                 return e;
             } catch (SQLException | RuntimeException e) {
-                c.rollback();
+                rollback(c, e);
                 throw e;
             }
         }
@@ -147,7 +154,7 @@ public class MealPlannerService {
     public void removeMeal(long userId, long entryId) throws SQLException {
         checkUser(userId);
         checkId(entryId);
-        try (Connection c = DatabaseConfig.getConnection()) {
+        try (Connection c = connections.open()) {
             c.setAutoCommit(false);
             try {
                 MealEntry e = entries.findByIdAndUser(c, entryId, userId)
@@ -156,7 +163,7 @@ public class MealPlannerService {
                 entries.delete(c, entryId, e.getPlanId());
                 c.commit();
             } catch (SQLException | RuntimeException e) {
-                c.rollback();
+                rollback(c, e);
                 throw e;
             }
         }
@@ -167,6 +174,14 @@ public class MealPlannerService {
                 .orElseThrow(() -> new IllegalArgumentException("Only today's entries can be edited"));
         if (!todayPlan.getPlanId().equals(planId)) {
             throw new IllegalArgumentException("Only today's entries can be edited");
+        }
+    }
+
+    private static void rollback(Connection c, Exception original) {
+        try {
+            c.rollback();
+        } catch (SQLException rollbackFailure) {
+            original.addSuppressed(rollbackFailure);
         }
     }
 

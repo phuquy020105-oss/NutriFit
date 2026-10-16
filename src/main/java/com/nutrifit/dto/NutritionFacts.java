@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public record NutritionFacts(BigDecimal caloriesKcal, BigDecimal proteinG,
                              BigDecimal carbsG, BigDecimal fatG, BigDecimal fiberG) {
+    private static final BigDecimal MEAL_ENTRY_MAX = new BigDecimal("999999999.999");
     public static final NutritionFacts ZERO = new NutritionFacts(
             BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
 
@@ -36,6 +37,25 @@ public record NutritionFacts(BigDecimal caloriesKcal, BigDecimal proteinG,
 
     public NutritionFacts rounded() {
         return new NutritionFacts(r3(caloriesKcal), r3(proteinG), r3(carbsG), r3(fatG), r3(fiberG));
+    }
+
+    /** Round once after division, then validate the stored DECIMAL(12,3) snapshot.
+     * Daily totals and intermediate recipe values are deliberately not capped.
+     */
+    public NutritionFacts toMealEntry(BigDecimal divisor) {
+        if (divisor == null || divisor.signum() <= 0) {
+            throw new IllegalArgumentException("Divisor must be positive");
+        }
+        return new NutritionFacts(stored(caloriesKcal, divisor), stored(proteinG, divisor),
+                stored(carbsG, divisor), stored(fatG, divisor), stored(fiberG, divisor));
+    }
+
+    private static BigDecimal stored(BigDecimal value, BigDecimal divisor) {
+        BigDecimal result = value.divide(divisor, 3, RoundingMode.HALF_UP);
+        if (result.compareTo(MEAL_ENTRY_MAX) > 0) {
+            throw new IllegalArgumentException("Nutrition exceeds the meal entry storage limit");
+        }
+        return result;
     }
 
     private static BigDecimal r3(BigDecimal value) {

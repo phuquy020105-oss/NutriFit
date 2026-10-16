@@ -18,9 +18,9 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
         Long user = requireUser(req, resp);
         if (user == null) return;
         try {
-            boolean premium = service.hasPremiumAccess(user);
             MealEntry.MealType type = req.getParameter("mealType") == null
                     ? MealEntry.MealType.LUNCH : parseMealType(req.getParameter("mealType"));
+            boolean premium = service.hasPremiumAccess(user);
             req.setAttribute("premium", premium);
             req.setAttribute("mealType", type);
             if (premium) req.setAttribute("recommendations", service.recommend(user, type, 15));

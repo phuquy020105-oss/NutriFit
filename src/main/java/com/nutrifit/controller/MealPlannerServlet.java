@@ -29,11 +29,11 @@ public class MealPlannerServlet extends NutritionServletSupport {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        req.setCharacterEncoding("UTF-8");
         Long user = requireUser(req, resp);
         if (user == null || !requireCsrf(req, resp)) return;
-        req.setCharacterEncoding("UTF-8");
         try {
-            String action = req.getParameter("action");
+            String action = required(req.getParameter("action"));
             if ("add".equals(action)) {
                 service.addMeal(user, parseId(req.getParameter("recipeId")),
                         parseMealType(req.getParameter("mealType")),
