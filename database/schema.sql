@@ -112,23 +112,50 @@ CREATE TABLE IF NOT EXISTS mealplans (
  CONSTRAINT fk_mealplan_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+
 CREATE TABLE IF NOT EXISTS mealentries (
- entry_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
- plan_id BIGINT UNSIGNED NOT NULL,
- recipe_id BIGINT UNSIGNED NOT NULL,
- meal_type ENUM('BREAKFAST','LUNCH','DINNER') NOT NULL,
- servings DECIMAL(8,2) NOT NULL,
- calories_kcal DECIMAL(12,3) NOT NULL,
- protein_g DECIMAL(12,3) NOT NULL,
- carbs_g DECIMAL(12,3) NOT NULL,
- fat_g DECIMAL(12,3) NOT NULL,
- fiber_g DECIMAL(12,3) NOT NULL,
- recorded_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
- CONSTRAINT fk_mealentry_plan FOREIGN KEY (plan_id) REFERENCES mealplans(plan_id) ON DELETE CASCADE,
- CONSTRAINT fk_mealentry_recipe FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE RESTRICT,
- CONSTRAINT ck_mealentry_values CHECK (servings > 0 AND calories_kcal >= 0 AND protein_g >= 0 AND carbs_g >= 0 AND fat_g >= 0 AND fiber_g >= 0),
- INDEX idx_mealentry_plan (plan_id)
+    entry_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    plan_id BIGINT UNSIGNED NOT NULL,
+    recipe_id BIGINT UNSIGNED NOT NULL,
+
+    recipe_name_snapshot VARCHAR(200) NOT NULL,
+
+    meal_type ENUM('BREAKFAST','LUNCH','DINNER') NOT NULL,
+    servings DECIMAL(8,2) NOT NULL,
+    calories_kcal DECIMAL(12,3) NOT NULL,
+    protein_g DECIMAL(12,3) NOT NULL,
+    carbs_g DECIMAL(12,3) NOT NULL,
+    fat_g DECIMAL(12,3) NOT NULL,
+    fiber_g DECIMAL(12,3) NOT NULL,
+    recorded_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_mealentry_plan
+        FOREIGN KEY (plan_id)
+        REFERENCES mealplans(plan_id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_mealentry_recipe
+        FOREIGN KEY (recipe_id)
+        REFERENCES recipes(recipe_id)
+        ON DELETE RESTRICT,
+
+    CONSTRAINT ck_mealentry_values
+        CHECK (
+            servings > 0
+            AND calories_kcal >= 0
+            AND protein_g >= 0
+            AND carbs_g >= 0
+            AND fat_g >= 0
+            AND fiber_g >= 0
+        ),
+
+    CONSTRAINT uq_mealentry_plan_meal_recipe
+        UNIQUE (plan_id, meal_type, recipe_id),
+
+    INDEX idx_mealentry_plan (plan_id)
+
 ) ENGINE=InnoDB;
+
 
 CREATE TABLE IF NOT EXISTS foodpreferences (
  preference_id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
