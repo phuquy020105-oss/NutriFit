@@ -1,0 +1,10 @@
+target/
+*.class
+.DS_Store
+.vscode/
+.idea/
+*.iml
+.env
+.env.*
+!.env.example
+db.properties
