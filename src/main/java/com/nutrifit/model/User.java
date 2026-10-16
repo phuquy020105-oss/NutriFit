@@ -14,6 +14,9 @@ public class User {
     private LocalDateTime premiumExpiresAt;
     private LocalDateTime createdAt;
 
+    // Phiên bản xác thực dùng để vô hiệu hóa session cũ
+    private long authVersion;
+
     public User() {
     }
 
@@ -81,5 +84,13 @@ public class User {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public long getAuthVersion() {
+        return authVersion;
+    }
+
+    public void setAuthVersion(long authVersion) {
+        this.authVersion = authVersion;
     }
 }
