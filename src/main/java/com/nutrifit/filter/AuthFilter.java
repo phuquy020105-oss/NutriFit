@@ -17,8 +17,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
-@WebFilter(urlPatterns = {"/profile", "/profile/*",
-                         "/dashboard", "/dashboard/*"})
+@WebFilter(urlPatterns = {
+        "/profile", "/profile/*",
+        "/dashboard", "/dashboard/*",
+        "/nutrition/*",
+        "/workout", "/workout/*"
+})
 public class AuthFilter implements Filter {
 
     private final UserDAO userDAO = new UserDAO();

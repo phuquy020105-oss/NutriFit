@@ -18,8 +18,8 @@ import java.util.List;
 @WebServlet(urlPatterns = {"/workout", "/workout/*"})
 public class WorkoutServlet extends HttpServlet {
 
-    private static final String VIEW_LIST = "/WEB-INF/views/workout/workout-list.jsp";
-    private static final String VIEW_DETAIL = "/WEB-INF/views/workout/workout-detail.jsp";
+    private static final String VIEW_LIST = "/WEB-INF/views/workouts/workout-list.jsp";
+    private static final String VIEW_DETAIL = "/WEB-INF/views/workouts/workout-detail.jsp";
 
     private final WorkoutService workoutService = new WorkoutService();
 

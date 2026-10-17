@@ -19,7 +19,7 @@ import java.util.List;
 @WebServlet(urlPatterns = {"/workout/plan", "/workout/plan/*"})
 public class WorkoutPlanServlet extends HttpServlet {
 
-    private static final String VIEW_PLAN = "/WEB-INF/views/workout/plan.jsp";
+    private static final String VIEW_PLAN = "/WEB-INF/views/workouts/plan.jsp";
 
     private final WorkoutPlanService planService = new WorkoutPlanService();
     private final WorkoutService workoutService = new WorkoutService();
