@@ -23,13 +23,7 @@ public class WorkoutPlanDayDAO {
             ps.setLong(1, planId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    WorkoutPlanDay d = new WorkoutPlanDay();
-                    d.setPlanDayId(rs.getLong("plan_day_id"));
-                    d.setPlanId(rs.getLong("plan_id"));
-                    d.setDayIndex(rs.getInt("day_index"));
-                    d.setDayName(rs.getString("day_name"));
-                    d.setFocusArea(rs.getString("focus_area"));
-                    d.setRestDay(rs.getBoolean("rest_day"));
+                    WorkoutPlanDay d = mapRow(rs);
                     list.add(d);
                 }
             }
@@ -61,5 +55,29 @@ public class WorkoutPlanDayDAO {
                 throw new SQLException("Không lấy được plan_day_id vừa tạo");
             }
         }
+    }
+
+    /** Trả về null nếu không tìm thấy. */
+    public WorkoutPlanDay findById(long planDayId) throws SQLException {
+        String sql = "SELECT plan_day_id, plan_id, day_index, day_name, focus_area, rest_day "
+                   + "FROM workoutplandays WHERE plan_day_id = ?";
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, planDayId);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? mapRow(rs) : null;
+            }
+        }
+    }
+
+    private WorkoutPlanDay mapRow(ResultSet rs) throws SQLException {
+        WorkoutPlanDay d = new WorkoutPlanDay();
+        d.setPlanDayId(rs.getLong("plan_day_id"));
+        d.setPlanId(rs.getLong("plan_id"));
+        d.setDayIndex(rs.getInt("day_index"));
+        d.setDayName(rs.getString("day_name"));
+        d.setFocusArea(rs.getString("focus_area"));
+        d.setRestDay(rs.getBoolean("rest_day"));
+        return d;
     }
 }

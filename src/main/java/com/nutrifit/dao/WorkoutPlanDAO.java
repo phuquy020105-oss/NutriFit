@@ -72,6 +72,15 @@ public class WorkoutPlanDAO {
         }
     }
 
+    /** Tắt các lộ trình đang active của user (gọi trước khi tạo lộ trình mới). */
+    public void deactivateByUserId(Connection conn, long userId) throws SQLException {
+        String sql = "UPDATE workoutplans SET active = FALSE WHERE user_id = ? AND active = TRUE";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, userId);
+            ps.executeUpdate();
+        }
+    }
+
     private WorkoutPlan mapRow(ResultSet rs) throws SQLException {
         WorkoutPlan p = new WorkoutPlan();
         p.setPlanId(rs.getLong("plan_id"));

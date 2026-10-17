@@ -23,12 +23,7 @@ public class WorkoutPlanDetailDAO {
             ps.setLong(1, planDayId);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    WorkoutPlanDetail d = new WorkoutPlanDetail();
-                    d.setDetailId(rs.getLong("detail_id"));
-                    d.setPlanDayId(rs.getLong("plan_day_id"));
-                    d.setWorkoutId(rs.getLong("workout_id"));
-                    d.setDurationMinutes(rs.getInt("duration_minutes"));
-                    d.setOrderIndex(rs.getInt("order_index"));
+                    WorkoutPlanDetail d = mapRow(rs);
                     list.add(d);
                 }
             }
@@ -78,5 +73,28 @@ public class WorkoutPlanDetailDAO {
             ps.setLong(1, detailId);
             ps.executeUpdate();
         }
+    }
+
+    /** Trả về null nếu không tìm thấy. */
+    public WorkoutPlanDetail findById(long detailId) throws SQLException {
+        String sql = "SELECT detail_id, plan_day_id, workout_id, duration_minutes, order_index "
+                   + "FROM workoutplandetails WHERE detail_id = ?";
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setLong(1, detailId);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? mapRow(rs) : null;
+            }
+        }
+    }
+
+    private WorkoutPlanDetail mapRow(ResultSet rs) throws SQLException {
+        WorkoutPlanDetail d = new WorkoutPlanDetail();
+        d.setDetailId(rs.getLong("detail_id"));
+        d.setPlanDayId(rs.getLong("plan_day_id"));
+        d.setWorkoutId(rs.getLong("workout_id"));
+        d.setDurationMinutes(rs.getInt("duration_minutes"));
+        d.setOrderIndex(rs.getInt("order_index"));
+        return d;
     }
 }
