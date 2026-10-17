@@ -1,5 +1,5 @@
--- NutriFit Vietnamese catalog v1. Part 1/3. NEVER execute against a live DB.
--- One fresh mysql batch session, without --force; see README.md / run_vietnamese_catalog.py.
+-- NutriFit Vietnamese catalog v1. Part 1/3. Main DB requires explicit verified confirmation + backup.
+-- One fresh mysql batch session, without --force; see database/seed/README.md.
 -- Fxxx/Rxxx are local references only, never database IDs. No permanent DDL.
 SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 SET SESSION sql_mode = 'STRICT_ALL_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION,NO_BACKSLASH_ESCAPES';
@@ -12,7 +12,13 @@ CREATE TEMPORARY TABLE _nf_assert (
 ) ENGINE=InnoDB;
 -- Failed assertions insert NULL into NOT NULL under strict mode: batch must STOP.
 INSERT INTO _nf_assert (check_name, ok)
-SELECT 'database_name_must_end_in_test', IF((DATABASE() IS NOT NULL AND RIGHT(LOWER(DATABASE()), 5) = '_test'), 1, NULL);
+SELECT 'database_target_requires_explicit_confirmation', IF((
+    DATABASE() IS NOT NULL AND (
+      RIGHT(LOWER(DATABASE()), 5) = '_test'
+      OR (COALESCE(@nf_allow_main_db, 0) = 1
+          AND CAST(DATABASE() AS BINARY) = CAST('nutrifitdb_java' AS BINARY)
+          AND CAST(@nf_verified_main_database AS BINARY) = CAST(DATABASE() AS BINARY))
+    )), 1, NULL);
 
 INSERT INTO _nf_assert (check_name, ok)
 SELECT 'mysql_8_0_16_or_newer_required', IF((

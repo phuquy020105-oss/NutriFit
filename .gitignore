@@ -6,7 +6,6 @@ target/
 *.iml
 .env
 .env.*
-!.env.example
 db.properties
 
 # Build packages and runtime/test diagnostics
@@ -15,3 +14,6 @@ db.properties
 *.log
 *.log.*
 *.dumpstream
+
+# Local database backups and private import evidence
+.local-backups/
