@@ -1,0 +1,9 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.nutrifit.util.HtmlEscaper" %>
+<% String state=String.valueOf(request.getAttribute("state")); String ctx=request.getContextPath(); String title="Chờ xác nhận thanh toán"; String text="Vui lòng đợi VNPay gửi IPN rồi tải lại trang để kiểm tra."; String emoji="⌛";
+if("SUCCESS".equals(state)){title="Đã kích hoạt Premium!";text="Giao dịch được máy chủ xác nhận và quyền Premium đã cập nhật.";emoji="✓";}
+else if("FAILED".equals(state)){title="Thanh toán không thành công";text="Bạn có thể quay lại chọn gói và thử thanh toán mới.";emoji="!";}
+else if("CANCELLED".equals(state)){title="Giao dịch đã hủy";text="Không có thay đổi về gói Premium.";emoji="!";}
+else if("INVALID".equals(state)){title="Chưa xác minh được giao dịch";text="Thông tin trả về không hợp lệ hoặc không thuộc tài khoản này.";emoji="!";}
+%>
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NutriFit · Kết quả VNPay</title><link rel="stylesheet" href="<%=ctx%>/assets/css/payment-modern.css?v=2"></head><body><div class="wrap"><header><a class="brand" href="<%=ctx%>/dashboard"><span class="logo">✳</span>NutriFit</a><nav><a href="<%=ctx%>/chatbot">✦ AI Chatbot</a><a href="<%=ctx%>/payment">Premium</a></nav></header><main class="result-card"><span class="result-icon"><%=emoji%></span><h1><%=title%></h1><p><%=text%></p><div class="txn">Mã đơn hàng: <b><%=HtmlEscaper.escape(request.getAttribute("txnRef"))%></b></div><p><small>Kết quả tại Return URL chỉ để hiển thị; việc kích hoạt Premium phụ thuộc IPN đã được ký và xác minh.</small></p><div class="actions"><a href="<%=ctx%>/dashboard">Về Dashboard</a><a class="primary" href="<%=ctx%>/payment">Xem gói Premium →</a></div></main></div></body></html>

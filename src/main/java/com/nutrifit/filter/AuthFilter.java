@@ -21,7 +21,8 @@ import java.util.Optional;
         "/profile", "/profile/*",
         "/dashboard", "/dashboard/*",
         "/nutrition/*",
-        "/workout", "/workout/*"
+        "/workout", "/workout/*",
+        "/chatbot"
 })
 public class AuthFilter implements Filter {
 

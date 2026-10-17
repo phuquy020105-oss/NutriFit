@@ -1,17 +1,24 @@
-target/
+# Build artifacts
+/target/
 *.class
+*.war
+# Editor/OS files
 .DS_Store
 .vscode/
 .idea/
 *.iml
+# Private configuration
 .env
 .env.*
 !.env.example
 db.properties
-
 # Build packages and runtime/test diagnostics
 *.war
 *.ear
 *.log
 *.log.*
 *.dumpstream
+# Integration backups / local patches
+*.bak
+/_*backup*/
+/**/_*backup*/

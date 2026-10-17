@@ -1,3 +1,5 @@
+> **Tình trạng bản tích hợp:** Tài liệu dưới đây mô tả giai đoạn khởi tạo (16/10/2026). Mã nguồn trong ZIP này đã được bổ sung Auth, Chatbot và Payment. Xem `docs/INTEGRATION.md` về điều kiện triển khai và kiểm thử.
+
 # NUTRIFIT --- HƯỚNG DẪN PHÁT TRIỂN JAVA WEB
 
 > **Tài liệu dành cho các thành viên nhóm NutriFit**\
