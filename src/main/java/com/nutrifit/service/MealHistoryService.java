@@ -14,6 +14,8 @@ public class MealHistoryService {
     private final MealPlanDAO plans = new MealPlanDAO();
     private final MealPlannerService planner = new MealPlannerService();
 
+    public LocalDate today() { return planner.today(); }
+
     public List<MealPlan> listHistory(long userId, int limit) throws SQLException {
         if (userId <= 0) throw new SecurityException("Login required");
         if (limit < 1 || limit > 100) throw new IllegalArgumentException("History limit must be 1..100");

@@ -5,8 +5,9 @@ import jakarta.servlet.http.HttpSession;
 import java.util.OptionalLong;
 
 /**
- * INTEGRATION POINT: change this to the session contract of the Auth owner.
- * Read only a server-generated session attribute; NEVER read userId from form/query.
+ * Reads the Auth session contract, never form/query identity.
+ * Checking attribute types is NOT session revocation validation: the integrated
+ * AuthFilter must verify authVersion against Auth's authoritative state.
  */
 public final class CurrentUser {
     private CurrentUser() { }
@@ -14,16 +15,18 @@ public final class CurrentUser {
     public static OptionalLong id(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) return OptionalLong.empty();
-        Object value = session.getAttribute("userId");
-        if (value == null) value = session.getAttribute("user_id");
-        long id;
         try {
-            if (value instanceof Number n) id = n.longValue();
-            else if (value instanceof String s) id = Long.parseLong(s);
-            else return OptionalLong.empty();
-        } catch (NumberFormatException e) {
+            Object value = session.getAttribute("userId");
+            if (!(value instanceof Long id) || id <= 0
+                    || !(session.getAttribute("authVersion") instanceof Long)
+                    || !(session.getAttribute("role") instanceof String)
+                    || !(session.getAttribute("fullName") instanceof String)) {
+                return OptionalLong.empty();
+            }
+            return OptionalLong.of(id);
+        } catch (IllegalStateException e) {
+            // The session may have been invalidated by a concurrent logout.
             return OptionalLong.empty();
         }
-        return id > 0 ? OptionalLong.of(id) : OptionalLong.empty();
     }
 }

@@ -19,16 +19,17 @@ public class MealPlannerServlet extends NutritionServletSupport {
         if (user == null) return;
         try {
             req.setAttribute("today", service.getToday(user));
+            req.setAttribute("targetKcal", service.getTargetKcal(user).orElse(null));
             req.setAttribute("recipes", service.listAvailableRecipes());
             req.setAttribute("csrf", Csrf.token(req));
             req.getRequestDispatcher("/WEB-INF/views/nutrition/meal-planner.jsp").forward(req, resp);
         } catch (Exception e) {
-            fail(resp, e);
+            fail(req, resp, e);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         Long user = requireUser(req, resp);
         if (user == null || !requireCsrf(req, resp)) return;
@@ -48,9 +49,15 @@ public class MealPlannerServlet extends NutritionServletSupport {
             } else {
                 throw new IllegalArgumentException("Unknown action");
             }
-            resp.sendRedirect(req.getContextPath() + "/nutrition/meal-planner?message=saved");
+            String message = switch (action) {
+                case "add" -> "added";
+                case "update" -> "updated";
+                case "delete" -> "deleted";
+                default -> "saved";
+            };
+            resp.sendRedirect(req.getContextPath() + "/nutrition/meal-planner?message=" + message);
         } catch (Exception e) {
-            fail(resp, e);
+            fail(req, resp, e);
         }
     }
 }

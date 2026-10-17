@@ -16,7 +16,8 @@ public final class Csrf {
         HttpSession session = request.getSession(false);
         if (session == null) throw new IllegalStateException("Login session required");
         synchronized (session) {
-            String token = (String) session.getAttribute(ATTRIBUTE);
+            Object value = session.getAttribute(ATTRIBUTE);
+            String token = value instanceof String s && s.length() == 43 ? s : null;
             if (token == null) {
                 byte[] bytes = new byte[32];
                 RANDOM.nextBytes(bytes);
@@ -30,10 +31,15 @@ public final class Csrf {
     public static boolean valid(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session == null) return false;
-        Object expected = session.getAttribute(ATTRIBUTE);
-        String actual = request.getParameter("csrfToken");
-        return expected instanceof String e && actual != null &&
-                MessageDigest.isEqual(e.getBytes(StandardCharsets.UTF_8),
-                        actual.getBytes(StandardCharsets.UTF_8));
+        try {
+            Object expected = session.getAttribute(ATTRIBUTE);
+            String actual = request.getParameter("csrfToken");
+            return expected instanceof String e && e.length() == 43
+                    && actual != null && actual.length() == e.length()
+                    && MessageDigest.isEqual(e.getBytes(StandardCharsets.UTF_8),
+                            actual.getBytes(StandardCharsets.UTF_8));
+        } catch (IllegalStateException e) {
+            return false;
+        }
     }
 }

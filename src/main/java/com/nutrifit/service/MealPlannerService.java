@@ -4,6 +4,7 @@ import com.nutrifit.config.DatabaseConfig;
 import com.nutrifit.dao.JdbcRecipeReadAdapter;
 import com.nutrifit.dao.MealEntryDAO;
 import com.nutrifit.dao.MealPlanDAO;
+import com.nutrifit.dao.NutritionUserReadDAO;
 import com.nutrifit.dto.DaySummary;
 import com.nutrifit.dto.NutritionFacts;
 import com.nutrifit.dto.RecipeCandidate;
@@ -27,6 +28,7 @@ public class MealPlannerService {
     private final NutritionCalculator calculator;
     private final Clock clock;
     private final ConnectionProvider connections;
+    private final NutritionUserReadDAO users = new NutritionUserReadDAO();
 
     public MealPlannerService() {
         this(new MealPlanDAO(), new MealEntryDAO(), new JdbcRecipeReadAdapter(),
@@ -55,14 +57,35 @@ public class MealPlannerService {
     }
 
     public DaySummary getPastDay(long userId, LocalDate day) throws SQLException {
+        checkUser(userId);
         if (day == null || !day.isBefore(today())) {
             throw new IllegalArgumentException("History must be before today");
         }
         return getDay(userId, day);
     }
 
+    /** Read-only Dashboard boundary. The caller must obtain userId from authenticated context. */
+    public DaySummary getDaySummary(long userId, LocalDate day) throws SQLException {
+        checkUser(userId);
+        if (day == null || day.isAfter(today())) {
+            throw new IllegalArgumentException("Select today or a past day");
+        }
+        return getDay(userId, day);
+    }
+
+    /** Current Profile target; no historical target is inferred from today's profile. */
+    public Optional<BigDecimal> getTargetKcal(long userId) throws SQLException {
+        checkUser(userId);
+        try (Connection c = connections.open()) {
+            return users.findTargetKcal(c, userId);
+        }
+    }
+
     private DaySummary getDay(long userId, LocalDate day) throws SQLException {
         checkUser(userId);
+        if (day == null || day.getYear() < 1000 || day.getYear() > 9999) {
+            throw new IllegalArgumentException("Date is outside the database range");
+        }
         try (Connection c = connections.open()) {
             Optional<MealPlan> plan = plans.findByUserAndDate(c, userId, day);
             List<MealEntry> list = plan.isPresent() ? entries.findByPlan(c, plan.get().getPlanId()) : List.of();
@@ -84,11 +107,12 @@ public class MealPlannerService {
         checkId(recipeId);
         BigDecimal amount = validServings(servings);
         if (type == null) throw new IllegalArgumentException("Select a meal type");
+        LocalDate day = today();
         try (Connection c = connections.open()) {
             c.setAutoCommit(false);
             try {
                 RecipeNutritionInput recipe = requireRecipe(c, recipeId, type);
-                long planId = plans.findOrCreateForUpdate(c, userId, today());
+                long planId = plans.findOrCreateForUpdate(c, userId, day);
                 Optional<MealEntry> existing = entries.findByPlanMealRecipe(c, planId, type, recipeId);
                 MealEntry e;
                 if (existing.isPresent()) {
@@ -120,12 +144,13 @@ public class MealPlannerService {
         checkId(recipeId);
         BigDecimal amount = validServings(servings);
         if (type == null) throw new IllegalArgumentException("Select a meal type");
+        LocalDate day = today();
         try (Connection c = connections.open()) {
             c.setAutoCommit(false);
             try {
                 MealEntry e = entries.findByIdAndUser(c, entryId, userId)
                         .orElseThrow(() -> new IllegalArgumentException("Meal entry not found"));
-                verifyCurrentPlan(c, userId, e.getPlanId());
+                verifyCurrentPlan(c, userId, e.getPlanId(), day);
                 if (e.getRecipeId().equals(recipeId) && e.getMealType() == type) {
                     putFacts(e, calculator.rescaleStored(snapshot(e), e.getServings(), amount));
                 } else {
@@ -154,12 +179,13 @@ public class MealPlannerService {
     public void removeMeal(long userId, long entryId) throws SQLException {
         checkUser(userId);
         checkId(entryId);
+        LocalDate day = today();
         try (Connection c = connections.open()) {
             c.setAutoCommit(false);
             try {
                 MealEntry e = entries.findByIdAndUser(c, entryId, userId)
                         .orElseThrow(() -> new IllegalArgumentException("Meal entry not found"));
-                verifyCurrentPlan(c, userId, e.getPlanId());
+                verifyCurrentPlan(c, userId, e.getPlanId(), day);
                 entries.delete(c, entryId, e.getPlanId());
                 c.commit();
             } catch (SQLException | RuntimeException e) {
@@ -169,8 +195,8 @@ public class MealPlannerService {
         }
     }
 
-    private void verifyCurrentPlan(Connection c, long userId, long planId) throws SQLException {
-        MealPlan todayPlan = plans.findByUserAndDate(c, userId, today())
+    private void verifyCurrentPlan(Connection c, long userId, long planId, LocalDate day) throws SQLException {
+        MealPlan todayPlan = plans.findByUserAndDate(c, userId, day)
                 .orElseThrow(() -> new IllegalArgumentException("Only today's entries can be edited"));
         if (!todayPlan.getPlanId().equals(planId)) {
             throw new IllegalArgumentException("Only today's entries can be edited");

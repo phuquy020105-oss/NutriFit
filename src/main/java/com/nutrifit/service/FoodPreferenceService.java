@@ -2,6 +2,9 @@ package com.nutrifit.service;
 
 import com.nutrifit.config.DatabaseConfig;
 import com.nutrifit.dao.FoodPreferenceDAO;
+import com.nutrifit.dao.FoodCatalogDAO;
+import com.nutrifit.dto.FoodOption;
+import com.nutrifit.dto.FoodPreferenceView;
 import com.nutrifit.model.FoodPreference;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,6 +12,21 @@ import java.util.List;
 
 public class FoodPreferenceService {
     private final FoodPreferenceDAO dao = new FoodPreferenceDAO();
+    private final FoodCatalogDAO catalog = new FoodCatalogDAO();
+
+    public List<FoodOption> listAvailableFoods(long userId) throws SQLException {
+        requireUser(userId);
+        try (Connection c = DatabaseConfig.getConnection()) {
+            return catalog.listActive(c);
+        }
+    }
+
+    public List<FoodPreferenceView> listSavedPreferences(long userId) throws SQLException {
+        requireUser(userId);
+        try (Connection c = DatabaseConfig.getConnection()) {
+            return dao.findViewsByUser(c, userId);
+        }
+    }
 
     public List<FoodPreference> listPreferences(long userId) throws SQLException {
         requireUser(userId);

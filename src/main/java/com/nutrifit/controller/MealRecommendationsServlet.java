@@ -2,6 +2,7 @@ package com.nutrifit.controller;
 
 import com.nutrifit.model.MealEntry;
 import com.nutrifit.service.MealRecommendationService;
+import com.nutrifit.util.Csrf;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,11 +24,14 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
             boolean premium = service.hasPremiumAccess(user);
             req.setAttribute("premium", premium);
             req.setAttribute("mealType", type);
-            if (premium) req.setAttribute("recommendations", service.recommend(user, type, 15));
+            if (premium) {
+                req.setAttribute("recommendations", service.recommend(user, type, 15));
+                req.setAttribute("csrf", Csrf.token(req));
+            }
             req.getRequestDispatcher("/WEB-INF/views/nutrition/meal-recommendations.jsp")
                     .forward(req, resp);
         } catch (Exception e) {
-            fail(resp, e);
+            fail(req, resp, e);
         }
     }
 }

@@ -22,9 +22,10 @@ public class MealHistoryServlet extends NutritionServletSupport {
                 req.setAttribute("selected", service.getPastDay(user, parseDate(dateParam)));
             }
             req.setAttribute("history", service.listHistory(user, 30));
+            req.setAttribute("latestDate", service.today().minusDays(1));
             req.getRequestDispatcher("/WEB-INF/views/nutrition/meal-history.jsp").forward(req, resp);
         } catch (Exception e) {
-            fail(resp, e);
+            fail(req, resp, e);
         }
     }
 }

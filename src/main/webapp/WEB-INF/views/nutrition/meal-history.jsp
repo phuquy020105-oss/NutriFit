@@ -7,8 +7,13 @@ String ctx = request.getContextPath();
 %>
 <!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Lịch sử ăn uống - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/meal-planner.css"></head>
-<body><main class="nf-wrap"><header class="nf-head"><div><h1>Lịch sử ăn uống</h1><p>Chỉ xem, không chỉnh sửa được dữ liệu ngày trước.</p></div>
+<body class="nf-page"><main class="nf-wrap"><header class="nf-head"><div><h1>Lịch sử ăn uống</h1><p>Chỉ xem, không chỉnh sửa được dữ liệu ngày trước.</p></div>
 <nav><a href="<%= Html.escape(ctx) %>/nutrition/meal-planner">Hôm nay</a><a href="<%= Html.escape(ctx) %>/nutrition/preferences">Sở thích</a></nav></header>
+<section class="nf-card"><h2>Xem theo ngày</h2>
+<form method="get" action="<%= Html.escape(ctx) %>/nutrition/history" class="nf-form">
+<label>Ngày đã qua<input type="date" name="date" min="1000-01-01" max="<%= Html.escape(request.getAttribute("latestDate")) %>" value="<%= selected==null?"":Html.escape(selected.date()) %>" required></label>
+<button type="submit">Xem nhật ký</button></form>
+<p class="nf-muted">Có thể chọn ngày cũ hơn danh sách bên dưới. Ngày chưa ghi nhận sẽ hiển thị tổng bằng 0.</p></section>
 <section class="nf-card"><h2>30 ngày có nhật ký gần nhất</h2>
 <% if(history.isEmpty()) { %><p>Chưa có ngày nào trong lịch sử.</p><% } else { %><ul class="nf-dates">
 <% for(MealPlan p:history) { %><li><a href="<%= Html.escape(ctx) %>/nutrition/history?date=<%= Html.escape(p.getPlanDate()) %>"><%= Html.escape(p.getPlanDate()) %></a></li><% } %></ul><% } %></section>
@@ -19,7 +24,7 @@ String ctx = request.getContextPath();
 <div><strong><%= Html.escape(selected.total().fatG()) %></strong><small>Fat (g)</small></div>
 <div><strong><%= Html.escape(selected.total().fiberG()) %></strong><small>Fiber (g)</small></div></div>
 <div class="nf-table-scroll"><table><thead><tr><th>Bữa</th><th>Món đã ghi nhận</th><th>Khẩu phần</th><th>Kcal</th><th>Protein</th><th>Carbs</th><th>Fat</th><th>Fiber</th></tr></thead><tbody>
-<% for(MealEntry e:selected.entries()) { %><tr><td><%= Html.escape(e.getMealType()) %></td>
+<% for(MealEntry e:selected.entries()) { %><tr><td><%= e.getMealType()==MealEntry.MealType.BREAKFAST?"Sáng":e.getMealType()==MealEntry.MealType.LUNCH?"Trưa":"Tối" %></td>
 <td><%= Html.escape(e.getRecipeNameSnapshot()) %></td><td><%= Html.escape(e.getServings()) %></td>
 <td><%= Html.escape(e.getCaloriesKcal()) %></td><td><%= Html.escape(e.getProteinG()) %></td><td><%= Html.escape(e.getCarbsG()) %></td>
 <td><%= Html.escape(e.getFatG()) %></td><td><%= Html.escape(e.getFiberG()) %></td></tr><% } %>

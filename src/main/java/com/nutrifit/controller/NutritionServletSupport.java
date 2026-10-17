@@ -5,6 +5,7 @@ import com.nutrifit.model.FoodPreference;
 import com.nutrifit.service.MealPlannerService;
 import com.nutrifit.util.Csrf;
 import com.nutrifit.util.CurrentUser;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,14 +27,14 @@ abstract class NutritionServletSupport extends HttpServlet {
         OptionalLong user = CurrentUser.id(request);
         if (user.isPresent()) return user.getAsLong();
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-                "Please log in to access Meal Planner (Auth integration pending)");
+                "Vui lòng đăng nhập để sử dụng nhật ký ăn uống");
         return null;
     }
 
     protected boolean requireCsrf(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         if (Csrf.valid(request)) return true;
-        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid form token");
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Biểu mẫu không hợp lệ hoặc đã hết hạn. Vui lòng tải lại trang");
         return false;
     }
 
@@ -72,7 +73,9 @@ abstract class NutritionServletSupport extends HttpServlet {
             throw new IllegalArgumentException("Date must use yyyy-MM-dd");
         }
         try {
-            return LocalDate.parse(input);
+            LocalDate day = LocalDate.parse(input);
+            if (day.getYear() < 1000) throw new IllegalArgumentException("Date is outside the database range");
+            return day;
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Invalid calendar date");
         }
@@ -95,5 +98,32 @@ abstract class NutritionServletSupport extends HttpServlet {
             LOG.log(Level.SEVERE, "Unexpected Meal Planner error", exception);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error");
         }
+    }
+
+    /** Render a controlled Nutrition error view; never expose submitted values or exception details. */
+    protected void fail(HttpServletRequest request, HttpServletResponse response, Exception exception)
+            throws ServletException, IOException {
+        int status;
+        String message;
+        if (exception instanceof IllegalArgumentException || exception instanceof DateTimeParseException) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            message = "Thông tin chưa hợp lệ. Hãy kiểm tra món ăn, bữa, khẩu phần hoặc ngày đã chọn. "
+                    + "Nhật ký chỉ được chỉnh sửa trong ngày hiện tại; không thể đổi sang món đã có trong cùng bữa.";
+        } else if (exception instanceof SecurityException) {
+            status = HttpServletResponse.SC_FORBIDDEN;
+            message = "Bạn không có quyền thực hiện thao tác này. Hãy kiểm tra quyền truy cập của tài khoản.";
+        } else if (exception instanceof SQLException) {
+            status = HttpServletResponse.SC_SERVICE_UNAVAILABLE;
+            message = "Chưa thể truy cập dữ liệu. Vui lòng tải lại nhật ký để kiểm tra trước khi gửi lại thao tác.";
+            LOG.log(Level.SEVERE, "Meal Planner database error", exception);
+        } else {
+            status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+            message = "Không thể hoàn tất yêu cầu. Vui lòng tải lại nhật ký để kiểm tra trước khi gửi lại thao tác.";
+            LOG.log(Level.SEVERE, "Unexpected Meal Planner error", exception);
+        }
+        response.setStatus(status);
+        request.setAttribute("errorStatus", status);
+        request.setAttribute("errorMessage", message);
+        request.getRequestDispatcher("/WEB-INF/views/nutrition/nutrition-error.jsp").forward(request, response);
     }
 }

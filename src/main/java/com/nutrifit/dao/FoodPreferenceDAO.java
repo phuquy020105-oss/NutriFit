@@ -1,6 +1,7 @@
 package com.nutrifit.dao;
 
 import com.nutrifit.model.FoodPreference;
+import com.nutrifit.dto.FoodPreferenceView;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FoodPreferenceDAO {
+    public List<FoodPreferenceView> findViewsByUser(Connection connection, long userId) throws SQLException {
+        List<FoodPreferenceView> result = new ArrayList<>();
+        String sql = "SELECT p.food_id,f.name,f.active,p.type,p.updated_at FROM foodpreferences p "
+                + "JOIN foods f ON f.food_id=p.food_id WHERE p.user_id=? "
+                + "ORDER BY p.updated_at DESC,p.preference_id DESC";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setLong(1, userId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) result.add(new FoodPreferenceView(rs.getLong("food_id"),
+                        rs.getString("name"), FoodPreference.PreferenceType.valueOf(rs.getString("type")),
+                        rs.getTimestamp("updated_at").toLocalDateTime(), rs.getBoolean("active")));
+            }
+        }
+        return result;
+    }
+
     public List<FoodPreference> findByUser(Connection connection, long userId) throws SQLException {
         List<FoodPreference> result = new ArrayList<>();
         String sql = "SELECT preference_id,user_id,food_id,type,updated_at "
