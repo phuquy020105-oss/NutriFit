@@ -18,8 +18,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.Normalizer;
 import java.time.LocalDate;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,12 +32,16 @@ import java.util.stream.Collectors;
 
 public class WorkoutPlanService {
 
-    private static final int DEFAULT_SESSIONS_PER_WEEK = 3;
+    /** Mặc định (mục tiêu giữ dáng): 4 buổi tập + 3 ngày nghỉ trong 7 ngày. */
+    private static final int DEFAULT_SESSIONS_PER_WEEK = 4;
     static final int WARMUP_WORKOUTS_PER_SESSION = 3;
     static final int CALISTHENIC_WORKOUTS_PER_SESSION = 5;
     static final int STRETCHING_WORKOUTS_PER_SESSION = 2;
     static final int TOTAL_WORKOUTS_PER_SESSION =
         WARMUP_WORKOUTS_PER_SESSION + CALISTHENIC_WORKOUTS_PER_SESSION + STRETCHING_WORKOUTS_PER_SESSION;
+    /** Mỗi bài ít nhất 1 phút => mỗi buổi tập ít nhất 10 phút. */
+    static final int MIN_MINUTES_PER_WORKOUT = 1;
+    static final int MIN_MINUTES_PER_SESSION = TOTAL_WORKOUTS_PER_SESSION * MIN_MINUTES_PER_WORKOUT;
 
     private final WorkoutGoalDAO goalDAO = new WorkoutGoalDAO();
     private final WorkoutPlanDAO planDAO = new WorkoutPlanDAO();
@@ -44,8 +52,10 @@ public class WorkoutPlanService {
     private final WorkoutService workoutService = new WorkoutService();
 
     /**
-     * Tạo lộ trình 7 ngày từ mục tiêu của user: rải đều số buổi tập trong tuần,
-     * mỗi buổi gồm 3 bài khởi động, 5 bài Calisthenic và 2 bài giãn cơ.
+     * Tạo lộ trình 7 ngày từ mục tiêu của user: rải đều số buổi tập trong tuần
+     * (mặc định 4 buổi tập + 3 ngày nghỉ), mỗi buổi gồm 3 bài khởi động,
+     * 5 bài Calisthenic và 2 bài giãn cơ, mỗi buổi tập ít nhất 10 phút.
+     * Các nhóm cơ được chia đều cho các buổi để cả tuần phủ hết mọi nhóm cơ.
      * Ghi 3 bảng trong cùng một transaction.
      */
     public WorkoutPlan generateSevenDayPlan(long userId) throws SQLException {
@@ -56,7 +66,7 @@ public class WorkoutPlanService {
             sessions = Math.min(goal.getWeeklySessionsTarget(), 7);
             if (goal.getWeeklyDurationTarget() > 0) {
                 minutesPerSession = Math.max(
-                    goal.getWeeklyDurationTarget() / sessions, TOTAL_WORKOUTS_PER_SESSION);
+                    goal.getWeeklyDurationTarget() / sessions, MIN_MINUTES_PER_SESSION);
             }
         }
 
@@ -78,6 +88,13 @@ public class WorkoutPlanService {
             .filter(workout -> isCategory(categoryNames.get(workout.getCategoryId()),
                 "gian co", "stretch"))
             .toList();
+        requireEnoughWorkouts(warmupWorkouts, WARMUP_WORKOUTS_PER_SESSION, "khởi động");
+        requireEnoughWorkouts(calisthenicWorkouts, CALISTHENIC_WORKOUTS_PER_SESSION, "Calisthenic");
+        requireEnoughWorkouts(stretchingWorkouts, STRETCHING_WORKOUTS_PER_SESSION, "giãn cơ");
+
+        // Chia đều các nhóm cơ cho các buổi tập để cả tuần phủ hết mọi nhóm cơ.
+        Map<String, String> muscleGroups = muscleGroupNames(calisthenicWorkouts);
+        List<Set<String>> groupsPerSession = assignGroupsToSessions(new ArrayList<>(muscleGroups.keySet()), sessions);
         Set<Integer> trainingDays = trainingDays(sessions);
 
         LocalDate start = LocalDate.now();
@@ -97,9 +114,10 @@ public class WorkoutPlanService {
                 int sessionIndex = 0;
                 for (int dayIndex = 1; dayIndex <= 7; dayIndex++) {
                     boolean training = trainingDays.contains(dayIndex);
+                    Set<String> sessionGroups = training ? groupsPerSession.get(sessionIndex) : Set.of();
                     List<Workout> sessionWorkouts = training
                         ? selectSessionWorkouts(
-                            warmupWorkouts, calisthenicWorkouts, stretchingWorkouts, sessionIndex)
+                            warmupWorkouts, calisthenicWorkouts, stretchingWorkouts, sessionGroups)
                         : List.of();
                     if (training) {
                         sessionIndex++;
@@ -110,7 +128,7 @@ public class WorkoutPlanService {
                     day.setDayIndex(dayIndex);
                     day.setDayName("Ngày " + dayIndex);
                     day.setRestDay(!training);
-                    day.setFocusArea(training ? "Khởi động + Calisthenic + Giãn cơ" : "Nghỉ ngơi");
+                    day.setFocusArea(training ? focusAreaOf(sessionGroups, muscleGroups) : "Nghỉ ngơi");
                     long dayId = dayDAO.insert(conn, day);
 
                     if (training) {
@@ -141,18 +159,22 @@ public class WorkoutPlanService {
         if (categoryName == null) {
             return false;
         }
-        String normalizedName = Normalizer.normalize(categoryName.replace('đ', 'd').replace('Đ', 'D'),
-                Normalizer.Form.NFD)
-            .replaceAll("\\p{M}", "")
-            .toLowerCase(Locale.ROOT)
-            .replaceAll("[^a-z0-9]+", " ")
-            .trim();
+        String normalizedName = normalize(categoryName);
         for (String prefix : expectedPrefixes) {
             if (normalizedName.startsWith(prefix)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /** Bỏ dấu, chữ thường, chỉ giữ chữ-số, cách nhau bằng 1 khoảng trắng. */
+    static String normalize(String text) {
+        return Normalizer.normalize(text.replace('đ', 'd').replace('Đ', 'D'), Normalizer.Form.NFD)
+            .replaceAll("\\p{M}", "")
+            .toLowerCase(Locale.ROOT)
+            .replaceAll("[^a-z0-9]+", " ")
+            .trim();
     }
 
     static void requireEnoughWorkouts(List<Workout> workouts, int required, String categoryName) {
@@ -163,17 +185,122 @@ public class WorkoutPlanService {
         }
     }
 
+    /**
+     * Chọn 10 bài cho một buổi: 3 khởi động, 5 Calisthenic, 2 giãn cơ (đúng thứ tự này).
+     * Trong mỗi nhóm, ưu tiên các bài thuộc nhóm cơ mục tiêu của buổi đó.
+     */
     static List<Workout> selectSessionWorkouts(List<Workout> warmupWorkouts, List<Workout> calisthenicWorkouts,
-                                               List<Workout> stretchingWorkouts, int sessionIndex) {
+                                               List<Workout> stretchingWorkouts, Set<String> targetGroups) {
         requireEnoughWorkouts(warmupWorkouts, WARMUP_WORKOUTS_PER_SESSION, "khởi động");
         requireEnoughWorkouts(calisthenicWorkouts, CALISTHENIC_WORKOUTS_PER_SESSION, "Calisthenic");
         requireEnoughWorkouts(stretchingWorkouts, STRETCHING_WORKOUTS_PER_SESSION, "giãn cơ");
 
         List<Workout> selected = new ArrayList<>(TOTAL_WORKOUTS_PER_SESSION);
-        addRotatingWorkouts(selected, warmupWorkouts, WARMUP_WORKOUTS_PER_SESSION, sessionIndex);
-        addRotatingWorkouts(selected, calisthenicWorkouts, CALISTHENIC_WORKOUTS_PER_SESSION, sessionIndex);
-        addRotatingWorkouts(selected, stretchingWorkouts, STRETCHING_WORKOUTS_PER_SESSION, sessionIndex);
+        selected.addAll(pickWorkouts(warmupWorkouts, targetGroups, WARMUP_WORKOUTS_PER_SESSION));
+        selected.addAll(pickWorkouts(calisthenicWorkouts, targetGroups, CALISTHENIC_WORKOUTS_PER_SESSION));
+        selected.addAll(pickWorkouts(stretchingWorkouts, targetGroups, STRETCHING_WORKOUTS_PER_SESSION));
         return selected;
+    }
+
+    // ---- Nhóm cơ ----
+
+    private static final Set<String> FULL_BODY_KEYS = Set.of("toan than", "full body", "fullbody");
+
+    /** Tách cột muscle_group (có thể "Ngực, Tay" hoặc "Ngực và Tay") thành {khoá chuẩn hoá -> tên hiển thị}. */
+    static Map<String, String> parseMuscleGroups(Workout workout) {
+        Map<String, String> result = new LinkedHashMap<>();
+        String raw = workout.getMuscleGroup();
+        if (raw == null) {
+            return result;
+        }
+        for (String piece : raw.split("\\s*[,;/&+]\\s*|\\s+(?i:và|va)\\s+")) {
+            String display = piece.trim();
+            String key = normalize(display);
+            if (!key.isEmpty()) {
+                result.putIfAbsent(key, display);
+            }
+        }
+        return result;
+    }
+
+    /** Tất cả nhóm cơ cụ thể (bỏ "toàn thân") xuất hiện trong danh sách bài, theo thứ tự gặp đầu tiên. */
+    static Map<String, String> muscleGroupNames(List<Workout> workouts) {
+        Map<String, String> all = new LinkedHashMap<>();
+        for (Workout w : workouts) {
+            parseMuscleGroups(w).forEach((key, display) -> {
+                if (!FULL_BODY_KEYS.contains(key)) {
+                    all.putIfAbsent(key, display);
+                }
+            });
+        }
+        return all;
+    }
+
+    /**
+     * Chia các nhóm cơ cho từng buổi (nhóm thứ i thuộc buổi i % sessions) nên hợp của mọi buổi
+     * luôn đủ hết các nhóm. Nếu số buổi nhiều hơn số nhóm thì buổi thừa dùng lại nhóm theo vòng.
+     */
+    static List<Set<String>> assignGroupsToSessions(List<String> groups, int sessions) {
+        List<Set<String>> result = new ArrayList<>();
+        for (int d = 0; d < sessions; d++) {
+            Set<String> assigned = new LinkedHashSet<>();
+            for (int i = d; i < groups.size(); i += sessions) {
+                assigned.add(groups.get(i));
+            }
+            if (assigned.isEmpty() && !groups.isEmpty()) {
+                assigned.add(groups.get(d % groups.size()));
+            }
+            result.add(assigned);
+        }
+        return result;
+    }
+
+    /**
+     * Chọn đúng {@code count} bài khác nhau: lần lượt lấy mỗi nhóm cơ mục tiêu một bài (xoay vòng),
+     * thiếu thì lấy bài "toàn thân", vẫn thiếu thì lấy bài còn lại theo thứ tự trong danh sách.
+     */
+    static List<Workout> pickWorkouts(List<Workout> pool, Set<String> targetGroups, int count) {
+        Map<Long, Workout> picked = new LinkedHashMap<>();
+
+        List<Deque<Workout>> queues = new ArrayList<>();
+        for (String group : targetGroups) {
+            Deque<Workout> queue = new ArrayDeque<>();
+            for (Workout w : pool) {
+                if (parseMuscleGroups(w).containsKey(group)) {
+                    queue.add(w);
+                }
+            }
+            queues.add(queue);
+        }
+        boolean progress = true;
+        while (picked.size() < count && progress) {
+            progress = false;
+            for (Deque<Workout> queue : queues) {
+                while (!queue.isEmpty() && picked.containsKey(queue.peekFirst().getWorkoutId())) {
+                    queue.pollFirst();
+                }
+                if (!queue.isEmpty() && picked.size() < count) {
+                    Workout w = queue.pollFirst();
+                    picked.put(w.getWorkoutId(), w);
+                    progress = true;
+                }
+            }
+        }
+        for (Workout w : pool) {
+            if (picked.size() < count && parseMuscleGroups(w).keySet().stream().anyMatch(FULL_BODY_KEYS::contains)) {
+                picked.putIfAbsent(w.getWorkoutId(), w);
+            }
+        }
+        for (Workout w : pool) {
+            if (picked.size() < count) {
+                picked.putIfAbsent(w.getWorkoutId(), w);
+            }
+        }
+        return new ArrayList<>(picked.values());
+    }
+
+    private static String focusAreaOf(Set<String> groupKeys, Map<String, String> displayNames) {
+        return groupKeys.stream().map(k -> displayNames.getOrDefault(k, k)).collect(Collectors.joining(", "));
     }
 
     static Set<Integer> trainingDays(int sessions) {
@@ -192,13 +319,6 @@ public class WorkoutPlanService {
             throw new IllegalArgumentException("Thời lượng phải đủ cho mỗi bài ít nhất 1 phút");
         }
         return totalMinutes / workoutCount + (index < totalMinutes % workoutCount ? 1 : 0);
-    }
-
-    private static void addRotatingWorkouts(List<Workout> selected, List<Workout> candidates, int count,
-                                            int sessionIndex) {
-        for (int i = 0; i < count; i++) {
-            selected.add(candidates.get(Math.floorMod(sessionIndex + i, candidates.size())));
-        }
     }
 
     /** Lộ trình đầy đủ (các ngày, bài tập, calo) để hiển thị. */
