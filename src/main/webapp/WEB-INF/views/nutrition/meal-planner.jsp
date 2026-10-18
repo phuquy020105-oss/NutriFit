@@ -7,13 +7,16 @@ String csrf = (String) request.getAttribute("csrf");
 String ctx = request.getContextPath();
 BigDecimal targetKcal = (BigDecimal) request.getAttribute("targetKcal");
 String message = request.getParameter("message");
-String notice = message == null ? null : switch (message) {
-    case "added" -> "Đã ghi nhận món ăn. Nếu món đã có trong cùng bữa, khẩu phần được cộng thêm.";
-    case "updated" -> "Đã cập nhật món ăn.";
-    case "deleted" -> "Đã xóa món ăn khỏi nhật ký hôm nay.";
-    case "saved" -> "Đã lưu thay đổi.";
-    default -> null;
-};
+String notice = null;
+if ("added".equals(message)) {
+    notice = "Đã ghi nhận món ăn. Nếu món đã có trong cùng bữa, khẩu phần được cộng thêm.";
+} else if ("updated".equals(message)) {
+    notice = "Đã cập nhật món ăn.";
+} else if ("deleted".equals(message)) {
+    notice = "Đã xóa món ăn khỏi nhật ký hôm nay.";
+} else if ("saved".equals(message)) {
+    notice = "Đã lưu thay đổi.";
+}
 %>
 <!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Meal Planner - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/meal-planner.css"></head>
@@ -42,7 +45,12 @@ String notice = message == null ? null : switch (message) {
 <button type="submit">Thêm món</button><p class="nf-muted" data-empty-recipes hidden role="status">Chưa có công thức hợp lệ cho bữa đã chọn.</p></form>
 <% } %></section>
 <% for (MealEntry.MealType type : MealEntry.MealType.values()) {
-String label = switch(type) {case BREAKFAST -> "Bữa sáng"; case LUNCH -> "Bữa trưa"; case DINNER -> "Bữa tối";};
+String label = "";
+switch (type) {
+    case BREAKFAST: label = "Bữa sáng"; break;
+    case LUNCH: label = "Bữa trưa"; break;
+    case DINNER: label = "Bữa tối"; break;
+}
 %>
 <section class="nf-card"><h2><%= label %></h2>
 <div class="nf-table-scroll"><table><thead><tr><th>Món</th><th>Khẩu phần</th><th>Kcal</th><th>Protein</th><th>Carbs</th><th>Fat</th><th>Fiber</th><th>Thao tác</th></tr></thead><tbody>
