@@ -25,30 +25,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1b332d">
     <title>NutriFit Premium | Chăm sóc sức khỏe mỗi ngày</title>
-    <link rel="stylesheet" href="<%=ctx%>/assets/css/payment-modern.css?v=20261017-premium2">
-</head>
-<body class="premium-layout">
-<aside class="sidebar" aria-label="Điều hướng NutriFit">
-    <a class="sidebar-brand" href="<%=ctx%>/dashboard">
-        <span class="brand-symbol">✳</span>
-        <span><strong>nutrifit</strong><small>YOUR WELLNESS SPACE</small></span>
-    </a>
-    <div class="workspace-tile"><span class="workspace-icon">✦</span><span><b>Không gian của bạn</b><small>Personal wellness</small></span><span aria-hidden="true">⌄</span></div>
-    <div class="side-label">KHÁM PHÁ</div>
-    <nav class="side-nav" aria-label="Các tính năng">
-        <a href="<%=ctx%>/dashboard"><span class="nav-icon">▦</span><span>Tổng quan</span></a>
-        <span class="nav-soon" title="Module khác của nhóm đang triển khai"><span class="nav-icon">♧</span><span>Dinh dưỡng</span><em>Sắp có</em></span>
-        <span class="nav-soon" title="Module khác của nhóm đang triển khai"><span class="nav-icon">♜</span><span>Thực đơn AI</span><em>Sắp có</em></span>
-        <span class="nav-soon" title="Module khác của nhóm đang triển khai"><span class="nav-icon">⚒</span><span>Luyện tập</span><em>Sắp có</em></span>
-        <a href="<%=ctx%>/chatbot"><span class="nav-icon">✧</span><span>Trợ lý AI</span><span class="pill">AI</span></a>
-        <a href="<%=ctx%>/profile"><span class="nav-icon">♙</span><span>Hồ sơ của tôi</span></a>
-        <a class="active" aria-current="page" href="<%=ctx%>/payment"><span class="nav-icon">♛</span><span>Gói Premium</span></a>
-    </nav>
-    <div class="sidebar-promo"><span class="sparkle">✦</span><strong>NUTRIFIT PREMIUM</strong><p>Đầu tư cho một phiên bản khỏe mạnh hơn.</p><a href="#goi-premium">Khám phá gói Pro ↗</a></div>
-    <div class="sidebar-foot">NutriFit Studio</div>
+    <link rel="stylesheet" href="<%=ctx%>/assets/css/payment.css?v=20261018-nav">
+<link rel="stylesheet" href="<%=ctx%>/assets/css/workspace-nav.css?v=20261018-nav"></head>
+<body class="premium-layout nf-integrated-payment">
+<button type="button" class="nf-global-scrim" id="nfGlobalScrim" aria-label="Đóng điều hướng" onclick="nfToggleNav()"></button>
+<aside class="nf-global-sidebar" id="nfGlobalSidebar" aria-label="Điều hướng NutriFit">
+  <a class="nf-global-logo" href="<%=ctx%>/dashboard"><span class="nf-global-logo-icon">✦</span> Nutri<span>Fit</span></a>
+  <p class="nf-global-caption">KHÔNG GIAN CỦA BẠN</p>
+  <nav class="nf-global-links">
+    <a href="<%=ctx%>/dashboard">▦ <span>Tổng quan</span></a>
+    <a href="<%=ctx%>/workout">◈ <span>Bài tập</span></a>
+    <a href="<%=ctx%>/workout/plan">▤ <span>Lịch tập</span></a>
+    <a href="<%=ctx%>/nutrition/meal-planner">◉ <span>Dinh dưỡng</span></a>
+    <a href="<%=ctx%>/chatbot" class="">✧ <span>AI Chatbot</span></a>
+    <a href="<%=ctx%>/payment" class="active">♛ <span>Premium</span></a>
+    <a href="<%=ctx%>/profile">◎ <span>Hồ sơ</span></a>
+  </nav>
+  <div class="nf-global-bottom">
+    <div class="nf-global-promo"><strong>Mỗi ngày tốt hơn 1%</strong><p>Kiên trì từng bước nhỏ để đạt mục tiêu sức khỏe.</p></div>
+    <form method="post" action="<%=ctx%>/logout">
+      <input type="hidden" name="_csrf" value="${sessionScope.csrfToken}">
+      <button type="submit">↪ Đăng xuất</button>
+    </form>
+  </div>
 </aside>
+
 <div class="main-shell">
-    <header class="topbar"><span>Ứng dụng <span class="crumb">/</span> <strong>Gói Premium</strong></span><div class="top-links"><a href="<%=ctx%>/chatbot">✧ Trợ lý AI</a><a href="<%=ctx%>/profile">Hồ sơ</a><span class="account-avatar" aria-label="Tài khoản">N</span></div></header>
+    <header class="topbar"><button type="button" class="nf-global-toggle" aria-label="Mở điều hướng NutriFit" aria-controls="nfGlobalSidebar" aria-expanded="false" onclick="nfToggleNav()">☰</button><span>Ứng dụng <span class="crumb">/</span> <strong>Gói Premium</strong></span><div class="top-links"><a href="<%=ctx%>/chatbot">✧ Trợ lý AI</a><a href="<%=ctx%>/profile">Hồ sơ</a><span class="account-avatar" aria-label="Tài khoản">N</span></div></header>
     <main class="premium-main" id="goi-premium">
         <div class="section-kicker">NÂNG TẦM SỨC KHỎE</div>
         <h1>NutriFit <span>Premium</span></h1>
@@ -102,5 +105,13 @@
         <p class="payment-disclaimer">🔒 Thanh toán được xác minh qua VNPay trước khi kích hoạt Premium. Cổng thanh toán hiện tại không trừ tiền thật.</p>
     </main>
 </div>
-</body>
+<script>
+function nfToggleNav(){
+ var nav=document.getElementById('nfGlobalSidebar'),scrim=document.getElementById('nfGlobalScrim');
+ if(!nav||!scrim)return;
+ var open=nav.classList.toggle('open');
+ scrim.classList.toggle('open',open);
+ document.querySelectorAll('.nf-global-toggle').forEach(function(b){b.setAttribute('aria-expanded',String(open));});
+}
+</script></body>
 </html>

@@ -3,6 +3,7 @@ package com.nutrifit.controller;
 
 import com.nutrifit.model.User;
 import com.nutrifit.service.AuthService;
+import com.nutrifit.dao.UserProfileDAO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,6 +21,7 @@ public class AuthServlet extends HttpServlet {
 
     private final AuthService authService =
             new AuthService();
+    private final UserProfileDAO userProfileDAO = new UserProfileDAO();
 
     @Override
     protected void doGet(
@@ -129,7 +131,7 @@ public class AuthServlet extends HttpServlet {
             // Chuyển tới Profile
             // Đăng nhập thành công → chuyển tới Dashboard
             response.sendRedirect(
-            request.getContextPath() + "/dashboard");
+            request.getContextPath() + (userProfileDAO.isComplete(user.getUserId()) ? "/dashboard" : "/onboarding"));
 
         } catch (SQLException e) {
 

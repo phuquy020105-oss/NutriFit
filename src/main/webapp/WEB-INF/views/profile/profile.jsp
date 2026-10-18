@@ -25,6 +25,11 @@
     String success = (String) request.getAttribute("success");
 
     String contextPath = request.getContextPath();
+    @SuppressWarnings("unchecked")
+    java.util.Map<String, String> bodyProfile =
+        (java.util.Map<String, String>) request.getAttribute("bodyProfile");
+    if (bodyProfile == null) bodyProfile = java.util.Collections.emptyMap();
+
 %>
 
 <!DOCTYPE html>
@@ -38,178 +43,60 @@
 
     <title>Hồ sơ cá nhân - NutriFit</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 30px 16px;
-            background: #f1f5f9;
-            font-family: Arial, sans-serif;
-            color: #1e293b;
-        }
-
-        .container {
-            max-width: 680px;
-            margin: auto;
-        }
-
-        h1 {
-            color: #15803d;
-            margin-bottom: 26px;
-            font-size: 36px;
-        }
-
-        h2 {
-            font-size: 24px;
-            margin-top: 0;
-            margin-bottom: 24px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 14px;
-            padding: 28px 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-        }
-
-        .info {
-            margin: 14px 0;
-            font-size: 16px;
-            line-height: 1.5;
-            overflow-wrap: anywhere;
-        }
-
-        label {
-            display: block;
-            margin: 16px 0 7px;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        input:not([type="hidden"]) {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        input:focus {
-            border-color: #16a34a;
-            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 12px 22px;
-            border: none;
-            border-radius: 8px;
-            background: #16a34a;
-            color: white;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #15803d;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .danger {
-            background: #dc2626;
-        }
-
-        .danger:hover {
-            background: #b91c1c;
-        }
-
-        .success {
-            background: #dcfce7;
-            color: #166534;
-            padding: 14px;
-            border-radius: 9px;
-            margin-bottom: 18px;
-            line-height: 1.5;
-        }
-
-        .error {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 14px;
-            border-radius: 9px;
-            margin-bottom: 18px;
-            line-height: 1.5;
-        }
-
-        .hint {
-            font-size: 13px;
-            color: #64748b;
-            margin-top: 8px;
-            line-height: 1.5;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 20px;
-            background: #dcfce7;
-            color: #166534;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .premium {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 25px;
-            color: #64748b;
-            font-size: 13px;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 20px 12px;
-            }
-
-            h1 {
-                font-size: 29px;
-            }
-
-            h2 {
-                font-size: 21px;
-            }
-
-            .card {
-                padding: 22px 18px;
-            }
-
-            button {
-                width: 100%;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/profile.css">
 </head>
 
 <body>
+<div class="nf-layout">
+    <aside class="nf-sidebar" aria-label="Điều hướng NutriFit">
+        <a class="nf-logo" href="<%= contextPath %>/dashboard"><span class="nf-logo-icon">✦</span>NutriFit</a>
+        <div class="nf-nav-label">KHÔNG GIAN CỦA BẠN</div>
+        <nav class="nf-nav">
+            <a href="<%= contextPath %>/dashboard"><span class="nf-nav-symbol">▦</span>Tổng quan</a>
+            <a href="<%= contextPath %>/workout"><span class="nf-nav-symbol">◇</span>Bài tập</a>
+            <a href="<%= contextPath %>/nutrition"><span class="nf-nav-symbol">◉</span>Dinh dưỡng</a>
+            <a href="<%= contextPath %>/chatbot"><span class="nf-nav-symbol">✧</span>AI Chatbot</a>
+            <a href="<%= contextPath %>/profile" aria-current="page"><span class="nf-nav-symbol">◎</span>Hồ sơ</a>
+        </nav>
+        <div class="nf-side-note"><strong>Mỗi ngày tốt hơn 1%</strong>Kiên trì từng bước nhỏ để đạt mục tiêu sức khỏe.</div>
+    </aside>
+    <main class="nf-main">
+
 
 <div class="container">
 
     <!-- TIÊU ĐỀ -->
-    <h1>Hồ sơ cá nhân</h1>
+    <div class="nf-heading">
+        <div><div class="nf-eyebrow">TÀI KHOẢN CỦA BẠN</div>
+        <h1>Hồ sơ cá nhân</h1>
+        <p class="nf-description">Quản lý tài khoản, thông số cơ thể và mục tiêu sức khỏe.</p></div>
+        <a class="nf-back" href="<%= contextPath %>/dashboard">← Về tổng quan</a>
+    </div>
 
+    <section class="v3-hero" aria-label="Tài khoản NutriFit">
+      <div class="v3-hero-inner">
+        <div class="v3-avatar" aria-hidden="true">NF</div>
+        <div><span class="v3-hero-tag">NUTRIFIT · MY WELLNESS SPACE</span>
+          <div class="v3-hero-name"><%= escapeHtml(user.getFullName()) %></div>
+          <div class="v3-hero-sub"><%= escapeHtml(user.getEmail()) %></div>
+        </div>
+      </div>
+    </section>
+    <nav class="v3-tabs" aria-label="Các mục hồ sơ" role="tablist">
+      <button type="button" class="v3-tab" data-v3-tab="overview" role="tab" aria-selected="true" aria-controls="v3-overview">◫ Tổng quan sức khỏe</button>
+      <button type="button" class="v3-tab" data-v3-tab="body" role="tab" aria-selected="false" aria-controls="v3-body">♡ Chỉnh sửa thể chất</button>
+    </nav>
+    <section class="v3-section" id="v3-overview" role="tabpanel">
+      <div class="v3-overview-grid">
+        <div class="v3-overview-tile"><div class="v3-tile-label">Chiều cao</div><div class="v3-tile-value"><%= escapeHtml(bodyProfile.getOrDefault("height_cm","—")) %> cm</div></div>
+        <div class="v3-overview-tile"><div class="v3-tile-label">Cân nặng hiện tại</div><div class="v3-tile-value"><%= escapeHtml(bodyProfile.getOrDefault("weight_kg","—")) %> kg</div></div>
+        <div class="v3-overview-tile"><div class="v3-tile-label">Mục tiêu calo</div><div class="v3-tile-value"><%= escapeHtml(bodyProfile.getOrDefault("target_kcal","—")) %> kcal</div></div>
+      </div>
+      <div class="card"><h2>Hành trình sức khỏe của bạn</h2>
+        <p class="v3-overview-intro">Theo dõi các chỉ số sức khỏe và điều chỉnh mục tiêu tập luyện phù hợp với bạn.</p>
+        <a class="v3-link" href="#body" data-v3-open="body">Xem và cập nhật thông số cơ thể →</a>
+      </div>
+    </section>
     <!-- THÔNG BÁO THÀNH CÔNG -->
     <% if (success != null) { %>
 
@@ -229,202 +116,72 @@
     <% } %>
 
 
+<section class="v3-section" id="v3-body" role="tabpanel">
     <!-- ========================================= -->
-    <!-- 1. THÔNG TIN TÀI KHOẢN -->
+    <!-- HỒ SƠ THỂ CHẤT -->
     <!-- ========================================= -->
-
-    <div class="card">
-
-        <h2>Thông tin tài khoản</h2>
-
-        <p class="info">
-            <strong>Email:</strong>
-            <%= escapeHtml(user.getEmail()) %>
-        </p>
-
-        <p class="info">
-            <strong>Vai trò:</strong>
-            <%= user.getRole() %>
-        </p>
-
-        <p class="info">
-            <strong>Gói tài khoản:</strong>
-
-            <% if (user.getSubscriptionStatus() != null
-                    && "PREMIUM".equals(
-                        user.getSubscriptionStatus().name())) { %>
-
-                <span class="badge premium">
-                    PREMIUM
-                </span>
-
-            <% } else { %>
-
-                <span class="badge">
-                    <%= user.getSubscriptionStatus() %>
-                </span>
-
-            <% } %>
-        </p>
-
-        <% if (user.getPremiumExpiresAt() != null) { %>
-
-            <p class="info">
-                <strong>Premium hết hạn:</strong>
-                <%= user.getPremiumExpiresAt() %>
-            </p>
-
+    <div class="card" id="body-profile">
+        <h2>Hồ sơ thể chất</h2>
+        <% if (bodyProfile.isEmpty()) { %>
+            <p class="hint">Bạn chưa có thông số thể chất. Hãy hoàn tất thiết lập ban đầu.</p>
+            <a href="<%= contextPath %>/onboarding">Thiết lập thông số</a>
+        <% } else { %>
+            <div class="body-grid">
+                <div class="body-stat">BMR <strong><%= escapeHtml(bodyProfile.get("bmr")) %> kcal</strong></div>
+                <div class="body-stat">TDEE <strong><%= escapeHtml(bodyProfile.get("tdee")) %> kcal</strong></div>
+                <div class="body-stat">Calo mục tiêu <strong><%= escapeHtml(bodyProfile.get("target_kcal")) %> kcal/ngày</strong></div>
+                <div class="body-stat">Nước mục tiêu <strong><%= escapeHtml(bodyProfile.get("target_water_ml")) %> ml/ngày</strong></div>
+            </div>
         <% } %>
-
-
-        <!-- FORM CẬP NHẬT HỌ TÊN -->
-
-        <form method="post"
-              action="<%= contextPath %>/profile">
-
-            <!-- CSRF TOKEN -->
-            <input type="hidden"
-                   name="_csrf"
-                   value="${sessionScope.csrfToken}">
-
-            <!-- ACTION -->
-            <input type="hidden"
-                   name="action"
-                   value="updateProfile">
-
-            <label for="fullName">
-                Họ và tên
-            </label>
-
-            <input type="text"
-                   id="fullName"
-                   name="fullName"
-                   maxlength="100"
-                   value="<%= escapeHtml(user.getFullName()) %>"
-                   autocomplete="name"
-                   required>
-
-            <p class="hint">
-                Họ tên phải có từ 1 đến 100 ký tự.
-            </p>
-
-            <button type="submit">
-                Lưu thay đổi
-            </button>
-
+        <form method="post" action="<%= contextPath %>/profile">
+            <input type="hidden" name="_csrf" value="${sessionScope.csrfToken}">
+            <input type="hidden" name="action" value="updateBodyProfile">
+            <div class="body-grid">
+                <div>
+                    <label for="bodyGoal">Mục tiêu tập luyện</label>
+                    <select id="bodyGoal" name="goal" required>
+                        <option value="lose" <%= "lose".equals(bodyProfile.get("goal")) ? "selected" : "" %>>Giảm cân</option>
+                        <option value="maintain" <%= "maintain".equals(bodyProfile.get("goal")) ? "selected" : "" %>>Duy trì cân nặng</option>
+                        <option value="gain" <%= "gain".equals(bodyProfile.get("goal")) ? "selected" : "" %>>Tăng cân</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="bodyGender">Giới tính dùng tính BMR</label>
+                    <select id="bodyGender" name="gender" required>
+                        <option value="male" <%= "male".equals(bodyProfile.get("gender")) ? "selected" : "" %>>Nam</option>
+                        <option value="female" <%= "female".equals(bodyProfile.get("gender")) ? "selected" : "" %>>Nữ</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="bodyAge">Tuổi</label>
+                    <input id="bodyAge" type="number" name="age" min="18" max="100" required value="<%= escapeHtml(bodyProfile.get("age")) %>">
+                </div>
+                <div>
+                    <label for="bodyHeight">Chiều cao (cm)</label>
+                    <input id="bodyHeight" type="number" name="heightCm" min="100" max="250" step="0.01" required value="<%= escapeHtml(bodyProfile.get("height_cm")) %>">
+                </div>
+                <div>
+                    <label for="bodyWeight">Cân nặng (kg)</label>
+                    <input id="bodyWeight" type="number" name="weightKg" min="25" max="350" step="0.01" required value="<%= escapeHtml(bodyProfile.get("weight_kg")) %>">
+                </div>
+                <div>
+                    <label for="bodyActivity">Mức độ vận động</label>
+                    <select id="bodyActivity" name="activityLevel" required>
+                        <option value="sedentary" <%= "sedentary".equals(bodyProfile.get("activity_level")) ? "selected" : "" %>>Ít vận động</option>
+                        <option value="light" <%= "light".equals(bodyProfile.get("activity_level")) ? "selected" : "" %>>Nhẹ (1–3 buổi/tuần)</option>
+                        <option value="moderate" <%= "moderate".equals(bodyProfile.get("activity_level")) ? "selected" : "" %>>Trung bình (3–5 buổi/tuần)</option>
+                        <option value="high" <%= "high".equals(bodyProfile.get("activity_level")) ? "selected" : "" %>>Cao (6–7 buổi/tuần)</option>
+                        <option value="very_high" <%= "very_high".equals(bodyProfile.get("activity_level")) ? "selected" : "" %>>Rất cao</option>
+                    </select>
+                </div>
+            </div>
+            <p class="hint">Lưu thay đổi sẽ tự tính lại BMR, TDEE, calo và nước mục tiêu.</p>
+            <button type="submit">Lưu thông số thể chất</button>
         </form>
-
     </div>
 
-
-    <!-- ========================================= -->
-    <!-- 2. ĐỔI MẬT KHẨU -->
-    <!-- ========================================= -->
-
-    <div class="card">
-
-        <h2>Đổi mật khẩu</h2>
-
-        <form method="post"
-              action="<%= contextPath %>/profile">
-
-            <!-- CSRF TOKEN -->
-            <input type="hidden"
-                   name="_csrf"
-                   value="${sessionScope.csrfToken}">
-
-            <!-- ACTION -->
-            <input type="hidden"
-                   name="action"
-                   value="changePassword">
-
-
-            <!-- MẬT KHẨU HIỆN TẠI -->
-
-            <label for="currentPassword">
-                Mật khẩu hiện tại
-            </label>
-
-            <input type="password"
-                   id="currentPassword"
-                   name="currentPassword"
-                   autocomplete="current-password"
-                   required>
-
-
-            <!-- MẬT KHẨU MỚI -->
-
-            <label for="newPassword">
-                Mật khẩu mới
-            </label>
-
-            <input type="password"
-                   id="newPassword"
-                   name="newPassword"
-                   minlength="8"
-                   autocomplete="new-password"
-                   required>
-
-            <p class="hint">
-                Mật khẩu mới phải có ít nhất 8 ký tự
-                và khác mật khẩu hiện tại.
-            </p>
-
-
-            <!-- XÁC NHẬN MẬT KHẨU -->
-
-            <label for="confirmPassword">
-                Xác nhận mật khẩu mới
-            </label>
-
-            <input type="password"
-                   id="confirmPassword"
-                   name="confirmPassword"
-                   minlength="8"
-                   autocomplete="new-password"
-                   required>
-
-
-            <button type="submit">
-                Đổi mật khẩu
-            </button>
-
-        </form>
-
-    </div>
-
-
-    <!-- ========================================= -->
-    <!-- 3. ĐĂNG XUẤT -->
-    <!-- ========================================= -->
-
-    <div class="card">
-
-        <h2>Phiên đăng nhập</h2>
-
-        <p class="hint">
-            Đăng xuất khỏi tài khoản NutriFit
-            trên trình duyệt hiện tại.
-        </p>
-
-        <form method="post"
-              action="<%= contextPath %>/logout">
-
-            <!-- CSRF TOKEN CHO LOGOUT -->
-            <input type="hidden"
-                   name="_csrf"
-                   value="${sessionScope.csrfToken}">
-
-            <button type="submit" class="danger">
-                Đăng xuất
-            </button>
-
-        </form>
-
-    </div>
-
-
-    <!-- FOOTER -->
+</section>
+<!-- FOOTER -->
 
     <div class="footer">
         NutriFit - Hệ thống quản lý dinh dưỡng
@@ -433,5 +190,9 @@
 
 </div>
 
+    </main>
+</div>
+
+<script src="${pageContext.request.contextPath}/assets/js/profile.js" defer></script>
 </body>
 </html>

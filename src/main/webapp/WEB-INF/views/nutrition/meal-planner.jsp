@@ -19,20 +19,54 @@ if ("added".equals(message)) {
 }
 %>
 <!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Meal Planner - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/meal-planner.css"></head>
-<body class="nf-page"><main class="nf-wrap">
-<header class="nf-head"><div><h1>Nhật ký ăn uống hôm nay</h1><p><%= Html.escape(day.date()) %> · Chọn món là ghi nhận đã ăn.</p></div>
-<nav><a href="<%= Html.escape(ctx) %>/nutrition/history">Lịch sử</a><a href="<%= Html.escape(ctx) %>/nutrition/preferences">Sở thích</a><a href="<%= Html.escape(ctx) %>/nutrition/recommendations">Gợi ý Premium</a></nav></header>
+<title>Meal Planner - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/dashboard.css">
+<link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/nutrition.css?v=20261018-meal"></head>
+<body class="nf-page nf-meal-today"><div class="app-shell">
+<aside class="sidebar" id="sidebar">
+<a class="logo" href="<%= Html.escape(ctx) %>/dashboard"><span class="logo-mark">✦</span> Nutri<span>Fit</span></a>
+<p class="nav-caption">KHÔNG GIAN CỦA BẠN</p>
+<nav class="side-nav" aria-label="Điều hướng chính">
+<a href="<%= Html.escape(ctx) %>/dashboard"><span>▦</span> Tổng quan</a>
+<a href="<%= Html.escape(ctx) %>/workout"><span>◈</span> Bài tập</a>
+<a href="<%= Html.escape(ctx) %>/workout/plan"><span>▤</span> Lịch tập</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner" class="active" aria-current="page"><span>◉</span> Dinh dưỡng</a>
+<a href="<%= Html.escape(ctx) %>/chatbot"><span>✧</span> AI Chatbot</a>
+<a href="<%= Html.escape(ctx) %>/payment"><span>♛</span> Premium</a>
+<a href="<%= Html.escape(ctx) %>/profile"><span>◎</span> Hồ sơ</a>
+</nav>
+<div class="sidebar-bottom">
+<div class="mini-promo"><strong>Mỗi ngày tốt hơn 1%</strong><p>Kiên trì từng bước nhỏ để đạt mục tiêu sức khỏe.</p></div>
+<form method="post" action="<%= Html.escape(ctx) %>/logout"><input type="hidden" name="_csrf" value="${sessionScope.csrfToken}"><button class="logout" type="submit">↪ Đăng xuất</button></form>
+</div>
+</aside>
+<div class="app-content">
+<header class="topbar"><div class="topbar-left"><button class="menu-toggle" type="button" aria-label="Mở menu" aria-controls="sidebar" aria-expanded="false" onclick="toggleNutritionMenu(this)">☰</button><span>Không gian dinh dưỡng của bạn</span></div><div class="topbar-right"><span class="status">DINH DƯỠNG</span><a class="avatar" href="<%= Html.escape(ctx) %>/profile" aria-label="Hồ sơ cá nhân">☺</a></div></header>
+<main class="nf-wrap">
+
+<nav class="nf-nutrition-tabs" aria-label="Các chức năng dinh dưỡng">
+<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner" class="active" aria-current="page">◉ Hôm nay</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations">✧ Gợi ý món ăn</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/history">▤ Lịch sử</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/preferences">♡ Sở thích</a>
+</nav>
+
+<header class="nf-head nf-today-hero"><div><span class="nf-hero-eyebrow">NHẬT KÝ DINH DƯỠNG · HÔM NAY</span><h1>Ăn uống lành mạnh, mỗi ngày một chút</h1><p><%= Html.escape(day.date()) %> · Theo dõi các bữa ăn và tiến độ dinh dưỡng của bạn.</p></div><div class="nf-hero-symbol" aria-hidden="true">✦</div></header>
 <% if (notice != null) { %><p class="nf-success" role="status"><%= Html.escape(notice) %></p><% } %>
-<section class="nf-card"><h2>Tổng dinh dưỡng trong ngày</h2>
-<div class="nf-stats"><div><strong><%= Html.escape(day.total().caloriesKcal()) %></strong><small>kcal</small></div>
-<div><strong><%= Html.escape(day.total().proteinG()) %></strong><small>Protein (g)</small></div>
-<div><strong><%= Html.escape(day.total().carbsG()) %></strong><small>Carbs (g)</small></div>
-<div><strong><%= Html.escape(day.total().fatG()) %></strong><small>Fat (g)</small></div>
-<div><strong><%= Html.escape(day.total().fiberG()) %></strong><small>Fiber (g)</small></div></div>
-<% if (targetKcal != null) { %><p class="nf-target">Mục tiêu năng lượng hiện tại: <strong><%= Html.escape(targetKcal) %> kcal/ngày</strong>.</p>
-<% } else { %><p class="nf-muted">Chưa có mục tiêu năng lượng trong hồ sơ. Bạn vẫn có thể ghi nhật ký ăn uống.</p><% } %></section>
-<section class="nf-card"><h2>Ghi nhận món ăn</h2>
+<section class="nf-card nf-today-overview">
+<div class="nf-section-heading"><div><span class="nf-section-kicker">TỔNG QUAN HÔM NAY</span><h2>Tiến độ dinh dưỡng</h2></div><span class="nf-section-icon" aria-hidden="true">◉</span></div>
+<div class="nf-calorie-progress">
+<div class="nf-calorie-heading"><div><span class="nf-calorie-caption">Năng lượng đã nạp</span><div class="nf-calorie-value"><strong><%= Html.escape(day.total().caloriesKcal()) %></strong><span>kcal</span></div></div><div class="nf-calorie-goal"><span>Mục tiêu mỗi ngày</span><strong><%= targetKcal != null ? Html.escape(targetKcal) + " kcal" : "Chưa thiết lập" %></strong></div></div>
+<% if (targetKcal != null && targetKcal.signum() > 0) { java.math.BigDecimal progress = day.total().caloriesKcal().multiply(new java.math.BigDecimal("100")).divide(targetKcal, 1, java.math.RoundingMode.HALF_UP); java.math.BigDecimal capped = progress.max(java.math.BigDecimal.ZERO).min(new java.math.BigDecimal("100")); %>
+<div class="nf-progress-track" role="progressbar" aria-label="Tiến độ năng lượng" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= capped.intValue() %>"><div class="nf-progress-fill" style="width:<%= capped.toPlainString() %>%"></div></div><p class="nf-progress-note">Đã đạt <strong><%= Html.escape(progress) %>%</strong> mục tiêu năng lượng hôm nay.</p>
+<% } else { %><p class="nf-progress-note">Bạn có thể thiết lập mục tiêu năng lượng trong hồ sơ.</p><% } %>
+</div>
+<div class="nf-macro-grid">
+<div class="nf-macro"><span class="nf-macro-icon">P</span><span>Protein</span><strong><%= Html.escape(day.total().proteinG()) %> <small>g</small></strong></div>
+<div class="nf-macro"><span class="nf-macro-icon">C</span><span>Carbs</span><strong><%= Html.escape(day.total().carbsG()) %> <small>g</small></strong></div>
+<div class="nf-macro"><span class="nf-macro-icon">F</span><span>Fat</span><strong><%= Html.escape(day.total().fatG()) %> <small>g</small></strong></div>
+<div class="nf-macro"><span class="nf-macro-icon">Fi</span><span>Fiber</span><strong><%= Html.escape(day.total().fiberG()) %> <small>g</small></strong></div>
+</div></section>
+<section class="nf-card nf-today-add"><div class="nf-section-heading"><div><span class="nf-section-kicker">THÊM VÀO NHẬT KÝ</span><h2>Ghi nhận món ăn</h2></div><span class="nf-section-icon" aria-hidden="true">＋</span></div>
 <% if (recipes.isEmpty()) { %><p>Chưa có công thức hợp lệ. Hãy thêm dữ liệu Food/Recipe trước khi chọn món.</p><% } else { %>
 <form method="post" action="<%= Html.escape(ctx) %>/nutrition/meal-planner" class="nf-form" id="add-meal" data-recipe-form>
 <input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="add">
@@ -52,7 +86,7 @@ switch (type) {
     case DINNER: label = "Bữa tối"; break;
 }
 %>
-<section class="nf-card"><h2><%= label %></h2>
+<section class="nf-card nf-today-meal"><div class="nf-section-heading"><div><span class="nf-section-kicker">NHẬT KÝ THEO BỮA</span><h2><%= label %></h2></div><span class="nf-section-icon" aria-hidden="true">◷</span></div>
 <div class="nf-table-scroll"><table><thead><tr><th>Món</th><th>Khẩu phần</th><th>Kcal</th><th>Protein</th><th>Carbs</th><th>Fat</th><th>Fiber</th><th>Thao tác</th></tr></thead><tbody>
 <% boolean found = false; for (MealEntry e : day.entries()) { if (e.getMealType()!=type) continue; found = true; %>
 <tr><td><%= Html.escape(e.getRecipeNameSnapshot()) %></td>
@@ -85,5 +119,11 @@ switch (type) {
 </tbody></table></div></section>
 <% } %>
 <p class="nf-muted">Dữ liệu dinh dưỡng được lưu tại thời điểm ghi nhận (snapshot). Các ngày trước chỉ được xem.</p>
-</main>
-<script src="<%= Html.escape(ctx) %>/assets/js/nutrition.js" defer></script></body></html>
+<footer class="nf-footer">© NutriFit · Sống khỏe mỗi ngày</footer></main></div></div>
+<script src="<%= Html.escape(ctx) %>/assets/js/nutrition.js" defer></script><script>
+function toggleNutritionMenu(button){
+  var sidebar=document.getElementById('sidebar');
+  var expanded=sidebar.classList.toggle('open');
+  button.setAttribute('aria-expanded',String(expanded));
+}
+</script></body></html>

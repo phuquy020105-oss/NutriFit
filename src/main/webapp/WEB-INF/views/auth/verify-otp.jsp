@@ -34,144 +34,17 @@
 
     <title>Xác minh email | NutriFit</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(
-                135deg,
-                #e8f7f0 0%,
-                #edf5ff 100%
-            );
-        }
-
-        .verify-card {
-            width: 100%;
-            max-width: 504px;
-            padding: 56px 42px 42px;
-            background: #ffffff;
-            border-radius: 22px;
-            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
-            text-align: center;
-        }
-
-        h1 {
-            margin: 8px 0 26px;
-            color: #168653;
-            font-size: 38px;
-            font-weight: 700;
-        }
-
-        .description {
-            color: #666;
-            font-size: 18px;
-            line-height: 1.7;
-            margin-bottom: 24px;
-        }
-
-        .email {
-            color: #555;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 28px;
-            overflow-wrap: anywhere;
-        }
-
-        .otp-input {
-            display: block;
-            width: 100%;
-            height: 70px;
-            padding: 12px;
-            border: 1.5px solid #d3dce4;
-            border-radius: 11px;
-            outline: none;
-            background: #fff;
-            text-align: center;
-            font-size: 30px;
-            letter-spacing: 10px;
-            color: #333;
-            transition: border-color 0.2s;
-        }
-
-        .otp-input:focus {
-            border-color: #168653;
-            box-shadow: 0 0 0 3px rgba(22, 134, 83, 0.1);
-        }
-
-        .submit-btn {
-            width: 100%;
-            margin-top: 24px;
-            padding: 17px;
-            border: none;
-            border-radius: 10px;
-            background: #168653;
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .submit-btn:hover {
-            background: #116d43;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 25px;
-            color: #168653;
-            font-size: 17px;
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            padding: 12px 15px;
-            margin-bottom: 22px;
-            background: #fff0f0;
-            border: 1px solid #f5c2c7;
-            border-radius: 9px;
-            color: #b42318;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        @media (max-width: 540px) {
-            .verify-card {
-                padding: 40px 24px 32px;
-            }
-
-            h1 {
-                font-size: 30px;
-            }
-
-            .description,
-            .email {
-                font-size: 16px;
-            }
-
-            .otp-input {
-                font-size: 26px;
-                letter-spacing: 8px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/auth.css?v=2">
 </head>
 
 <body>
+<div class="nf-auth-layout">
+<aside class="nf-auth-brand" aria-label="Giới thiệu NutriFit">
+<div class="nf-auth-mark"><span class="nf-auth-logo" aria-hidden="true">♥</span> NutriFit</div>
+<div class="nf-brand-copy"><h2>Khỏe hơn mỗi ngày, bắt đầu từ hôm nay.</h2><p>Dinh dưỡng thông minh, tập luyện phù hợp và mục tiêu được cá nhân hóa cho chính bạn.</p></div>
+<small>© NutriFit · Your wellness companion</small></aside>
+<main class="nf-auth-main"><div class="nf-auth-eyebrow">NUTRIFIT / TÀI KHOẢN</div>
+
 
 <div class="verify-card">
 
@@ -230,5 +103,7 @@
 
 </div>
 
+</main>
+</div>
 </body>
 </html>

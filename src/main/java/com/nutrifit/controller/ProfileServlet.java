@@ -2,6 +2,8 @@
 package com.nutrifit.controller;
 
 import com.nutrifit.dao.UserDAO;
+import com.nutrifit.dao.UserProfileDAO;
+import com.nutrifit.service.OnboardingService;
 import com.nutrifit.model.User;
 import com.nutrifit.service.ProfileService;
 
@@ -20,6 +22,8 @@ import java.util.Optional;
 public class ProfileServlet extends HttpServlet {
 
     private final UserDAO userDAO = new UserDAO();
+    private final UserProfileDAO userProfileDAO = new UserProfileDAO();
+    private final OnboardingService onboardingService = new OnboardingService();
 
     private final ProfileService profileService =
             new ProfileService();
@@ -91,6 +95,24 @@ public class ProfileServlet extends HttpServlet {
                 response.sendRedirect(
                         request.getContextPath() + "/profile");
 
+                return;
+            }
+
+            // =========================================
+            // CẬP NHẬT HỒ SƠ THỂ CHẤT
+            // =========================================
+            if ("updateBodyProfile".equals(action)) {
+                onboardingService.save(
+                        userId,
+                        request.getParameter("gender"),
+                        request.getParameter("age"),
+                        request.getParameter("heightCm"),
+                        request.getParameter("weightKg"),
+                        request.getParameter("activityLevel"),
+                        request.getParameter("goal")
+                );
+                session.setAttribute("profileSuccess", "Đã cập nhật thông số cơ thể và tính lại mục tiêu dinh dưỡng.");
+                response.sendRedirect(request.getContextPath() + "/profile");
                 return;
             }
 
@@ -180,6 +202,8 @@ public class ProfileServlet extends HttpServlet {
 
             request.setAttribute(
                     "user", user.get());
+
+            request.setAttribute("bodyProfile", userProfileDAO.findBodyProfile(userId));
 
             Object success =
                     session.getAttribute("profileSuccess");

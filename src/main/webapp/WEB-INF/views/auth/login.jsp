@@ -47,143 +47,17 @@
 
     <title>Đăng nhập - NutriFit</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            color: #1f2937;
-        }
-
-        .login-box {
-            background: white;
-            padding: 35px;
-            border-radius: 14px;
-            width: 380px;
-            max-width: 100%;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
-        }
-
-        h2 {
-            text-align: center;
-            color: #16804a;
-            font-size: 30px;
-            margin: 0 0 8px;
-        }
-
-        h3 {
-            text-align: center;
-            margin: 0 0 25px;
-            font-size: 20px;
-            font-weight: 500;
-        }
-
-        label {
-            display: block;
-            margin-top: 16px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        input:not([type="hidden"]) {
-            width: 100%;
-            padding: 12px;
-            margin-top: 7px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        input:focus {
-            border-color: #16804a;
-            box-shadow: 0 0 0 3px rgba(22, 128, 74, 0.1);
-        }
-
-        button {
-            width: 100%;
-            margin-top: 24px;
-            padding: 13px;
-            border: none;
-            border-radius: 8px;
-            background: #16804a;
-            color: white;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #116b3e;
-        }
-
-        .error {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 18px;
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        .success {
-            background: #dcfce7;
-            color: #166534;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 18px;
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: center;
-        }
-
-        .links {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .links p {
-            margin: 12px 0;
-            font-size: 14px;
-        }
-
-        .links a {
-            color: #16804a;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .links a:hover {
-            text-decoration: underline;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 12px;
-            color: #94a3b8;
-        }
-
-        @media (max-width: 480px) {
-            .login-box {
-                padding: 28px 22px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/auth.css?v=2">
 </head>
 
 <body>
+<div class="nf-auth-layout">
+<aside class="nf-auth-brand" aria-label="Giới thiệu NutriFit">
+<div class="nf-auth-mark"><span class="nf-auth-logo" aria-hidden="true">♥</span> NutriFit</div>
+<div class="nf-brand-copy"><h2>Khỏe hơn mỗi ngày, bắt đầu từ hôm nay.</h2><p>Dinh dưỡng thông minh, tập luyện phù hợp và mục tiêu được cá nhân hóa cho chính bạn.</p></div>
+<small>© NutriFit · Your wellness companion</small></aside>
+<main class="nf-auth-main"><div class="nf-auth-eyebrow">NUTRIFIT / TÀI KHOẢN</div>
+
 
 <div class="login-box">
 
@@ -270,7 +144,7 @@
 
         <p>
             <a href="<%= contextPath %>/forgot-password">
-                Quên mật khẩu?
+                Quên / đổi mật khẩu bằng OTP?
             </a>
         </p>
 
@@ -292,5 +166,7 @@
 
 </div>
 
+</main>
+</div>
 </body>
 </html>

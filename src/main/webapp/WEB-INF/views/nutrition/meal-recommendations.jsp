@@ -8,8 +8,37 @@ String ctx = request.getContextPath();
 String csrf = (String) request.getAttribute("csrf");
 %>
 <!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gợi ý món ăn - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/meal-planner.css"></head>
-<body class="nf-page"><main class="nf-wrap"><header class="nf-head"><div><h1>Gợi ý món ăn cá nhân hóa</h1><p>Loại trừ nguyên liệu không thích; ưu tiên nguyên liệu bạn thích và gần mục tiêu năng lượng.</p></div>
+<title>Gợi ý món ăn - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/dashboard.css">
+<link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/nutrition.css"></head>
+<body class="nf-page"><div class="app-shell">
+<aside class="sidebar" id="sidebar">
+<a class="logo" href="<%= Html.escape(ctx) %>/dashboard"><span class="logo-mark">✦</span> Nutri<span>Fit</span></a>
+<p class="nav-caption">KHÔNG GIAN CỦA BẠN</p>
+<nav class="side-nav" aria-label="Điều hướng chính">
+<a href="<%= Html.escape(ctx) %>/dashboard"><span>▦</span> Tổng quan</a>
+<a href="<%= Html.escape(ctx) %>/workout"><span>◈</span> Bài tập</a>
+<a href="<%= Html.escape(ctx) %>/workout/plan"><span>▤</span> Lịch tập</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner" class="active" aria-current="page"><span>◉</span> Dinh dưỡng</a>
+<a href="<%= Html.escape(ctx) %>/chatbot"><span>✧</span> AI Chatbot</a>
+<a href="<%= Html.escape(ctx) %>/payment"><span>♛</span> Premium</a>
+<a href="<%= Html.escape(ctx) %>/profile"><span>◎</span> Hồ sơ</a>
+</nav>
+<div class="sidebar-bottom">
+<div class="mini-promo"><strong>Mỗi ngày tốt hơn 1%</strong><p>Kiên trì từng bước nhỏ để đạt mục tiêu sức khỏe.</p></div>
+<form method="post" action="<%= Html.escape(ctx) %>/logout"><input type="hidden" name="_csrf" value="${sessionScope.csrfToken}"><button class="logout" type="submit">↪ Đăng xuất</button></form>
+</div>
+</aside>
+<div class="app-content">
+<header class="topbar"><div class="topbar-left"><button class="menu-toggle" type="button" aria-label="Mở menu" aria-controls="sidebar" aria-expanded="false" onclick="toggleNutritionMenu(this)">☰</button><span>Không gian dinh dưỡng của bạn</span></div><div class="topbar-right"><span class="status">DINH DƯỠNG</span><a class="avatar" href="<%= Html.escape(ctx) %>/profile" aria-label="Hồ sơ cá nhân">☺</a></div></header>
+<main class="nf-wrap">
+
+<nav class="nf-nutrition-tabs" aria-label="Các chức năng dinh dưỡng">
+<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner">◉ Hôm nay</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations" class="active" aria-current="page">✧ Gợi ý món ăn</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/history">▤ Lịch sử</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/preferences">♡ Sở thích</a>
+</nav>
+<header class="nf-head"><div><h1>Gợi ý món ăn cá nhân hóa</h1><p>Loại trừ nguyên liệu không thích; ưu tiên nguyên liệu bạn thích và gần mục tiêu năng lượng.</p></div>
 <nav><a href="<%= Html.escape(ctx) %>/nutrition/meal-planner">Hôm nay</a><a href="<%= Html.escape(ctx) %>/nutrition/preferences">Sở thích</a></nav></header>
 <% if (!Boolean.TRUE.equals(premium)) { %><section class="nf-card"><h2>Cần Premium</h2>
 <p>Tài khoản hiện chưa có quyền truy cập gợi ý Premium. Bạn vẫn có thể ghi nhật ký và quản lý sở thích ăn uống.</p></section>
@@ -32,4 +61,10 @@ String csrf = (String) request.getAttribute("csrf");
 <button type="submit" class="nf-small">Ghi nhận đã ăn</button></form></td></tr><% } %></tbody></table></div><% } %>
 <p class="nf-muted">Ghi nhận sẽ thêm món vào nhật ký hôm nay. Nếu đã có món trong cùng bữa, khẩu phần được cộng thêm. Chỉ xem gợi ý không thay đổi nhật ký.</p>
 <p class="nf-muted">Đây là gợi ý theo quy tắc đơn giản, không thay thế tư vấn dinh dưỡng chuyên môn.</p></section><% } %>
-</main></body></html>
+<footer class="nf-footer">© NutriFit · Sống khỏe mỗi ngày</footer></main></div></div><script>
+function toggleNutritionMenu(button){
+  var sidebar=document.getElementById('sidebar');
+  var expanded=sidebar.classList.toggle('open');
+  button.setAttribute('aria-expanded',String(expanded));
+}
+</script></body></html>

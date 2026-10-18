@@ -26,116 +26,17 @@
 
     <title>Đăng ký tài khoản | NutriFit</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(
-                135deg, #e6f5ed, #edf5ff
-            );
-        }
-
-        .register-box {
-            background: #fff;
-            width: 420px;
-            max-width: 92%;
-            padding: 35px;
-            border-radius: 18px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, .09);
-        }
-
-        h1 {
-            color: #168451;
-            text-align: center;
-            margin: 0 0 10px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        label {
-            display: block;
-            margin: 15px 0 7px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        input:not([type="hidden"]) {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 9px;
-            font-size: 15px;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #168451;
-        }
-
-        button {
-            width: 100%;
-            margin-top: 25px;
-            padding: 13px;
-            border: none;
-            border-radius: 9px;
-            background: #168451;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #116b41;
-        }
-
-        .error {
-            background: #fff1f1;
-            color: #b42318;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 14px;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 22px;
-            font-size: 14px;
-        }
-
-        a {
-            color: #168451;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 480px) {
-            .register-box {
-                padding: 25px 20px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/auth.css?v=2">
 </head>
 
 <body>
+<div class="nf-auth-layout">
+<aside class="nf-auth-brand" aria-label="Giới thiệu NutriFit">
+<div class="nf-auth-mark"><span class="nf-auth-logo" aria-hidden="true">♥</span> NutriFit</div>
+<div class="nf-brand-copy"><h2>Khỏe hơn mỗi ngày, bắt đầu từ hôm nay.</h2><p>Dinh dưỡng thông minh, tập luyện phù hợp và mục tiêu được cá nhân hóa cho chính bạn.</p></div>
+<small>© NutriFit · Your wellness companion</small></aside>
+<main class="nf-auth-main"><div class="nf-auth-eyebrow">NUTRIFIT / TÀI KHOẢN</div>
+
 
 <div class="register-box">
 
@@ -241,5 +142,7 @@
 
 </div>
 
+</main>
+</div>
 </body>
 </html>

@@ -19,6 +19,7 @@ import java.util.Optional;
 
 @WebFilter(urlPatterns = {
         "/profile", "/profile/*",
+        "/onboarding",
         "/dashboard", "/dashboard/*",
         "/nutrition/*",
         "/workout", "/workout/*",

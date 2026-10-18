@@ -31,7 +31,8 @@ public class CsrfFilter implements Filter {
                     "/verify-otp",
                     "/forgot-password",
                     "/reset-password",
-                    "/profile"
+                    "/profile",
+                    "/onboarding"
             );
 
     private final SecureRandom secureRandom =

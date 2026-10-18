@@ -20,10 +20,33 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="theme-color" content="#f5faf7">
     <title>NutriFit AI – Trợ lý dinh dưỡng thông minh</title>
-    <link rel="stylesheet" href="<%=ctx%>/assets/css/chat-modern.css?v=20261017-ui2">
-    <script defer src="<%=ctx%>/assets/js/chat-modern.js?v=20261017-ui2"></script>
-</head>
-<body class="chat-page">
+    <link rel="stylesheet" href="<%=ctx%>/assets/css/chatbot.css?v=20261018-nav">
+    <script defer src="<%=ctx%>/assets/js/chatbot.js?v=20261018-nav"></script>
+<link rel="stylesheet" href="<%=ctx%>/assets/css/workspace-nav.css?v=20261018-nav">
+<link rel="stylesheet" href="<%=ctx%>/assets/css/chatbot-dashboard.css?v=20261018-b"></head>
+<body class="chat-page nf-integrated-chat">
+<button type="button" class="nf-global-scrim" id="nfGlobalScrim" aria-label="Đóng điều hướng" onclick="nfToggleNav()"></button>
+<aside class="nf-global-sidebar" id="nfGlobalSidebar" aria-label="Điều hướng NutriFit">
+  <a class="nf-global-logo" href="<%=ctx%>/dashboard"><span class="nf-global-logo-icon">✦</span> Nutri<span>Fit</span></a>
+  <p class="nf-global-caption">KHÔNG GIAN CỦA BẠN</p>
+  <nav class="nf-global-links">
+    <a href="<%=ctx%>/dashboard">▦ <span>Tổng quan</span></a>
+    <a href="<%=ctx%>/workout">◈ <span>Bài tập</span></a>
+    <a href="<%=ctx%>/workout/plan">▤ <span>Lịch tập</span></a>
+    <a href="<%=ctx%>/nutrition/meal-planner">◉ <span>Dinh dưỡng</span></a>
+    <a href="<%=ctx%>/chatbot" class="active">✧ <span>AI Chatbot</span></a>
+    <a href="<%=ctx%>/payment" class="">♛ <span>Premium</span></a>
+    <a href="<%=ctx%>/profile">◎ <span>Hồ sơ</span></a>
+  </nav>
+  <div class="nf-global-bottom">
+    <div class="nf-global-promo"><strong>Mỗi ngày tốt hơn 1%</strong><p>Kiên trì từng bước nhỏ để đạt mục tiêu sức khỏe.</p></div>
+    <form method="post" action="<%=ctx%>/logout">
+      <input type="hidden" name="_csrf" value="${sessionScope.csrfToken}">
+      <button type="submit">↪ Đăng xuất</button>
+    </form>
+  </div>
+</aside>
+
 <div class="chat-app">
     <button type="button" class="sidebar-scrim" id="sidebarScrim" aria-label="Đóng menu hội thoại"></button>
     <aside class="chat-sidebar" id="chatSidebar" aria-label="Danh sách hội thoại">
@@ -54,7 +77,7 @@
 
     <main class="chat-main">
         <header class="chat-topbar">
-            <div class="topbar-left">
+            <div class="topbar-left"><button type="button" class="nf-global-toggle" aria-label="Mở điều hướng NutriFit" aria-controls="nfGlobalSidebar" aria-expanded="false" onclick="nfToggleNav()">☰</button>
                 <button type="button" id="mobileMenu" class="mobile-menu" aria-label="Mở menu hội thoại" aria-expanded="false" aria-controls="chatSidebar">☰</button>
                 <span class="topbar-avatar" aria-hidden="true">✳</span>
                 <div class="topbar-heading"><strong>NutriFit AI</strong><span><i class="status-dot"></i> Trợ lý sức khỏe của bạn</span></div>
@@ -109,5 +132,13 @@
         </section>
     </main>
 </div>
-</body>
+<script>
+function nfToggleNav(){
+ var nav=document.getElementById('nfGlobalSidebar'),scrim=document.getElementById('nfGlobalScrim');
+ if(!nav||!scrim)return;
+ var open=nav.classList.toggle('open');
+ scrim.classList.toggle('open',open);
+ document.querySelectorAll('.nf-global-toggle').forEach(function(b){b.setAttribute('aria-expanded',String(open));});
+}
+</script></body>
 </html>

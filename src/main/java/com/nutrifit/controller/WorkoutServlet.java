@@ -3,6 +3,7 @@ package com.nutrifit.controller;
 import com.nutrifit.model.Workout;
 import com.nutrifit.model.WorkoutLog;
 import com.nutrifit.service.WorkoutService;
+import com.nutrifit.dao.WorkoutCategoryDAO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,6 +23,7 @@ public class WorkoutServlet extends HttpServlet {
     private static final String VIEW_DETAIL = "/WEB-INF/views/workout/workout-detail.jsp";
 
     private final WorkoutService workoutService = new WorkoutService();
+    private final WorkoutCategoryDAO categoryDAO = new WorkoutCategoryDAO();
 
     /**
      * GET /workout             -> danh sách bài tập
@@ -40,7 +42,10 @@ public class WorkoutServlet extends HttpServlet {
         try {
             if (path == null || "/".equals(path)) {
                 List<Workout> workouts = workoutService.listAvailableWorkouts(userId);
+
                 request.setAttribute("workouts", workouts);
+                request.setAttribute("categories", categoryDAO.findAll());
+
                 request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 
             } else if ("/detail".equals(path)) {

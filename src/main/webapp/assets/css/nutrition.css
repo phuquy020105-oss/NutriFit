@@ -1,0 +1,107 @@
+.nf-page { color-scheme: light; font-family: system-ui,-apple-system,"Segoe UI",sans-serif; }
+.nf-page,.nf-page * { box-sizing:border-box; }
+body.nf-page { background:#f3f6f4;color:#1e3029;margin:0;line-height:1.5; }
+.nf-wrap { max-width:1160px;margin:0 auto;padding:28px 20px 64px; }
+.nf-head { display:flex;gap:20px;align-items:flex-start;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap; }
+.nf-wrap h1 { font-size:1.75rem;margin:0 0 6px; } .nf-wrap h2 { font-size:1.18rem;margin:0 0 16px; }
+.nf-wrap p { margin:5px 0 12px; } .nf-head p,.nf-muted { color:#567064; }
+.nf-wrap nav { display:flex;gap:12px;flex-wrap:wrap; } .nf-wrap nav a, .nf-dates a { color:#135b46;text-decoration:none;font-weight:600; }
+.nf-wrap nav a:hover,.nf-dates a:hover {text-decoration:underline;}
+.nf-card { background:#fff;border:1px solid #dce6df;border-radius:12px;padding:22px;margin:0 0 18px;box-shadow:0 2px 8px #00000006; }
+.nf-stats { display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px; }
+.nf-stats>div { padding:12px;border-radius:8px;background:#f5faf7; }
+.nf-stats strong { display:block;font-size:1.4rem; } .nf-stats small {display:block;color:#526b5c;}
+.nf-form { display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end; }
+.nf-wrap label { display:flex;flex-direction:column;gap:5px;min-width:170px;flex:1; }
+.nf-wrap select,.nf-wrap input { border:1px solid #b7cabd;border-radius:7px;padding:9px;background:white;color:inherit;max-width:100%;font:inherit; }
+.nf-wrap button { border:0;border-radius:7px;padding:10px 16px;background:#14724e;color:#fff;cursor:pointer;font-weight:600; }
+.nf-wrap button:hover { filter:brightness(.9); }
+.nf-wrap .nf-danger { background:#b53333; } .nf-wrap .nf-small { padding:7px 10px;white-space:nowrap; }
+.nf-inline { display:flex;align-items:center;gap:6px; } .nf-number {width:90px;}
+.nf-table-scroll { overflow:auto; } .nf-wrap table { width:100%;border-collapse:collapse;min-width:720px; }
+.nf-wrap th,.nf-wrap td { text-align:left;padding:10px;border-bottom:1px solid #e5ede7;vertical-align:middle; } .nf-wrap th {background:#f5faf7;white-space:nowrap;}
+.nf-success { color:#0a613d;padding:10px 14px;background:#e2f5e9;border-radius:8px; }
+.nf-dates { display:flex;flex-wrap:wrap;list-style:none;gap:12px;padding:0; }
+.nf-dates li { background:#eff6f0;padding:8px 12px;border-radius:7px; }
+.nf-wrap button:disabled { background:#72877a;cursor:not-allowed; }
+.nf-wrap :is(a,button,input,select,summary):focus-visible { outline:3px solid #e2a52f;outline-offset:3px; }
+.nf-wrap [hidden] { display:none !important; }
+.nf-edit { margin-top:10px;min-width:210px; }
+.nf-edit summary { cursor:pointer;color:#135b46;font-weight:600; }
+.nf-edit-form { display:grid;gap:10px;margin-top:10px; }
+.nf-edit-form label { min-width:150px; }
+.nf-edit-form select { width:100%; }
+.nf-action { margin:5px 0; }
+.nf-block { display:block; }
+.nf-target { margin-top:16px !important; }
+.nf-error { color:#912828;background:#fff0ed;border:1px solid #efc7bf;padding:14px;border-radius:8px; }
+@media (max-width:700px) { .nf-wrap{padding:18px 10px 48px;} .nf-card{padding:14px;} .nf-form {display:grid;} }
+
+
+/* NutriFit Nutrition: shared Dashboard layout */
+body.nf-page{background:#f6f8f6;color:#23382c;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.5}
+.nf-page .app-shell{min-height:100vh}
+.nf-page .app-content{min-width:0;width:100%}
+.nf-page .nf-wrap{max-width:1320px;margin:0 auto;padding:30px 42px 64px}
+.nf-page .nf-head{background:linear-gradient(115deg,#0d7145,#22a66a);color:#fff;border-radius:22px;padding:32px 36px;align-items:center;margin-bottom:22px}
+.nf-page .nf-head h1{font-size:clamp(25px,3vw,34px);font-weight:800;letter-spacing:-.7px}
+.nf-page .nf-head p{color:#d9f5e4;max-width:640px}
+.nf-page .nf-head nav{display:none}
+.nf-nutrition-tabs{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 24px;padding:7px;background:#fff;border:1px solid #e6eee8;border-radius:16px}
+.nf-nutrition-tabs a{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:11px;color:#617568;font-size:13px;font-weight:750;text-decoration:none}
+.nf-nutrition-tabs a:hover,.nf-nutrition-tabs a.active{background:#e8f5ed;color:#13824e}
+.nf-page .nf-card{border:1px solid #e6eee8;border-radius:18px;padding:25px;box-shadow:0 6px 20px #163b2a08;margin-bottom:20px}
+.nf-page .nf-card h2{font-size:18px;font-weight:800;color:#203d2b}
+.nf-page .nf-stats>div{border-radius:14px;background:#edf8f1;padding:18px}
+.nf-page .nf-stats strong{font-size:clamp(20px,2.4vw,28px);color:#147b4a}
+.nf-page .nf-wrap input,.nf-page .nf-wrap select{border-color:#dce9e1;border-radius:10px;padding:11px 12px}
+.nf-page .nf-wrap button{background:#168653;border-radius:10px;padding:11px 16px}
+.nf-page .nf-wrap .nf-danger{background:#b53333}
+.nf-page .nf-wrap th{background:#f3faf5;color:#516c5b}
+.nf-page .nf-wrap td{border-bottom:1px solid #edf2ee}
+.nf-page .nf-table-scroll{border:1px solid #edf2ee;border-radius:12px}
+.nf-page .nf-dates li{border-radius:10px}
+.nf-page .nf-footer{text-align:center;color:#8fa198;font-size:12px;padding:22px 0}
+@media(max-width:850px){.nf-page .nf-wrap{padding:24px 20px 50px}.nf-page .nf-head{padding:26px 24px}}
+@media(max-width:620px){.nf-page .nf-nutrition-tabs a{flex:1;justify-content:center}.nf-page .nf-head{padding:25px 20px}.nf-page .nf-card{padding:18px}}
+
+/* Today journal: scoped layout, preserving existing forms and tables */
+.nf-meal-today .nf-wrap{max-width:1320px;padding:36px 42px 70px}
+.nf-meal-today .nf-today-hero{min-height:220px;padding:34px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.nf-meal-today .nf-hero-eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:#bcead0}
+.nf-meal-today .nf-today-hero h1{font-size:clamp(27px,3vw,38px);max-width:680px;line-height:1.2;margin:13px 0}
+.nf-meal-today .nf-today-hero p{margin:0;color:#dcf8e7}
+.nf-meal-today .nf-hero-symbol{display:grid;place-items:center;flex:none;width:108px;height:108px;border-radius:50%;border:2px solid #ffffff70;box-shadow:0 0 0 16px #ffffff16,0 0 0 32px #ffffff0a;font-size:54px;color:#d6f9e5}
+.nf-meal-today .nf-section-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px}
+.nf-meal-today .nf-section-heading h2{margin:5px 0 0;font-size:21px}
+.nf-meal-today .nf-section-kicker{font-size:10px;letter-spacing:1.7px;font-weight:800;color:#7a9985}
+.nf-meal-today .nf-section-icon{width:42px;height:42px;border-radius:13px;background:#e9f6ed;color:#12834f;display:grid;place-items:center;font-size:22px}
+.nf-meal-today .nf-today-overview,.nf-meal-today .nf-today-add,.nf-meal-today .nf-today-meal{border-radius:20px;padding:28px 30px}
+.nf-meal-today .nf-calorie-progress{background:linear-gradient(110deg,#f1f9f3,#f8fcf9);border:1px solid #e3f0e7;border-radius:16px;padding:22px 24px;margin-bottom:20px}
+.nf-meal-today .nf-calorie-heading{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.nf-meal-today .nf-calorie-caption,.nf-meal-today .nf-calorie-goal span{display:block;color:#678371;font-size:13px;font-weight:600}
+.nf-meal-today .nf-calorie-value{display:flex;align-items:baseline;gap:8px}
+.nf-meal-today .nf-calorie-value strong{font-size:38px;letter-spacing:-1px;color:#107c49}
+.nf-meal-today .nf-calorie-value span{color:#678371;font-size:14px}
+.nf-meal-today .nf-calorie-goal{text-align:right}.nf-meal-today .nf-calorie-goal strong{display:block;margin-top:7px;font-size:18px}
+.nf-meal-today .nf-progress-track{height:11px;background:#dcece2;border-radius:100px;overflow:hidden;margin-top:17px}
+.nf-meal-today .nf-progress-fill{height:100%;background:linear-gradient(90deg,#0b7646,#2ab773);border-radius:100px}
+.nf-meal-today .nf-progress-note{font-size:12px;color:#6a8775;margin:10px 0 0}
+.nf-meal-today .nf-macro-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.nf-meal-today .nf-macro{display:flex;flex-direction:column;gap:9px;background:#fff;border:1px solid #e5eee7;border-radius:15px;padding:17px}
+.nf-meal-today .nf-macro-icon{display:grid;place-items:center;width:32px;height:32px;background:#e7f6ec;border-radius:10px;color:#15824e;font-size:12px;font-weight:800}
+.nf-meal-today .nf-macro>span:nth-child(2){font-size:12px;color:#6d8575;font-weight:650}
+.nf-meal-today .nf-macro strong{font-size:23px;color:#223b2d}.nf-meal-today .nf-macro small{font-size:12px;color:#8b9c90}
+.nf-meal-today .nf-today-add .nf-form{display:grid;grid-template-columns:minmax(130px,1fr) minmax(210px,2fr) minmax(110px,.7fr) auto;gap:14px;align-items:end}
+.nf-meal-today .nf-today-add .nf-form label{min-width:0;font-size:13px;font-weight:650;color:#496552}
+.nf-meal-today .nf-today-add .nf-form select,.nf-meal-today .nf-today-add .nf-form input{width:100%;min-height:46px}
+.nf-meal-today .nf-today-add .nf-form button{min-height:46px;white-space:nowrap}
+.nf-meal-today .nf-today-add .nf-form [data-empty-recipes]{grid-column:1/-1}
+.nf-meal-today .nf-today-meal .nf-table-scroll{overflow-x:auto}
+.nf-meal-today .nf-today-meal table{min-width:780px}
+.nf-meal-today .nf-today-meal th{font-size:12px;padding:14px 12px}
+.nf-meal-today .nf-today-meal td{padding:14px 12px;font-size:13px}
+.nf-meal-today .nf-today-meal tbody tr:hover{background:#f8fbf9}
+@media(max-width:1100px){.nf-meal-today .nf-today-add .nf-form{grid-template-columns:repeat(2,minmax(0,1fr))}.nf-meal-today .nf-today-add .nf-form button{justify-self:start}}
+@media(max-width:750px){.nf-meal-today .nf-wrap{padding:22px 16px 50px}.nf-meal-today .nf-today-hero{padding:28px 24px;min-height:0}.nf-meal-today .nf-hero-symbol{display:none}.nf-meal-today .nf-macro-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nf-meal-today .nf-today-overview,.nf-meal-today .nf-today-add,.nf-meal-today .nf-today-meal{padding:20px}.nf-meal-today .nf-calorie-heading{align-items:flex-start}.nf-meal-today .nf-calorie-value strong{font-size:29px}}
+@media(max-width:480px){.nf-meal-today .nf-today-add .nf-form{grid-template-columns:1fr}.nf-meal-today .nf-calorie-heading{flex-direction:column}.nf-meal-today .nf-calorie-goal{text-align:left}.nf-meal-today .nf-macro-grid{gap:9px}.nf-meal-today .nf-macro{padding:12px}}
