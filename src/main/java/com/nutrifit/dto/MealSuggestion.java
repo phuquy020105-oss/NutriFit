@@ -8,12 +8,18 @@ import java.util.Objects;
 /** Server-owned preview, including the journal totals seen before saving. */
 public record MealSuggestion(long userId, LocalDate date, BigDecimal targetKcal,
                              boolean personalized, List<SuggestedMeal> meals,
-                             NutritionFacts recordedToday, NutritionFacts projectedDay, int recordedMealCount) {
+                             NutritionFacts recordedToday, NutritionFacts projectedDay, int recordedMealCount, List<String> warnings) {
     public MealSuggestion {
         meals = List.copyOf(meals);
+        warnings = List.copyOf(warnings);
         Objects.requireNonNull(recordedToday);
         Objects.requireNonNull(projectedDay);
         if (recordedMealCount < 0) throw new IllegalArgumentException("Invalid journal count");
+    }
+    public MealSuggestion(long userId, LocalDate date, BigDecimal targetKcal,
+            boolean personalized, List<SuggestedMeal> meals, NutritionFacts recordedToday,
+            NutritionFacts projectedDay, int recordedMealCount) {
+        this(userId,date,targetKcal,personalized,meals,recordedToday,projectedDay,recordedMealCount,List.of());
     }
     /** Retained constructor for callers without a journal snapshot. */
     public MealSuggestion(long userId, LocalDate date, BigDecimal targetKcal,

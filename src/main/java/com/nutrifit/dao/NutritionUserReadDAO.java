@@ -1,6 +1,7 @@
 package com.nutrifit.dao;
 
 import java.math.BigDecimal;
+import com.nutrifit.dto.NutritionGoal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,15 @@ public class NutritionUserReadDAO {
                 if (!rs.next() || !"PREMIUM".equals(rs.getString("subscription_status"))) return false;
                 Timestamp expiry = rs.getTimestamp("premium_expires_at");
                 return expiry != null && expiry.toLocalDateTime().isAfter(now);
+            }
+        }
+    }
+
+    public NutritionGoal findGoal(Connection connection, long userId) throws SQLException {
+        try (PreparedStatement ps=connection.prepareStatement("SELECT goal FROM userprofiles WHERE user_id=?")) {
+            ps.setLong(1,userId);
+            try (ResultSet rs=ps.executeQuery()) {
+                return NutritionGoal.fromProfile(rs.next()?rs.getString(1):null);
             }
         }
     }

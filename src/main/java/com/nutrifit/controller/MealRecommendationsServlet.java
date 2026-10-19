@@ -72,7 +72,7 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
             case "updated" -> "Đã đổi món trong nhật ký hôm nay.";
             case "deleted" -> "Đã xóa món khỏi nhật ký hôm nay.";
             case "regenerated" -> "Đã chọn một thực đơn khác.";
-            case "unchanged" -> "Hiện chỉ còn một tổ hợp phù hợp với dữ liệu và sở thích của bạn.";
+            case "unchanged" -> "Chưa tìm được tổ hợp khác có chất lượng tương đương từ dữ liệu hiện có.";
             default -> null;
         };
     }
@@ -91,8 +91,9 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
                 Object value = session.getAttribute(DRAFT);
                 if ("regenerate".equals(action)) {
                     MealSuggestion previous = value instanceof Draft d && active(d, user) ? d.suggestion : null;
-                    MealSuggestion next = service.recommendDay(user, previous);
-                    session.setAttribute(DRAFT, new Draft(UUID.randomUUID().toString(), next, Instant.now()));
+                    List<List<Long>> recent = value instanceof Draft d && active(d,user) ? d.recent : List.of();
+                    MealSuggestion next = service.recommendDay(user, previous, recent);
+                    session.setAttribute(DRAFT, new Draft(UUID.randomUUID().toString(), next, Instant.now(), recent));
                     boolean same = previous != null && previous.meals().stream().map(SuggestedMeal::recipeId).toList()
                             .equals(next.meals().stream().map(SuggestedMeal::recipeId).toList());
                     resp.sendRedirect(req.getContextPath() + "/nutrition/recommendations?message="
@@ -162,8 +163,13 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
         MealSuggestion suggestion;
         boolean attempted;
         boolean saved;
-        Draft(String token, MealSuggestion suggestion, Instant created) {
+        final List<List<Long>> recent;
+        Draft(String token, MealSuggestion suggestion, Instant created) { this(token,suggestion,created,List.of()); }
+        Draft(String token, MealSuggestion suggestion, Instant created, List<List<Long>> previous) {
             this.token = token; this.suggestion = suggestion; this.created = created;
+            List<List<Long>> history = new ArrayList<>(previous);
+            history.add(MealRecommendationService.recipeIds(suggestion));
+            recent = List.copyOf(history.subList(Math.max(0,history.size()-5),history.size()));
         }
     }
 }

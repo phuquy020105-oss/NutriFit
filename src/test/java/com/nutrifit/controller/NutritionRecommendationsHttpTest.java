@@ -189,7 +189,7 @@ class NutritionRecommendationsHttpTest {
                 if(unavailable) throw new RecommendationUnavailableException("Hãy hoàn tất mục tiêu trong hồ sơ.");
                 return suggestion;
             }
-            @Override public MealSuggestion recommendDay(long user,MealSuggestion previous){
+            @Override public MealSuggestion recommendDay(long user,MealSuggestion previous,List<List<Long>> recent){
                 generated++;
                 return new MealSuggestion(user,LocalDate.now(),suggestion.targetKcal(),false,
                         suggestion.meals().stream().map(m -> new SuggestedMeal(m.recipeId()+10,m.name(),m.mealType(),

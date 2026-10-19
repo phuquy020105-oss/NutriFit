@@ -133,13 +133,15 @@ class MealRecommendationServiceTest {
             f.target = new BigDecimal(target);
             MealSuggestion day = f.service.recommendDay(USER);
             assertTrue(day.meals().stream().allMatch(m -> m.servings().compareTo(BigDecimal.ONE) == 0));
-            assertEquals(0,day.total().caloriesKcal().compareTo(new BigDecimal(target.equals("100")?"1200":"1470")));
+            assertTrue(day.total().caloriesKcal().compareTo(new BigDecimal("1200"))>=0);
+            assertTrue(day.total().caloriesKcal().compareTo(new BigDecimal("1470"))<=0);
+            assertFalse(day.warnings().isEmpty());
             assertNotEquals(0,day.differenceKcal().signum());
         }
     }
-    @Test void premiumLikesCanWinWithinCalorieBandButNotOverrideLargeEnergyMismatch() throws Exception {
+    @Test void premiumLikesAreSoftAndDoNotOverrideLargeEnergyMismatch() throws Exception {
         Fixture f = new Fixture(); f.inputs.clear(); f.premium=true; f.target=new BigDecimal("2000");
-        put(f,10,MealEntry.MealType.BREAKFAST,"400"); put(f,11,MealEntry.MealType.BREAKFAST,"350");
+        put(f,10,MealEntry.MealType.BREAKFAST,"400"); put(f,11,MealEntry.MealType.BREAKFAST,"399");
         put(f,20,MealEntry.MealType.LUNCH,"900"); put(f,30,MealEntry.MealType.DINNER,"700");
         f.saved.add(new FoodPreference(USER,111L,FoodPreference.PreferenceType.LIKE));
         assertEquals(11L,f.service.recommendDay(USER).meals().getFirst().recipeId());
@@ -148,18 +150,20 @@ class MealRecommendationServiceTest {
     }
     @Test void journalChangesChoiceAndWarnsOnActualProjectedTotalIncludingExistingMeals() throws Exception {
         Fixture f = new Fixture(); f.target=new BigDecimal("1800");
+        MealSuggestion before=f.service.recommendDay(USER);
         f.journal.add(entry("500"));
         MealSuggestion day = f.service.recommendDay(USER);
         assertEquals(1,day.recordedMealCount());
         assertEquals(0,day.recordedToday().caloriesKcal().compareTo(new BigDecimal("500")));
-        assertEquals(0,day.total().caloriesKcal().compareTo(new BigDecimal("1300")));
-        assertEquals(0,day.projectedDifferenceKcal().signum());
-        assertFalse(day.exceedsTarget());
+        assertNotEquals(before.meals(),day.meals());
+        assertEquals(day.total().caloriesKcal().add(new BigDecimal("500")).setScale(3),day.projectedDay().caloriesKcal());
+        assertEquals(day.projectedDay().caloriesKcal().subtract(f.target),day.projectedDifferenceKcal());
+        assertEquals(day.projectedDifferenceKcal().signum()>0,day.exceedsTarget());
         f.journal.clear();f.journal.add(entry("1900"));
         day=f.service.recommendDay(USER);
         assertTrue(day.exceedsTarget());
-        assertEquals(0,day.projectedDay().caloriesKcal().compareTo(new BigDecimal("3100")));
-        assertEquals(0,day.projectedDifferenceKcal().compareTo(new BigDecimal("1300")));
+        assertTrue(day.projectedDay().caloriesKcal().compareTo(new BigDecimal("3100"))>=0);
+        assertEquals(day.projectedDay().caloriesKcal().subtract(f.target),day.projectedDifferenceKcal());
     }
     @Test void fixedPortionsRecalculateAllFiveFactsAndRefreshJournalWarning() throws Exception {
         Fixture f=new Fixture();f.target=new BigDecimal("1800");
@@ -189,6 +193,26 @@ class MealRecommendationServiceTest {
         assertEquals(first.meals(),unchanged.meals());
         assertThrows(SecurityException.class,()->f.service.recommendDay(USER+1,first));
     }
+    @Test void actualRankingPrefersBalancedMenuDespiteTwoCalorieDifference() throws Exception {
+        Fixture f=new Fixture();f.inputs.clear();f.target=new BigDecimal("1800");
+        put(f,20,MealEntry.MealType.LUNCH,"600");put(f,30,MealEntry.MealType.DINNER,"600");
+        f.inputs.put(10L,new RecipeNutritionInput(10,"Synthetic oily fixture",MealEntry.MealType.BREAKFAST,BigDecimal.ONE,
+                List.of(new IngredientNutritionLine(110,new BigDecimal("100"),new NutritionFacts(new BigDecimal("600"),new BigDecimal("30"),new BigDecimal("20"),new BigDecimal("50"),BigDecimal.ZERO)))));
+        f.inputs.put(11L,new RecipeNutritionInput(11,"Synthetic balanced fixture",MealEntry.MealType.BREAKFAST,BigDecimal.ONE,
+                List.of(new IngredientNutritionLine(111,new BigDecimal("100"),facts("602")))));
+        assertEquals(11L,f.service.recommendDay(USER).meals().getFirst().recipeId());
+    }
+    @Test void selectedImagesComeFromServerRecipeInputAndRefreshWithCurrentCatalog() throws Exception {
+        Fixture f=new Fixture();
+        for(var r:List.copyOf(f.inputs.values()))f.inputs.put(r.recipeId(),new RecipeNutritionInput(r.recipeId(),r.name(),r.mealType(),r.baseServings(),r.ingredients(),"/assets/images/recipes/recipe-"+r.recipeId()+".webp"));
+        var first=f.service.recommendDay(USER);
+        assertTrue(first.meals().stream().allMatch(m->m.imageUrl().equals(f.inputs.get(m.recipeId()).imageUrl())));
+        var r=f.inputs.get(first.meals().getFirst().recipeId());
+        f.inputs.put(r.recipeId(),new RecipeNutritionInput(r.recipeId(),r.name(),r.mealType(),r.baseServings(),r.ingredients(),null));
+        var refreshed=f.service.refresh(USER,first,amounts("999"));
+        assertNull(refreshed.meals().getFirst().imageUrl());
+        assertEquals(first.total(),refreshed.total());
+    }
     private static MealEntry entry(String kcal) {
         return new MealEntry(10L,999L,"Recorded meal",MealEntry.MealType.LUNCH,BigDecimal.ONE,
                 new BigDecimal(kcal),BigDecimal.ONE,BigDecimal.TEN,BigDecimal.ONE,BigDecimal.ONE);
@@ -203,11 +227,14 @@ class MealRecommendationServiceTest {
         return result;
     }
     static NutritionFacts facts(String kcal) {
-        return new NutritionFacts(new BigDecimal(kcal), new BigDecimal("11.111"),
-                new BigDecimal("23.456"), new BigDecimal("7.123"), new BigDecimal("2.345"));
+        BigDecimal k=new BigDecimal(kcal); // Synthetic, coherent macros for algorithm unit fixtures only.
+        return new NutritionFacts(k,k.multiply(new BigDecimal(".05")),
+                k.multiply(new BigDecimal(".125")),k.divide(new BigDecimal("30"),9,java.math.RoundingMode.HALF_UP),
+                k.multiply(new BigDecimal(".014")));
     }
     static class Fixture {
         boolean premium;
+        NutritionGoal goal=NutritionGoal.MAINTAIN;
         int preferenceReads;
         BigDecimal target = new BigDecimal("2400");
         final Map<Long, RecipeNutritionInput> inputs = new LinkedHashMap<>();
@@ -219,6 +246,7 @@ class MealRecommendationServiceTest {
                     throw new AssertionError("Preview attempted JDBC mutation: " + m.getName());
                 });
         final NutritionUserReadDAO users = new NutritionUserReadDAO() {
+            @Override public NutritionGoal findGoal(Connection c,long user){assertEquals(USER,user);return goal;}
             @Override public boolean hasPremiumAccess(Connection c,long user,LocalDateTime now) {
                 assertEquals(USER,user); return premium;
             }
@@ -237,7 +265,7 @@ class MealRecommendationServiceTest {
             }
             @Override public List<RecipeCandidate> listCandidates(Connection c) {
                 return inputs.values().stream().map(r -> new RecipeCandidate(r.recipeId(), r.name(),
-                        r.mealType(), Set.of(r.ingredients().getFirst().foodId()),
+                        r.mealType(), r.ingredients().stream().map(IngredientNutritionLine::foodId).collect(java.util.stream.Collectors.toSet()),
                         new NutritionCalculator().calculate(r,BigDecimal.ONE))).toList();
             }
         };

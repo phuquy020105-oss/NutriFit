@@ -5,6 +5,7 @@
 <p data-empty-recipes hidden>Không có món</p><button type="submit">Thêm</button></form>
 <form id="save" data-submit-once><button type="submit">Lưu</button></form>
 <form id="remove" data-submit-once data-confirm="Xóa món?"><button type="submit">Xóa</button></form>
+<img id="broken" data-recipe-image src="missing-recipe.webp" data-fallback="../../main/webapp/assets/images/recipes/placeholder.svg" alt="Ảnh thử">
 <pre id="result">RUNNING</pre>
 <script defer src="../../main/webapp/assets/js/nutrition.js"></script>
 <script>
@@ -13,6 +14,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const check=(value,label)=>{if(!value)throw new Error(label);count++;};
     const submit=form=>{const event=new Event('submit',{cancelable:true});form.dispatchEvent(event);return event;};
     try {
+        const image=document.getElementById('broken');
+        image.dispatchEvent(new Event('error'));
+        check(image.src.endsWith('/assets/images/recipes/placeholder.svg'),'failed image uses packaged fallback');
+        image.src='already-checked.webp';image.dispatchEvent(new Event('error'));
+        check(image.src.endsWith('already-checked.webp'),'fallback cannot loop after another failure');
         const form=document.getElementById('recipes');
         const meal=form.querySelector('[data-meal-select]'), recipe=form.querySelector('[data-recipe-select]');
         const button=form.querySelector('button'), empty=form.querySelector('[data-empty-recipes]');

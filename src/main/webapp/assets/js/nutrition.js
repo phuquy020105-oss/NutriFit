@@ -1,6 +1,16 @@
 (() => {
     'use strict';
 
+    document.querySelectorAll('[data-recipe-image]').forEach(img => {
+        const fallback = () => {
+            if (img.dataset.fallbackApplied) return;
+            img.dataset.fallbackApplied = 'true';
+            img.src = img.dataset.fallback;
+        };
+        img.addEventListener('error', fallback);
+        if (img.complete && img.naturalWidth === 0) fallback();
+    });
+
     document.querySelectorAll('[data-recipe-form]').forEach(form => {
         const meal = form.querySelector('[data-meal-select]');
         const recipe = form.querySelector('[data-recipe-select]');

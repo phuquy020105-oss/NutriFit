@@ -83,3 +83,5 @@ body.nf-page{background:#f6f8f6;color:#23382c;font-family:Inter,-apple-system,Bl
 .nf-manual-add summary{cursor:pointer;font-weight:700;color:#135b46}
 .nf-manual-add .nf-form{margin-top:1rem}
 @media(max-width:700px){.nf-journal-item{display:block}.nf-journal-actions{margin-top:.75rem}.nf-manual-add .nf-form{display:flex}}
+
+.nf-recipe-image { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; border-radius:12px; background:#eef3ef; }

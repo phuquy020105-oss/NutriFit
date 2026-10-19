@@ -11,7 +11,6 @@ import com.nutrifit.dto.*;
 import com.nutrifit.model.FoodPreference;
 import com.nutrifit.model.MealEntry.MealType;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Clock;
@@ -30,6 +29,7 @@ public class MealRecommendationService {
     private final Clock clock;
     private final MealPlanDAO plans;
     private final MealEntryDAO entries;
+    private final MealPlanScorer scorer = new MealPlanScorer();
 
     public MealRecommendationService() { this(DatabaseConfig::getConnection); }
     MealRecommendationService(ConnectionProvider connections) {
@@ -73,7 +73,12 @@ public class MealRecommendationService {
 
     /** Explicit regeneration prefers a different eligible combination, when one exists. */
     public MealSuggestion recommendDay(long userId, MealSuggestion previous) throws SQLException {
+        return recommendDay(userId, previous, previous==null?List.of():List.of(recipeIds(previous)));
+    }
+
+    public MealSuggestion recommendDay(long userId, MealSuggestion previous, List<List<Long>> recent) throws SQLException {
         requireUser(userId);
+        if (recent==null || recent.size()>5) throw new IllegalArgumentException("At most five recent combinations required");
         if (previous != null && previous.userId() != userId) throw new SecurityException("Preview owner mismatch");
         try (Connection c = connections.open()) {
             BigDecimal target = target(c, userId);
@@ -82,28 +87,35 @@ public class MealRecommendationService {
             LocalDate day = LocalDate.now(clock);
             List<MealEntry> journal = journal(c, userId, day);
             NutritionFacts recorded = recorded(journal);
+            NutritionGoal goal = users.findGoal(c, userId);
+            Map<Long,Integer> frequency = new HashMap<>();
+            for (RecipeCandidate recipe:catalog) for(long id:recipe.foodIds()) frequency.merge(id,1,Integer::sum);
             Map<MealType, List<Option>> options = new EnumMap<>(MealType.class);
             for (MealType type : MealType.values()) {
-                List<Option> choices = rank(catalog, type, target.multiply(mealShare(type)), eligibility).stream()
-                        .map(r -> new Option(r.recipe(), r.recipe().foodIds().stream().filter(eligibility.likes()::contains).count(), addedKcal(r.recipe(), journal))).toList();
+                List<Option> choices = eligible(catalog, type, eligibility).stream()
+                        .map(r -> new Option(r, addedFacts(r, journal))).toList();
                 if (choices.isEmpty()) throw unavailable(type);
                 options.put(type, choices);
             }
-            Combination best = null, alternative = null;
+            Combination best = null, alternative = null, novel = null;
             for (Option breakfast : options.get(MealType.BREAKFAST))
                 for (Option lunch : options.get(MealType.LUNCH))
                     for (Option dinner : options.get(MealType.DINNER)) {
-                        Combination choice = new Combination(breakfast, lunch, dinner, recorded.caloriesKcal(), target);
+                        Combination choice = combination(breakfast,lunch,dinner,recorded,target,goal,eligibility,
+                                frequency,journal,recent);
                         if (best == null || choice.compareTo(best) < 0) best = choice;
                         if (previous != null && !choice.sameRecipes(previous)
                                 && (alternative == null || choice.compareTo(alternative) < 0)) alternative = choice;
+                        if (!recent.contains(choice.ids()) && (novel==null || choice.compareTo(novel)<0)) novel=choice;
                     }
-            if (alternative != null) best = alternative;
+            // Prefer novelty only within a small quality margin; never force a much worse menu.
+            if (previous!=null && novel!=null && novel.score()<=best.score()+.03) best=novel;
+            else if (alternative!=null && alternative.score()<=best.score()+.03) best=alternative;
             List<SuggestedMeal> meals = new ArrayList<>();
             for (Option option : List.of(best.breakfast(), best.lunch(), best.dinner())) {
                 RecipeNutritionInput input = requireRecipe(c, option.recipe().recipeId(), option.recipe().mealType(), eligibility);
                 meals.add(new SuggestedMeal(input.recipeId(), input.name(), input.mealType(), STANDARD_SERVINGS,
-                        calculator.calculate(input, STANDARD_SERVINGS)));
+                        calculator.calculate(input, STANDARD_SERVINGS),input.imageUrl()));
             }
             return preview(userId, day, target, eligibility.premium(), meals, journal);
         }
@@ -127,7 +139,7 @@ public class MealRecommendationService {
             BigDecimal servings = STANDARD_SERVINGS;
             RecipeNutritionInput input = requireRecipe(c, meal.recipeId(), meal.mealType(), eligibility);
             meals.add(new SuggestedMeal(input.recipeId(), input.name(), input.mealType(), servings,
-                    calculator.calculate(input, servings)));
+                    calculator.calculate(input, servings),input.imageUrl()));
         }
         return preview(userId, draft.date(), target(c, userId), eligibility.premium(), meals,
                 journal(c, userId, draft.date()));
@@ -166,20 +178,20 @@ public class MealRecommendationService {
 
     private List<RecommendedRecipe> rank(List<RecipeCandidate> catalog, MealType type,
                                         BigDecimal mealTarget, Eligibility eligibility) {
-        List<RecipeCandidate> valid = catalog.stream().filter(r -> r.mealType() == type
-                && r.perServing().caloriesKcal().signum() > 0
-                && Collections.disjoint(r.foodIds(), eligibility.dislikes())).toList();
-        Comparator<RecipeCandidate> ordering = Comparator
-                .comparingLong((RecipeCandidate r) -> r.foodIds().stream().filter(eligibility.likes()::contains).count())
-                .reversed()
-                .thenComparing(r -> r.perServing().caloriesKcal().subtract(mealTarget).abs())
-                .thenComparingLong(RecipeCandidate::recipeId);
-        return valid.stream().sorted(ordering).map(r -> {
-            long matches = r.foodIds().stream().filter(eligibility.likes()::contains).count();
-            return new RecommendedRecipe(r, matches,
-                    eligibility.premium() ? "Ưu tiên nguyên liệu thích; loại nguyên liệu không thích"
-                            : "Theo mục tiêu calories trong hồ sơ");
-        }).toList();
+        List<RecipeCandidate> valid = eligible(catalog,type,eligibility);
+        return valid.stream().map(r -> {
+            double missed=eligibility.likes().isEmpty()?0:1-(double)r.foodIds().stream()
+                    .filter(eligibility.likes()::contains).count()/eligibility.likes().size();
+            double score=scorer.evaluate(r.perServing(),mealTarget.max(BigDecimal.ONE),NutritionGoal.MAINTAIN,
+                    List.of(r.perServing()),0,0,missed).total();
+            return new RecommendedRecipe(r,1-score,"Cân bằng dinh dưỡng từ catalog và sở thích hiện hành");
+        }).sorted(Comparator.comparingDouble(RecommendedRecipe::score).reversed()
+                .thenComparingLong(r->r.recipe().recipeId())).toList();
+    }
+
+    private static List<RecipeCandidate> eligible(List<RecipeCandidate> catalog,MealType type,Eligibility eligibility) {
+        return catalog.stream().filter(r->r.mealType()==type && r.perServing().caloriesKcal().signum()>0
+                && Collections.disjoint(r.foodIds(),eligibility.dislikes())).sorted(Comparator.comparingLong(RecipeCandidate::recipeId)).toList();
     }
 
     private static BigDecimal mealShare(MealType type) {
@@ -203,15 +215,15 @@ public class MealRecommendationService {
         return total.rounded();
     }
 
-    private BigDecimal addedKcal(RecipeCandidate recipe, List<MealEntry> journal) {
-        for (MealEntry old : journal) {
-            if (old.getRecipeId() == recipe.recipeId() && old.getMealType() == recipe.mealType()) {
-                NutritionFacts merged = calculator.rescaleStored(MealPlannerService.snapshot(old), old.getServings(),
-                        old.getServings().add(BigDecimal.ONE));
-                return merged.caloriesKcal().subtract(old.getCaloriesKcal());
-            }
+    private NutritionFacts addedFacts(RecipeCandidate recipe, List<MealEntry> journal) {
+        for (MealEntry old:journal) if(old.getRecipeId()==recipe.recipeId() && old.getMealType()==recipe.mealType()) {
+            NutritionFacts merged=calculator.rescaleStored(MealPlannerService.snapshot(old),old.getServings(),
+                    old.getServings().add(BigDecimal.ONE));
+            return new NutritionFacts(merged.caloriesKcal().subtract(old.getCaloriesKcal()),
+                    merged.proteinG().subtract(old.getProteinG()),merged.carbsG().subtract(old.getCarbsG()),
+                    merged.fatG().subtract(old.getFatG()),merged.fiberG().subtract(old.getFiberG()));
         }
-        return recipe.perServing().caloriesKcal();
+        return recipe.perServing();
     }
 
     private MealSuggestion preview(long userId, LocalDate day, BigDecimal target, boolean premium,
@@ -231,42 +243,41 @@ public class MealRecommendationService {
         for (SuggestedMeal meal : meals) if (!merged.contains(meal.mealType() + ":" + meal.recipeId())) {
             projected = projected.add(meal.nutrition());
         }
-        return new MealSuggestion(userId, day, target, premium, meals, recorded(journal), projected.rounded(), journal.size());
+        return new MealSuggestion(userId, day, target, premium, meals, recorded(journal), projected.rounded(), journal.size(),
+                scorer.warnings(projected,target));
     }
 
-    private record Option(RecipeCandidate recipe, long likes, BigDecimal addedKcal) { }
-
-    private record Combination(Option breakfast, Option lunch, Option dinner, BigDecimal recorded, BigDecimal target)
+    public static List<Long> recipeIds(MealSuggestion suggestion) {
+        return suggestion.meals().stream().sorted(Comparator.comparing(SuggestedMeal::mealType)).map(SuggestedMeal::recipeId).toList();
+    }
+    private record Option(RecipeCandidate recipe, NutritionFacts added) { }
+    private record Combination(Option breakfast,Option lunch,Option dinner,double score,double energyDistance)
             implements Comparable<Combination> {
-        private boolean sameRecipes(MealSuggestion previous) {
-            return previous.meals().size() == 3 && List.of(breakfast, lunch, dinner).stream().allMatch(option ->
-                    previous.meals().stream().anyMatch(m -> m.mealType() == option.recipe().mealType()
-                            && m.recipeId() == option.recipe().recipeId()));
-        }
-        private BigDecimal distance() {
-            return recorded.add(breakfast.addedKcal()).add(lunch.addedKcal()).add(dinner.addedKcal()).subtract(target).abs();
-        }
-        private BigDecimal band() {
-            // Within the same 10% target band, preferences can win without forcing portions.
-            return distance().divide(target.max(BigDecimal.ONE).multiply(new BigDecimal("0.10")), 0, RoundingMode.DOWN);
-        }
-        private long likes() { return breakfast.likes() + lunch.likes() + dinner.likes(); }
-        private BigDecimal balance() {
-            BigDecimal total = breakfast.recipe().perServing().caloriesKcal()
-                    .add(lunch.recipe().perServing().caloriesKcal()).add(dinner.recipe().perServing().caloriesKcal());
-            return breakfast.recipe().perServing().caloriesKcal().subtract(total.multiply(mealShare(MealType.BREAKFAST))).abs()
-                    .add(lunch.recipe().perServing().caloriesKcal().subtract(total.multiply(mealShare(MealType.LUNCH))).abs());
-        }
+        List<Long> ids(){return List.of(breakfast.recipe().recipeId(),lunch.recipe().recipeId(),dinner.recipe().recipeId());}
+        boolean sameRecipes(MealSuggestion previous){return ids().equals(recipeIds(previous));}
         @Override public int compareTo(Combination other) {
-            int result = band().compareTo(other.band());
-            if (result == 0) result = Long.compare(other.likes(), likes());
-            if (result == 0) result = distance().compareTo(other.distance());
-            if (result == 0) result = balance().compareTo(other.balance());
-            if (result == 0) result = Long.compare(breakfast.recipe().recipeId(), other.breakfast.recipe().recipeId());
-            if (result == 0) result = Long.compare(lunch.recipe().recipeId(), other.lunch.recipe().recipeId());
-            if (result == 0) result = Long.compare(dinner.recipe().recipeId(), other.dinner.recipe().recipeId());
+            int result=Double.compare(score,other.score);
+            if(result==0) result=Double.compare(energyDistance,other.energyDistance);
+            for(int i=0;result==0 && i<3;i++) result=Long.compare(ids().get(i),other.ids().get(i));
             return result;
         }
+    }
+    private Combination combination(Option breakfast,Option lunch,Option dinner,NutritionFacts recorded,
+            BigDecimal target,NutritionGoal goal,Eligibility eligibility,Map<Long,Integer> frequency,
+            List<MealEntry> journal,List<List<Long>> recent) {
+        List<RecipeCandidate> selected=List.of(breakfast.recipe(),lunch.recipe(),dinner.recipe());
+        NutritionFacts projected=recorded.add(breakfast.added()).add(lunch.added()).add(dinner.added());
+        Set<Long> foods=new HashSet<>();for(var r:selected)foods.addAll(r.foodIds());
+        double missed=eligibility.likes().isEmpty()?0:1-(double)foods.stream().filter(eligibility.likes()::contains).count()/eligibility.likes().size();
+        int repeats=0;
+        for(var r:selected) {
+            if(journal.stream().anyMatch(e->e.getRecipeId()==r.recipeId()))repeats++;
+            for(var old:recent)if(old.contains(r.recipeId()))repeats++;
+        }
+        double repeated=(double)repeats/(3*(recent.size()+1));
+        var score=scorer.evaluate(projected,target,goal,selected.stream().map(RecipeCandidate::perServing).toList(),
+                MealPlanScorer.ingredientOverlap(selected,frequency),repeated,missed);
+        return new Combination(breakfast,lunch,dinner,score.total(),projected.caloriesKcal().subtract(target).abs().doubleValue());
     }
 
     private RecipeNutritionInput requireRecipe(Connection c, long id, MealType type, Eligibility eligibility)

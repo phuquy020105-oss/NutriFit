@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*,com.nutrifit.model.*,com.nutrifit.dto.*,com.nutrifit.util.Html" %>
+<%@ page import="java.util.*,com.nutrifit.model.*,com.nutrifit.dto.*,com.nutrifit.util.Html,com.nutrifit.util.NutritionDisplay,com.nutrifit.util.RecipeImage" %>
 <%
 MealSuggestion suggestion = (MealSuggestion) request.getAttribute("suggestion");
 String suggestionToken = (String) request.getAttribute("suggestionToken");
@@ -59,23 +59,27 @@ String notice = (String) request.getAttribute("notice");
     String label = meal.mealType() == MealEntry.MealType.BREAKFAST ? "Bữa sáng" : meal.mealType() == MealEntry.MealType.LUNCH ? "Bữa trưa" : "Bữa tối";
 %>
 <section class="nf-card nf-suggested-meal" data-suggestion-meal="<%= meal.mealType().name() %>">
-<h2><%= label %></h2><h3><%= Html.escape(meal.name()) %></h3>
+<h2><%= label %></h2>
+<img class="nf-recipe-image" src="<%= Html.escape(RecipeImage.url(ctx,meal.imageUrl())) %>" data-recipe-image data-fallback="<%= Html.escape(ctx + RecipeImage.FALLBACK) %>" alt="<%= Html.escape(meal.name()) %>" width="800" height="450" loading="lazy">
+<h3><%= Html.escape(meal.name()) %></h3>
 <dl class="nf-suggestion-facts"><% for (int i=0; i<factKeys.length; i++) { %>
-<div><dt><%= factLabels[i] %></dt><dd><%= Html.escape(values[i]) %></dd></div>
+<div><dt><%= factLabels[i] %></dt><dd><%= NutritionDisplay.integer(values[i]) %></dd></div>
 <% } %></dl></section><% } %></div>
 <section class="nf-card"><h2>Tổng dinh dưỡng ba bữa</h2>
 <% NutritionFacts total = suggestion.total();
    java.math.BigDecimal[] totals = {total.caloriesKcal(), total.proteinG(), total.carbsG(), total.fatG(), total.fiberG()}; %>
 <dl class="nf-suggestion-facts nf-suggestion-totals"><% for (int i=0; i<factKeys.length; i++) { %>
-<div><dt><%= factLabels[i] %></dt><dd><%= Html.escape(totals[i]) %></dd></div>
+<div><dt><%= factLabels[i] %></dt><dd><%= NutritionDisplay.integer(totals[i]) %></dd></div>
 <% } %></dl>
-<p>Mục tiêu ngày: <strong><%= Html.escape(suggestion.targetKcal()) %></strong> kcal.
-Chênh lệch của thực đơn: <strong><%= Html.escape(suggestion.differenceKcal()) %></strong> kcal.</p>
+<p>Mục tiêu ngày: <strong><%= NutritionDisplay.integer(suggestion.targetKcal()) %></strong> kcal.
+Chênh lệch của thực đơn: <strong><%= NutritionDisplay.integer(suggestion.differenceKcal()) %></strong> kcal.</p>
 <% if (!blocked) { %>
-<p>Nếu lưu thêm: <strong><%= Html.escape(suggestion.projectedDay().caloriesKcal()) %></strong> kcal cả ngày;
-chênh lệch <strong><%= Html.escape(suggestion.projectedDifferenceKcal()) %></strong> kcal.</p>
+<p>Nếu lưu thêm: <strong><%= NutritionDisplay.integer(suggestion.projectedDay().caloriesKcal()) %></strong> kcal cả ngày;
+chênh lệch <strong><%= NutritionDisplay.integer(suggestion.projectedDifferenceKcal()) %></strong> kcal.</p>
 <% if (suggestion.exceedsTarget()) { %><p class="nf-error" role="status">Lưu thêm thực đơn này sẽ vượt mục tiêu ngày. Hãy cân nhắc những món đã ghi nhận bên dưới trước khi lưu.</p><% } %>
 <% } %>
+<% if (!suggestion.warnings().isEmpty()) { %><ul class="nf-muted" aria-label="Lưu ý về thực đơn"><% for (String warning : suggestion.warnings()) { %><li><%= Html.escape(warning) %></li><% } %></ul><% } %>
+<p class="nf-muted">Ảnh món ăn dùng để minh họa; dinh dưỡng là ước lượng. Các số hiển thị được làm tròn từ dữ liệu gốc; khi cộng có thể chênh 1 đơn vị.</p>
 <p class="nf-muted">Chênh lệch dương là vượt mục tiêu, âm là còn thiếu. Các món đã ghi nhận được giữ nguyên.</p>
 <div class="nf-suggestion-actions">
 <form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-submit-once>
@@ -92,12 +96,12 @@ chênh lệch <strong><%= Html.escape(suggestion.projectedDifferenceKcal()) %></
 <section class="nf-card" aria-labelledby="recorded-heading"><h2 id="recorded-heading">Đã ghi nhận hôm nay</h2>
 <% if (today.entries().isEmpty()) { %><p class="nf-muted">Chưa có món nào được ghi nhận hôm nay.</p>
 <% } else { %>
-<p>Tổng đã ghi: <strong><%= Html.escape(today.total().caloriesKcal()) %></strong> kcal · Protein <%= Html.escape(today.total().proteinG()) %> g · Carbs <%= Html.escape(today.total().carbsG()) %> g · Fat <%= Html.escape(today.total().fatG()) %> g · Fiber <%= Html.escape(today.total().fiberG()) %> g.</p>
+<p>Tổng đã ghi: <strong><%= NutritionDisplay.integer(today.total().caloriesKcal()) %></strong> kcal · Protein <%= NutritionDisplay.integer(today.total().proteinG()) %> g · Carbs <%= NutritionDisplay.integer(today.total().carbsG()) %> g · Fat <%= NutritionDisplay.integer(today.total().fatG()) %> g · Fiber <%= NutritionDisplay.integer(today.total().fiberG()) %> g.</p>
 <ul class="nf-journal-list">
 <% for (MealEntry entry : today.entries()) {
 String mealLabel = entry.getMealType() == MealEntry.MealType.BREAKFAST ? "Bữa sáng" : entry.getMealType() == MealEntry.MealType.LUNCH ? "Bữa trưa" : "Bữa tối";
 %><li class="nf-journal-item"><div><strong><%= Html.escape(entry.getRecipeNameSnapshot()) %></strong> <span class="nf-muted">· <%= mealLabel %></span>
-<p><%= Html.escape(entry.getCaloriesKcal()) %> kcal · Protein <%= Html.escape(entry.getProteinG()) %> g · Carbs <%= Html.escape(entry.getCarbsG()) %> g · Fat <%= Html.escape(entry.getFatG()) %> g · Fiber <%= Html.escape(entry.getFiberG()) %> g</p></div>
+<p><%= NutritionDisplay.integer(entry.getCaloriesKcal()) %> kcal · Protein <%= NutritionDisplay.integer(entry.getProteinG()) %> g · Carbs <%= NutritionDisplay.integer(entry.getCarbsG()) %> g · Fat <%= NutritionDisplay.integer(entry.getFatG()) %> g · Fiber <%= NutritionDisplay.integer(entry.getFiberG()) %> g</p></div>
 <div class="nf-journal-actions">
 <form method="post" action="<%= Html.escape(ctx) %>/nutrition/meal-planner" data-submit-once data-confirm="Xóa món này khỏi nhật ký hôm nay?">
 <input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="delete"><input type="hidden" name="entryId" value="<%= entry.getEntryId() %>">

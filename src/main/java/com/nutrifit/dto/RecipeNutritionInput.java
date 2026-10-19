@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Objects;
 
 public record RecipeNutritionInput(long recipeId, String name, MealEntry.MealType mealType,
-                                   BigDecimal baseServings, List<IngredientNutritionLine> ingredients) {
+                                   BigDecimal baseServings, List<IngredientNutritionLine> ingredients, String imageUrl) {
+    public RecipeNutritionInput(long recipeId,String name,MealEntry.MealType mealType,BigDecimal baseServings,List<IngredientNutritionLine> ingredients) {
+        this(recipeId,name,mealType,baseServings,ingredients,null);
+    }
     public RecipeNutritionInput {
         if (recipeId <= 0) throw new IllegalArgumentException("Invalid recipeId");
         Objects.requireNonNull(name);

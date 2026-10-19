@@ -22,7 +22,7 @@ import java.util.Set;
 
 /** Temporary read-only adapter to shared recipes/recipeingredients/foods tables. */
 public class JdbcRecipeReadAdapter implements RecipeReadPort {
-    private static final String SELECT = "SELECT r.recipe_id,r.name,r.meal_type,r.base_servings,"
+    private static final String SELECT = "SELECT r.recipe_id,r.name,r.meal_type,r.base_servings,r.image_url,"
             + "i.food_id,i.quantity_grams,f.active AS food_active,"
             + "f.calories_per_100g,f.protein_per_100g,f.carbs_per_100g,"
             + "f.fat_per_100g,f.fiber_per_100g "
@@ -74,7 +74,7 @@ public class JdbcRecipeReadAdapter implements RecipeReadPort {
             for (IngredientNutritionLine line : recipe.ingredients()) foodIds.add(line.foodId());
             try {
                 result.add(new RecipeCandidate(recipe.recipeId(), recipe.name(), recipe.mealType(), foodIds,
-                        calculator.calculate(recipe, BigDecimal.ONE)));
+                        calculator.calculate(recipe, BigDecimal.ONE),recipe.imageUrl()));
             } catch (IllegalArgumentException e) {
                 // A non-storable per-serving value must not make all other recipes unavailable.
             }
@@ -85,6 +85,7 @@ public class JdbcRecipeReadAdapter implements RecipeReadPort {
     private static final class RecipeRows {
         private final long id;
         private final String name;
+        private final String imageUrl;
         private final BigDecimal base;
         private final List<IngredientNutritionLine> ingredients = new ArrayList<>();
         private MealEntry.MealType type;
@@ -93,6 +94,7 @@ public class JdbcRecipeReadAdapter implements RecipeReadPort {
         private RecipeRows(ResultSet rs) throws SQLException {
             id = rs.getLong("recipe_id");
             name = rs.getString("name");
+            imageUrl = rs.getString("image_url");
             base = rs.getBigDecimal("base_servings");
             String mealType = rs.getString("meal_type");
             valid = id > 0 && name != null && !name.isBlank() && base != null && base.signum() > 0;
@@ -133,7 +135,7 @@ public class JdbcRecipeReadAdapter implements RecipeReadPort {
 
         private Optional<RecipeNutritionInput> input() {
             return valid && !ingredients.isEmpty()
-                    ? Optional.of(new RecipeNutritionInput(id, name, type, base, ingredients)) : Optional.empty();
+                    ? Optional.of(new RecipeNutritionInput(id, name, type, base, ingredients,imageUrl)) : Optional.empty();
         }
     }
 }
