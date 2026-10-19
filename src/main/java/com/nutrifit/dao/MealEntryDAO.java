@@ -16,9 +16,19 @@ public class MealEntryDAO {
             + "e.meal_type,e.servings,e.calories_kcal,e.protein_g,e.carbs_g,e.fat_g,e.fiber_g,e.recorded_at";
 
     public List<MealEntry> findByPlan(Connection connection, long planId) throws SQLException {
+        return findByPlan(connection, planId, false);
+    }
+
+    /** Current journal rows, locked only inside the suggestion save transaction. */
+    public List<MealEntry> findByPlanForUpdate(Connection connection, long planId) throws SQLException {
+        return findByPlan(connection, planId, true);
+    }
+
+    private List<MealEntry> findByPlan(Connection connection, long planId, boolean lock) throws SQLException {
         List<MealEntry> result = new ArrayList<>();
         String sql = "SELECT " + COLUMNS + " FROM mealentries e WHERE e.plan_id = ? "
-                + "ORDER BY FIELD(e.meal_type, 'BREAKFAST','LUNCH','DINNER'),e.recorded_at,e.entry_id";
+                + "ORDER BY FIELD(e.meal_type, 'BREAKFAST','LUNCH','DINNER'),e.recorded_at,e.entry_id"
+                + (lock ? " FOR UPDATE" : "");
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setLong(1, planId);
             try (ResultSet rs = ps.executeQuery()) {

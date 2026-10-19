@@ -1,0 +1,45 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><title>Nutrition UI tests</title>
+<form id="recipes" data-recipe-form>
+<select data-meal-select><option>BREAKFAST</option><option>LUNCH</option><option>DINNER</option></select>
+<select data-recipe-select><option value="1" data-meal="BREAKFAST">Sáng A</option><option value="2" data-meal="BREAKFAST" selected>Sáng B</option><option value="3" data-meal="DINNER">Tối</option></select>
+<p data-empty-recipes hidden>Không có món</p><button type="submit">Thêm</button></form>
+<form id="save" data-submit-once><button type="submit">Lưu</button></form>
+<form id="remove" data-submit-once data-confirm="Xóa món?"><button type="submit">Xóa</button></form>
+<pre id="result">RUNNING</pre>
+<script defer src="../../main/webapp/assets/js/nutrition.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    let count=0;
+    const check=(value,label)=>{if(!value)throw new Error(label);count++;};
+    const submit=form=>{const event=new Event('submit',{cancelable:true});form.dispatchEvent(event);return event;};
+    try {
+        const form=document.getElementById('recipes');
+        const meal=form.querySelector('[data-meal-select]'), recipe=form.querySelector('[data-recipe-select]');
+        const button=form.querySelector('button'), empty=form.querySelector('[data-empty-recipes]');
+        check(recipe.value==='2','keep selected recipe');
+        check(recipe.options[2].hidden && recipe.options[2].disabled,'hide and disable mismatched recipe');
+        meal.value='DINNER';meal.dispatchEvent(new Event('change'));
+        check(recipe.value==='3' && !recipe.disabled,'select matching dinner');
+        check(recipe.options[0].disabled,'disable previous meal');
+        meal.value='LUNCH';meal.dispatchEvent(new Event('change'));
+        check(recipe.disabled && button.disabled,'disable unavailable meal');
+        check(!empty.hidden && recipe.value==='','show compact empty state');
+        meal.value='BREAKFAST';meal.dispatchEvent(new Event('change'));
+        check(!recipe.disabled && !button.disabled && empty.hidden,'restore available meal');
+        const save=document.getElementById('save');
+        check(!submit(save).defaultPrevented && save.querySelector('button').disabled,'first save disables button');
+        check(submit(save).defaultPrevented,'duplicate save blocked');
+        const remove=document.getElementById('remove');
+        window.confirm=()=>false;
+        check(submit(remove).defaultPrevented && !remove.querySelector('button').disabled,'cancel keeps delete available');
+        window.confirm=()=>true;
+        check(!submit(remove).defaultPrevented && remove.querySelector('button').disabled,'confirmed delete disables button');
+        check(submit(remove).defaultPrevented,'duplicate delete blocked');
+        document.getElementById('result').textContent='PASS '+count+' JavaScript checks';
+        document.documentElement.dataset.testResult='PASS';
+    } catch(e) {
+        document.getElementById('result').textContent='FAIL '+e.message;
+        document.documentElement.dataset.testResult='FAIL';
+    }
+});
+</script></html>

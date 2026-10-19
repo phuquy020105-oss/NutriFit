@@ -36,66 +36,13 @@
         });
     });
 
-    const suggestionForm = document.querySelector('[data-suggestion-form]');
-    if (suggestionForm) {
-        const status = suggestionForm.querySelector('[data-suggestion-status]');
-        const save = suggestionForm.querySelector('[data-save-suggestion]');
-        const inputs = [...suggestionForm.querySelectorAll('[data-suggestion-servings]')];
-        let revision = 0;
-        let timer;
-        const recalculate = async () => {
-            const current = ++revision;
-            save.disabled = true;
-            if (!inputs.every(input => input.checkValidity())) {
-                status.textContent = 'Khẩu phần phải dương, tối đa hai chữ số thập phân và trong giới hạn cho phép.';
-                return;
-            }
-            status.textContent = 'Đang tính lại dinh dưỡng…';
-            const body = new FormData(suggestionForm);
-            body.set('action', 'preview');
-            try {
-                const response = await fetch(suggestionForm.action, {
-                    method: 'POST', body, credentials: 'same-origin',
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (!response.ok) throw new Error('Preview rejected');
-                const data = await response.json();
-                if (current !== revision) return;
-                for (const meal of data.meals) {
-                    const card = suggestionForm.querySelector('[data-suggestion-meal="' + meal.mealType + '"]');
-                    for (const [key, value] of Object.entries(meal.nutrition)) {
-                        card.querySelector('[data-fact="' + key + '"]').textContent = value;
-                    }
-                }
-                for (const [key, value] of Object.entries(data.total)) {
-                    suggestionForm.querySelector('[data-total-fact="' + key + '"]').textContent = value;
-                }
-                suggestionForm.querySelector('[data-suggestion-target]').textContent = data.targetKcal;
-                suggestionForm.querySelector('[data-suggestion-difference]').textContent = data.differenceKcal;
-                document.querySelector('[data-suggestion-mode]').textContent = data.personalized
-                    ? 'Đang áp dụng sở thích Premium: loại DISLIKE và ưu tiên LIKE.'
-                    : 'Gợi ý Free theo mục tiêu calories, không áp dụng LIKE/DISLIKE.';
-                status.textContent = 'Đã tính lại trên server. Chưa lưu vào nhật ký.';
-                save.disabled = false;
-            } catch (error) {
-                if (current !== revision) return;
-                status.textContent = 'Chưa thể tính lại. Gợi ý có thể đã hết hạn hoặc món không còn phù hợp; hãy tải lại trang để kiểm tra.';
-            }
-        };
-        inputs.forEach(input => input.addEventListener('input', () => {
-            revision++;
-            clearTimeout(timer);
-            save.disabled = true;
-            timer = setTimeout(recalculate, 250);
-        }));
-        suggestionForm.querySelector('[data-refresh-suggestion]').addEventListener('click', () => {
-            clearTimeout(timer);
-            recalculate();
+    document.querySelectorAll('form[data-submit-once]').forEach(form => {
+        let submitted = false;
+        form.addEventListener('submit', event => {
+            if (event.defaultPrevented) return;
+            if (submitted) { event.preventDefault(); return; }
+            submitted = true;
+            form.querySelectorAll('button[type="submit"]').forEach(button => { button.disabled = true; });
         });
-        suggestionForm.addEventListener('submit', event => {
-            if (save.disabled) { event.preventDefault(); return; }
-            save.disabled = true;
-            status.textContent = 'Đang lưu thực đơn…';
-        });
-    }
+    });
 })();

@@ -16,7 +16,7 @@ String ctx = request.getContextPath();
 <a href="<%= Html.escape(ctx) %>/dashboard"><span>▦</span> Tổng quan</a>
 <a href="<%= Html.escape(ctx) %>/workout"><span>◈</span> Bài tập</a>
 <a href="<%= Html.escape(ctx) %>/workout/plan"><span>▤</span> Lịch tập</a>
-<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner" class="active" aria-current="page"><span>◉</span> Dinh dưỡng</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations" class="active" aria-current="page"><span>◉</span> Dinh dưỡng</a>
 <a href="<%= Html.escape(ctx) %>/chatbot"><span>✧</span> AI Chatbot</a>
 <a href="<%= Html.escape(ctx) %>/payment"><span>♛</span> Premium</a>
 <a href="<%= Html.escape(ctx) %>/profile"><span>◎</span> Hồ sơ</a>
@@ -32,13 +32,12 @@ String ctx = request.getContextPath();
 <main class="nf-wrap">
 
 <nav class="nf-nutrition-tabs" aria-label="Các chức năng dinh dưỡng">
-<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner">◉ Hôm nay</a>
-<a href="<%= Html.escape(ctx) %>/nutrition/recommendations">✧ Gợi ý món ăn</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations">◉ Thực đơn</a>
 <a href="<%= Html.escape(ctx) %>/nutrition/history" class="active" aria-current="page">▤ Lịch sử</a>
 <a href="<%= Html.escape(ctx) %>/nutrition/preferences">♡ Sở thích</a>
 </nav>
 <header class="nf-head"><div><h1>Lịch sử ăn uống</h1><p>Chỉ xem, không chỉnh sửa được dữ liệu ngày trước.</p></div>
-<nav><a href="<%= Html.escape(ctx) %>/nutrition/meal-planner">Hôm nay</a><a href="<%= Html.escape(ctx) %>/nutrition/preferences">Sở thích</a></nav></header>
+</header>
 <section class="nf-card"><h2>Xem theo ngày</h2>
 <form method="get" action="<%= Html.escape(ctx) %>/nutrition/history" class="nf-form">
 <label>Ngày đã qua<input type="date" name="date" min="1000-01-01" max="<%= Html.escape(request.getAttribute("latestDate")) %>" value="<%= selected==null?"":Html.escape(selected.date()) %>" required></label>

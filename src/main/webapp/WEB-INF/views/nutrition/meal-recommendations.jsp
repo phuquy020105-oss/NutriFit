@@ -7,9 +7,14 @@ String[] factKeys = {"caloriesKcal", "proteinG", "carbsG", "fatG", "fiberG"};
 String[] factLabels = {"Calories (kcal)", "Protein (g)", "Carbs (g)", "Fat (g)", "Fiber (g)"};
 String ctx = request.getContextPath();
 String csrf = (String) request.getAttribute("csrf");
+DaySummary today = (DaySummary) request.getAttribute("today");
+List<RecipeCandidate> recipes = (List<RecipeCandidate>) request.getAttribute("recipes");
+boolean saved = Boolean.TRUE.equals(request.getAttribute("suggestionSaved"));
+boolean blocked = Boolean.TRUE.equals(request.getAttribute("saveBlocked"));
+String notice = (String) request.getAttribute("notice");
 %>
 <!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Gợi ý món ăn - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/dashboard.css">
+<title>Thực đơn hôm nay - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/dashboard.css">
 <link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/nutrition.css"></head>
 <body class="nf-page"><div class="app-shell">
 <aside class="sidebar" id="sidebar">
@@ -19,7 +24,7 @@ String csrf = (String) request.getAttribute("csrf");
 <a href="<%= Html.escape(ctx) %>/dashboard"><span>▦</span> Tổng quan</a>
 <a href="<%= Html.escape(ctx) %>/workout"><span>◈</span> Bài tập</a>
 <a href="<%= Html.escape(ctx) %>/workout/plan"><span>▤</span> Lịch tập</a>
-<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner" class="active" aria-current="page"><span>◉</span> Dinh dưỡng</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations" class="active" aria-current="page"><span>◉</span> Dinh dưỡng</a>
 <a href="<%= Html.escape(ctx) %>/chatbot"><span>✧</span> AI Chatbot</a>
 <a href="<%= Html.escape(ctx) %>/payment"><span>♛</span> Premium</a>
 <a href="<%= Html.escape(ctx) %>/profile"><span>◎</span> Hồ sơ</a>
@@ -35,17 +40,18 @@ String csrf = (String) request.getAttribute("csrf");
 <main class="nf-wrap">
 
 <nav class="nf-nutrition-tabs" aria-label="Các chức năng dinh dưỡng">
-<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner">◉ Hôm nay</a>
-<a href="<%= Html.escape(ctx) %>/nutrition/recommendations" class="active" aria-current="page">✧ Gợi ý món ăn</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations" class="active" aria-current="page">◉ Thực đơn</a>
 <a href="<%= Html.escape(ctx) %>/nutrition/history">▤ Lịch sử</a>
 <a href="<%= Html.escape(ctx) %>/nutrition/preferences">♡ Sở thích</a>
 </nav>
-<header class="nf-head"><div><h1>Gợi ý thực đơn hôm nay</h1><p>Ba món cho ba bữa, theo mục tiêu calories trong hồ sơ. Chỉ lưu sau khi bạn xác nhận.</p></div></header>
-<p class="nf-muted" data-suggestion-mode><%= suggestion.personalized() ? "Đang áp dụng sở thích Premium: loại DISLIKE và ưu tiên LIKE." : "Gợi ý Free theo mục tiêu calories, không áp dụng LIKE/DISLIKE." %></p>
-<form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-suggestion-form>
-<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>">
-<input type="hidden" name="suggestionToken" value="<%= Html.escape(suggestionToken) %>">
-<input type="hidden" name="action" value="save">
+<header class="nf-head"><div><h1>Thực đơn hôm nay</h1><p>Ba món cho ba bữa, dựa trên mục tiêu và nhật ký trong ngày của bạn.</p></div></header>
+<% if (notice != null) { %><p class="nf-success" role="status"><%= Html.escape(notice) %></p><% } %>
+<% if (suggestion == null) { %>
+<p class="nf-error" role="status"><%= Html.escape(request.getAttribute("suggestionError")) %></p>
+<form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-submit-once>
+<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="regenerate"><button type="submit">Gợi ý lại</button></form>
+<% } else { %>
+<p class="nf-muted"><%= suggestion.personalized() ? "Premium: loại nguyên liệu DISLIKE và ưu tiên LIKE." : "Thực đơn Free theo mục tiêu calories trong hồ sơ." %></p>
 <div class="nf-suggestion-grid">
 <% for (SuggestedMeal meal : suggestion.meals()) {
     NutritionFacts f = meal.nutrition();
@@ -54,23 +60,63 @@ String csrf = (String) request.getAttribute("csrf");
 %>
 <section class="nf-card nf-suggested-meal" data-suggestion-meal="<%= meal.mealType().name() %>">
 <h2><%= label %></h2><h3><%= Html.escape(meal.name()) %></h3>
-<label>Khẩu phần<input type="number" name="servings_<%= meal.mealType().name() %>" min="0.01" max="999999.99" step="0.01" value="<%= Html.escape(meal.servings()) %>" required data-suggestion-servings></label>
 <dl class="nf-suggestion-facts"><% for (int i=0; i<factKeys.length; i++) { %>
-<div><dt><%= factLabels[i] %></dt><dd data-fact="<%= factKeys[i] %>"><%= Html.escape(values[i]) %></dd></div>
+<div><dt><%= factLabels[i] %></dt><dd><%= Html.escape(values[i]) %></dd></div>
 <% } %></dl></section><% } %></div>
 <section class="nf-card"><h2>Tổng dinh dưỡng ba bữa</h2>
 <% NutritionFacts total = suggestion.total();
    java.math.BigDecimal[] totals = {total.caloriesKcal(), total.proteinG(), total.carbsG(), total.fatG(), total.fiberG()}; %>
 <dl class="nf-suggestion-facts nf-suggestion-totals"><% for (int i=0; i<factKeys.length; i++) { %>
-<div><dt><%= factLabels[i] %></dt><dd data-total-fact="<%= factKeys[i] %>"><%= Html.escape(totals[i]) %></dd></div>
+<div><dt><%= factLabels[i] %></dt><dd><%= Html.escape(totals[i]) %></dd></div>
 <% } %></dl>
-<p>Mục tiêu: <strong data-suggestion-target><%= Html.escape(suggestion.targetKcal()) %></strong> kcal.
-Chênh lệch so với mục tiêu: <strong data-suggestion-difference><%= Html.escape(suggestion.differenceKcal()) %></strong> kcal.</p>
-<p class="nf-muted">Giá trị dương là vượt mục tiêu, âm là còn thiếu. Hãy chỉnh khẩu phần để phù hợp nhu cầu.</p>
-<p data-suggestion-status role="status" aria-live="polite">Chưa lưu vào nhật ký.</p>
-<div class="nf-suggestion-actions"><button type="button" data-refresh-suggestion>Tính lại khẩu phần</button><button type="submit" data-save-suggestion>Lưu vào nhật ký hôm nay</button></div>
-<p class="nf-muted">Cả ba món được lưu cùng nhau. Món đã có trong cùng bữa được cộng khẩu phần theo snapshot đang lưu; các món khác được giữ nguyên.</p>
-<p class="nf-muted">Dinh dưỡng là ước lượng; không thay thế tư vấn chuyên môn.</p></section></form>
+<p>Mục tiêu ngày: <strong><%= Html.escape(suggestion.targetKcal()) %></strong> kcal.
+Chênh lệch của thực đơn: <strong><%= Html.escape(suggestion.differenceKcal()) %></strong> kcal.</p>
+<% if (!blocked) { %>
+<p>Nếu lưu thêm: <strong><%= Html.escape(suggestion.projectedDay().caloriesKcal()) %></strong> kcal cả ngày;
+chênh lệch <strong><%= Html.escape(suggestion.projectedDifferenceKcal()) %></strong> kcal.</p>
+<% if (suggestion.exceedsTarget()) { %><p class="nf-error" role="status">Lưu thêm thực đơn này sẽ vượt mục tiêu ngày. Hãy cân nhắc những món đã ghi nhận bên dưới trước khi lưu.</p><% } %>
+<% } %>
+<p class="nf-muted">Chênh lệch dương là vượt mục tiêu, âm là còn thiếu. Các món đã ghi nhận được giữ nguyên.</p>
+<div class="nf-suggestion-actions">
+<form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-submit-once>
+<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="regenerate">
+<button type="submit">Gợi ý lại</button></form>
+<form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-submit-once>
+<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="suggestionToken" value="<%= Html.escape(suggestionToken) %>">
+<input type="hidden" name="action" value="save">
+<button type="submit" data-save-suggestion <%= blocked ? "disabled" : "" %>><%= saved ? "Đã lưu thực đơn" : "Lưu thực đơn vào nhật ký" %></button>
+</form></div>
+<% if (blocked && !saved) { %><p class="nf-error" role="status">Lần lưu trước chưa xác định được kết quả. Hãy kiểm tra nhật ký trước khi chủ động tạo gợi ý khác; không gửi lưu lại.</p><% } %>
+<p class="nf-muted">Cả ba món được lưu cùng nhau. Món trùng cùng bữa được cộng theo snapshot đang lưu; tổng dự kiến cả ngày đã tính theo quy tắc này.</p>
+</section><% } %>
+<section class="nf-card" aria-labelledby="recorded-heading"><h2 id="recorded-heading">Đã ghi nhận hôm nay</h2>
+<% if (today.entries().isEmpty()) { %><p class="nf-muted">Chưa có món nào được ghi nhận hôm nay.</p>
+<% } else { %>
+<p>Tổng đã ghi: <strong><%= Html.escape(today.total().caloriesKcal()) %></strong> kcal · Protein <%= Html.escape(today.total().proteinG()) %> g · Carbs <%= Html.escape(today.total().carbsG()) %> g · Fat <%= Html.escape(today.total().fatG()) %> g · Fiber <%= Html.escape(today.total().fiberG()) %> g.</p>
+<ul class="nf-journal-list">
+<% for (MealEntry entry : today.entries()) {
+String mealLabel = entry.getMealType() == MealEntry.MealType.BREAKFAST ? "Bữa sáng" : entry.getMealType() == MealEntry.MealType.LUNCH ? "Bữa trưa" : "Bữa tối";
+%><li class="nf-journal-item"><div><strong><%= Html.escape(entry.getRecipeNameSnapshot()) %></strong> <span class="nf-muted">· <%= mealLabel %></span>
+<p><%= Html.escape(entry.getCaloriesKcal()) %> kcal · Protein <%= Html.escape(entry.getProteinG()) %> g · Carbs <%= Html.escape(entry.getCarbsG()) %> g · Fat <%= Html.escape(entry.getFatG()) %> g · Fiber <%= Html.escape(entry.getFiberG()) %> g</p></div>
+<div class="nf-journal-actions">
+<form method="post" action="<%= Html.escape(ctx) %>/nutrition/meal-planner" data-submit-once data-confirm="Xóa món này khỏi nhật ký hôm nay?">
+<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="delete"><input type="hidden" name="entryId" value="<%= entry.getEntryId() %>">
+<button type="submit" class="nf-danger nf-small">Xóa</button></form>
+<% if (!recipes.isEmpty()) { %><details class="nf-edit"><summary>Đổi món</summary>
+<form method="post" action="<%= Html.escape(ctx) %>/nutrition/meal-planner" class="nf-edit-form" data-recipe-form data-submit-once>
+<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="changeRecipe"><input type="hidden" name="entryId" value="<%= entry.getEntryId() %>">
+<label>Bữa ăn<select name="mealType" data-meal-select required><% for (MealEntry.MealType type : MealEntry.MealType.values()) { %><option value="<%= type.name() %>" <%= type == entry.getMealType() ? "selected" : "" %>><%= type == MealEntry.MealType.BREAKFAST ? "Sáng" : type == MealEntry.MealType.LUNCH ? "Trưa" : "Tối" %></option><% } %></select></label>
+<label>Món ăn<select name="recipeId" data-recipe-select required><% for (RecipeCandidate recipe : recipes) { %><option value="<%= recipe.recipeId() %>" data-meal="<%= recipe.mealType().name() %>" <%= recipe.recipeId() == entry.getRecipeId() ? "selected" : "" %>><%= Html.escape(recipe.name()) %></option><% } %></select></label>
+<button type="submit">Đổi món</button><p class="nf-muted" data-empty-recipes hidden role="status">Chưa có món phù hợp cho bữa này.</p>
+</form></details><% } %></div></li><% } %></ul><% } %></section>
+<details class="nf-card nf-manual-add"><summary>Thêm món thủ công</summary>
+<% if (recipes.isEmpty()) { %><p class="nf-muted">Chưa có công thức hợp lệ để chọn.</p><% } else { %>
+<form method="post" action="<%= Html.escape(ctx) %>/nutrition/meal-planner" class="nf-form" data-recipe-form data-submit-once>
+<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="addStandard">
+<label>Bữa ăn<select name="mealType" data-meal-select required><option value="BREAKFAST">Sáng</option><option value="LUNCH">Trưa</option><option value="DINNER">Tối</option></select></label>
+<label>Món ăn<select name="recipeId" data-recipe-select required><% for (RecipeCandidate recipe : recipes) { %><option value="<%= recipe.recipeId() %>" data-meal="<%= recipe.mealType().name() %>"><%= Html.escape(recipe.name()) %></option><% } %></select></label>
+<button type="submit">Thêm món</button><p class="nf-muted" data-empty-recipes hidden role="status">Chưa có món phù hợp cho bữa này.</p>
+</form><% } %></details>
 <footer class="nf-footer">© NutriFit · Sống khỏe mỗi ngày</footer></main></div></div><script src="<%= Html.escape(ctx) %>/assets/js/nutrition.js" defer></script><script>
 function toggleNutritionMenu(button){
   var sidebar=document.getElementById('sidebar');

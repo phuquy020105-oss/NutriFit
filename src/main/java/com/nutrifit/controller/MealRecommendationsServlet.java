@@ -29,15 +29,52 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
         Long user = requireUser(req, resp);
         if (user == null) return;
         try {
-            MealSuggestion suggestion = service.recommendDay(user);
-            Draft draft = new Draft(UUID.randomUUID().toString(), suggestion, Instant.now());
-            HttpSession session = req.getSession(false);
-            synchronized (session) { session.setAttribute(DRAFT, draft); }
-            req.setAttribute("suggestion", suggestion);
-            req.setAttribute("suggestionToken", draft.token);
+            req.setAttribute("today", planner.getToday(user));
+            req.setAttribute("recipes", planner.listAvailableRecipes());
             req.setAttribute("csrf", Csrf.token(req));
+            HttpSession session = req.getSession(false);
+            synchronized (session) {
+                Object value = session.getAttribute(DRAFT);
+                Draft draft = value instanceof Draft d && active(d, user) ? d : null;
+                try {
+                    if (draft == null) {
+                        draft = new Draft(UUID.randomUUID().toString(), service.recommendDay(user), Instant.now());
+                        session.setAttribute(DRAFT, draft);
+                    } else if (!draft.attempted) {
+                        draft.suggestion = service.refresh(user, draft.suggestion, standardAmounts());
+                    }
+                    req.setAttribute("suggestion", draft.suggestion);
+                    req.setAttribute("suggestionToken", draft.token);
+                    req.setAttribute("suggestionSaved", draft.saved);
+                    req.setAttribute("saveBlocked", draft.attempted);
+                } catch (RecommendationUnavailableException e) {
+                    req.setAttribute("suggestionError", e.getMessage());
+                }
+            }
+            req.setAttribute("notice", notice(req.getParameter("message")));
             req.getRequestDispatcher("/WEB-INF/views/nutrition/meal-recommendations.jsp").forward(req, resp);
         } catch (Exception e) { fail(req, resp, e); }
+    }
+
+    private boolean active(Draft draft, long user) {
+        return draft.suggestion.userId() == user && draft.suggestion.date().equals(planner.today())
+                && !draft.created.isBefore(Instant.now().minus(Duration.ofMinutes(30)));
+    }
+    private static Map<MealType, BigDecimal> standardAmounts() {
+        Map<MealType, BigDecimal> amounts = new EnumMap<>(MealType.class);
+        for (MealType type : MealType.values()) amounts.put(type, new BigDecimal("1.00"));
+        return amounts;
+    }
+    private static String notice(String message) {
+        return switch (message == null ? "" : message) {
+            case "suggested" -> "Đã lưu thực đơn ba bữa vào nhật ký hôm nay.";
+            case "added" -> "Đã ghi nhận món ăn.";
+            case "updated" -> "Đã đổi món trong nhật ký hôm nay.";
+            case "deleted" -> "Đã xóa món khỏi nhật ký hôm nay.";
+            case "regenerated" -> "Đã chọn một thực đơn khác.";
+            case "unchanged" -> "Hiện chỉ còn một tổ hợp phù hợp với dữ liệu và sở thích của bạn.";
+            default -> null;
+        };
     }
 
     @Override protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -47,11 +84,21 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
         if (user == null || !requireCsrf(req, resp)) return;
         try {
             String action = required(req.getParameter("action"));
-            if (!Set.of("preview", "save").contains(action)) throw new IllegalArgumentException("Invalid action");
+            if (!Set.of("preview", "save", "regenerate").contains(action)) throw new IllegalArgumentException("Invalid action");
             HttpSession session = req.getSession(false);
             // Serializes duplicate submits for this session, including the database commit.
             synchronized (session) {
                 Object value = session.getAttribute(DRAFT);
+                if ("regenerate".equals(action)) {
+                    MealSuggestion previous = value instanceof Draft d && active(d, user) ? d.suggestion : null;
+                    MealSuggestion next = service.recommendDay(user, previous);
+                    session.setAttribute(DRAFT, new Draft(UUID.randomUUID().toString(), next, Instant.now()));
+                    boolean same = previous != null && previous.meals().stream().map(SuggestedMeal::recipeId).toList()
+                            .equals(next.meals().stream().map(SuggestedMeal::recipeId).toList());
+                    resp.sendRedirect(req.getContextPath() + "/nutrition/recommendations?message="
+                            + (same ? "unchanged" : "regenerated"));
+                    return;
+                }
                 if (!(value instanceof Draft draft) || draft.suggestion.userId() != user
                         || !draft.token.equals(required(req.getParameter("suggestionToken")))) {
                     throw new SecurityException("Preview does not belong to this account");
@@ -66,10 +113,8 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
                 }
                 if (draft.attempted) throw new RecommendationUnavailableException(
                         "Thực đơn này đã được gửi lưu. Hãy kiểm tra nhật ký trước khi tạo gợi ý mới.");
-                Map<MealType, BigDecimal> amounts = new EnumMap<>(MealType.class);
-                for (MealType type : MealType.values()) {
-                    amounts.put(type, parseServings(req.getParameter("servings_" + type.name())));
-                }
+                // Portions, recipe IDs and nutrition are owned by the server, never the posted fields.
+                Map<MealType, BigDecimal> amounts = standardAmounts();
                 if ("preview".equals(action)) {
                     draft.suggestion = service.refresh(user, draft.suggestion, amounts);
                     resp.setContentType("application/json;charset=UTF-8");
@@ -86,7 +131,7 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
     }
 
     private void redirect(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect(req.getContextPath() + "/nutrition/meal-planner?message=suggested");
+        resp.sendRedirect(req.getContextPath() + "/nutrition/recommendations?message=suggested");
     }
 
     private static String facts(NutritionFacts f) {
@@ -103,7 +148,12 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
         return "{\"meals\":[" + String.join(",", meals) + "],\"total\":" + facts(s.total())
                 + ",\"targetKcal\":\"" + s.targetKcal().toPlainString()
                 + "\",\"differenceKcal\":\"" + s.differenceKcal().toPlainString()
-                + "\",\"personalized\":" + s.personalized() + "}";
+                + "\",\"recordedToday\":" + facts(s.recordedToday())
+                + ",\"projectedDay\":" + facts(s.projectedDay())
+                + ",\"recordedMealCount\":" + s.recordedMealCount()
+                + ",\"projectedDifferenceKcal\":\"" + s.projectedDifferenceKcal().toPlainString()
+                + "\",\"exceedsTarget\":" + s.exceedsTarget()
+                + ",\"personalized\":" + s.personalized() + "}";
     }
 
     static final class Draft {

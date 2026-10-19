@@ -17,7 +17,7 @@ String csrf = (String) request.getAttribute("csrf"); String ctx = request.getCon
 <a href="<%= Html.escape(ctx) %>/dashboard"><span>▦</span> Tổng quan</a>
 <a href="<%= Html.escape(ctx) %>/workout"><span>◈</span> Bài tập</a>
 <a href="<%= Html.escape(ctx) %>/workout/plan"><span>▤</span> Lịch tập</a>
-<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner" class="active" aria-current="page"><span>◉</span> Dinh dưỡng</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations" class="active" aria-current="page"><span>◉</span> Dinh dưỡng</a>
 <a href="<%= Html.escape(ctx) %>/chatbot"><span>✧</span> AI Chatbot</a>
 <a href="<%= Html.escape(ctx) %>/payment"><span>♛</span> Premium</a>
 <a href="<%= Html.escape(ctx) %>/profile"><span>◎</span> Hồ sơ</a>
@@ -33,13 +33,12 @@ String csrf = (String) request.getAttribute("csrf"); String ctx = request.getCon
 <main class="nf-wrap">
 
 <nav class="nf-nutrition-tabs" aria-label="Các chức năng dinh dưỡng">
-<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner">◉ Hôm nay</a>
-<a href="<%= Html.escape(ctx) %>/nutrition/recommendations">✧ Gợi ý món ăn</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations">◉ Thực đơn</a>
 <a href="<%= Html.escape(ctx) %>/nutrition/history">▤ Lịch sử</a>
 <a href="<%= Html.escape(ctx) %>/nutrition/preferences" class="active" aria-current="page">♡ Sở thích</a>
 </nav>
 <header class="nf-head"><div><h1>Sở thích nguyên liệu</h1><p>Đánh dấu nguyên liệu bạn thích hoặc không thích để cá nhân hóa gợi ý món ăn.</p></div>
-<nav><a href="<%= Html.escape(ctx) %>/nutrition/meal-planner">Hôm nay</a><a href="<%= Html.escape(ctx) %>/nutrition/recommendations">Gợi ý</a></nav></header>
+</header>
 <% if ("saved".equals(request.getParameter("message"))) { %><p class="nf-success" role="status">Đã lưu thay đổi sở thích.</p><% } %>
 <% if (!premium) { %><section class="nf-card"><h2>Sở thích nguyên liệu dành cho Premium</h2>
 <p>Bạn vẫn có thể gợi ý và lưu thực đơn ba bữa với tài khoản Free. Premium cho phép quản lý LIKE/DISLIKE và cá nhân hóa theo nguyên liệu.</p>

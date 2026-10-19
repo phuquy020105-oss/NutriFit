@@ -35,7 +35,7 @@
             <a class="active" aria-current="page" href="<%= contextPath %>/dashboard"><span>▦</span> Tổng quan</a>
             <a href="<%= contextPath %>/workout"><span>◈</span> Bài tập</a>
             <a href="<%= contextPath %>/workout/plan"><span>▤</span> Lịch tập</a>
-            <a href="<%= contextPath %>/nutrition/meal-planner"><span>◉</span> Dinh dưỡng</a>
+            <a href="<%= contextPath %>/nutrition/recommendations"><span>◉</span> Dinh dưỡng</a>
             <a href="<%= contextPath %>/chatbot"><span>✧</span> AI Chatbot</a>
             <a href="<%= contextPath %>/payment"><span>♛</span> Premium</a>
             <a href="<%= contextPath %>/profile"><span>◎</span> Hồ sơ</a>
@@ -77,7 +77,7 @@
             </section>
 
             <div class="section-heading"><div><span class="eyebrow">TRUY CẬP NHANH</span><h2>Bạn muốn làm gì tiếp?</h2></div></div>
-            <section class="quick-grid"><a href="<%= contextPath %>/workout"><span>◈</span><strong>Bắt đầu tập luyện</strong><small>Khám phá danh sách bài tập</small></a><a href="<%= contextPath %>/nutrition/meal-planner"><span>◉</span><strong>Lên thực đơn</strong><small>Quản lý kế hoạch dinh dưỡng</small></a><a href="<%= contextPath %>/chatbot"><span>✧</span><strong>Hỏi AI NutriFit</strong><small>Trợ lý sức khỏe thông minh</small></a></section>
+            <section class="quick-grid"><a href="<%= contextPath %>/workout"><span>◈</span><strong>Bắt đầu tập luyện</strong><small>Khám phá danh sách bài tập</small></a><a href="<%= contextPath %>/nutrition/recommendations"><span>◉</span><strong>Lên thực đơn</strong><small>Quản lý kế hoạch dinh dưỡng</small></a><a href="<%= contextPath %>/chatbot"><span>✧</span><strong>Hỏi AI NutriFit</strong><small>Trợ lý sức khỏe thông minh</small></a></section>
             <footer class="footer">© NutriFit · Sống khỏe mỗi ngày</footer>
         </main>
     </div>

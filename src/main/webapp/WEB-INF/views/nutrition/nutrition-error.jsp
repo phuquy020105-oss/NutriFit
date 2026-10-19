@@ -14,7 +14,7 @@
 <a href="<%= Html.escape(ctx) %>/dashboard"><span>▦</span> Tổng quan</a>
 <a href="<%= Html.escape(ctx) %>/workout"><span>◈</span> Bài tập</a>
 <a href="<%= Html.escape(ctx) %>/workout/plan"><span>▤</span> Lịch tập</a>
-<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner" class="active" aria-current="page"><span>◉</span> Dinh dưỡng</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations" class="active" aria-current="page"><span>◉</span> Dinh dưỡng</a>
 <a href="<%= Html.escape(ctx) %>/chatbot"><span>✧</span> AI Chatbot</a>
 <a href="<%= Html.escape(ctx) %>/payment"><span>♛</span> Premium</a>
 <a href="<%= Html.escape(ctx) %>/profile"><span>◎</span> Hồ sơ</a>
@@ -30,8 +30,7 @@
 <main class="nf-wrap">
 
 <nav class="nf-nutrition-tabs" aria-label="Các chức năng dinh dưỡng">
-<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner">◉ Hôm nay</a>
-<a href="<%= Html.escape(ctx) %>/nutrition/recommendations">✧ Gợi ý món ăn</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations">◉ Thực đơn</a>
 <a href="<%= Html.escape(ctx) %>/nutrition/history">▤ Lịch sử</a>
 <a href="<%= Html.escape(ctx) %>/nutrition/preferences">♡ Sở thích</a>
 </nav>
@@ -40,10 +39,9 @@
 <p class="nf-error" role="alert"><%= Html.escape(request.getAttribute("errorMessage")) %></p>
 <p>Mã phản hồi: <%= Html.escape(request.getAttribute("errorStatus")) %></p>
 <nav aria-label="Quay lại Nutrition">
-<a href="<%= Html.escape(ctx) %>/nutrition/meal-planner">Nhật ký hôm nay</a>
+<a href="<%= Html.escape(ctx) %>/nutrition/recommendations">Thực đơn</a>
 <a href="<%= Html.escape(ctx) %>/nutrition/history">Lịch sử</a>
 <a href="<%= Html.escape(ctx) %>/nutrition/preferences">Sở thích</a>
-<a href="<%= Html.escape(ctx) %>/nutrition/recommendations">Gợi ý</a>
 </nav></section><footer class="nf-footer">© NutriFit · Sống khỏe mỗi ngày</footer></main></div></div><script>
 function toggleNutritionMenu(button){
   var sidebar=document.getElementById('sidebar');

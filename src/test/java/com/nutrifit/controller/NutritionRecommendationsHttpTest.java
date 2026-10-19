@@ -24,11 +24,11 @@ class NutritionRecommendationsHttpTest {
         var draft=(MealRecommendationsServlet.Draft)f.sessionValues.get(MealRecommendationsServlet.DRAFT);
         f.params.put("suggestionToken",draft.token);
         f.params.put("userId","999");f.params.put("recipeId","999");f.params.put("premium","true");
-        for(var type:MealEntry.MealType.values())f.params.put("servings_"+type,"1.25");
+        for(var type:MealEntry.MealType.values())f.params.put("servings_"+type,"1.5");
         f.servlet.doPost(f.request,f.response);f.servlet.doPost(f.request,f.response);
         assertEquals(1,f.writes);
         assertEquals(42,f.savedUser);
-        assertEquals(new BigDecimal("1.25"),f.amounts.get(MealEntry.MealType.DINNER));
+        assertEquals(new BigDecimal("1.00"),f.amounts.get(MealEntry.MealType.DINNER));
         assertTrue(draft.saved);
     }
     @Test void portionPreviewReturnsAllMacrosAndNeverWritesJournal() throws Exception {
@@ -40,7 +40,7 @@ class NutritionRecommendationsHttpTest {
         assertEquals(0,f.writes);assertEquals(200,f.status);
         String json=f.body.toString();
         String quote=Character.toString(34);
-        for(String field:List.of("meals","caloriesKcal","proteinG","carbsG","fatG","fiberG","total","targetKcal","differenceKcal","personalized")) {
+        for(String field:List.of("meals","caloriesKcal","proteinG","carbsG","fatG","fiberG","total","targetKcal","differenceKcal","personalized","recordedToday","projectedDay","recordedMealCount","projectedDifferenceKcal","exceedsTarget")) {
             assertTrue(json.contains(quote+field+quote),field);
         }
         assertTrue(json.contains(quote+"personalized"+quote+":false"));
@@ -62,7 +62,7 @@ class NutritionRecommendationsHttpTest {
         var draft=(MealRecommendationsServlet.Draft)f.sessionValues.get(MealRecommendationsServlet.DRAFT);
         f.params.put("csrfToken",Csrf.token(f.request));f.params.put("action","save");f.params.put("suggestionToken",draft.token);
         for(var type:MealEntry.MealType.values())f.params.put("servings_"+type,"0");
-        f.servlet.doPost(f.request,f.response);assertEquals(400,f.status);assertEquals(0,f.writes);
+        // Even invalid posted amounts are ignored; expiry still rejects before a save.
         f.sessionValues.put(MealRecommendationsServlet.DRAFT,new MealRecommendationsServlet.Draft(draft.token,
                 draft.suggestion,Instant.now().minusSeconds(1900)));
         f.servlet.doPost(f.request,f.response);assertEquals(400,f.status);assertEquals(0,f.writes);
@@ -92,10 +92,63 @@ class NutritionRecommendationsHttpTest {
         assertEquals(403,f.status);assertEquals(2,attempts[0]);
         f.params.remove("csrfToken");preferences.doPost(f.request,f.response);assertEquals(2,attempts[0]);
     }
+    @Test void postedPortionsAreIgnoredOnPreviewAndSave() throws Exception {
+        for (String action:List.of("preview","save")) for (String amount:List.of("1.32","0.89","1.53","0.25","3")) {
+            Fixture f=new Fixture();f.servlet.doGet(f.request,f.response);
+            var draft=(MealRecommendationsServlet.Draft)f.sessionValues.get(MealRecommendationsServlet.DRAFT);
+            f.params.put("csrfToken",Csrf.token(f.request));f.params.put("action",action);f.params.put("suggestionToken",draft.token);
+            for (var type:MealEntry.MealType.values())f.params.put("servings_"+type,amount);
+            f.servlet.doPost(f.request,f.response);
+            assertEquals(action.equals("save")?1:0,f.writes);
+            if (action.equals("save")) assertTrue(f.amounts.values().stream().allMatch(n -> n.equals(new BigDecimal("1.00"))));
+        }
+    }
+    @Test void pageReloadAndPostSaveRedirectKeepNonceAndNeverResave() throws Exception {
+        Fixture f=new Fixture();f.servlet.doGet(f.request,f.response);
+        var draft=(MealRecommendationsServlet.Draft)f.sessionValues.get(MealRecommendationsServlet.DRAFT);
+        f.servlet.doGet(f.request,f.response);
+        assertSame(draft,f.sessionValues.get(MealRecommendationsServlet.DRAFT));assertEquals(1,f.generated);
+        f.params.put("csrfToken",Csrf.token(f.request));f.params.put("action","save");f.params.put("suggestionToken",draft.token);
+        f.servlet.doPost(f.request,f.response);
+        assertEquals("/nutrition/recommendations?message=suggested",f.redirect);
+        f.params.put("message","suggested");f.servlet.doGet(f.request,f.response);
+        assertEquals(true,f.attributes.get("suggestionSaved"));assertNotNull(f.attributes.get("notice"));
+        f.servlet.doPost(f.request,f.response);assertEquals(1,f.writes);assertEquals(1,f.generated);
+    }
+    @Test void regenerationRequiresCsrfReplacesNonceAndNeverWritesMeals() throws Exception {
+        Fixture f=new Fixture();f.servlet.doGet(f.request,f.response);
+        Object original=f.sessionValues.get(MealRecommendationsServlet.DRAFT);
+        f.params.put("action","regenerate");f.servlet.doPost(f.request,f.response);
+        assertEquals(403,f.status);assertSame(original,f.sessionValues.get(MealRecommendationsServlet.DRAFT));
+        f.params.put("csrfToken",Csrf.token(f.request));f.servlet.doPost(f.request,f.response);
+        assertNotSame(original,f.sessionValues.get(MealRecommendationsServlet.DRAFT));
+        assertEquals(0,f.writes);assertEquals(2,f.generated);
+        assertEquals("/nutrition/recommendations?message=regenerated",f.redirect);
+    }
+    @Test void legacyGetRedirectsAndManualStandardPostIgnoresClientServings() throws Exception {
+        Fixture f=new Fixture();final BigDecimal[] captured={null};
+        MealPlannerServlet old=new MealPlannerServlet(new MealPlannerService(){
+            @Override public com.nutrifit.model.MealEntry addMeal(long user,long recipe,MealEntry.MealType type,BigDecimal amount){
+                assertEquals(42,user);captured[0]=amount;return null;
+            }
+        });
+        f.params.put("message","suggested");old.doGet(f.request,f.response);
+        assertEquals("/nutrition/recommendations?message=suggested",f.redirect);
+        f.params.put("action","addStandard");f.params.put("recipeId","7");f.params.put("mealType","LUNCH");f.params.put("servings","123.45");
+        old.doPost(f.request,f.response);assertNull(captured[0]);assertEquals(403,f.status);
+        f.params.put("csrfToken",Csrf.token(f.request));old.doPost(f.request,f.response);
+        assertEquals(new BigDecimal("1.00"),captured[0]);assertEquals("/nutrition/recommendations?message=added",f.redirect);
+    }
+    @Test void missingTargetStillRendersJournalAndManualRecipeChoices() throws Exception {
+        Fixture f=new Fixture();f.unavailable=true;f.servlet.doGet(f.request,f.response);
+        assertNotNull(f.attributes.get("today"));assertNotNull(f.attributes.get("recipes"));
+        assertNotNull(f.attributes.get("suggestionError"));assertEquals(0,f.writes);
+    }
     private static class Fixture {
         final Map<String,Object> sessionValues=new HashMap<>(),attributes=new HashMap<>();
         final Map<String,String> params=new HashMap<>();
-        int status=200,writes;long savedUser;boolean failSave;
+        int status=200,writes,generated;
+        String redirect;long savedUser;boolean failSave, unavailable;
         Map<MealEntry.MealType,BigDecimal> amounts;
         final StringWriter body=new StringWriter();
         final HttpSession session=(HttpSession)Proxy.newProxyInstance(getClass().getClassLoader(),new Class<?>[]{HttpSession.class},
@@ -121,7 +174,8 @@ class NutritionRecommendationsHttpTest {
         final HttpServletResponse response=(HttpServletResponse)Proxy.newProxyInstance(getClass().getClassLoader(),
                 new Class<?>[]{HttpServletResponse.class},(p,m,a)->switch(m.getName()){
                     case "sendError","setStatus" -> {status=(int)a[0];yield null;}
-                    case "sendRedirect","setContentType" -> null;
+                    case "sendRedirect" -> {status=302;redirect=(String)a[0];yield null;}
+                    case "setContentType" -> null;
                     case "getWriter" -> new PrintWriter(body);
                     default -> throw new AssertionError(m.getName());
                 });
@@ -130,10 +184,22 @@ class NutritionRecommendationsHttpTest {
                         BigDecimal.ONE,new NutritionFacts(new BigDecimal("800"),BigDecimal.TEN,
                         BigDecimal.TEN,BigDecimal.TEN,BigDecimal.ONE))).toList());
         final MealRecommendationService recommendations=new MealRecommendationService(){
-            @Override public MealSuggestion recommendDay(long user){return suggestion;}
+            @Override public MealSuggestion recommendDay(long user){
+                generated++;
+                if(unavailable) throw new RecommendationUnavailableException("Hãy hoàn tất mục tiêu trong hồ sơ.");
+                return suggestion;
+            }
+            @Override public MealSuggestion recommendDay(long user,MealSuggestion previous){
+                generated++;
+                return new MealSuggestion(user,LocalDate.now(),suggestion.targetKcal(),false,
+                        suggestion.meals().stream().map(m -> new SuggestedMeal(m.recipeId()+10,m.name(),m.mealType(),
+                                new BigDecimal("1.00"),m.nutrition())).toList());
+            }
             @Override public MealSuggestion refresh(long user,MealSuggestion s,Map<MealEntry.MealType,BigDecimal> amounts){return s;}
         };
         final MealPlannerService planner=new MealPlannerService(){
+            @Override public DaySummary getToday(long user){return new DaySummary(LocalDate.now(),null,List.of(),NutritionFacts.ZERO);}
+            @Override public List<RecipeCandidate> listAvailableRecipes(){return List.of();}
             @Override public MealSuggestion saveSuggestion(long user,MealSuggestion s,Map<MealEntry.MealType,BigDecimal> servings){
                 savedUser=user;amounts=servings;writes++;
                 if(failSave)throw new IllegalArgumentException("injected failure");

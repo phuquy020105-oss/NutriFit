@@ -23,16 +23,18 @@ class MealRecommendationServiceTest {
         assertFalse(day.personalized());
         assertEquals(0, f.preferenceReads);
         assertEquals(3, day.meals().size());
-        assertTrue(day.differenceKcal().abs().compareTo(new BigDecimal("10")) < 0);
+        assertTrue(day.meals().stream().allMatch(m -> m.servings().compareTo(BigDecimal.ONE) == 0));
+        assertEquals(0, day.total().caloriesKcal().compareTo(new BigDecimal("1500")));
+        assertEquals(0, day.differenceKcal().compareTo(new BigDecimal("-900")));
     }
-    @Test void freeCanChangePortionsAndBackendRecomputesAllMacros() throws Exception {
+    @Test void clientPortionsAreIgnoredAndAllMacrosUseOneStandardServing() throws Exception {
         Fixture f = new Fixture();
         MealSuggestion day = f.service.recommendDay(USER);
-        Map<MealEntry.MealType, BigDecimal> portions = amounts("1.23");
+        Map<MealEntry.MealType, BigDecimal> portions = amounts("1.5");
         MealSuggestion edited = f.service.refresh(USER, day, portions);
         NutritionFacts expected = NutritionFacts.ZERO;
         for (SuggestedMeal m : edited.meals()) {
-            NutritionFacts facts = new NutritionCalculator().calculate(f.inputs.get(m.recipeId()), new BigDecimal("1.23"));
+            NutritionFacts facts = new NutritionCalculator().calculate(f.inputs.get(m.recipeId()), new BigDecimal("1.00"));
             assertEquals(facts, m.nutrition());
             expected = expected.add(facts);
         }
@@ -95,10 +97,11 @@ class MealRecommendationServiceTest {
         f.premium = false; f.inputs.remove(first);
         assertThrows(RecommendationUnavailableException.class, () -> f.service.refresh(USER, day, amounts("1")));
     }
-    @Test void invalidServingsAndOverflowAreRejected() throws Exception {
+    @Test void clientServingsAreIgnoredButNutritionOverflowIsRejected() throws Exception {
         Fixture f = new Fixture(); MealSuggestion day = f.service.recommendDay(USER);
-        for (String bad : List.of("0", "-1", "1.001", "1000000")) {
-            assertThrows(IllegalArgumentException.class, () -> f.service.refresh(USER, day, amounts(bad)));
+        for (String bad : List.of("0", "-1", "1.001", "1.32", "0.89", "1.53", "1.23", "3", "1000000")) {
+            MealSuggestion refreshed=f.service.refresh(USER,day,amounts(bad));
+            assertTrue(refreshed.meals().stream().allMatch(m -> m.servings().equals(new BigDecimal("1.00"))));
         }
         long id = day.meals().getFirst().recipeId();
         RecipeNutritionInput old = f.inputs.get(id);
@@ -110,6 +113,89 @@ class MealRecommendationServiceTest {
         MealRecommendationService s = new MealRecommendationService(() -> { throw new AssertionError("No JDBC expected"); });
         assertThrows(SecurityException.class, () -> s.recommendDay(0));
         assertThrows(SecurityException.class, () -> s.recommend(0, MealEntry.MealType.LUNCH, 1));
+    }
+    @Test void searchesCombinationsInsteadOfChoosingEachMealNearOneThird() throws Exception {
+        Fixture f = new Fixture(); f.inputs.clear(); f.target = new BigDecimal("2000");
+        put(f,10,MealEntry.MealType.BREAKFAST,"400"); put(f,11,MealEntry.MealType.BREAKFAST,"550");
+        put(f,20,MealEntry.MealType.LUNCH,"700"); put(f,21,MealEntry.MealType.LUNCH,"1000");
+        put(f,30,MealEntry.MealType.DINNER,"600"); put(f,31,MealEntry.MealType.DINNER,"650");
+        MealSuggestion day = f.service.recommendDay(USER);
+        assertEquals(List.of(10L,21L,30L),day.meals().stream().map(SuggestedMeal::recipeId).toList());
+        assertEquals(0,day.total().caloriesKcal().compareTo(f.target));
+        assertTrue(day.meals().stream().allMatch(m -> m.servings().compareTo(BigDecimal.ONE) == 0));
+    }
+    @Test void allThirtyRecipesAreConsideredAndExtremeTargetsNeverScalePortions() throws Exception {
+        Fixture f = new Fixture(); f.inputs.clear();
+        for (var type : MealEntry.MealType.values()) for (int i=0;i<10;i++) {
+            put(f,100L*(type.ordinal()+1)+i,type,Integer.toString(400+i*10));
+        }
+        for (String target : List.of("100", "10000")) {
+            f.target = new BigDecimal(target);
+            MealSuggestion day = f.service.recommendDay(USER);
+            assertTrue(day.meals().stream().allMatch(m -> m.servings().compareTo(BigDecimal.ONE) == 0));
+            assertEquals(0,day.total().caloriesKcal().compareTo(new BigDecimal(target.equals("100")?"1200":"1470")));
+            assertNotEquals(0,day.differenceKcal().signum());
+        }
+    }
+    @Test void premiumLikesCanWinWithinCalorieBandButNotOverrideLargeEnergyMismatch() throws Exception {
+        Fixture f = new Fixture(); f.inputs.clear(); f.premium=true; f.target=new BigDecimal("2000");
+        put(f,10,MealEntry.MealType.BREAKFAST,"400"); put(f,11,MealEntry.MealType.BREAKFAST,"350");
+        put(f,20,MealEntry.MealType.LUNCH,"900"); put(f,30,MealEntry.MealType.DINNER,"700");
+        f.saved.add(new FoodPreference(USER,111L,FoodPreference.PreferenceType.LIKE));
+        assertEquals(11L,f.service.recommendDay(USER).meals().getFirst().recipeId());
+        put(f,11,MealEntry.MealType.BREAKFAST,"20");
+        assertEquals(10L,f.service.recommendDay(USER).meals().getFirst().recipeId());
+    }
+    @Test void journalChangesChoiceAndWarnsOnActualProjectedTotalIncludingExistingMeals() throws Exception {
+        Fixture f = new Fixture(); f.target=new BigDecimal("1800");
+        f.journal.add(entry("500"));
+        MealSuggestion day = f.service.recommendDay(USER);
+        assertEquals(1,day.recordedMealCount());
+        assertEquals(0,day.recordedToday().caloriesKcal().compareTo(new BigDecimal("500")));
+        assertEquals(0,day.total().caloriesKcal().compareTo(new BigDecimal("1300")));
+        assertEquals(0,day.projectedDifferenceKcal().signum());
+        assertFalse(day.exceedsTarget());
+        f.journal.clear();f.journal.add(entry("1900"));
+        day=f.service.recommendDay(USER);
+        assertTrue(day.exceedsTarget());
+        assertEquals(0,day.projectedDay().caloriesKcal().compareTo(new BigDecimal("3100")));
+        assertEquals(0,day.projectedDifferenceKcal().compareTo(new BigDecimal("1300")));
+    }
+    @Test void fixedPortionsRecalculateAllFiveFactsAndRefreshJournalWarning() throws Exception {
+        Fixture f=new Fixture();f.target=new BigDecimal("1800");
+        MealSuggestion day=f.service.recommendDay(USER);
+        f.journal.add(entry("600"));
+        for (String forged : List.of("0.5","1.32","2","999999")) {
+            MealSuggestion changed=f.service.refresh(USER,day,amounts(forged));
+            NutritionFacts sum=NutritionFacts.ZERO;
+            for (SuggestedMeal meal:changed.meals()) {
+                NutritionFacts facts=new NutritionCalculator().calculate(f.inputs.get(meal.recipeId()),BigDecimal.ONE);
+                assertEquals(facts,meal.nutrition());sum=sum.add(facts);
+                assertEquals(new BigDecimal("1.00"),meal.servings());
+            }
+            assertEquals(sum.rounded(),changed.total());
+            assertEquals(sum.add(MealPlannerService.snapshot(f.journal.getFirst())).rounded(),changed.projectedDay());
+            assertEquals(changed.projectedDifferenceKcal().signum()>0,changed.exceedsTarget());
+        }
+    }
+    @Test void explicitRegenerationChoosesDifferentEligibleRecipesAndFallsBackIfOnlyOneCombination() throws Exception {
+        Fixture f=new Fixture(); MealSuggestion first=f.service.recommendDay(USER);
+        MealSuggestion next=f.service.recommendDay(USER,first);
+        assertNotEquals(first.meals().stream().map(SuggestedMeal::recipeId).toList(),next.meals().stream().map(SuggestedMeal::recipeId).toList());
+        assertTrue(next.meals().stream().allMatch(m -> m.servings().equals(new BigDecimal("1.00"))));
+        Set<Long> only=first.meals().stream().map(SuggestedMeal::recipeId).collect(java.util.stream.Collectors.toSet());
+        f.inputs.keySet().removeIf(id -> !only.contains(id));
+        MealSuggestion unchanged=f.service.recommendDay(USER,first);
+        assertEquals(first.meals(),unchanged.meals());
+        assertThrows(SecurityException.class,()->f.service.recommendDay(USER+1,first));
+    }
+    private static MealEntry entry(String kcal) {
+        return new MealEntry(10L,999L,"Recorded meal",MealEntry.MealType.LUNCH,BigDecimal.ONE,
+                new BigDecimal(kcal),BigDecimal.ONE,BigDecimal.TEN,BigDecimal.ONE,BigDecimal.ONE);
+    }
+    private static void put(Fixture f,long id,MealEntry.MealType type,String kcal) {
+        f.inputs.put(id,new RecipeNutritionInput(id,"Recipe "+id,type,BigDecimal.ONE,
+                List.of(new IngredientNutritionLine(id+100,new BigDecimal("100"),facts(kcal)))));
     }
     static Map<MealEntry.MealType, BigDecimal> amounts(String amount) {
         Map<MealEntry.MealType, BigDecimal> result = new EnumMap<>(MealEntry.MealType.class);
@@ -129,6 +215,7 @@ class MealRecommendationServiceTest {
         final Connection connection = (Connection) Proxy.newProxyInstance(getClass().getClassLoader(),
                 new Class<?>[]{Connection.class}, (p,m,a) -> {
                     if (m.getName().equals("close")) return null;
+                    if (m.getName().equals("getAutoCommit")) return true;
                     throw new AssertionError("Preview attempted JDBC mutation: " + m.getName());
                 });
         final NutritionUserReadDAO users = new NutritionUserReadDAO() {
@@ -154,8 +241,20 @@ class MealRecommendationServiceTest {
                         new NutritionCalculator().calculate(r,BigDecimal.ONE))).toList();
             }
         };
+        final List<MealEntry> journal = new ArrayList<>();
+        final MealPlanDAO plans = new MealPlanDAO() {
+            @Override public Optional<MealPlan> findByUserAndDate(Connection c,long user,LocalDate day) {
+                assertEquals(USER,user); assertEquals(LocalDate.now(CLOCK),day);
+                return journal.isEmpty() ? Optional.empty() : Optional.of(new MealPlan(10L,user,day,null));
+            }
+        };
+        final MealEntryDAO entries = new MealEntryDAO() {
+            @Override public List<MealEntry> findByPlan(Connection c,long plan) {
+                assertEquals(10L,plan); return List.copyOf(journal);
+            }
+        };
         final MealRecommendationService service = new MealRecommendationService(() -> connection, preferences,
-                recipes, users, new NutritionCalculator(), CLOCK);
+                recipes, users, new NutritionCalculator(), CLOCK, plans, entries);
         Fixture() {
             for (var type : MealEntry.MealType.values()) for (int i=0;i<2;i++) {
                 long id=(type.ordinal()+1)*10L+i;

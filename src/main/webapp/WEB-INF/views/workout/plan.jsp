@@ -13,7 +13,7 @@
 <a href="${ctx}/dashboard">▦ Tổng quan</a>
 <a href="${ctx}/workout">◉ Bài tập</a>
 <a class="active" href="${ctx}/workout/plan">▤ Lịch tập</a>
-<a href="${ctx}/nutrition/meal-planner">♧ Dinh dưỡng</a>
+<a href="${ctx}/nutrition/recommendations">♧ Dinh dưỡng</a>
 <a href="${ctx}/chatbot">✧ AI Chatbot</a>
 <a href="${ctx}/payment">♛ Premium</a>
 <a href="${ctx}/profile">♙ Hồ sơ</a>

@@ -54,7 +54,7 @@ public class MealPlannerService {
                        NutritionCalculator calculator, Clock clock, ConnectionProvider connections,
                        NutritionUserReadDAO users, FoodPreferenceDAO preferences) {
         this.users = users;
-        this.recommendations = new MealRecommendationService(connections, preferences, recipes, users, calculator, clock);
+        this.recommendations = new MealRecommendationService(connections, preferences, recipes, users, calculator, clock, plans, entries);
         this.plans = plans;
         this.entries = entries;
         this.recipes = recipes;
@@ -143,8 +143,16 @@ public class MealPlannerService {
         try (Connection c = connections.open()) {
             c.setAutoCommit(false);
             try {
-                MealSuggestion checked = recommendations.refresh(c, userId, draft, amounts);
+                recommendations.validateDraft(userId, draft, amounts);
                 long planId = plans.findOrCreateForUpdate(c, userId, today());
+                MealSuggestion checked = recommendations.refresh(c, userId, draft, amounts);
+                if (checked.recordedMealCount() != draft.recordedMealCount()
+                        || !checked.recordedToday().equals(draft.recordedToday())
+                        || !checked.projectedDay().equals(draft.projectedDay())
+                        || checked.targetKcal().compareTo(draft.targetKcal()) != 0) {
+                    throw new RecommendationUnavailableException("Nhật ký, mục tiêu hoặc dinh dưỡng đã thay đổi. "
+                            + "Hãy kiểm tra nhật ký và chọn Gợi ý lại trước khi lưu.");
+                }
                 for (SuggestedMeal meal : checked.meals()) {
                     RecipeNutritionInput input = requireRecipe(c, meal.recipeId(), meal.mealType());
                     addToPlan(c, planId, input, meal.servings());
@@ -183,10 +191,21 @@ public class MealPlannerService {
 
     public MealEntry updateMeal(long userId, long entryId, long recipeId,
             MealEntry.MealType type, BigDecimal servings) throws SQLException {
+        return updateMeal(userId, entryId, recipeId, type, servings, false);
+    }
+
+    /** Changes today's recipe while preserving its stored serving amount, including legacy fractions. */
+    public MealEntry changeRecipe(long userId, long entryId, long recipeId, MealEntry.MealType type)
+            throws SQLException {
+        return updateMeal(userId, entryId, recipeId, type, null, true);
+    }
+
+    private MealEntry updateMeal(long userId, long entryId, long recipeId,
+            MealEntry.MealType type, BigDecimal servings, boolean preserveAmount) throws SQLException {
         checkUser(userId);
         checkId(entryId);
         checkId(recipeId);
-        BigDecimal amount = validServings(servings);
+        if (!preserveAmount) validServings(servings);
         if (type == null) throw new IllegalArgumentException("Select a meal type");
         LocalDate day = today();
         try (Connection c = connections.open()) {
@@ -195,6 +214,7 @@ public class MealPlannerService {
                 MealEntry e = entries.findByIdAndUser(c, entryId, userId)
                         .orElseThrow(() -> new IllegalArgumentException("Meal entry not found"));
                 verifyCurrentPlan(c, userId, e.getPlanId(), day);
+                BigDecimal amount = validServings(preserveAmount ? e.getServings() : servings);
                 if (e.getRecipeId().equals(recipeId) && e.getMealType() == type) {
                     putFacts(e, calculator.rescaleStored(snapshot(e), e.getServings(), amount));
                 } else {

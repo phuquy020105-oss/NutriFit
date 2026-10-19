@@ -8,24 +8,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/nutrition/meal-planner")
+@WebServlet({"/nutrition/meal-planner", "/nutrition"})
 public class MealPlannerServlet extends NutritionServletSupport {
-    private final MealPlannerService service = new MealPlannerService();
+    private final MealPlannerService service;
+    public MealPlannerServlet() { this(new MealPlannerService()); }
+    MealPlannerServlet(MealPlannerService service) { this.service = service; }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         Long user = requireUser(req, resp);
         if (user == null) return;
-        try {
-            req.setAttribute("today", service.getToday(user));
-            req.setAttribute("targetKcal", service.getTargetKcal(user).orElse(null));
-            req.setAttribute("recipes", service.listAvailableRecipes());
-            req.setAttribute("csrf", Csrf.token(req));
-            req.getRequestDispatcher("/WEB-INF/views/nutrition/meal-planner.jsp").forward(req, resp);
-        } catch (Exception e) {
-            fail(req, resp, e);
-        }
+        String message = req.getParameter("message");
+        String suffix = java.util.Set.of("added","updated","deleted","saved","suggested").contains(
+                message == null ? "" : message) ? "?message=" + message : "";
+        resp.sendRedirect(req.getContextPath() + "/nutrition/recommendations" + suffix);
     }
 
     @Override
@@ -35,7 +32,13 @@ public class MealPlannerServlet extends NutritionServletSupport {
         if (user == null || !requireCsrf(req, resp)) return;
         try {
             String action = required(req.getParameter("action"));
-            if ("add".equals(action)) {
+            if ("addStandard".equals(action)) {
+                service.addMeal(user, parseId(req.getParameter("recipeId")),
+                        parseMealType(req.getParameter("mealType")), new java.math.BigDecimal("1.00"));
+            } else if ("changeRecipe".equals(action)) {
+                service.changeRecipe(user, parseId(req.getParameter("entryId")),
+                        parseId(req.getParameter("recipeId")), parseMealType(req.getParameter("mealType")));
+            } else if ("add".equals(action)) {
                 service.addMeal(user, parseId(req.getParameter("recipeId")),
                         parseMealType(req.getParameter("mealType")),
                         parseServings(req.getParameter("servings")));
@@ -50,12 +53,12 @@ public class MealPlannerServlet extends NutritionServletSupport {
                 throw new IllegalArgumentException("Unknown action");
             }
             String message = switch (action) {
-                case "add" -> "added";
-                case "update" -> "updated";
+                case "add", "addStandard" -> "added";
+                case "update", "changeRecipe" -> "updated";
                 case "delete" -> "deleted";
                 default -> "saved";
             };
-            resp.sendRedirect(req.getContextPath() + "/nutrition/meal-planner?message=" + message);
+            resp.sendRedirect(req.getContextPath() + "/nutrition/recommendations?message=" + message);
         } catch (Exception e) {
             fail(req, resp, e);
         }

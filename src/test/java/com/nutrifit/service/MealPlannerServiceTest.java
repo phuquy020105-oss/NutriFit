@@ -201,6 +201,19 @@ class MealPlannerServiceTest {
         assertEquals(List.of("autoCommit:false", "commit", "rollback", "close"), f.transactions);
     }
 
+    @Test void changeRecipePreservesLegacyFractionAndEnforcesTodayAndOwner() throws Exception {
+        Fixture f=new Fixture();f.stored=entry();f.stored.setServings(decimal("0.89"));
+        MealEntry result=f.service.changeRecipe(OWNER,ENTRY,RECIPE+1,MealEntry.MealType.LUNCH);
+        assertEquals(decimal("0.89"),result.getServings());
+        assertEquals(decimal("89.000"),result.getCaloriesKcal());
+        assertEquals(List.of("autoCommit:false","commit","close"),f.transactions);
+        for (boolean wrongOwner:List.of(false,true)) {
+            Fixture denied=new Fixture();denied.stored=entry();
+            if (!wrongOwner) denied.planDate=TODAY.minusDays(1);
+            assertThrows(IllegalArgumentException.class,()->denied.service.changeRecipe(wrongOwner?OWNER+1:OWNER,ENTRY,RECIPE+1,MealEntry.MealType.LUNCH));
+            assertEquals(0,denied.updates);assertEquals(List.of("autoCommit:false","rollback","close"),denied.transactions);
+        }
+    }
     private static BigDecimal decimal(String value) { return new BigDecimal(value); }
 
     private static MealEntry entry() {

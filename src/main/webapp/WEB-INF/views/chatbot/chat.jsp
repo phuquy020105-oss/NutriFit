@@ -33,7 +33,7 @@
     <a href="<%=ctx%>/dashboard">▦ <span>Tổng quan</span></a>
     <a href="<%=ctx%>/workout">◈ <span>Bài tập</span></a>
     <a href="<%=ctx%>/workout/plan">▤ <span>Lịch tập</span></a>
-    <a href="<%=ctx%>/nutrition/meal-planner">◉ <span>Dinh dưỡng</span></a>
+    <a href="<%=ctx%>/nutrition/recommendations">◉ <span>Dinh dưỡng</span></a>
     <a href="<%=ctx%>/chatbot" class="active">✧ <span>AI Chatbot</span></a>
     <a href="<%=ctx%>/payment" class="">♛ <span>Premium</span></a>
     <a href="<%=ctx%>/profile">◎ <span>Hồ sơ</span></a>
