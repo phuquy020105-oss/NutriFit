@@ -39,6 +39,7 @@
             <a href="<%= contextPath %>/chatbot"><span>✧</span> AI Chatbot</a>
             <a href="<%= contextPath %>/payment"><span>♛</span> Premium</a>
             <a href="<%= contextPath %>/profile"><span>◎</span> Hồ sơ</a>
+            <%@ include file="/WEB-INF/views/shared/admin-navigation.jspf" %>
         </nav>
         <div class="sidebar-bottom">
             <div class="mini-promo"><strong>Mỗi ngày tốt hơn 1%</strong><p>Kiên trì từng bước nhỏ để đạt mục tiêu sức khỏe.</p></div>

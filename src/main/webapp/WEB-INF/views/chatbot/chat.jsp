@@ -37,6 +37,7 @@
     <a href="<%=ctx%>/chatbot" class="active">✧ <span>AI Chatbot</span></a>
     <a href="<%=ctx%>/payment" class="">♛ <span>Premium</span></a>
     <a href="<%=ctx%>/profile">◎ <span>Hồ sơ</span></a>
+    <%@ include file="/WEB-INF/views/shared/admin-navigation.jspf" %>
   </nav>
   <div class="nf-global-bottom">
     <div class="nf-global-promo"><strong>Mỗi ngày tốt hơn 1%</strong><p>Kiên trì từng bước nhỏ để đạt mục tiêu sức khỏe.</p></div>

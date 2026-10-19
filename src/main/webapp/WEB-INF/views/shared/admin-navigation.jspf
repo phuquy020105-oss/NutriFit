@@ -1,0 +1,4 @@
+<%@ page pageEncoding="UTF-8" %>
+<% if (Boolean.TRUE.equals(request.getAttribute("navigationAdmin"))) { %>
+<a href="${pageContext.request.contextPath}/admin"><span class="nf-nav-symbol" aria-hidden="true">⚙</span> Quản lý</a>
+<% } %>

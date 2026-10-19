@@ -23,6 +23,7 @@ String csrf = (String) request.getAttribute("csrf");
 <a href="<%= Html.escape(ctx) %>/chatbot"><span>✧</span> AI Chatbot</a>
 <a href="<%= Html.escape(ctx) %>/payment"><span>♛</span> Premium</a>
 <a href="<%= Html.escape(ctx) %>/profile"><span>◎</span> Hồ sơ</a>
+<%@ include file="/WEB-INF/views/shared/admin-navigation.jspf" %>
 </nav>
 <div class="sidebar-bottom">
 <div class="mini-promo"><strong>Mỗi ngày tốt hơn 1%</strong><p>Kiên trì từng bước nhỏ để đạt mục tiêu sức khỏe.</p></div>

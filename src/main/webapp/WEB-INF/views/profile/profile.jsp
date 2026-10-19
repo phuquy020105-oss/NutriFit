@@ -54,9 +54,12 @@
         <nav class="nf-nav">
             <a href="<%= contextPath %>/dashboard"><span class="nf-nav-symbol">▦</span>Tổng quan</a>
             <a href="<%= contextPath %>/workout"><span class="nf-nav-symbol">◇</span>Bài tập</a>
-            <a href="<%= contextPath %>/nutrition"><span class="nf-nav-symbol">◉</span>Dinh dưỡng</a>
+            <a href="<%= contextPath %>/workout/plan"><span class="nf-nav-symbol">▤</span>Lịch tập</a>
+            <a href="<%= contextPath %>/nutrition/meal-planner"><span class="nf-nav-symbol">◉</span>Dinh dưỡng</a>
             <a href="<%= contextPath %>/chatbot"><span class="nf-nav-symbol">✧</span>AI Chatbot</a>
+            <a href="<%= contextPath %>/payment"><span class="nf-nav-symbol">♛</span>Premium</a>
             <a href="<%= contextPath %>/profile" aria-current="page"><span class="nf-nav-symbol">◎</span>Hồ sơ</a>
+            <%@ include file="/WEB-INF/views/shared/admin-navigation.jspf" %>
         </nav>
         <div class="nf-side-note"><strong>Mỗi ngày tốt hơn 1%</strong>Kiên trì từng bước nhỏ để đạt mục tiêu sức khỏe.</div>
     </aside>

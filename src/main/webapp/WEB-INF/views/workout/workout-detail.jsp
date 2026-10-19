@@ -16,11 +16,12 @@
 <div class="side-label">MENU CHÍNH</div>
 <a href="${ctx}/dashboard">▦ Tổng quan</a>
 <a class="active" href="${ctx}/workout">◉ Bài tập</a>
-<a href="${ctx}/workout/plan">▤ Lộ trình 7 ngày</a>
+<a href="${ctx}/workout/plan">▤ Lịch tập</a>
 <a href="${ctx}/nutrition/meal-planner">♧ Dinh dưỡng</a>
 <a href="${ctx}/chatbot">✧ AI Chatbot</a>
 <a href="${ctx}/payment">♛ Premium</a>
 <a href="${ctx}/profile">♙ Hồ sơ</a>
+<%@ include file="/WEB-INF/views/shared/admin-navigation.jspf" %>
 </aside>
 <main class="main">
 <div class="eyebrow">NUTRIFIT / WORKOUT / CHI TIẾT</div>
