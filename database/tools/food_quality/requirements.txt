@@ -1,0 +1,2 @@
+# Offline image decoding/encoding tools only; never a Maven/runtime dependency.
+Pillow==12.2.0

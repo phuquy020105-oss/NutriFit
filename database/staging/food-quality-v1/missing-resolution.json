@@ -1,0 +1,578 @@
+{
+  "status": "STAGING_COMPARISONS_NOT_PRODUCTION_APPROVAL",
+  "baseline_commit": "f04b2da",
+  "missing_before": 98,
+  "missing_after": 47,
+  "resolved": 51,
+  "complete_foods_before": 59,
+  "complete_foods_after": 70,
+  "changes": [
+    {
+      "food_ref": "F008",
+      "name": "Xôi nếp trắng đã hấp, không dầu",
+      "resolved_nutrients": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Rice%2C+glutinous%2C+polished%2C+steamed&selected_name=Rice%2C+glutinous%2C+polished%2C+steamed&selected_id=149&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "149",
+        "food_code": "A23",
+        "description": "Rice, glutinous, polished, steamed",
+        "scientific_name": "Oryza glutinosa",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "f894c6f5144ad75561da10dbddb024917d2d936aa8dc807d08b7f3c92506e0a3",
+        "match_differences": "Same steamed polished glutinous rice and no oil. Thai cultivar/hydration differs; use source moisture41.9g, not USDA97kcal boiled rice.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "41.9",
+            "Analysed",
+            "8",
+            "-",
+            "-",
+            "0.6",
+            "",
+            "01/10/2015"
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "0.19",
+            "Analysed",
+            "5",
+            "-",
+            "-",
+            "0.05",
+            "",
+            "01/10/2015"
+          ]
+        }
+      },
+      "remaining_missing": []
+    },
+    {
+      "food_ref": "F018",
+      "name": "Thịt ba chỉ heo luộc chín, giữ lớp mỡ ăn được",
+      "resolved_nutrients": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Pork%2C+belly%2C+boiled&selected_name=Pork%2C+belly%2C+boiled&selected_id=974&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "974",
+        "food_code": "F70",
+        "description": "Pork, belly, boiled",
+        "scientific_name": "Sus scrofa domestica",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "1eb2f9b376ceca7fa528a517487590abc42379402d34757d1e6fb92ead5f2c95",
+        "match_differences": "Same boiled belly including edible fat, not raw belly. Breed, skin and fat trimming vary; per100g cooked edible source, no yield factor applied again.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "43.2",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "0.50",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
+      "remaining_missing": []
+    },
+    {
+      "food_ref": "F023",
+      "name": "Thịt cá lóc hấp chín, bỏ xương, không dầu/sốt",
+      "resolved_nutrients": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Striped+snake-head+fish%2C+steamed&selected_name=Striped+snake-head+fish%2C+steamed&selected_id=1086&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "1086",
+        "food_code": "G49",
+        "description": "Striped snake-head fish, steamed",
+        "scientific_name": "Channa striata",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "380255d949ba7edb8e3b695a748a4f458ec415cc5e313a882bd3200b8777a18f",
+        "match_differences": "Channa striata, steamed edible flesh, no sauce. Source fish size/skin/fat may differ; do not treat as measured Vietnamese recipe.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "70.3",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "1.05",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
+      "remaining_missing": []
+    },
+    {
+      "food_ref": "F024",
+      "name": "Thịt cá rô phi hấp chín, bỏ xương, không dầu/sốt",
+      "resolved_nutrients": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Nile+tilapia%2C+red%2C+steamed&selected_name=Nile+tilapia%2C+red%2C+steamed&selected_id=1103&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "1103",
+        "food_code": "G212",
+        "description": "Nile tilapia, red, steamed",
+        "scientific_name": "Oreochromis niloticus",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "b924baadddec4d6306ed16b6437936b4a421d1b990ed6a9326417ef489a4c7b5",
+        "match_differences": "Steamed Oreochromis niloticus, red variety; catalog does not specify variety. This is a disclosed cultivar/fat proxy, not silently interchangeable fillets.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "66.7",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "1.02",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
+      "remaining_missing": []
+    },
+    {
+      "food_ref": "F030",
+      "name": "Trứng cút luộc chín, bỏ vỏ",
+      "resolved_nutrients": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Egg%2C+quail%2C+whole%2C+boiled+%285+min%29&selected_name=Egg%2C+quail%2C+whole%2C+boiled+%285+min%29&selected_id=1283&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "1283",
+        "food_code": "H8",
+        "description": "Egg, quail, whole, boiled (5 min)",
+        "scientific_name": "Coturnix coturnix",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "87afc6de68752b876ff8bb588d06beb1015f0275fbc640d07c8f093bcc3c3c06",
+        "match_differences": "Whole quail egg boiled5min, edible shell-free basis; not raw egg or canned brined quail.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "74.8",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "1.01",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
+      "remaining_missing": []
+    },
+    {
+      "food_ref": "F032",
+      "name": "Chả lụa thành phẩm",
+      "resolved_nutrients": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Pork%2C+sausage%2C+white%2C+steamed&selected_name=Pork%2C+sausage%2C+white%2C+steamed&selected_id=1020&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "1020",
+        "food_code": "F98",
+        "description": "Pork, sausage, white, steamed",
+        "scientific_name": "Sus scrofa domestica",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "410aa2913e3a43380403157df3006e11fd785fa638138d3d7188e07cfaf5a67e",
+        "match_differences": "Thai Mu-yo white steamed pork sausage is a process/category proxy for cha lua, not VISSAN or an identified Vietnamese formulation. Fat/starch/water proportions unknown; retain low confidence and block production qualification pending product/formula definition.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "55.3",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "2.31",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
+      "remaining_missing": []
+    },
+    {
+      "food_ref": "F042",
+      "name": "Rau răm sống",
+      "resolved_nutrients": [
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Vietnamese+coriander%2C+raw&selected_name=Vietnamese+coriander%2C+raw&selected_id=521&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "521",
+        "food_code": "D99",
+        "description": "Vietnamese coriander, raw",
+        "scientific_name": "Polygonum odoratum",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "4aea8c7a261fb36a422ade1f6791786e59a9fc27b481957651037e5e6cd44624",
+        "match_differences": "Polygonum odoratum (Vietnamese coriander), raw edible leaves; herb age/stem fraction may differ.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "84.1",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "2.12",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
+      "remaining_missing": []
+    },
+    {
+      "food_ref": "F051",
+      "name": "Đu đủ xanh sống, bỏ vỏ/hạt",
+      "resolved_nutrients": [
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Papaya%2C+raw&selected_name=Papaya%2C+raw&selected_id=590&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "590",
+        "food_code": "D134",
+        "description": "Papaya, raw",
+        "scientific_name": "Carica papaya",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "35747d38f6a45e50d1eedff10a29df97607b28a9f6a636cc06e464703f704921",
+        "match_differences": "Thai raw/unripe papaya entry distinct from near-ripe775 and ripe776; edible flesh, not ripe USDA papaya. Cultivar/peeling maturity differs.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "93.3",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "0.58",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
+      "remaining_missing": []
+    },
+    {
+      "food_ref": "F058",
+      "name": "Ngò gai sống",
+      "resolved_nutrients": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "fat_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Culantro%2C+raw&selected_name=Culantro%2C+raw&selected_id=499&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "499",
+        "food_code": "D88",
+        "description": "Culantro, raw",
+        "scientific_name": "Eryngium foetidum",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "e01a7098f100c6bedfc99e42b532bd78e37e292ab01b9158c482ae2a00070c0f",
+        "match_differences": "Eryngium foetidum raw culantro resolves NIN parsley identity conflict. Source energy41/protein/fat are available, but available carbs/fiber remain MISSING; no zero filling.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "88.6",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "1.57",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
+      "remaining_missing": [
+        "carbs_per_100g",
+        "fiber_per_100g"
+      ]
+    },
+    {
+      "food_ref": "F075",
+      "name": "Mắm ruốc Huế thành phẩm",
+      "resolved_nutrients": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Paste%2C+shrimp%2C+tiny%2C+fermented+%28Ka-pi%29%2C+first+class+quality&selected_name=Paste%2C+shrimp%2C+tiny%2C+fermented+%28Ka-pi%29%2C+first+class+quality&selected_id=257&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "257",
+        "food_code": "N48",
+        "description": "Paste, shrimp, tiny, fermented (Ka-pi), first class quality",
+        "scientific_name": "-",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "642fa93d17c51aad3f76381557f33f80ed025e5639be7957f78b0d9144cd8573",
+        "match_differences": "Tiny-shrimp fermented Ka-pi first-class is a disclosed category proxy for Hue mam ruoc; salt/drying/dilution and fermentation vary. Not an approved Hue formula. Alternative258 has different nutrients/fiber and is retained for uncertainty, not averaged.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "53.0",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "20.68",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
+      "remaining_missing": []
+    },
+    {
+      "food_ref": "F076",
+      "name": "Mắm tôm thành phẩm",
+      "resolved_nutrients": [
+        "carbs_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Paste%2C+shrimp%2C+fermented+%28Ka-pi%29%2C+first+class+quality&selected_name=Paste%2C+shrimp%2C+fermented+%28Ka-pi%29%2C+first+class+quality&selected_id=256&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "256",
+        "food_code": "N43",
+        "description": "Paste, shrimp, fermented (Ka-pi), first class quality",
+        "scientific_name": "-",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "c381606888f305ab8995eb5f4f1cd8c7829e76bf4558ae2491b2880aaffc77ea",
+        "match_differences": "Fermented shrimp Ka-pi first-class is a concentration/process proxy, not a Vietnamese mam tom product. Use all five values from the same record, replacing the prior partial NIN comparison rather than mixing sources. Source fiber explicitly ASSUMED_ZERO remains ESTIMATED.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "44.0",
+            "Analytical",
+            "3",
+            "-",
+            "-",
+            "1.0",
+            "",
+            "14/11/2023"
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "27.31",
+            "Analytical",
+            "3",
+            "-",
+            "-",
+            "2.79",
+            "",
+            "14/11/2023"
+          ]
+        }
+      },
+      "remaining_missing": []
+    },
+    {
+      "food_ref": "F082",
+      "name": "Thịt heo băm viên nướng chín, không sốt",
+      "resolved_nutrients": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "source": {
+        "publisher": "USDA SR Legacy04/2018",
+        "record_id": "168374",
+        "url": "https://fdc.nal.usda.gov/food-details/168374/nutrients",
+        "release": "SR Legacy04/2018",
+        "food_publication_date": "2019-04-01",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "retrieved_date": "2026-10-19",
+        "english_name": "Pork, ground, 84% lean / 16% fat, cooked, pan-broiled",
+        "match_differences": "Unseasoned ground pork patty, cooked pan-broiled (dry heat),84%lean/16%fat raw formulation. Grilled Vietnamese patties may use different fat/draining/charcoal loss; this is an explicit LOW-confidence category/process proxy, not an identified bun-cha formulation or production signoff."
+      },
+      "remaining_missing": []
+    }
+  ]
+}

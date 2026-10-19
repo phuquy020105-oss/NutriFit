@@ -1,0 +1,163 @@
+{
+  "status": "UNRESOLVED_NOT_ZERO_FILLED",
+  "missing_values": 47,
+  "foods": [
+    {
+      "food_ref": "F005",
+      "name": "Bánh canh bột gạo đã luộc, để ráo",
+      "missing": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "USDA168914 cooked rice noodles was already rejected: thickness/hydration and rice/tapioca formulation unknown. INMU158 Vietnamese noodles does not identify banh canh formulation.",
+      "evidence_needed": "Identify rice-only product or rice/tapioca ratio and measured cooked/drained yield; complete label or quantified recipe."
+    },
+    {
+      "food_ref": "F011",
+      "name": "Thịt bò thăn nạc luộc chín, không sốt",
+      "missing": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "MEXT11267 is boiled crossbred fillet but18g fat/100g, not a demonstrated lean tenderloin. INMU has round boiled or raw tenderloin, not the needed cut/state.",
+      "evidence_needed": "Cooked lean tenderloin source with cut/trim and edible yield; do not reuse raw meat or fatty fillet unchanged."
+    },
+    {
+      "food_ref": "F016",
+      "name": "Thịt heo nạc băm hấp chín, không dầu",
+      "missing": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "INMU971 minced boiled pork has14.8g fat, not lean steamed mince; dry pan-broiled96%lean USDA168375 is not steamed.",
+      "evidence_needed": "Define fat proportion and steam yield/drained losses, or exact cooked lean-mince source."
+    },
+    {
+      "food_ref": "F025",
+      "name": "Tôm thẻ luộc chín, bóc vỏ",
+      "missing": [
+        "carbs_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "USDA175180 cooked shrimp omits fiber, so available carbs cannot be total-minus-missing. INMU1044 is Penaeus monodon (giant tiger), not whiteleg; source171971 may contain moisture additives.",
+      "evidence_needed": "Whiteleg cooked peeled same-record dietary fiber/carbohydrate definition; no borrowing a zero from another species/record."
+    },
+    {
+      "food_ref": "F026",
+      "name": "Thịt/riêu cua đồng nấu chín, lọc sạch vỏ",
+      "missing": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "Whole raw freshwater crab, sea crab and filtered cooked crab curd are different edible fractions; no defensible conversion/yield found in reviewed sources.",
+      "evidence_needed": "Named freshwater species, filtering/extraction process, shell discard, curd/final edible mass and nutrients or quantified recipe."
+    },
+    {
+      "food_ref": "F044",
+      "name": "Sả tươi băm, phần lõi ăn được",
+      "missing": [
+        "carbs_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "USDA168573 lacks fiber; INMU237 correctly identifies Cymbopogon citratus but also lacks dietary fiber and available carbs. NIN energy1kcal inconsistent and not used.",
+      "evidence_needed": "Compatible raw edible-core source with actual total dietary fiber; no4/4/9 reconstruction or missing-to-zero."
+    },
+    {
+      "food_ref": "F055",
+      "name": "Bạc hà/dọc mùng, phần thân đã tước vỏ",
+      "missing": [
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "NIN raw peeled giant-taro stem supplies partial macros, but carbohydrate/fiber definition remains unclear and fat absent. No compatible cooked/leaf replacement accepted.",
+      "evidence_needed": "Exact Colocasia/Leucocasia edible stem identity with raw peeled100g basis and dietary-fiber definition."
+    },
+    {
+      "food_ref": "F057",
+      "name": "Rau ngổ sống",
+      "missing": [
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "NIN rice-paddy herb partial record lacks fat/usable carbs/fiber. No reviewed exact raw Limnophila aromatica complete record.",
+      "evidence_needed": "Raw edible herb record with assay-defined fiber/available carbohydrate, not dry extract/herbal pharmacology data."
+    },
+    {
+      "food_ref": "F058",
+      "name": "Ngò gai sống",
+      "missing": [
+        "carbs_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "INMU499 identifies Eryngium foetidum and supplies41kcal/protein/fat but leaves carbs/fiber blank. NIN parsley identity is not used.",
+      "evidence_needed": "Culantro raw same-state available carbs/dietary fiber. Do not fill by parsley or derive available carbs without fiber."
+    },
+    {
+      "food_ref": "F074",
+      "name": "Nước dùng heo thành phẩm, không nêm",
+      "missing": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "MEXT17025 is mixed chicken/pork/vegetable stock, not unsalted pork stock. USDA beef/chicken stock concentration is not transferable.",
+      "evidence_needed": "Quantified pork-only stock recipe, fat-removal/dilution, final consumed yield or specific product label."
+    },
+    {
+      "food_ref": "F077",
+      "name": "Dầu điều màu thành phẩm",
+      "missing": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "Filtered annatto oil composition depends on carrier oil, seed infusion/filtering and retained solids; no quantified matching formulation/label reviewed.",
+      "evidence_needed": "Carrier oil type, input/filtered output mass, retained solids or identified complete product label."
+    },
+    {
+      "food_ref": "F080",
+      "name": "Hành phi thành phẩm",
+      "missing": [
+        "calories_per_100g",
+        "protein_per_100g",
+        "carbs_per_100g",
+        "fat_per_100g",
+        "fiber_per_100g"
+      ],
+      "reviewed_rejection_or_gap": "No matching fried-shallot complete source. Raw shallot is not fried shallot; breaded fried onion differs. Oil absorption and dehydration dominate values.",
+      "evidence_needed": "Identified fried-shallot label or measured raw shallot/oil/edible final yield with defined absorbed oil."
+    }
+  ],
+  "additional_lookup_failure": {
+    "provider": "INMU public autocomplete",
+    "term": "vannamei",
+    "http_status": 503,
+    "retried_or_bypassed": false
+  },
+  "source_manifest": "source-retrieval-manifest.json",
+  "unapproved_complete_proxies": [
+    "F024",
+    "F032",
+    "F075",
+    "F076",
+    "F082"
+  ]
+}

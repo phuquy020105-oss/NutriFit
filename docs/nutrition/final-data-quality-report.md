@@ -1,96 +1,82 @@
-# Báo cáo Food Data Quality — PARTIAL
+# Food Data Quality continuation — PARTIAL
 
-Mốc kiểm chứng: 2026-10-19, checkout `D:/Web/NutriFit-Integration`, nhánh `deploy/render-aiven-brevo`.
+Tiếp nối checkpoint `f04b2da`, ngày2026-10-19, checkout `D:/Web/NutriFit-Integration`, nhánh `deploy/render-aiven-brevo`. Các số111JUnit/59Food/9recipe/0ảnh mới của checkpoint là kết quả cũ; báo cáo này tách phần thực sự bổ sung. Chủ dự án vẫn giữ lệnh **không ghi production Aiven**.
 
-**Quyết định của chủ dự án: chưa có nhãn/công thức chuẩn cho các thành phẩm còn thiếu; giữ staging, không ghi Aiven.** Không biến kết quả benchmark tốt thành phê duyệt dữ liệu. Các giai đoạn dưới đây đều PARTIAL; kỹ thuật thử nghiệm local và các kiểm tra đã chạy PASS trong phạm vi nêu rõ.
+## A. Nutrient evidence — PARTIAL
 
-## Giai đoạn 1 — PARTIAL: truy xuất nguồn, chưa xác minh toàn bộ
+- Bổ sung thực sự **51/98 giá trị MISSING** trên12 Food so với checkpoint; còn **47 MISSING trong12 Food**. Food đủ năm giá trị nguồn/quy đổi tăng59→**70/82**.
+- 410facts hiện gồm **MATCHED209 / CALCULATED135 / ESTIMATED19 / MISSING47 / VERIFIED0**. Không hạ tiêu chuẩn VERIFIED, không biến missing/Tr thành0. Số Food VERIFIED toàn bộ vẫn0.
+- Tái sử dụng cache USDA/MEXT/NIN cũ đã kiểm SHA, không tải lại. Thêm19 trang INMU Thai FCD chính thức có URL/SHA/identity/scientific-name/100g edible và từng derivation/sample/update/footnote. Cache hiện59 file nguồn được pin; parser không chạy JavaScript của nguồn.
+- INMU carbohydrate khả dụng được dùng trực tiếp, không trừ fiber lần nữa. Fiber0 do nguồn ghi assumed-zero giữ ESTIMATED. Proxy chả lụa/mắm có LOW confidence, không phải nhãn sản phẩm Việt đã duyệt.
+- USDA168374 bổ sung F082 heo xay cooked pan-broiled84%lean/16%fat như proxy cùng loại/cùng trạng thái, ghi rõ khác tỷ lệ mỡ/cách nướng; không gọi là công thức bún chả đã xác minh.
+- Không lấy giá trị nhãn từ trang tổng hợp. Trang VISSAN Giò Lụa chỉ cung cấp thành phần, chưa đủ năm nutrient để dùng làm nhãn. Tra cứu thêm vannamei trên INMU trả503, không bypass/lặp liên tục.
 
-- Đã lập hồ sơ đủ82 Food và410 nutrient.59 Food có đủ năm giá trị nguồn/quy đổi;23 chưa đủ. Không có Food VERIFIED toàn bộ.
-- Trạng thái410 nutrient: MATCHED175, CALCULATED120, ESTIMATED17, MISSING98, VERIFIED0.312 giá trị có dữ liệu nguồn/quy đổi, trong đó17 vẫn do nguồn ước tính; không gọi295 giá trị MATCHED/CALCULATED là đo kiểm trực tiếp.
-- Nguồn chính: USDA SR Legacy04/2018 chính thức (7.793 Food/644.125 nutrient rows); MEXT English2015 cập nhật2017-12-27 (2.191 Food); tra cứu NIN công khai100g phần ăn được và38 truy vấn có checksum. FAO hỗ trợ phương pháp carbohydrate/yield/retention. Hai workbook SMILING trả403, không được coi là đã đọc.
-- Giữ nguyên source row/cell IDs, raw text, đơn vị, nguyên liệu sống/chín, phần ăn được, ngày và SHA. Carbs khả dụng được tính rõ total carbohydrate trừ fiber cùng record, không ghép nguồn hoặc tự sửa calories bằng4/4/9. Null/Tr/estimated zero không bị biến thành số0 đã xác minh.
-- Chả lụa, mắm ruốc/mắm tôm, hành phi, nước dùng và riêu cua còn cần nhãn/công thức định danh. Khác biệt cut/loài, nước, chất xơ và cooking vẫn được ghi; không âm thầm thay bằng thực phẩm khác.
+[Hồ sơ đủ82 Food](food-data-verification.md), [delta từng giá trị](../../database/staging/food-quality-v1/missing-resolution.json), [lý do cụ thể còn thiếu](remaining-food-evidence.md).
 
-Chi tiết đủ82 Food và từng nutrient: [food-data-verification.md](food-data-verification.md), [provenance](../../database/staging/food-quality-v1/food-provenance.json).
+## B. Công thức/khẩu phần — PARTIAL
 
-## Giai đoạn 2 — PARTIAL: audit30, chưa duyệt sửa công thức
+- 30 món cũ/383links đã được audit ở checkpoint. Lần này số công thức đủ nguồn để tính so sánh tăng **9→18/30**, bằng NutritionCalculator hiện hành;12 còn lại giữ kết quả nguồn null. Bảng trước/sau năm nutrient và delta có trong [recipe-quality-audit.md](recipe-quality-audit.md), không lấy số cũ để che missing.
+- Không sửa recipe ID/tên/meal_type/base_servings,383 gram cũ, schema, canonical JSON/SQL, Onboarding/BMR/TDEE hoặc lịch sử mealentries. Source cut/moisture/broth/oil khác nhau chưa tự động được chấp thuận chỉ vì numeric đầy đủ.
+- Đọc lại đủ30 thiết kế R031–R060; không tự giảm gram để làm benchmark đẹp. Mỗi món có bảng trạng thái nguyên liệu, khối lượng ăn được, nước kê riêng, target khối lượng phục vụ, cách giữ sốt/dầu, phương pháp dinh dưỡng và bất định. Target là giả định thiết kế, không phải cân thực tế; measured final mass/yield/evaporation vẫn null khi chưa đo.
+- R047/R053 đều có200g nước canh kê riêng và cơm ăn kèm: không coi tổng>800g là sai. **24/30** qua review phương pháp ở STAGING với giả định minh bạch; sáu suất đặc lớn R044/R048/R050/R054/R057/R060 vẫn cần review đĩa ăn thực tế. Không bắt buộc mỗi món phải được đo trong phòng thí nghiệm; chưa được dùng review phương pháp thay thế qualification toàn món.
+- **0 món mới được phê duyệt ghi production**; không import24 món riêng để đạt gần60. Xem [review khối lượng](../../database/staging/food-quality-v1/recipe-portion-review.json) và [catalog staging](catalog-expansion-staging.md).
 
-- Đã kiểm tra30 recipes/383 liên kết và tính baseline bằng NutritionCalculator hiện hành, BigDecimal, đúng1.00 suất.9 công thức đủ nguồn để tính so sánh: R003/R012/R017/R018/R019/R024/R025/R027/R030;21 công thức còn thiếu được ghi null.
-- Không sửa tên/loại bữa/base_servings/383 định lượng, canonical nutrient, seed SQL hoặc snapshot lịch sử. Không có công thức nào được chứng nhận toàn bộ yield/retention/dầu hấp thu bằng phép cân thực tế.
-- Bảng trước/sau đủ năm chỉ số và delta của từng recipe có trong [recipe-quality-audit.md](recipe-quality-audit.md) và JSON audit. Không dùng số nguồn thiếu hoặc giá trị cũ để giả lập kết quả sau đã xác minh.
-- B thăm dò thay59 Food đủ số nguồn;55 Food thực sự khác baseline,4 tương đương.23 Food chưa đủ vẫn là ước tính cũ, được đánh dấu rõ. B không phải catalog đã VERIFIED.
+## C. Ảnh mới — SUCCESS ở staging, chưa phát hành runtime
 
-## Giai đoạn 3 — PARTIAL: đủ thiết kế staging, chưa đủ điều kiện production
+- **30/30** ảnh minh họa riêng tạo bằng built-in image_gen, một call/prompt mỗi món. WebP800×450,30hash khác nhau, tổng **2.124.668bytes**, giải mã và kiểm trực quan toàn bộ. Giữ nguyên30 ảnh cũ.
+- Có mã R031–R060 ổn định, tên file/alt, prompt đầy đủ, source artifact hash, hồ sơ quyền tạo, ngày và disclosure **ảnh minh họa AI, không phải ảnh chụp suất đã cân đo**. Ảnh không chứng minh định lượng/clinical quality.
+- Đã xem năm contact sheets; R054 được xem đầy đủ lại để xác nhận bông cải ở phía phải, không cần thay ảnh. Không có ảnh Google/watermark/ảnh món khác dùng cho đủ số lượng.
+- Lưu tại `database/staging/food-quality-v1/images/`, tách khỏi Docker/WAR khi món chưa qualification. Catalog image_url mới vẫn null, fallback giữ nguyên; không tự kích hoạt ảnh mới trên Aiven. Đây là lựa chọn staging có chủ đích thay vì cho asset chưa phát hành vào src/main.
 
-- Đã có đúng30 thiết kế R031–R060 (10 sáng/10 trưa/10 tối), mỗi món1.00 suất,18 Food mới có nguồn và224 liên kết mới. Catalog C thăm dò có100 Food/60 recipes/607 liên kết,20 món mỗi bữa.
-- Số món mới được duyệt production: **0**. Các món là thiết kế khẩu phần của NutriFit, chưa phải công thức được cân/kiểm nghiệm.8 món có khối lượng nguyên liệu kê trên800g cần review: R044/R047/R048/R050/R053/R054/R057/R060. Khối lượng kê khác khối lượng món sau nấu.
-- Số ảnh mới đã hoàn thành: **0/30**. Có fallback trung thực; không dùng ảnh sai món. Giữ nguyên toàn bộ ảnh/mapping cũ30 món. Ảnh mới chờ công thức/khẩu phần ổn định và kiểm tra quyền sử dụng.
-- C không được đưa vào seed chính hoặc WAR/Docker runtime. Không có60 recipes mới được ghi Aiven.
+[Toàn bộ prompts/quyền/hash/mapping](../../database/staging/food-quality-v1/image-generation-jobs.json).
 
-Danh sách món, số liệu và hạn chế: [catalog-expansion-staging.md](catalog-expansion-staging.md).
+## D. Qualification/benchmark/migration — PARTIAL
 
-## Giai đoạn 4 — PARTIAL: benchmark và thử cơ chế local PASS, production giữ nguyên
+Catalog A production baseline vẫn82Food/30recipes/383links. B thăm dò70Food đủ số nguồn +12 Food baseline ước tính còn thiếu; C thăm dò có **100Food/60recipes/607links,20món mỗi bữa**. **Qualified B/C chưa được tạo** vì gates chưa đạt. Không đổi nhãn thăm dò thành qualified.
 
-Mỗi dataset432 trường hợp:6 hồ sơ người lớn,3 mức hoạt động,3 mục tiêu,4 trạng thái gói/sở thích,2 trạng thái nhật ký. Target lấy từ OnboardingService nguyên bản qua capture DAO trong test, không sao chép BMR/TDEE. A/B/C dùng cùng thuật toán và cùng snapshot lịch sử. A trước guard lưu riêng.
+Cùng432 tình huống, cùng target từ OnboardingService nguyên bản, cùng chính sách gói/sở thích, lịch sử A và thuật toán cho A_guarded/B/C. Không đổi scorer lần này. A_before là kết quả thực tế cũ, không giả lập lại bằng code mới.
 
-| Chỉ số trung bình | A trước guard | A sau guard | B thăm dò | C thăm dò |
-|---|---:|---:|---:|---:|
-| Kcal | 1628.890 | 1636.264 | 1679.495 | 2077.562 |
-| Sai lệch tuyệt đối kcal | 605.949 | 598.575 | 556.847 | 161.362 |
-| Protein g | 94.260 | 93.714 | 94.895 | 125.508 |
-| Carbs g | 190.347 | 190.578 | 191.701 | 247.144 |
-| Fat g | 51.044 | 52.005 | 54.686 | 52.716 |
-| Fiber g | 11.882 | 11.754 | 12.365 | 35.961 |
-| Có tổ hợp trong10% target | 200/432 | 200/432 | 229/432 | 344/432 |
-| Chọn lệch trên20% dù có tổ hợp trong10% | 5 | 0 | 0 | 0 |
+| Dataset | Mean kcal error | Feasible trong10% | Lệch>20% dù feasible |
+|---|---:|---:|---:|
+| A trước guard, checkpoint cũ | 605.949 | 200/432 | 5 |
+| A guarded, chạy lại | 598.575 | 200/432 | 0 |
+| B70 nguồn thăm dò | 468.238 | 236/432 | 0 |
+| C60 thiết kế thăm dò | 167.395 | 336/432 | 0 |
 
-Thay đổi runtime tối thiểu: nếu có tổ hợp đủ điều kiện trong10% mục tiêu, lựa chọn và gợi ý lại nằm trong15%, dùng nguyên trọng số/LIKE/DISLIKE. Nếu không có thì giữ fallback/cảnh báo. Không đổi servings, calories mục tiêu, Auth/Premium/CSRF hoặc lưu transaction. Fiber A giảm nhẹ sau guard; không tuyên bố mọi chỉ số đều cải thiện. C còn88/432 trường hợp không có tổ hợp trong10%; phần cải thiện chưa chứng minh được với khẩu phần thực tế.
+C cũ ở checkpoint khoảng161.362kcal error, lần này167.395: **không cải thiện so với C cũ**, dù vẫn thấp hơn A/B. Còn96/432 trường hợp không có tổ hợp trong10% target. Không ép servings hay target để tạo thành tích. [Bảng đầy đủ](data-quality-benchmark.md) có mean/median/P90 calorie/relative error, năm nutrient, tỷ lệ macro, fiber gap, số thiếu món, diversity và runtime; CSV/summary có checksum, tổng hợp lại được bằng summarize_benchmarks.py. Benchmark không chứng minh đúng nutrient/khẩu phần thực tế.
 
-[Benchmark đầy đủ](data-quality-benchmark.md) có median/P90, tỷ lệ macro, fiber gap, diversity, runtime và CSV từng trường hợp.
+### Local — SUCCESS cho cơ chế test
 
-### MySQL local — PASS cơ chế, không phải phê duyệt dinh dưỡng
+- SELECT-only xác minh database staging hiện có trước ghi. Không tạo/xóa/rebuild/seed lại database; giữ sáu bảng test, không giả định nó là clone24 bảng. Driver báo version26.7.0, không tự nhận8.4.
+- Hai delta có version/hash đã cập nhật **10 rồi1 Food**, **0 Food/Recipe/Ingredient mới**. Các report và snapshot từng bước được giữ riêng để tái lập. Không ghi local nutrifitdb_java.
+- Injected failure trước COMMIT chứng minh rollback; re-run mỗi delta0writes; conflict bị từ chối/rollback; users/mealplans/mealentries fixture hash không đổi, snapshot1.32 suất cũ giữ nguyên.
+- 30 image URLs thử theo checked generated-ID/name mapping, đọc bằng JdbcRecipeReadAdapter rồi rollback toàn bộ. URL mới active cuối cùng0; không biến staging asset thành production URL.
+- NutritionCalculator/JDBC/FK/metadata/counts đều khớp C cuối. Đây là integration với MySQL local thật, không phải production E2E. LocalQualityDelta chỉ cho đúng target test, LOCAL config trong JDBC memory, từ chối trạng thái lạ và không có CREATE/DROP/seed.
 
-Đã tạo duy nhất database test riêng `nutrifit_fq_20261019_food_quality_test`, sáu bảng dẫn xuất từ schema, không phải clone24 bảng. Client báo phiên bản MySQL `26.7.0`; ghi đúng kết quả thực tế, không tự nhận8.4. Database local chính không bị sửa.
+### Aiven — SELECT-only, chưa triển khai dữ liệu
 
-- C được áp dụng trong transaction: thêm18 Food/30 Recipe/224 liên kết, cập nhật55 Food ở database test.
-- Cố ý lỗi sau99 lần ghi: rollback khôi phục hash toàn bộ catalog và lịch sử; AUTO_INCREMENT có thể có khoảng trống.
-- Chạy thành công; lần hai0 insert/0 update, hash không đổi. Conflict bị từ chối và rollback; snapshot1.32 suất cũ giữ nguyên.
-- Có100/60/607, khóa ngoại hợp lệ, active đúng, adapter đọc60 và tính bằng NutritionCalculator khớp JSON. Lần SELECT-only cuối khớp SHA hiện tại của C và metadata.
-- Tool chỉ dùng LOCAL_DB_* và loopback3306, tên DB bắt buộc prefix/suffix test; từ chối ghi database có sẵn. Không DROP/cleanup. Schema DDL auto-commit được nêu rõ; rollback được kiểm tra cho migration DML.
-- Database test được giữ để kiểm tra, có một fixture tài khoản vô hiệu hóa đăng nhập; không phải tài khoản hay session production.
+Lần kiểm tra mới trong continuation: **24tables /82Food /30Recipe /383links /30imageURLs**, TLSv1.3 với **VERIFY_IDENTITY**, CA pin và hostname verification. Tất cả hàng catalog khớp snapshot riêng đã sao lưu;0persistent writes. Không đọc/ghi tài khoản hoặc giao dịch để test.
 
-Bằng chứng: [local-trial-result.json](../../database/staging/food-quality-v1/local-trial-result.json), [SELECT-only](../../database/staging/food-quality-v1/local-trial-readonly.json).
+Backup catalog JSON/DDL/SQL ngoài Git vẫn tồn tại, hash và JSON đối chiếu lại PASS. **Không có full-database backup mới hoặc restore rehearsal**; không gọi SHA hợp lệ là đã phục hồi thử. [Read-only evidence](../../database/staging/food-quality-v1/aiven-readonly-current.json).
 
-### Aiven và triển khai
+### Bộ bàn giao và trạng thái
 
-Trong task chỉ đọc Aiven: lần audit xác nhận24 bảng,82 Food/30 Recipe/383 liên kết,30 image URLs, TLSv1.3 VERIFY_IDENTITY;410 giá trị và383 liên kết khớp canonical. Đây là snapshot tại thời điểm audit, không phải khẳng định database không thể thay đổi về sau. Không ghi Aiven hoặc sửa users/subscription/history. Backup catalog/DDL/SQL có SHA và roundtrip ở ngoài Git; chưa diễn tập restore và không gọi đây là backup đầy đủ database.
+[production-readiness.md](production-readiness.md) mô tả gates, backup/recovery, thứ tự assets→data, pre/post/conflict checks. `release/` có version/source checksum, A baseline, diff/plan dự kiến **UPDATE66Food + INSERT18Food/30Recipe/224links** khi đủ điều kiện; đây là plan chưa được phép thực thi, không phải import đã chạy. Không phát hành SQL production cho bộ dữ liệu chưa qualified. `prepare_release.py --production` bị từ chối trước khi sửa output khi còn gate thiếu; có regression test cho điều này.
 
-Theo quyết định chủ dự án, chưa áp dụng dữ liệu mới production. Còn thiếu phê duyệt nguồn/thành phẩm, cân khẩu phần, ảnh mới, production manifest/migrator được duyệt, backup/recovery rehearsal và kiểm tra lại trạng thái ngay trước mọi thao tác. Không chạy cloud migration để đạt số lượng60.
+**STAGING_READY:** cơ chế nội bộ PASS. **PRODUCTION_READY:** FALSE. **DEPLOYED dữ liệu mới:** FALSE. Quyền ghi Aiven hiện **chưa có**; lệnh giữ staging vẫn còn hiệu lực. Chưa xin go-live vì dữ liệu chưa đủ điều kiện.
 
-Đã push code guard lên đúng nhánh; staging/tools/docs bị loại khỏi Docker theo allowlist hiện hành. Sau push: health HTTP200/status ok; Nutrition không đăng nhập HTTP302 tới /nutrifit/login; ảnh banh-mi-trung.webp HTTP200 và SHA khớp local. Các kết nối HTTPS xác minh chứng chỉ thành công. Đây không phải authenticated E2E và không chứng minh commit mới đã chạy. Không có quyền dashboard/API Render được xác minh. GitHub commit status chỉ có Vercel failure, không có Render status; không sửa Vercel ngoài phạm vi. **Render deployment commit mới: UNVERIFIED.**
+## Engineering và triển khai
 
-## Engineering — các kiểm tra đã PASS
+- Final JDK21.0.12/Maven3.9.16 `clean package`: **114 JUnit PASS,0failure/error/skipped,32.595s**, kết thúc2026-10-19T22:28:23+07. Bao gồm NutritionCalculator/RealCatalogBenchmark/cohort/Free-Premium-expired/preferences/save transaction/CSRF/Auth boundary/history/image tests hiện có và nguồn/revision tests mới.
+- **32 Python PASS,0skip** với USDA/MEXT/THAI_SOURCE_CACHE cấu hình thật; test âm nguồn/đơn vị/negative/raw-cooked/duplicate/grams/missing và production-hold, giải mã30 ảnh. Validator70nguồn/100-60-607 và59cachefile PASS; canonical seed validator82/30/383 PASS.
+- Tomcat10.1.61/JDK21 JspC **0errors**,14JavaScriptfixturechecks PASS bằng Chrome headless. PowerShell gọi GUI Chrome trả sớm trong lần đầu; chạy subprocess chờ kết thúc mới kiểm DOM và PASS, không coi file trống là app regression.
+- Một focused run ban đầu FAIL assertion cũ F018-phải-missing. Đã cập nhật đúng bằng chứng INMU974 boiled-belly, thêm regression cụ thể; không xóa coverage. Guard SHA của local tool cũ cũng đã dừng trước kết nối khi provenance đổi; dùng delta snapshot/version rõ ràng, không bypass guard.
+- Runtime chỉ thêm revision đã kiểm40hex từ RENDER_GIT_COMMIT vào HealthServlet và no-store; giá trị sai/missing trả unknown, không dump env. [Render documented variable](https://render.com/docs/environment-variables). Không đổi thuật toán, Auth/Payment/Workout/Chatbot hay database schema. Hai regression tests revision PASS.
+- Code/staging sẽ commit theo nhóm logic và push đúng origin/deploy/render-aiven-brevo sau static/secrets review; SHA, remote và deployment sau push được ghi ở checkpoint/bàn giao cuối. Báo cáo tại mốc lập này không tự nhận Render đã chạy revision mới. Health200 đơn thuần không đủ; cần quan sát SHA mới, không thay secrets/config cloud.
+- Không chạy Docker build hay authenticated production E2E trong continuation. Ảnh mới không nằm trong WAR, không sửa Dockerfile/pom/schema/seed. git diff --check/secrets/scope được kiểm trước commit.
 
-- JDK21.0.12 + Maven3.9.16: `mvn -DargLine=-Xmx768m clean package`, **111 JUnit,0 failure/error/skipped, BUILD SUCCESS**,36.322s, kết thúc2026-10-19T21:07:25+07. Bao gồm RealCatalogBenchmarkTest, recommendation/save/CSRF/history và asset tests hiện có,5 audit tests và4 cohort tests mới. Test trong Maven không ghi MySQL production.
-- Python: **20 PASS**, gồm6 test dùng archive chính thức khi USDA_SOURCE_ARCHIVE/MEXT_SOURCE_ARCHIVE được cấu hình;0 skipped trong lần thực tế. Nếu thiếu archive, test ghi SKIP, không được tính là đã kiểm archive.
-- Cache nguồn:40 file khớp manifest/SHA, kiểm offline.
-- Validator baseline: PASS82/30/383. Chỉ sửa checksum review-document đã đổi prose Free/Premium trong commit501e0fa; các guard dữ liệu/SQL/grams vẫn giữ.
-- Tomcat10.1.61/JDK21 JspC: compile0 lỗi sau khi cung cấp đủ tomcat-juli/Ant classpath.
-- Chrome headless UI fixture: **14 JavaScript checks PASS**. Đây không phải authenticated E2E hoặc load test.
-- Local trial và ba kiểm tra từ chối target/host/database có sẵn PASS; javac tool standalone PASS. Không chạy Docker build trong task này.
-- git diff --check và kiểm phạm vi/secrets/artifact PASS trước commit; LF/CRLF chỉ là cảnh báo Git.
+## Kết luận
 
-### Phạm vi file và khả năng tái lập
+**A PARTIAL; B PARTIAL; C SUCCESS ở staging; D PARTIAL; toàn nhiệm vụ PARTIAL.** Đã bổ sung có nguồn, có review và kiểm thử đáng kể, không chỉ đếm đủ60. Phần còn thiếu cụ thể:47 nutrient/12Food theo remaining-food-evidence.md; proxy sản phẩm/nồng độ/giống/tỷ lệ mỡ; sáu suất đặc lớn; signoff cooking của món cũ; final qualified B/C/production SQL; full backup/restore rehearsal và xác nhận manifest go-live. Giữ production nguyên trạng cho tới khi các điều kiện này được đáp ứng.
 
-Runtime chỉ sửa `MealRecommendationService.java`. Test sửa RealCatalog loader và thêm FoodDataQualityAuditTest/FoodQualityCohortBenchmarkTest. Thêm các extractor/provenance/reports/local-trial tools trong `database/tools/food_quality`, staging JSON/CSV/evidence và các báo cáo `docs/nutrition`. Validator chỉ đổi checksum tài liệu; .gitignore thêm Python bytecode.
-
-Không sửa schema/pom/canonical catalog/ba seed SQL, NutritionCalculator/OnboardingService, Auth/Payment/Workout/Chatbot, historical snapshots, secrets hoặc30 ảnh cũ.
-
-Cách chạy lại nguồn/audit/test/local trial: [README công cụ](../../database/tools/food_quality/README.md). Cache công khai có hash tại `D:/NutriFit-data-sources/20261019`; không phụ thuộc target tồn tại. Cấu hình và backup riêng tư không được commit.
-
-Commit dữ liệu staging riêng: `0dd67b937b8c652cd3cfe292ee2b54ed151dbb0c`. Commit code/docs/tests: `55fde6519e00e29d2a4cbeeed5a30cc1099cf48b`. Cả hai đã push thành công lên origin/deploy/render-aiven-brevo; git ls-remote xác nhận đúng SHA55fde65, working tree sạch tại mốc đó. Bản cập nhật bàn giao tài liệu này được commit sau các kiểm tra remote/HTTP; SHA cuối cùng của nó được ghi trong phản hồi bàn giao và checkpoint riêng ngoài Git. Không force push.
-
-## Kết luận và bước tiếp theo
-
-**Toàn nhiệm vụ PARTIAL.** Engineering kiểm thử và local trial cơ chế PASS; bốn giai đoạn dữ liệu chưa đủ điều kiện SUCCESS. Không cần chạy lại import Aiven trong trạng thái hiện tại. Tiếp tục từ [checkpoint](data-quality-progress.md): thu thập nhãn/công thức thành phẩm, giải quyết98 nutrient thiếu, review8 khẩu phần lớn, cân/yield/retention và30 ảnh hợp lệ; sau đó mới benchmark qualified B/C và xem xét phê duyệt production riêng.
+Line-ending reproducibility: .gitattributes pins staging/tools LF and WebP binary, preserves the legacy canonical JSON CRLF checksum419fa5e4...; scorer source stays LF. Git checkout filters were verified to reproduce the exact current baseline/service bytes without modifying seed/schema.

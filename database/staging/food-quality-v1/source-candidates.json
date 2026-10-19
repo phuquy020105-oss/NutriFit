@@ -9024,7 +9024,139 @@
       "state": "CHÍN",
       "review_status": "CANDIDATE_REVIEW_IN_PROGRESS",
       "production_change_approved": false,
-      "candidates": []
+      "candidates": [
+        {
+          "source": "USDA SR Legacy04/2018",
+          "fdc_id": "168374",
+          "source_description": "Pork, ground, 84% lean / 16% fat, cooked, pan-broiled",
+          "source_url": "https://fdc.nal.usda.gov/food-details/168374/nutrients",
+          "matching_status": "MATCHED",
+          "differences": "Unseasoned ground pork patty, cooked pan-broiled (dry heat),84%lean/16%fat raw formulation. Grilled Vietnamese patties may use different fat/draining/charcoal loss; this is an explicit LOW-confidence category/process proxy, not an identified bun-cha formulation or production signoff.",
+          "missing_nutrients": [],
+          "evidence": {
+            "fat_per_100g": {
+              "value": "21.39",
+              "unit": "G",
+              "basis": "100 g edible portion",
+              "source_nutrient_row_id": "1355298",
+              "nutrient_id": "1004",
+              "source_nutrient_name": "Total lipid (fat)",
+              "data_points": "16",
+              "derivation": {
+                "id": "3",
+                "code": "AR",
+                "description": "Analytical data; derived by linear regression",
+                "source_id": "1"
+              },
+              "source": {
+                "id": "1",
+                "code": "1",
+                "description": "Analytical or derived from analytical"
+              },
+              "footnote": null,
+              "min": null,
+              "max": null,
+              "median": null
+            },
+            "carbs_per_100g": {
+              "value": "0",
+              "unit": "G",
+              "basis": "100 g edible portion",
+              "source_nutrient_row_id": "1355299",
+              "nutrient_id": "1005",
+              "source_nutrient_name": "Carbohydrate, by difference",
+              "data_points": "0",
+              "derivation": {
+                "id": "49",
+                "code": "NC",
+                "description": "Calculated",
+                "source_id": "2"
+              },
+              "source": {
+                "id": "2",
+                "code": "4",
+                "description": "Calculated or imputed"
+              },
+              "footnote": null,
+              "min": null,
+              "max": null,
+              "median": null
+            },
+            "calories_per_100g": {
+              "value": "301",
+              "unit": "KCAL",
+              "basis": "100 g edible portion",
+              "source_nutrient_row_id": "1355300",
+              "nutrient_id": "1008",
+              "source_nutrient_name": "Energy",
+              "data_points": "0",
+              "derivation": {
+                "id": "49",
+                "code": "NC",
+                "description": "Calculated",
+                "source_id": "2"
+              },
+              "source": {
+                "id": "2",
+                "code": "4",
+                "description": "Calculated or imputed"
+              },
+              "footnote": null,
+              "min": null,
+              "max": null,
+              "median": null
+            },
+            "protein_per_100g": {
+              "value": "27.14",
+              "unit": "G",
+              "basis": "100 g edible portion",
+              "source_nutrient_row_id": "1355319",
+              "nutrient_id": "1003",
+              "source_nutrient_name": "Protein",
+              "data_points": "16",
+              "derivation": {
+                "id": "3",
+                "code": "AR",
+                "description": "Analytical data; derived by linear regression",
+                "source_id": "1"
+              },
+              "source": {
+                "id": "1",
+                "code": "1",
+                "description": "Analytical or derived from analytical"
+              },
+              "footnote": null,
+              "min": null,
+              "max": null,
+              "median": null
+            },
+            "fiber_per_100g": {
+              "value": "0",
+              "unit": "G",
+              "basis": "100 g edible portion",
+              "source_nutrient_row_id": "1355323",
+              "nutrient_id": "1079",
+              "source_nutrient_name": "Fiber, total dietary",
+              "data_points": "0",
+              "derivation": {
+                "id": "68",
+                "code": "Z",
+                "description": "Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)",
+                "source_id": "5"
+              },
+              "source": {
+                "id": "5",
+                "code": "7",
+                "description": "Assumed zero"
+              },
+              "footnote": null,
+              "min": null,
+              "max": null,
+              "median": null
+            }
+          }
+        }
+      ]
     }
   ]
 }

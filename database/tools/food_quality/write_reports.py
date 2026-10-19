@@ -29,8 +29,15 @@ def main():
             and trial.get("database") == verified.get("database")
             and verified.get("catalog_sha256") == hashlib.sha256(catalog_path.read_bytes()).hexdigest()
         )
+    delta_path = STAGING / "local-delta-result.json"
+    if delta_path.is_file() and catalog_path.is_file():
+        delta = json.loads(delta_path.read_text(encoding="utf-8"))
+        trial_matches = trial_matches or (delta.get("status") == "PASS_EXISTING_LOCAL_STAGING_DELTA"
+            and delta.get("after_sha256") == hashlib.sha256(catalog_path.read_bytes()).hexdigest()
+            and delta.get("history_unchanged") is True and delta.get("conflict_rejected") is True
+            and delta.get("second_run_writes") == 0)
     trial_note = (
-        "Local trial cơ chế đã PASS; bản SELECT-only khớp SHA catalog C hiện tại: rollback, idempotency, conflict và history invariants. "
+        "Local trial/delta cơ chế đã PASS và khớp SHA catalog C hiện tại: rollback, idempotency, conflict và history invariants. "
         if trial_matches else
         "Chưa có bằng chứng local trial và SELECT-only khớp SHA catalog C hiện tại; phải chạy lại trên database test riêng trước khi kết luận. "
     )
@@ -43,6 +50,7 @@ def main():
         lines.append(f"| {status} | {s['statuses'].get(status,0)} |")
     lines += ["", "## Nguồn và chuẩn hóa", "",
         "- USDA SR Legacy04/2018: ZIP chính thức, SHA256 `b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0`; 7.793 Food, 644.125 nutrient rows. Ngày publication2019-04-01 khác ngày release. Có row ID, derivation và source gốc cho từng chỉ số; không gọi tất cả là kết quả phòng thí nghiệm.",
+        "- [INMU Thai FCD](https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name):19 bản ghi được pin URL/SHA;11 mapping INMU được chọn, cùng record100g ăn được. Carbohydrate available dùng trực tiếp, không trừ fiber lần nữa. Giữ derivation/update/n/footnote; assumed zero vẫn ESTIMATED. Proxy Mu-yo/Ka-pi/giống rô phi khác ghi LOW confidence, không phải công thức Việt đã duyệt. USDA168374 bổ sung proxy F082 heo xay pan-broiled84%lean; chưa duyệt công thức nướng cụ thể.",
         "- [NIN tra cứu công khai](https://viendinhduong.vn/vi/cong-cu-va-tien-ich/gia-tri-dinh-duong-thuc-pham): 100g phần ăn được; 38 truy vấn snapshot2026-10-19 có checksum. Release và phương pháp chất xơ/carbohydrate của live lookup chưa công bố rõ. Null/absent giữ thiếu; không biến cellulose thành tổng dietary fiber. Các bản ghi thay thế giữ trong JSON, không trộn macro của một record với fiber record khác.",
         "- [MEXT English2015](https://www.mext.go.jp/en/policy/science_technology/policy/title01/detail01/sdetail01/sdetail01/1385122.htm): 2.191 Food; workbook cập nhật2017-12-27, không phải edition2023. SHA256 `5c968f1801f706b2970d51599ab2dce6f9e09ff3901fcf1990922960761885fb`. Bốn matching:02028 bột năng;06207 hẹ lá;11133 heo luộc bỏ mỡ ngoài;17016 giấm gạo. Khác biệt giống/cut/nồng độ vẫn được ghi.",
         "- [MEXT phương pháp, tr.24–25](https://www.mext.go.jp/component/english/__icsFiles/afieldfile/2017/10/02/1385123_Standard-Table_Chap.1_Prov_1.pdf): giữ `(0)` là nguồn ước tính; `Tr` không phải0, dấu gạch là chưa có số đo. Loại bỏ đuôi nhị phân Excel theo độ chính xác công bố (macro/fiber1 chữ số, kcal số nguyên), đồng thời lưu nguyên văn ô nguồn.",
@@ -53,7 +61,7 @@ def main():
         "Các candidate bị loại vẫn được giữ trong source-candidates.json: tapioca pearl không phải bột năng; common chive không phải hẹ lá; cua biển không phải riêu cua đồng; ba chỉ sống không thay ba chỉ luộc; raw quail không thay trứng cút luộc. MEXT bổ sung được bột năng/hẹ nhưng không hợp thức hóa các candidate sai trước đó.", "",
         "## Những sai khác đáng chú ý", "",
         "- NIN sả có energy1kcal/100g nhưng macro không tương xứng: giữ nguyên bằng chứng và đánh dấu cần review, không tự sửa energy bằng4/4/9.",
-        "- NIN ngò gai có English parsley: chưa giải quyết được định danh, không thay ngò gai bằng parsley.",
+        "- NIN ngò gai có English parsley không được dùng. INMU499 xác nhận Eryngium foetidum nhưng vẫn thiếu carbs/fiber; không thay bằng parsley.",
         "- Mộc nhĩ khô USDA có fiber70.1g/100g, baseline25g; khác lớn và phương pháp/định nghĩa cần review trước migration. Không lấy fiber7g của NIN ghép macro USDA để tạo số mong muốn.",
         "- Nước dùng bò/gà nguồn generic không xác minh được nồng độ, lượng mỡ và cách lọc của nước dùng Việt. Kết quả so sánh không phải chứng nhận công thức.", "",
         "## Nguyên liệu ảnh hưởng nhiều nhất", "", "| Food | Tên | Số recipe |", "|---|---|---:|"]

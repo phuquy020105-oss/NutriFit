@@ -124,16 +124,17 @@
       "ref": "F008",
       "name": "Xôi nếp trắng đã hấp, không dầu",
       "state": "CHÍN",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Xôi nếp chín không dầu/đường; ngậm nước ít hơn cơm tẻ.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "170",
-        "protein_per_100g": "3.5",
-        "carbs_per_100g": "37",
-        "fat_per_100g": "0.5",
-        "fiber_per_100g": "0.8"
+        "calories_per_100g": "232",
+        "protein_per_100g": "4.54",
+        "carbs_per_100g": "52.91",
+        "fat_per_100g": "0.21",
+        "fiber_per_100g": "0.3"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
@@ -291,16 +292,17 @@
       "ref": "F018",
       "name": "Thịt ba chỉ heo luộc chín, giữ lớp mỡ ăn được",
       "state": "CHÍN",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Ba chỉ luộc còn mỡ; khoảng 51% fat, dao động lớn theo miếng; carb/fiber coi 0.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "500",
-        "protein_per_100g": "10",
-        "carbs_per_100g": "0",
-        "fat_per_100g": "51",
-        "fiber_per_100g": "0"
+        "calories_per_100g": "428",
+        "protein_per_100g": "21.10",
+        "carbs_per_100g": "0.00",
+        "fat_per_100g": "38.20",
+        "fiber_per_100g": "0.0"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
@@ -375,32 +377,34 @@
       "ref": "F023",
       "name": "Thịt cá lóc hấp chín, bỏ xương, không dầu/sốt",
       "state": "CHÍN",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Cá lóc hấp chỉ thịt không xương; thịt cá nạc không tẩm nên carb/fiber coi 0.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "100",
-        "protein_per_100g": "21",
-        "carbs_per_100g": "0",
-        "fat_per_100g": "2",
-        "fiber_per_100g": "0"
+        "calories_per_100g": "151",
+        "protein_per_100g": "20.69",
+        "carbs_per_100g": "0.77",
+        "fat_per_100g": "7.23",
+        "fiber_per_100g": "0.0"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
       "ref": "F024",
       "name": "Thịt cá rô phi hấp chín, bỏ xương, không dầu/sốt",
       "state": "CHÍN",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Cá rô phi hấp không xương; chiên hoàn thiện cộng dầu giữ lại riêng, carb/fiber coi 0.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "128",
-        "protein_per_100g": "26",
-        "carbs_per_100g": "0",
-        "fat_per_100g": "2.5",
-        "fiber_per_100g": "0"
+        "calories_per_100g": "172",
+        "protein_per_100g": "22.68",
+        "carbs_per_100g": "1.04",
+        "fat_per_100g": "8.59",
+        "fiber_per_100g": "0.0"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
@@ -490,16 +494,17 @@
       "ref": "F030",
       "name": "Trứng cút luộc chín, bỏ vỏ",
       "state": "CHÍN",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Trứng cút luộc bỏ vỏ; có lipid lòng đỏ, fiber 0.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "158",
-        "protein_per_100g": "13",
-        "carbs_per_100g": "0.5",
-        "fat_per_100g": "11",
-        "fiber_per_100g": "0"
+        "calories_per_100g": "150",
+        "protein_per_100g": "13.15",
+        "carbs_per_100g": "0.57",
+        "fat_per_100g": "10.52",
+        "fiber_per_100g": "0.0"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
@@ -523,16 +528,17 @@
       "ref": "F032",
       "name": "Chả lụa thành phẩm",
       "state": "CHẾ_BIẾN",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Chả lụa hỗn hợp heo nạc/mỡ/tinh bột; giả định 17% protein, 8% fat, 7% carb; không phải nhãn sản phẩm cụ thể.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "170",
-        "protein_per_100g": "17",
-        "carbs_per_100g": "7",
-        "fat_per_100g": "8",
-        "fiber_per_100g": "0.2"
+        "calories_per_100g": "293",
+        "protein_per_100g": "14.89",
+        "carbs_per_100g": "2.85",
+        "fat_per_100g": "24.66",
+        "fiber_per_100g": "0.0"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
@@ -692,16 +698,17 @@
       "ref": "F042",
       "name": "Rau răm sống",
       "state": "SỐNG",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Rau răm tươi; ước lượng rau gia vị lá tương tự, chưa có record khớp loài.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "30",
-        "protein_per_100g": "3",
-        "carbs_per_100g": "2.5",
-        "fat_per_100g": "0.5",
-        "fiber_per_100g": "3"
+        "calories_per_100g": "40",
+        "protein_per_100g": "3.47",
+        "carbs_per_100g": "0.97",
+        "fat_per_100g": "0.44",
+        "fiber_per_100g": "9.0"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
@@ -843,16 +850,17 @@
       "ref": "F051",
       "name": "Đu đủ xanh sống, bỏ vỏ/hạt",
       "state": "SỐNG",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Đu đủ xanh bỏ vỏ/hạt, ít đường hơn quả chín; ước lượng, chưa ngâm đường.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "35",
-        "protein_per_100g": "0.6",
-        "carbs_per_100g": "7",
-        "fat_per_100g": "0.1",
-        "fiber_per_100g": "1.8"
+        "calories_per_100g": "20",
+        "protein_per_100g": "0.62",
+        "carbs_per_100g": "2.78",
+        "fat_per_100g": "0.10",
+        "fiber_per_100g": "2.6"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
@@ -1246,32 +1254,34 @@
       "ref": "F075",
       "name": "Mắm ruốc Huế thành phẩm",
       "state": "CHẾ_BIẾN",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Mắm ruốc Huế dạng đặc lên men chưa pha, có cặn; ước lượng đạm/mỡ/carb và fiber vết, biến thiên lớn theo hãng.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "100",
-        "protein_per_100g": "15",
-        "carbs_per_100g": "4",
-        "fat_per_100g": "2.5",
-        "fiber_per_100g": "0.5"
+        "calories_per_100g": "109",
+        "protein_per_100g": "22.07",
+        "carbs_per_100g": "3.47",
+        "fat_per_100g": "0.79",
+        "fiber_per_100g": "0.0"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
       "ref": "F076",
       "name": "Mắm tôm thành phẩm",
       "state": "CHẾ_BIẾN",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Mắm tôm đặc lên men chưa pha; giả định 12% protein, có cặn; fiber vết là ước lượng, không phải xét nghiệm.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "80",
-        "protein_per_100g": "12",
-        "carbs_per_100g": "4",
-        "fat_per_100g": "1.5",
-        "fiber_per_100g": "0.3"
+        "calories_per_100g": "120",
+        "protein_per_100g": "20.99",
+        "carbs_per_100g": "6.78",
+        "fat_per_100g": "0.96",
+        "fiber_per_100g": "0.0"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
@@ -1361,16 +1371,17 @@
       "ref": "F082",
       "name": "Thịt heo băm viên nướng chín, không sốt",
       "state": "CHÍN",
-      "status": "ESTIMATED_UNRESOLVED_BASELINE_RETAINED_FOR_EXPLORATORY_BENCHMARK_ONLY",
+      "status": "SOURCE_COMPARISON_NOT_PRODUCTION_APPROVAL",
       "basis": "Chả thịt heo băm nướng không sốt: thịt có khoảng 18% fat; sốt/đường kê riêng, carb/fiber coi 0 theo công thức chỉ thịt.",
       "partial_source": null,
       "nutrients": {
-        "calories_per_100g": "270",
-        "protein_per_100g": "26",
+        "calories_per_100g": "301",
+        "protein_per_100g": "27.14",
         "carbs_per_100g": "0",
-        "fat_per_100g": "18",
+        "fat_per_100g": "21.39",
         "fiber_per_100g": "0"
       },
+      "provenance_file": "food-provenance.json",
       "production_change_approved": false
     },
     {
@@ -7722,8 +7733,8 @@
   "quality_gate": {
     "status": "EXPLORATORY60_NOT_PRODUCTION_APPROVAL",
     "production_write_permitted": false,
-    "source_complete_foods": 59,
-    "unresolved_baseline_foods": 23,
+    "source_complete_foods": 70,
+    "unresolved_baseline_foods": 12,
     "changed_food_refs": [
       "F001",
       "F002",
@@ -7731,6 +7742,7 @@
       "F004",
       "F006",
       "F007",
+      "F008",
       "F009",
       "F010",
       "F012",
@@ -7738,14 +7750,19 @@
       "F014",
       "F015",
       "F017",
+      "F018",
       "F019",
       "F020",
       "F021",
       "F022",
+      "F023",
+      "F024",
       "F027",
       "F028",
       "F029",
+      "F030",
       "F031",
+      "F032",
       "F033",
       "F034",
       "F035",
@@ -7755,6 +7772,7 @@
       "F039",
       "F040",
       "F041",
+      "F042",
       "F043",
       "F045",
       "F046",
@@ -7762,6 +7780,7 @@
       "F048",
       "F049",
       "F050",
+      "F051",
       "F052",
       "F053",
       "F054",
@@ -7781,12 +7800,15 @@
       "F071",
       "F072",
       "F073",
+      "F075",
+      "F076",
       "F078",
       "F079",
-      "F081"
+      "F081",
+      "F082"
     ],
     "baseline_sha256": "419fa5e4ec57cabecf692dfe827ab764e564bb1bc76b0202f716bc669f23e685",
-    "provenance_sha256": "1e3bbaa478055615a8aa5ee84cacdf4e36c14f612e53d7c8894d1838d57bc4d9",
+    "provenance_sha256": "fcfc0660a471e48ceb39c945c6dd47dfc28fe28bd80ff16b31c0bdf2b8a7c0b3",
     "cooking_portions_verified": false,
     "new_designs": 30,
     "new_source_foods": 18,

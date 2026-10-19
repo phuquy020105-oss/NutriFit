@@ -76,11 +76,13 @@
       "food_ref": "F008",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": null,
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Same steamed polished glutinous rice and no oil. Thai cultivar/hydration differs; use source moisture41.9g, not USDA97kcal boiled rice.",
       "catalog_name_en": "Plain steamed sticky rice",
-      "catalog_category": "CEREAL_OR_STARCH"
+      "catalog_category": "CEREAL_OR_STARCH",
+      "selected_thai_record_id": "149",
+      "confidence": "MODERATE"
     },
     {
       "food_ref": "F009",
@@ -178,11 +180,13 @@
       "food_ref": "F018",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": null,
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Same boiled belly including edible fat, not raw belly. Breed, skin and fat trimming vary; per100g cooked edible source, no yield factor applied again.",
       "catalog_name_en": "Pork belly, boiled, edible fat retained",
-      "catalog_category": "MEAT_OR_POULTRY"
+      "catalog_category": "MEAT_OR_POULTRY",
+      "selected_thai_record_id": "974",
+      "confidence": "MODERATE"
     },
     {
       "food_ref": "F019",
@@ -228,21 +232,25 @@
       "food_ref": "F023",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": null,
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Channa striata, steamed edible flesh, no sauce. Source fish size/skin/fat may differ; do not treat as measured Vietnamese recipe.",
       "catalog_name_en": "Snakehead fish, steamed, boneless",
-      "catalog_category": "FISH_OR_SHELLFISH"
+      "catalog_category": "FISH_OR_SHELLFISH",
+      "selected_thai_record_id": "1086",
+      "confidence": "MODERATE"
     },
     {
       "food_ref": "F024",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": null,
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Steamed Oreochromis niloticus, red variety; catalog does not specify variety. This is a disclosed cultivar/fat proxy, not silently interchangeable fillets.",
       "catalog_name_en": "Tilapia, steamed, boneless",
-      "catalog_category": "FISH_OR_SHELLFISH"
+      "catalog_category": "FISH_OR_SHELLFISH",
+      "selected_thai_record_id": "1103",
+      "confidence": "LOW"
     },
     {
       "food_ref": "F025",
@@ -298,11 +306,13 @@
       "food_ref": "F030",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": null,
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Whole quail egg boiled5min, edible shell-free basis; not raw egg or canned brined quail.",
       "catalog_name_en": "Quail egg, boiled, shell removed",
-      "catalog_category": "EGG"
+      "catalog_category": "EGG",
+      "selected_thai_record_id": "1283",
+      "confidence": "MODERATE"
     },
     {
       "food_ref": "F031",
@@ -318,11 +328,13 @@
       "food_ref": "F032",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": null,
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Thai Mu-yo white steamed pork sausage is a process/category proxy for cha lua, not VISSAN or an identified Vietnamese formulation. Fat/starch/water proportions unknown; retain low confidence and block production qualification pending product/formula definition.",
       "catalog_name_en": "Vietnamese steamed pork sausage cha lua",
-      "catalog_category": "MEAT_OR_POULTRY"
+      "catalog_category": "MEAT_OR_POULTRY",
+      "selected_thai_record_id": "1020",
+      "confidence": "LOW"
     },
     {
       "food_ref": "F033",
@@ -418,11 +430,13 @@
       "food_ref": "F042",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": "4088",
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Polygonum odoratum (Vietnamese coriander), raw edible leaves; herb age/stem fraction may differ.",
       "catalog_name_en": "Vietnamese coriander rau ram, raw",
-      "catalog_category": "VEGETABLE_OR_HERB"
+      "catalog_category": "VEGETABLE_OR_HERB",
+      "selected_thai_record_id": "521",
+      "confidence": "MODERATE"
     },
     {
       "food_ref": "F043",
@@ -509,11 +523,13 @@
       "food_ref": "F051",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": "4033",
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Thai raw/unripe papaya entry distinct from near-ripe775 and ripe776; edible flesh, not ripe USDA papaya. Cultivar/peeling maturity differs.",
       "catalog_name_en": "Green unripe papaya, raw, peeled and seeded",
-      "catalog_category": "VEGETABLE_OR_HERB"
+      "catalog_category": "VEGETABLE_OR_HERB",
+      "selected_thai_record_id": "590",
+      "confidence": "MODERATE"
     },
     {
       "food_ref": "F052",
@@ -579,11 +595,13 @@
       "food_ref": "F058",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": "4082",
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Eryngium foetidum raw culantro resolves NIN parsley identity conflict. Source energy41/protein/fat are available, but available carbs/fiber remain MISSING; no zero filling.",
       "catalog_name_en": "Culantro ngo gai, raw",
-      "catalog_category": "VEGETABLE_OR_HERB"
+      "catalog_category": "VEGETABLE_OR_HERB",
+      "selected_thai_record_id": "499",
+      "confidence": "MODERATE"
     },
     {
       "food_ref": "F059",
@@ -750,21 +768,25 @@
       "food_ref": "F075",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": null,
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Tiny-shrimp fermented Ka-pi first-class is a disclosed category proxy for Hue mam ruoc; salt/drying/dilution and fermentation vary. Not an approved Hue formula. Alternative258 has different nutrients/fiber and is retained for uncertainty, not averaged.",
       "catalog_name_en": "Hue fermented shrimp paste mam ruoc",
-      "catalog_category": "CONDIMENT_OR_SPICE"
+      "catalog_category": "CONDIMENT_OR_SPICE",
+      "selected_thai_record_id": "257",
+      "confidence": "LOW"
     },
     {
       "food_ref": "F076",
       "selected_usda_fdc_id": null,
       "nin_alternative_code": "13011",
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Fermented shrimp Ka-pi first-class is a concentration/process proxy, not a Vietnamese mam tom product. Use all five values from the same record, replacing the prior partial NIN comparison rather than mixing sources. Source fiber explicitly ASSUMED_ZERO remains ESTIMATED.",
       "catalog_name_en": "Fermented shrimp paste mam tom",
-      "catalog_category": "CONDIMENT_OR_SPICE"
+      "catalog_category": "CONDIMENT_OR_SPICE",
+      "selected_thai_record_id": "256",
+      "confidence": "LOW"
     },
     {
       "food_ref": "F077",
@@ -818,13 +840,14 @@
     },
     {
       "food_ref": "F082",
-      "selected_usda_fdc_id": null,
+      "selected_usda_fdc_id": "168374",
       "nin_alternative_code": null,
-      "decision": "INCOMPLETE_OR_REJECTED_SOURCE",
+      "decision": "SOURCE_BACKED_COMPARISON_ONLY",
       "approval": "NOT_APPROVED_FOR_PRODUCTION",
-      "notes": "No compatible complete source selected; old estimates remain separate.",
+      "notes": "Unseasoned ground pork patty, cooked pan-broiled (dry heat),84%lean/16%fat raw formulation. Grilled Vietnamese patties may use different fat/draining/charcoal loss; this is an explicit LOW-confidence category/process proxy, not an identified bun-cha formulation or production signoff.",
       "catalog_name_en": "Minced pork patties, grilled, no sauce",
-      "catalog_category": "MEAT_OR_POULTRY"
+      "catalog_category": "MEAT_OR_POULTRY",
+      "confidence": "LOW"
     }
   ]
 }

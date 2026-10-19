@@ -8,7 +8,7 @@ import urllib.parse
 import urllib.request
 
 MANIFEST=Path(__file__).resolve().parents[3]/"database/staging/food-quality-v1/source-retrieval-manifest.json"
-HOSTS={"fdc.nal.usda.gov","www.mext.go.jp","viendinhduong.vn"}
+HOSTS={"fdc.nal.usda.gov","www.mext.go.jp","viendinhduong.vn","inmu.mahidol.ac.th"}
 
 
 def safe_target(cache, relative):

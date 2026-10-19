@@ -8,12 +8,12 @@
     "food_count": 82,
     "nutrient_count": 410,
     "statuses": {
-      "CALCULATED": 120,
-      "ESTIMATED": 17,
-      "MATCHED": 175,
-      "MISSING": 98
+      "CALCULATED": 135,
+      "ESTIMATED": 19,
+      "MATCHED": 209,
+      "MISSING": 47
     },
-    "complete_source_foods": 59,
+    "complete_source_foods": 70,
     "fully_verified_foods": 0
   },
   "foods": [
@@ -1335,73 +1335,187 @@
       "recipe_refs": [
         "R009"
       ],
-      "source": null,
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Rice%2C+glutinous%2C+polished%2C+steamed&selected_name=Rice%2C+glutinous%2C+polished%2C+steamed&selected_id=149&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "149",
+        "food_code": "A23",
+        "description": "Rice, glutinous, polished, steamed",
+        "scientific_name": "Oryza glutinosa",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "f894c6f5144ad75561da10dbddb024917d2d936aa8dc807d08b7f3c92506e0a3",
+        "match_differences": "Same steamed polished glutinous rice and no oil. Thai cultivar/hydration differs; use source moisture41.9g, not USDA97kcal boiled rice.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "41.9",
+            "Analysed",
+            "8",
+            "-",
+            "-",
+            "0.6",
+            "",
+            "01/10/2015"
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "0.19",
+            "Analysed",
+            "5",
+            "-",
+            "-",
+            "0.05",
+            "",
+            "01/10/2015"
+          ]
+        }
+      },
       "nin_alternative": null,
       "nutrients": {
         "calories_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "232",
+          "status": "CALCULATED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; Calculated",
           "current_value": "170",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "232",
+            "original_text": "232",
+            "unit": "KCAL",
+            "source_nutrient_name": "Energy, by calculation",
+            "derivation": {
+              "description": "Calculated"
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "01/10/2015",
+            "basis": "100 g edible portion"
+          },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "62"
         },
         "protein_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "4.54",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; Analysed",
           "current_value": "3.5",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "4.54",
+            "original_text": "4.54",
+            "unit": "G",
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": "Analysed"
+            },
+            "sample_n": "6",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "0.36",
+            "footnote": "",
+            "source_last_updated": "01/10/2015",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "1.04"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "52.91",
+          "status": "CALCULATED",
+          "confidence": "MODERATE",
+          "method": "INMU available carbohydrate used directly, NOT total minus fiber again; Calculated",
           "current_value": "37",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "52.91",
+            "original_text": "52.91",
+            "unit": "G",
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": "Calculated"
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "01/10/2015",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "15.91"
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.21",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; Analysed",
           "current_value": "0.5",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.21",
+            "original_text": "0.21",
+            "unit": "G",
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": "Analysed"
+            },
+            "sample_n": "5",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "0.13",
+            "footnote": "",
+            "source_last_updated": "01/10/2015",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-0.29"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.3",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; Analysed",
           "current_value": "0.8",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.3",
+            "original_text": "0.3",
+            "unit": "G",
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": "Analysed"
+            },
+            "sample_n": "1",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "01/10/2015",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-0.5"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
-      "issues": []
+      "issues": [
+        "Same steamed polished glutinous rice and no oil. Thai cultivar/hydration differs; use source moisture41.9g, not USDA97kcal boiled rice."
+      ]
     },
     {
       "food_ref": "F009",
@@ -2878,73 +2992,187 @@
         "R013",
         "R022"
       ],
-      "source": null,
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Pork%2C+belly%2C+boiled&selected_name=Pork%2C+belly%2C+boiled&selected_id=974&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "974",
+        "food_code": "F70",
+        "description": "Pork, belly, boiled",
+        "scientific_name": "Sus scrofa domestica",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "1eb2f9b376ceca7fa528a517487590abc42379402d34757d1e6fb92ead5f2c95",
+        "match_differences": "Same boiled belly including edible fat, not raw belly. Breed, skin and fat trimming vary; per100g cooked edible source, no yield factor applied again.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "43.2",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "0.50",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
       "nin_alternative": null,
       "nutrients": {
         "calories_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "428",
+          "status": "CALCULATED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "500",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "428",
+            "original_text": "428",
+            "unit": "KCAL",
+            "source_nutrient_name": "Energy, by calculation",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-72"
         },
         "protein_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "21.10",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "10",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "21.10",
+            "original_text": "21.10",
+            "unit": "G",
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "11.10"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.00",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU available carbohydrate used directly, NOT total minus fiber again; derivation not published; no claim of analytical verification",
           "current_value": "0",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.00",
+            "original_text": "0.00",
+            "unit": "G",
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.00"
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "38.20",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "51",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "38.20",
+            "original_text": "38.20",
+            "unit": "G",
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-12.80"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.0",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "0",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.0",
+            "original_text": "0.0",
+            "unit": "G",
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.0"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
-      "issues": []
+      "issues": [
+        "Same boiled belly including edible fat, not raw belly. Breed, skin and fat trimming vary; per100g cooked edible source, no yield factor applied again."
+      ]
     },
     {
       "food_ref": "F019",
@@ -3749,73 +3977,187 @@
         "R023",
         "R029"
       ],
-      "source": null,
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Striped+snake-head+fish%2C+steamed&selected_name=Striped+snake-head+fish%2C+steamed&selected_id=1086&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "1086",
+        "food_code": "G49",
+        "description": "Striped snake-head fish, steamed",
+        "scientific_name": "Channa striata",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "380255d949ba7edb8e3b695a748a4f458ec415cc5e313a882bd3200b8777a18f",
+        "match_differences": "Channa striata, steamed edible flesh, no sauce. Source fish size/skin/fat may differ; do not treat as measured Vietnamese recipe.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "70.3",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "1.05",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
       "nin_alternative": null,
       "nutrients": {
         "calories_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "151",
+          "status": "CALCULATED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "100",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "151",
+            "original_text": "151",
+            "unit": "KCAL",
+            "source_nutrient_name": "Energy, by calculation",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "51"
         },
         "protein_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "20.69",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "21",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "20.69",
+            "original_text": "20.69",
+            "unit": "G",
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-0.31"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.77",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU available carbohydrate used directly, NOT total minus fiber again; derivation not published; no claim of analytical verification",
           "current_value": "0",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.77",
+            "original_text": "0.77",
+            "unit": "G",
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.77"
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "7.23",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "2",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "7.23",
+            "original_text": "7.23",
+            "unit": "G",
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "5.23"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.0",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "0",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.0",
+            "original_text": "0.0",
+            "unit": "G",
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.0"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
-      "issues": []
+      "issues": [
+        "Channa striata, steamed edible flesh, no sauce. Source fish size/skin/fat may differ; do not treat as measured Vietnamese recipe."
+      ]
     },
     {
       "food_ref": "F024",
@@ -3829,73 +4171,187 @@
       "recipe_refs": [
         "R020"
       ],
-      "source": null,
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Nile+tilapia%2C+red%2C+steamed&selected_name=Nile+tilapia%2C+red%2C+steamed&selected_id=1103&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "1103",
+        "food_code": "G212",
+        "description": "Nile tilapia, red, steamed",
+        "scientific_name": "Oreochromis niloticus",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "b924baadddec4d6306ed16b6437936b4a421d1b990ed6a9326417ef489a4c7b5",
+        "match_differences": "Steamed Oreochromis niloticus, red variety; catalog does not specify variety. This is a disclosed cultivar/fat proxy, not silently interchangeable fillets.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "66.7",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "1.02",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
       "nin_alternative": null,
       "nutrients": {
         "calories_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "172",
+          "status": "CALCULATED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "128",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "172",
+            "original_text": "172",
+            "unit": "KCAL",
+            "source_nutrient_name": "Energy, by calculation",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "44"
         },
         "protein_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "22.68",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "26",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "22.68",
+            "original_text": "22.68",
+            "unit": "G",
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-3.32"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "1.04",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU available carbohydrate used directly, NOT total minus fiber again; derivation not published; no claim of analytical verification",
           "current_value": "0",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "1.04",
+            "original_text": "1.04",
+            "unit": "G",
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "1.04"
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "8.59",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "2.5",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "8.59",
+            "original_text": "8.59",
+            "unit": "G",
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "6.09"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.0",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "0",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.0",
+            "original_text": "0.0",
+            "unit": "G",
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.0"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
-      "issues": []
+      "issues": [
+        "Steamed Oreochromis niloticus, red variety; catalog does not specify variety. This is a disclosed cultivar/fat proxy, not silently interchangeable fillets."
+      ]
     },
     {
       "food_ref": "F025",
@@ -4790,73 +5246,187 @@
       "recipe_refs": [
         "R005"
       ],
-      "source": null,
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Egg%2C+quail%2C+whole%2C+boiled+%285+min%29&selected_name=Egg%2C+quail%2C+whole%2C+boiled+%285+min%29&selected_id=1283&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "1283",
+        "food_code": "H8",
+        "description": "Egg, quail, whole, boiled (5 min)",
+        "scientific_name": "Coturnix coturnix",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "87afc6de68752b876ff8bb588d06beb1015f0275fbc640d07c8f093bcc3c3c06",
+        "match_differences": "Whole quail egg boiled5min, edible shell-free basis; not raw egg or canned brined quail.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "74.8",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "1.01",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
       "nin_alternative": null,
       "nutrients": {
         "calories_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "150",
+          "status": "CALCULATED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "158",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "150",
+            "original_text": "150",
+            "unit": "KCAL",
+            "source_nutrient_name": "Energy, by calculation",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-8"
         },
         "protein_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "13.15",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "13",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "13.15",
+            "original_text": "13.15",
+            "unit": "G",
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.15"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.57",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU available carbohydrate used directly, NOT total minus fiber again; derivation not published; no claim of analytical verification",
           "current_value": "0.5",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.57",
+            "original_text": "0.57",
+            "unit": "G",
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.07"
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "10.52",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "11",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "10.52",
+            "original_text": "10.52",
+            "unit": "G",
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-0.48"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.0",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "0",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.0",
+            "original_text": "0.0",
+            "unit": "G",
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.0"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
-      "issues": []
+      "issues": [
+        "Whole quail egg boiled5min, edible shell-free basis; not raw egg or canned brined quail."
+      ]
     },
     {
       "food_ref": "F031",
@@ -5104,73 +5674,187 @@
       "recipe_refs": [
         "R007"
       ],
-      "source": null,
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Pork%2C+sausage%2C+white%2C+steamed&selected_name=Pork%2C+sausage%2C+white%2C+steamed&selected_id=1020&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "1020",
+        "food_code": "F98",
+        "description": "Pork, sausage, white, steamed",
+        "scientific_name": "Sus scrofa domestica",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "410aa2913e3a43380403157df3006e11fd785fa638138d3d7188e07cfaf5a67e",
+        "match_differences": "Thai Mu-yo white steamed pork sausage is a process/category proxy for cha lua, not VISSAN or an identified Vietnamese formulation. Fat/starch/water proportions unknown; retain low confidence and block production qualification pending product/formula definition.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "55.3",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "2.31",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
       "nin_alternative": null,
       "nutrients": {
         "calories_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "293",
+          "status": "CALCULATED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "170",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "293",
+            "original_text": "293",
+            "unit": "KCAL",
+            "source_nutrient_name": "Energy, by calculation",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "123"
         },
         "protein_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "14.89",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "17",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "14.89",
+            "original_text": "14.89",
+            "unit": "G",
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-2.11"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "2.85",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU available carbohydrate used directly, NOT total minus fiber again; derivation not published; no claim of analytical verification",
           "current_value": "7",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "2.85",
+            "original_text": "2.85",
+            "unit": "G",
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-4.15"
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "24.66",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "8",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "24.66",
+            "original_text": "24.66",
+            "unit": "G",
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "16.66"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.0",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "0.2",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.0",
+            "original_text": "0.0",
+            "unit": "G",
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-0.2"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
-      "issues": []
+      "issues": [
+        "Thai Mu-yo white steamed pork sausage is a process/category proxy for cha lua, not VISSAN or an identified Vietnamese formulation. Fat/starch/water proportions unknown; retain low confidence and block production qualification pending product/formula definition."
+      ]
     },
     {
       "food_ref": "F033",
@@ -7384,12 +8068,42 @@
         "R006"
       ],
       "source": {
-        "source": "Vietnam National Institute of Nutrition public lookup",
-        "source_id": "6877a6b660d6c84e9bd5cb72",
-        "source_url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=rau+r%C4%83m",
-        "release": "Not specified by live lookup; snapshot 2026-10-19",
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Vietnamese+coriander%2C+raw&selected_name=Vietnamese+coriander%2C+raw&selected_id=521&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "521",
+        "food_code": "D99",
+        "description": "Vietnamese coriander, raw",
+        "scientific_name": "Polygonum odoratum",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
         "retrieved_date": "2026-10-19",
-        "name_en": "Vietnamese mint, hot mint, raw"
+        "page_sha256": "4aea8c7a261fb36a422ade1f6791786e59a9fc27b481957651037e5e6cd44624",
+        "match_differences": "Polygonum odoratum (Vietnamese coriander), raw edible leaves; herb age/stem fraction may differ.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "84.1",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "2.12",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
       },
       "nin_alternative": {
         "source": "Vietnam National Institute of Nutrition public lookup",
@@ -7435,93 +8149,146 @@
       },
       "nutrients": {
         "calories_per_100g": {
-          "value": "45",
-          "status": "MATCHED",
+          "value": "40",
+          "status": "CALCULATED",
           "confidence": "MODERATE",
-          "method": "NIN same stated edible state; analytical method/release not published by lookup",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "30",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "45",
+            "value": "40",
+            "original_text": "40",
             "unit": "KCAL",
-            "source_field": "energy",
-            "definition_verified": true
+            "source_nutrient_name": "Energy, by calculation",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": "15"
+          "delta_from_current": "10"
         },
         "protein_per_100g": {
-          "value": "4.7",
+          "value": "3.47",
           "status": "MATCHED",
           "confidence": "MODERATE",
-          "method": "NIN same stated edible state; analytical method/release not published by lookup",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "3",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "4.7",
+            "value": "3.47",
+            "original_text": "3.47",
             "unit": "G",
-            "source_field": "protein",
-            "source_label": "Protein",
-            "definition_verified": true
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": "1.7"
+          "delta_from_current": "0.47"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "0.97",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU available carbohydrate used directly, NOT total minus fiber again; derivation not published; no claim of analytical verification",
           "current_value": "2.5",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "6.6",
+            "value": "0.97",
+            "original_text": "0.97",
             "unit": "G",
-            "source_field": "carbohydrate-by-difference",
-            "source_label": "Carbohydrate by difference",
-            "definition_verified": false
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-1.53"
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "0.44",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "0.5",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.44",
+            "original_text": "0.44",
+            "unit": "G",
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-0.06"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "9.0",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "3",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "3.8",
+            "value": "9.0",
+            "original_text": "9.0",
             "unit": "G",
-            "source_field": "fibre-total-dietary",
-            "source_label": "Fibre, total dietary",
-            "definition_verified": false
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "6.0"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
       "issues": [
-        "NIN carbohydrate/fiber labels lack assay/data dictionary confirmation; not used for normalization"
+        "NIN carbohydrate/fiber labels lack assay/data dictionary confirmation; not used for normalization",
+        "Polygonum odoratum (Vietnamese coriander), raw edible leaves; herb age/stem fraction may differ."
       ]
     },
     {
@@ -9385,12 +10152,42 @@
         "R015"
       ],
       "source": {
-        "source": "Vietnam National Institute of Nutrition public lookup",
-        "source_id": "6877a6b660d6c84e9bd5cb3b",
-        "source_url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=%C4%91u+%C4%91%E1%BB%A7",
-        "release": "Not specified by live lookup; snapshot 2026-10-19",
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Papaya%2C+raw&selected_name=Papaya%2C+raw&selected_id=590&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "590",
+        "food_code": "D134",
+        "description": "Papaya, raw",
+        "scientific_name": "Carica papaya",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
         "retrieved_date": "2026-10-19",
-        "name_en": "Papaya, unripe, raw"
+        "page_sha256": "35747d38f6a45e50d1eedff10a29df97607b28a9f6a636cc06e464703f704921",
+        "match_differences": "Thai raw/unripe papaya entry distinct from near-ripe775 and ripe776; edible flesh, not ripe USDA papaya. Cultivar/peeling maturity differs.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "93.3",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "0.58",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
       },
       "nin_alternative": {
         "source": "Vietnam National Institute of Nutrition public lookup",
@@ -9436,93 +10233,146 @@
       },
       "nutrients": {
         "calories_per_100g": {
-          "value": "30",
-          "status": "MATCHED",
+          "value": "20",
+          "status": "CALCULATED",
           "confidence": "MODERATE",
-          "method": "NIN same stated edible state; analytical method/release not published by lookup",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "35",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "30",
+            "value": "20",
+            "original_text": "20",
             "unit": "KCAL",
-            "source_field": "energy",
-            "definition_verified": true
+            "source_nutrient_name": "Energy, by calculation",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": "-5"
+          "delta_from_current": "-15"
         },
         "protein_per_100g": {
-          "value": "0.8",
+          "value": "0.62",
           "status": "MATCHED",
           "confidence": "MODERATE",
-          "method": "NIN same stated edible state; analytical method/release not published by lookup",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "0.6",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "0.8",
+            "value": "0.62",
+            "original_text": "0.62",
             "unit": "G",
-            "source_field": "protein",
-            "source_label": "Protein",
-            "definition_verified": true
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": "0.2"
+          "delta_from_current": "0.02"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "2.78",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU available carbohydrate used directly, NOT total minus fiber again; derivation not published; no claim of analytical verification",
           "current_value": "7",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "6.6",
+            "value": "2.78",
+            "original_text": "2.78",
             "unit": "G",
-            "source_field": "carbohydrate-by-difference",
-            "source_label": "Carbohydrate by difference",
-            "definition_verified": false
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-4.22"
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "0.10",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "0.1",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.10",
+            "original_text": "0.10",
+            "unit": "G",
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.00"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "2.6",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "1.8",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "2",
+            "value": "2.6",
+            "original_text": "2.6",
             "unit": "G",
-            "source_field": "fibre-total-dietary",
-            "source_label": "Fibre, total dietary",
-            "definition_verified": false
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.8"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
       "issues": [
-        "NIN carbohydrate/fiber labels lack assay/data dictionary confirmation; not used for normalization"
+        "NIN carbohydrate/fiber labels lack assay/data dictionary confirmation; not used for normalization",
+        "Thai raw/unripe papaya entry distinct from near-ripe775 and ripe776; edible flesh, not ripe USDA papaya. Cultivar/peeling maturity differs."
       ]
     },
     {
@@ -10743,12 +11593,42 @@
         "R023"
       ],
       "source": {
-        "source": "Vietnam National Institute of Nutrition public lookup",
-        "source_id": "6877a6b660d6c84e9bd5cb6c",
-        "source_url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=rau+m%C3%B9i",
-        "release": "Not specified by live lookup; snapshot 2026-10-19",
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Culantro%2C+raw&selected_name=Culantro%2C+raw&selected_id=499&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "499",
+        "food_code": "D88",
+        "description": "Culantro, raw",
+        "scientific_name": "Eryngium foetidum",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
         "retrieved_date": "2026-10-19",
-        "name_en": "Parsley, curley, raw"
+        "page_sha256": "e01a7098f100c6bedfc99e42b532bd78e37e292ab01b9158c482ae2a00070c0f",
+        "match_differences": "Eryngium foetidum raw culantro resolves NIN parsley identity conflict. Source energy41/protein/fat are available, but available carbs/fiber remain MISSING; no zero filling.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "88.6",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "1.57",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
       },
       "nin_alternative": {
         "source": "Vietnam National Institute of Nutrition public lookup",
@@ -10801,89 +11681,135 @@
       },
       "nutrients": {
         "calories_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "41",
+          "status": "CALCULATED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "25",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "30",
+            "value": "41",
+            "original_text": "41",
             "unit": "KCAL",
-            "source_field": "energy",
-            "definition_verified": true
+            "source_nutrient_name": "Total energy - by calculation",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "16"
         },
         "protein_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "2.50",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "2",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "2.1",
+            "value": "2.50",
+            "original_text": "2.50",
             "unit": "G",
-            "source_field": "protein",
-            "source_label": "Protein",
-            "definition_verified": true
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0.50"
         },
         "carbs_per_100g": {
           "value": null,
           "status": "MISSING",
           "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "method": "INMU missing/trace is not zero",
           "current_value": "2",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "4.25",
+            "value": null,
+            "original_text": "-",
             "unit": "G",
-            "source_field": "carbohydrate-by-difference",
-            "source_label": "Carbohydrate by difference",
-            "definition_verified": false
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
           "delta_from_current": null
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "0.35",
+          "status": "MATCHED",
+          "confidence": "MODERATE",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "0.4",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "0.55",
+            "value": "0.35",
+            "original_text": "0.35",
             "unit": "G",
-            "source_field": "total-lipid-fat",
-            "source_label": "Total lipid (Fat)",
-            "definition_verified": true
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-0.05"
         },
         "fiber_per_100g": {
           "value": null,
           "status": "MISSING",
           "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "method": "INMU missing/trace is not zero",
           "current_value": "2.5",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "1.6",
+            "value": null,
+            "original_text": "-",
             "unit": "G",
-            "source_field": "fibre-total-dietary",
-            "source_label": "Fibre, total dietary",
-            "definition_verified": false
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
@@ -10894,7 +11820,8 @@
       "production_change_approved": false,
       "issues": [
         "NIN carbohydrate/fiber labels lack assay/data dictionary confirmation; not used for normalization",
-        "NIN Vietnamese/English species labels conflict"
+        "NIN Vietnamese/English species labels conflict; INMU culantro scientific identity resolves name only, not missing fiber",
+        "Eryngium foetidum raw culantro resolves NIN parsley identity conflict. Source energy41/protein/fat are available, but available carbs/fiber remain MISSING; no zero filling."
       ]
     },
     {
@@ -14182,73 +15109,187 @@
       "recipe_refs": [
         "R004"
       ],
-      "source": null,
+      "source": {
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Paste%2C+shrimp%2C+tiny%2C+fermented+%28Ka-pi%29%2C+first+class+quality&selected_name=Paste%2C+shrimp%2C+tiny%2C+fermented+%28Ka-pi%29%2C+first+class+quality&selected_id=257&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "257",
+        "food_code": "N48",
+        "description": "Paste, shrimp, tiny, fermented (Ka-pi), first class quality",
+        "scientific_name": "-",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
+        "retrieved_date": "2026-10-19",
+        "page_sha256": "642fa93d17c51aad3f76381557f33f80ed025e5639be7957f78b0d9144cd8573",
+        "match_differences": "Tiny-shrimp fermented Ka-pi first-class is a disclosed category proxy for Hue mam ruoc; salt/drying/dilution and fermentation vary. Not an approved Hue formula. Alternative258 has different nutrients/fiber and is retained for uncertainty, not averaged.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "53.0",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "20.68",
+            "",
+            "-",
+            "-",
+            "-",
+            "-",
+            "",
+            ""
+          ]
+        }
+      },
       "nin_alternative": null,
       "nutrients": {
         "calories_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "109",
+          "status": "CALCULATED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "100",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "109",
+            "original_text": "109",
+            "unit": "KCAL",
+            "source_nutrient_name": "Energy, by calculation",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "9"
         },
         "protein_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "22.07",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "15",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "22.07",
+            "original_text": "22.07",
+            "unit": "G",
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "7.07"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "3.47",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU available carbohydrate used directly, NOT total minus fiber again; derivation not published; no claim of analytical verification",
           "current_value": "4",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "3.47",
+            "original_text": "3.47",
+            "unit": "G",
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-0.53"
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.79",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "2.5",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.79",
+            "original_text": "0.79",
+            "unit": "G",
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-1.71"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0.0",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "INMU published value; derivation not published; no claim of analytical verification",
           "current_value": "0.5",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.0",
+            "original_text": "0.0",
+            "unit": "G",
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": ""
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-0.5"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
-      "issues": []
+      "issues": [
+        "Tiny-shrimp fermented Ka-pi first-class is a disclosed category proxy for Hue mam ruoc; salt/drying/dilution and fermentation vary. Not an approved Hue formula. Alternative258 has different nutrients/fiber and is retained for uncertainty, not averaged."
+      ]
     },
     {
       "food_ref": "F076",
@@ -14263,12 +15304,42 @@
         "R008"
       ],
       "source": {
-        "source": "Vietnam National Institute of Nutrition public lookup",
-        "source_id": "6877a6b660d6c84e9bd5cd00",
-        "source_url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=s%E1%BA%A3",
-        "release": "Not specified by live lookup; snapshot 2026-10-19",
+        "source": "Institute of Nutrition, Mahidol University, Thailand (INMU)",
+        "source_url": "https://inmu.mahidol.ac.th/thaifcd/foodsearch/food_name_result?mode=food_group_result&food_name=Paste%2C+shrimp%2C+fermented+%28Ka-pi%29%2C+first+class+quality&selected_name=Paste%2C+shrimp%2C+fermented+%28Ka-pi%29%2C+first+class+quality&selected_id=256&selected_dbcode=STD&page_no=1&status=A",
+        "record_id": "256",
+        "food_code": "N43",
+        "description": "Paste, shrimp, fermented (Ka-pi), first class quality",
+        "scientific_name": "-",
+        "release": "Online Thai FCD STD; individual nutrient update/derivation retained, snapshot2026-10-19",
         "retrieved_date": "2026-10-19",
-        "name_en": "Shrimp sauce, concentrate"
+        "page_sha256": "c381606888f305ab8995eb5f4f1cd8c7829e76bf4558ae2491b2880aaffc77ea",
+        "match_differences": "Fermented shrimp Ka-pi first-class is a concentration/process proxy, not a Vietnamese mam tom product. Use all five values from the same record, replacing the prior partial NIN comparison rather than mixing sources. Source fiber explicitly ASSUMED_ZERO remains ESTIMATED.",
+        "auxiliary_rows": {
+          "Moisture": [
+            "Moisture",
+            "g",
+            "44.0",
+            "Analytical",
+            "3",
+            "-",
+            "-",
+            "1.0",
+            "",
+            "14/11/2023"
+          ],
+          "Ash": [
+            "Ash",
+            "g",
+            "27.31",
+            "Analytical",
+            "3",
+            "-",
+            "-",
+            "2.79",
+            "",
+            "14/11/2023"
+          ]
+        }
       },
       "nin_alternative": {
         "source": "Vietnam National Institute of Nutrition public lookup",
@@ -14307,87 +15378,146 @@
       },
       "nutrients": {
         "calories_per_100g": {
-          "value": "73",
-          "status": "MATCHED",
-          "confidence": "MODERATE",
-          "method": "NIN same stated edible state; analytical method/release not published by lookup",
+          "value": "120",
+          "status": "CALCULATED",
+          "confidence": "LOW",
+          "method": "INMU published value; Calculated",
           "current_value": "80",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "73",
+            "value": "120",
+            "original_text": "120",
             "unit": "KCAL",
-            "source_field": "energy",
-            "definition_verified": true
+            "source_nutrient_name": "Energy, by calculation",
+            "derivation": {
+              "description": "Calculated"
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "14/11/2023",
+            "basis": "100 g edible portion"
           },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": "-7"
+          "delta_from_current": "40"
         },
         "protein_per_100g": {
-          "value": "14.8",
+          "value": "20.99",
           "status": "MATCHED",
-          "confidence": "MODERATE",
-          "method": "NIN same stated edible state; analytical method/release not published by lookup",
+          "confidence": "LOW",
+          "method": "INMU published value; Analytical",
           "current_value": "12",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "14.8",
+            "value": "20.99",
+            "original_text": "20.99",
             "unit": "G",
-            "source_field": "protein",
-            "source_label": "Protein",
-            "definition_verified": true
+            "source_nutrient_name": "Protein, total",
+            "derivation": {
+              "description": "Analytical"
+            },
+            "sample_n": "3",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "3.62",
+            "footnote": "",
+            "source_last_updated": "14/11/2023",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": "2.8"
+          "delta_from_current": "8.99"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "6.78",
+          "status": "CALCULATED",
+          "confidence": "LOW",
+          "method": "INMU available carbohydrate used directly, NOT total minus fiber again; Calculated",
           "current_value": "4",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "6.78",
+            "original_text": "6.78",
+            "unit": "G",
+            "source_nutrient_name": "Carbohydrate, available",
+            "derivation": {
+              "description": "Calculated"
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "14/11/2023",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "2.78"
         },
         "fat_per_100g": {
-          "value": "1.5",
+          "value": "0.96",
           "status": "MATCHED",
-          "confidence": "MODERATE",
-          "method": "NIN same stated edible state; analytical method/release not published by lookup",
+          "confidence": "LOW",
+          "method": "INMU published value; Analytical",
           "current_value": "1.5",
           "current_status": "ESTIMATED",
           "original_source_value": {
-            "value": "1.5",
+            "value": "0.96",
+            "original_text": "0.96",
             "unit": "G",
-            "source_field": "total-lipid-fat",
-            "source_label": "Total lipid (Fat)",
-            "definition_verified": true
+            "source_nutrient_name": "Fat, total",
+            "derivation": {
+              "description": "Analytical"
+            },
+            "sample_n": "3",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "1.17",
+            "footnote": "",
+            "source_last_updated": "14/11/2023",
+            "basis": "100 g edible portion"
           },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": "0.0"
+          "delta_from_current": "-0.54"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "NIN absent/ambiguous definition, implausible energy or conflicting species label; no substitution",
+          "value": "0.0",
+          "status": "ESTIMATED",
+          "confidence": "LOW",
+          "method": "INMU published value; Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)",
           "current_value": "0.3",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0.0",
+            "original_text": "0.0",
+            "unit": "G",
+            "source_nutrient_name": "Dietary fibre",
+            "derivation": {
+              "description": "Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)"
+            },
+            "sample_n": "-",
+            "minimum": "-",
+            "maximum": "-",
+            "standard_deviation": "-",
+            "footnote": "",
+            "source_last_updated": "14/11/2023",
+            "basis": "100 g edible portion"
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "-0.3"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
       "issues": [
-        "NIN carbohydrate/fiber labels lack assay/data dictionary confirmation; not used for normalization"
+        "NIN carbohydrate/fiber labels lack assay/data dictionary confirmation; not used for normalization",
+        "Fermented shrimp Ka-pi first-class is a concentration/process proxy, not a Vietnamese mam tom product. Use all five values from the same record, replacing the prior partial NIN comparison rather than mixing sources. Source fiber explicitly ASSUMED_ZERO remains ESTIMATED."
       ]
     },
     {
@@ -15179,71 +16309,201 @@
       "recipe_refs": [
         "R015"
       ],
-      "source": null,
+      "source": {
+        "publisher": "USDA SR Legacy04/2018",
+        "record_id": "168374",
+        "url": "https://fdc.nal.usda.gov/food-details/168374/nutrients",
+        "release": "SR Legacy04/2018",
+        "food_publication_date": "2019-04-01",
+        "archive_sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+        "retrieved_date": "2026-10-19",
+        "english_name": "Pork, ground, 84% lean / 16% fat, cooked, pan-broiled",
+        "match_differences": "Unseasoned ground pork patty, cooked pan-broiled (dry heat),84%lean/16%fat raw formulation. Grilled Vietnamese patties may use different fat/draining/charcoal loss; this is an explicit LOW-confidence category/process proxy, not an identified bun-cha formulation or production signoff."
+      },
       "nin_alternative": null,
       "nutrients": {
         "calories_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "301",
+          "status": "CALCULATED",
+          "confidence": "LOW",
+          "method": "Published source value; Calculated",
           "current_value": "270",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "301",
+            "unit": "KCAL",
+            "basis": "100 g edible portion",
+            "source_nutrient_row_id": "1355300",
+            "nutrient_id": "1008",
+            "source_nutrient_name": "Energy",
+            "data_points": "0",
+            "derivation": {
+              "id": "49",
+              "code": "NC",
+              "description": "Calculated",
+              "source_id": "2"
+            },
+            "source": {
+              "id": "2",
+              "code": "4",
+              "description": "Calculated or imputed"
+            },
+            "footnote": null,
+            "min": null,
+            "max": null,
+            "median": null
+          },
           "unit": "KCAL",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "31"
         },
         "protein_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "27.14",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "Published source value; Analytical data; derived by linear regression",
           "current_value": "26",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "27.14",
+            "unit": "G",
+            "basis": "100 g edible portion",
+            "source_nutrient_row_id": "1355319",
+            "nutrient_id": "1003",
+            "source_nutrient_name": "Protein",
+            "data_points": "16",
+            "derivation": {
+              "id": "3",
+              "code": "AR",
+              "description": "Analytical data; derived by linear regression",
+              "source_id": "1"
+            },
+            "source": {
+              "id": "1",
+              "code": "1",
+              "description": "Analytical or derived from analytical"
+            },
+            "footnote": null,
+            "min": null,
+            "max": null,
+            "median": null
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "1.14"
         },
         "carbs_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0",
+          "status": "CALCULATED",
+          "confidence": "LOW",
+          "method": "Available carbohydrate by difference = USDA1005 - USDA1079, same food record",
+          "method_url": "https://www.fao.org/4/Y5022E/y5022e03.htm",
+          "inputs": {
+            "total_carbohydrate_g": "0",
+            "dietary_fiber_g": "0"
+          },
           "current_value": "0",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0",
+            "unit": "G",
+            "basis": "100 g edible portion",
+            "source_nutrient_row_id": "1355299",
+            "nutrient_id": "1005",
+            "source_nutrient_name": "Carbohydrate, by difference",
+            "data_points": "0",
+            "derivation": {
+              "id": "49",
+              "code": "NC",
+              "description": "Calculated",
+              "source_id": "2"
+            },
+            "source": {
+              "id": "2",
+              "code": "4",
+              "description": "Calculated or imputed"
+            },
+            "footnote": null,
+            "min": null,
+            "max": null,
+            "median": null
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0"
         },
         "fat_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "21.39",
+          "status": "MATCHED",
+          "confidence": "LOW",
+          "method": "Published source value; Analytical data; derived by linear regression",
           "current_value": "18",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "21.39",
+            "unit": "G",
+            "basis": "100 g edible portion",
+            "source_nutrient_row_id": "1355298",
+            "nutrient_id": "1004",
+            "source_nutrient_name": "Total lipid (fat)",
+            "data_points": "16",
+            "derivation": {
+              "id": "3",
+              "code": "AR",
+              "description": "Analytical data; derived by linear regression",
+              "source_id": "1"
+            },
+            "source": {
+              "id": "1",
+              "code": "1",
+              "description": "Analytical or derived from analytical"
+            },
+            "footnote": null,
+            "min": null,
+            "max": null,
+            "median": null
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "3.39"
         },
         "fiber_per_100g": {
-          "value": null,
-          "status": "MISSING",
-          "confidence": "NONE",
-          "method": "No compatible source selected",
+          "value": "0",
+          "status": "ESTIMATED",
+          "confidence": "LOW",
+          "method": "Published source value; Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)",
           "current_value": "0",
           "current_status": "ESTIMATED",
-          "original_source_value": null,
+          "original_source_value": {
+            "value": "0",
+            "unit": "G",
+            "basis": "100 g edible portion",
+            "source_nutrient_row_id": "1355323",
+            "nutrient_id": "1079",
+            "source_nutrient_name": "Fiber, total dietary",
+            "data_points": "0",
+            "derivation": {
+              "id": "68",
+              "code": "Z",
+              "description": "Assumed zero (Insignificant amount or not naturally occurring in a food, such as fiber in meat)",
+              "source_id": "5"
+            },
+            "source": {
+              "id": "5",
+              "code": "7",
+              "description": "Assumed zero"
+            },
+            "footnote": null,
+            "min": null,
+            "max": null,
+            "median": null
+          },
           "unit": "G",
           "basis": "100 g edible portion",
-          "delta_from_current": null
+          "delta_from_current": "0"
         }
       },
-      "source_complete": false,
+      "source_complete": true,
       "production_change_approved": false,
       "issues": []
     }

@@ -198,7 +198,18 @@ class FoodDataQualityAuditTest {
     @Test void incompleteSourcesCannotBePassedToTheCalculatorAsOldEstimates() throws Exception {
         var foods = evidence();
         assertNull(sourceFacts(foods.get("F025")), "USDA shrimp record lacks fiber; must not invent a zero");
-        assertNull(sourceFacts(foods.get("F058")), "Culantro/parsley label conflict is unresolved");
-        assertNull(sourceFacts(foods.get("F018")), "Raw belly cannot stand in for boiled belly");
+        assertNull(sourceFacts(foods.get("F058")), "INMU resolves culantro identity but still lacks carbs/fiber");
+        assertNull(sourceFacts(foods.get("F011")), "A fat-rich crossbred fillet cannot silently replace lean boiled tenderloin");
     }
+    @Test void newlySourcedBellyIsActuallyBoiledAndMissingFactsStillStayMissing() throws Exception {
+        var foods=evidence();
+        var belly=foods.get("F018");
+        assertEquals("974",object(belly.get("source")).get("record_id"));
+        assertEquals("Pork, belly, boiled",object(belly.get("source")).get("description"));
+        assertEquals(new BigDecimal("428"),sourceFacts(belly).caloriesKcal());
+        assertEquals(new BigDecimal("38.20"),sourceFacts(belly).fatG());
+        assertFalse((Boolean)belly.get("production_change_approved"));
+        assertNull(sourceFacts(foods.get("F025")),"Unrelated shrimp fiber must not be mixed into USDA record");
+    }
+
 }

@@ -5,6 +5,7 @@ from decimal import Decimal
 import hashlib
 import json
 from pathlib import Path
+from extract_thai import extract as extract_thai, normalize as normalize_thai
 from extract_nin import extract as extract_nin
 from extract_mext import extract as extract_mext
 from extract_usda import extract as extract_usda, available_carbohydrate, FAO_CARBOHYDRATE_METHOD, RELEASE_SHA256
@@ -55,6 +56,7 @@ def build(cache):
     candidates = json.loads((STAGING / "source-candidates.json").read_text(encoding="utf-8"))
     decisions = json.loads((STAGING / "source-matching-decisions.json").read_text(encoding="utf-8"))
     raw_nin = extract_nin(Path(cache) / "nin-searches")
+    raw_thai = extract_thai(Path(cache) / "continuation")
     raw_mext = extract_mext(Path(cache) / "mext2015-table.xlsx")
     raw_usda = extract_usda(Path(cache) / "usda-srlegacy-2018-official.zip")["foods"]
     by_ref = {r["food_ref"]: r for r in candidates["foods"]}
@@ -72,16 +74,23 @@ def build(cache):
         decision = decision_map[ref]
         selected = next((r for r in by_ref[ref]["candidates"]
             if r.get("fdc_id") == decision["selected_usda_fdc_id"]), None)
+        if decision["selected_usda_fdc_id"] and selected is None:
+            raise ValueError("Selected USDA source is absent from reviewed candidate records")
         if selected and selected["matching_status"] != "MATCHED":
             raise ValueError("Rejected candidate cannot supply normalized values")
         alternative = raw_nin.get(decision["nin_alternative_code"])
         mext = raw_mext.get(decision.get("selected_mext_item_no"))
+        thai = raw_thai.get(decision.get("selected_thai_record_id"))
+        if decision.get("selected_thai_record_id") and thai is None:
+            raise ValueError("Selected INMU source record does not exist")
         nutrients = {}
         for key in KEYS:
-            normalized = normalized_usda(key, mext["nutrients"], "MEXT Q - MEXT U") if mext else normalized_usda(key, selected["evidence"]) if selected else (
+            normalized = normalize_thai(key, thai, decision.get("confidence", "MODERATE")) if thai else normalized_usda(key, mext["nutrients"], "MEXT Q - MEXT U") if mext else normalized_usda(key, selected["evidence"]) if selected else (
                 normalize_nin(key, alternative, ref) if alternative else
                 dict(value=None, status="MISSING", confidence="NONE", method="No compatible source selected"))
-            source_value = mext["nutrients"].get(key) if mext else selected["evidence"].get(key) if selected else (
+            if normalized["value"] is not None and decision.get("confidence")=="LOW":
+                normalized["confidence"]="LOW"
+            source_value = thai["nutrients"].get(key) if thai else mext["nutrients"].get(key) if mext else selected["evidence"].get(key) if selected else (
                 alternative["nutrients"].get(key) if alternative else None)
             normalized.update(current_value=old["current_nutrients"][key], current_status="ESTIMATED",
                 original_source_value=source_value,
@@ -98,6 +107,10 @@ def build(cache):
         if mext:
             source = {k: v for k, v in mext.items() if k != "nutrients"}
             source["match_differences"] = decision["notes"]
+        if thai:
+            source = {k: v for k, v in thai.items() if k not in ("nutrients", "auxiliary_rows")}
+            source["match_differences"] = decision["notes"]
+            source["auxiliary_rows"] = thai["auxiliary_rows"]
         rows.append(dict(food_ref=ref, aiven_food_id=old["aiven_food_id"], name_vi=old["name"],
             name_en=decision["catalog_name_en"], state=old["state"], edible_basis=old["basis"], category=decision["catalog_category"],
             recipe_count=old["recipe_count"], recipe_refs=old["recipe_refs"], source=source,
@@ -105,7 +118,8 @@ def build(cache):
             source_complete=all(n["value"] is not None for n in nutrients.values()),
             production_change_approved=False,
             issues=(["NIN carbohydrate/fiber labels lack assay/data dictionary confirmation; not used for normalization"] if alternative else [])
-                + (["NIN Vietnamese/English species labels conflict"] if ref == "F058" else [])
+                + (["NIN Vietnamese/English species labels conflict; INMU culantro scientific identity resolves name only, not missing fiber"] if ref == "F058" else [])
+                + ([decision["notes"]] if thai else [])
                 + (["NIN energy1kcal conflicts strongly with displayed macros; not auto-repaired to4/4/9"] if ref == "F044" else [])
                 + (["Broth dilution, recipe and fat removal unknown; generic source is not recipe-specific verification"] if ref in ("F072", "F073", "F074") else [])))
     counts = Counter(n["status"] for row in rows for n in row["nutrients"].values())

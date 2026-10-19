@@ -14,7 +14,10 @@
       "unique_recipes_selected": 20,
       "unique_ingredients_selected": 73,
       "catalog_sha256": "419fa5e4ec57cabecf692dfe827ab764e564bb1bc76b0202f716bc669f23e685",
+      "csv_sha256": "d03aed7f932958e7b051ae553fd5bccd347c44c878a177b6c96f30b0a1383622",
       "food_source_qualified": false,
+      "fat_over_25pct": 339,
+      "carbs_outside_50_65pct": 416,
       "projected_kcal": {
         "mean": 1628.8897916666667,
         "median": 1668.785,
@@ -79,9 +82,7 @@
         "mean": 3.6292222222222223,
         "median": 3.31065,
         "p90": 4.1903
-      },
-      "fat_above_nin25pct_cases": 339,
-      "carb_outside_nin50to65pct_cases": 416
+      }
     },
     {
       "label": "A_guarded",
@@ -92,7 +93,10 @@
       "unique_recipes_selected": 20,
       "unique_ingredients_selected": 73,
       "catalog_sha256": "419fa5e4ec57cabecf692dfe827ab764e564bb1bc76b0202f716bc669f23e685",
+      "csv_sha256": "89bb2876bdc6d4e6535b7d51d80f71970e62e3c1a13fc6eb71a0f9ef5209a07c",
       "food_source_qualified": false,
+      "fat_over_25pct": 343,
+      "carbs_outside_50_65pct": 416,
       "projected_kcal": {
         "mean": 1636.2640277777778,
         "median": 1668.785,
@@ -154,168 +158,168 @@
         "p90": 35.0
       },
       "runtime_ms": {
-        "mean": 6.574137037037037,
-        "median": 6.72965,
-        "p90": 7.5918
-      },
-      "fat_above_nin25pct_cases": 343,
-      "carb_outside_nin50to65pct_cases": 416
+        "mean": 5.733311111111111,
+        "median": 5.9162,
+        "p90": 6.6566
+      }
     },
     {
       "label": "B_exploratory",
       "cases": 432,
       "success": 432,
-      "feasible_10pct": 229,
+      "feasible_10pct": 236,
       "avoidable_gap_over20pct": 0,
-      "unique_recipes_selected": 22,
+      "unique_recipes_selected": 23,
       "unique_ingredients_selected": 72,
-      "catalog_sha256": "f64aa7c57e14e2969ca63411bed106d007e41ded9744456825cf252546f9f236",
+      "catalog_sha256": "d95efe3d376d3e3499e210bb923128c6e4987e7192116965b330f2fa2cb7b230",
+      "csv_sha256": "0c982f05b261265d5a986c7634a6ffb19c360ab7a235a3aa7f156730add1f472",
       "food_source_qualified": false,
+      "fat_over_25pct": 374,
+      "carbs_outside_50_65pct": 420,
       "projected_kcal": {
-        "mean": 1679.494787037037,
-        "median": 1697.667,
-        "p90": 1978.292
+        "mean": 1769.3046319444445,
+        "median": 1829.008,
+        "p90": 2074.492
       },
       "absolute_error_kcal": {
-        "mean": 556.846550925926,
-        "median": 283.68450000000007,
-        "p90": 1587.19
+        "mean": 468.23833101851847,
+        "median": 162.24699999999984,
+        "p90": 1534.99
       },
       "relative_error": {
-        "mean": 0.19977718576779271,
-        "median": 0.12946647405675815,
-        "p90": 0.5045403377110694
+        "mean": 0.16320251039764283,
+        "median": 0.08917334754280999,
+        "p90": 0.49412134296136384
       },
       "protein_g": {
-        "mean": 94.8947175925926,
-        "median": 94.657,
-        "p90": 103.43
+        "mean": 95.48659722222223,
+        "median": 94.927,
+        "p90": 105.976
       },
       "available_carbs_g": {
-        "mean": 191.70055324074073,
-        "median": 194.03500000000003,
-        "p90": 219.857
+        "mean": 205.35099537037036,
+        "median": 208.23250000000002,
+        "p90": 244.469
       },
       "fat_g": {
-        "mean": 54.685513888888885,
-        "median": 56.268,
-        "p90": 74.814
+        "mean": 58.51275462962963,
+        "median": 63.953,
+        "p90": 74.35
       },
       "fiber_g": {
-        "mean": 12.364511574074074,
-        "median": 11.698,
-        "p90": 14.827
+        "mean": 11.4850625,
+        "median": 11.058,
+        "p90": 14.818
       },
       "protein_energy_ratio": {
-        "mean": 0.22875123150462906,
-        "median": 0.22302842665846717,
-        "p90": 0.2588476186137011
+        "mean": 0.21900699493372422,
+        "median": 0.21403096175629752,
+        "p90": 0.25048972342045167
       },
       "carb_energy_ratio": {
-        "mean": 0.4587468751908671,
-        "median": 0.45427485194104905,
-        "p90": 0.48529835448147285
+        "mean": 0.4649452383496969,
+        "median": 0.4638831947298723,
+        "p90": 0.4871488070070589
       },
       "fat_energy_ratio": {
-        "mean": 0.2877536602516679,
-        "median": 0.29829878297687357,
-        "p90": 0.34035723745534024
+        "mean": 0.2931554434612062,
+        "median": 0.3095787308136452,
+        "p90": 0.32382494028465963
       },
       "fiber_gap_g": {
-        "mean": 6.802155092592592,
-        "median": 6.366,
-        "p90": 9.691
+        "mean": 7.685895833333333,
+        "median": 7.8309999999999995,
+        "p90": 11.006
       },
       "unique_food_count": {
-        "mean": 29.59490740740741,
+        "mean": 28.824074074074073,
         "median": 30.0,
         "p90": 35.0
       },
       "runtime_ms": {
-        "mean": 5.713132407407407,
-        "median": 5.41525,
-        "p90": 7.2817
-      },
-      "fat_above_nin25pct_cases": 350,
-      "carb_outside_nin50to65pct_cases": 421
+        "mean": 5.283684259259259,
+        "median": 4.881,
+        "p90": 7.2438
+      }
     },
     {
       "label": "C_exploratory",
       "cases": 432,
       "success": 432,
-      "feasible_10pct": 344,
+      "feasible_10pct": 336,
       "avoidable_gap_over20pct": 0,
-      "unique_recipes_selected": 54,
-      "unique_ingredients_selected": 98,
-      "catalog_sha256": "afdaad645524f15c334e7c0f6dfcb5dc4b1335b06dbdc2adc1b332e702f9ad20",
+      "unique_recipes_selected": 51,
+      "unique_ingredients_selected": 96,
+      "catalog_sha256": "a7ec81b5fbadce271f07bd3749cc7fcdcfcb57a0da2a90eb070dc555729c7d75",
+      "csv_sha256": "7e971d6394b69f6708b7ce82b357760e331f72a8752cdfec0200af4e90445539",
       "food_source_qualified": false,
+      "fat_over_25pct": 70,
+      "carbs_outside_50_65pct": 370,
       "projected_kcal": {
-        "mean": 2077.561766203704,
-        "median": 2151.27,
+        "mean": 2083.777287037037,
+        "median": 2151.4049999999997,
         "p90": 2588.945
       },
       "absolute_error_kcal": {
-        "mean": 161.36204398148152,
-        "median": 3.2399999999997817,
+        "mean": 167.3951203703704,
+        "median": 3.832499999999982,
         "p90": 686.3800000000001
       },
       "relative_error": {
-        "mean": 0.052876649371958434,
-        "median": 0.0015441666666667212,
+        "mean": 0.057645431882195876,
+        "median": 0.002079652556038882,
         "p90": 0.22466474421710372
       },
       "protein_g": {
-        "mean": 125.50821296296296,
-        "median": 120.679,
-        "p90": 165.047
+        "mean": 125.18965972222223,
+        "median": 120.026,
+        "p90": 167.042
       },
       "available_carbs_g": {
-        "mean": 247.14382407407408,
-        "median": 263.3415,
-        "p90": 307.178
+        "mean": 248.80332638888888,
+        "median": 267.562,
+        "p90": 308.336
       },
       "fat_g": {
-        "mean": 52.71627314814815,
-        "median": 55.382,
-        "p90": 65.077
+        "mean": 52.887368055555555,
+        "median": 53.219,
+        "p90": 63.351
       },
       "fiber_g": {
-        "mean": 35.961,
-        "median": 38.7455,
-        "p90": 50.435
+        "mean": 35.75309027777778,
+        "median": 36.579,
+        "p90": 49.597
       },
       "protein_energy_ratio": {
-        "mean": 0.24211093458038574,
-        "median": 0.24850785004450598,
-        "p90": 0.26665843172832715
+        "mean": 0.24041881137627735,
+        "median": 0.25213232295772736,
+        "p90": 0.2626873045350083
       },
       "carb_energy_ratio": {
-        "mean": 0.4760651890107959,
-        "median": 0.4717851847101327,
-        "p90": 0.5009309134588316
+        "mean": 0.4770145082262025,
+        "median": 0.4717177263011045,
+        "p90": 0.5049229008426723
       },
       "fat_energy_ratio": {
-        "mean": 0.228606304029464,
+        "mean": 0.22981014985320958,
         "median": 0.22551771571488122,
-        "p90": 0.2546018171271674
+        "p90": 0.25889506756028435
       },
       "fiber_gap_g": {
-        "mean": 0.223287037037037,
+        "mean": 0.052805555555555515,
         "median": 0.0,
         "p90": 0.0
       },
       "unique_food_count": {
-        "mean": 21.75925925925926,
-        "median": 20.0,
+        "mean": 22.074074074074073,
+        "median": 21.0,
         "p90": 28.0
       },
       "runtime_ms": {
-        "mean": 46.667679398148145,
-        "median": 46.943799999999996,
-        "p90": 51.086
-      },
-      "fat_above_nin25pct_cases": 49,
-      "carb_outside_nin50to65pct_cases": 377
+        "mean": 40.33980949074074,
+        "median": 41.38205,
+        "p90": 46.7473
+      }
     }
   ]
 }

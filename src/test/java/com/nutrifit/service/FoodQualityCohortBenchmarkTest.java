@@ -62,7 +62,9 @@ class FoodQualityCohortBenchmarkTest {
     }
 
     @Test void exploratoryDatasetsUseTheSameAlgorithmAndTheSameHistoricalSnapshots() throws Exception {
-        benchmark("B_EXPLORATORY_59_SOURCE_MATCHES_23_UNRESOLVED", RealCatalog.load(Path.of("database/staging/food-quality-v1/catalog-B-exploratory.json")), "cohort-B");
+        var evidence=FoodDataQualityAuditTest.read(Path.of("database/staging/food-quality-v1/food-provenance.json"));
+        int complete=((Number)FoodDataQualityAuditTest.object(evidence.get("summary")).get("complete_source_foods")).intValue();
+        benchmark("B_EXPLORATORY_"+complete+"_SOURCE_MATCHES_"+(82-complete)+"_UNRESOLVED", RealCatalog.load(Path.of("database/staging/food-quality-v1/catalog-B-exploratory.json")), "cohort-B");
         benchmark("C_EXPLORATORY_60_DESIGNS_NOT_APPROVED", RealCatalog.load(Path.of("database/staging/food-quality-v1/catalog-C-exploratory.json")), "cohort-C");
     }
 
