@@ -10,6 +10,8 @@
 !docker/
 !docker/server.xml
 !docker/entrypoint.sh
+!docker/root/
+!docker/root/index.jsp
 
 # Defense in depth if a private file is accidentally placed below src/main.
 **/.git

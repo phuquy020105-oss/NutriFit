@@ -19,6 +19,7 @@ RUN groupadd --system --gid 10001 nutrifit \
 COPY --chown=10001:10001 docker/server.xml conf/server.xml
 COPY --chmod=755 docker/entrypoint.sh /usr/local/bin/nutrifit-entrypoint
 COPY --from=build --chown=10001:10001 /build/target/nutrifit.war webapps/nutrifit.war
+COPY --chown=10001:10001 docker/root/index.jsp webapps/ROOT/index.jsp
 USER nutrifit
 EXPOSE 8080
 STOPSIGNAL SIGTERM
