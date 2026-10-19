@@ -1,0 +1,10 @@
+{
+  "algorithm": "98c0204 unbounded weighted score",
+  "algorithm_sha256": "71cc86b81a1a9514242d5a46273474654b6e39c7af0ea0a70dd07ab83a29388c",
+  "catalog_sha256": "419fa5e4ec57cabecf692dfe827ab764e564bb1bc76b0202f716bc669f23e685",
+  "case_count": 432,
+  "execution": "actual production service with read-only in-memory ports; no JDBC; not E2E",
+  "target_source": "Unchanged OnboardingService.save with capture-only UserProfileDAO",
+  "quality": "FAIL_AVOIDABLE_ENERGY_GAP",
+  "avoidable_cases": 5
+}

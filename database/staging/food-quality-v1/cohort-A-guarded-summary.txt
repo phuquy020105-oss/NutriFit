@@ -1,0 +1,7 @@
+dataset=A_BASELINE_ESTIMATED
+cases=432
+success=432
+energy_feasible_10pct=200
+selected_error_over20pct_when_feasible=0
+quality=NO_AVOIDABLE_ENERGY_GAP_OBSERVED
+source_quality=EXPLORATORY_NOT_PRODUCTION_VERIFICATION

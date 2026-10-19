@@ -1,0 +1,359 @@
+{
+  "purpose": "PUBLIC_SOURCE_FILES_ONLY_NO_DATABASE_OR_CREDENTIALS",
+  "files": [
+    {
+      "file": "usda-srlegacy-2018-official.zip",
+      "url": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
+      "sha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
+      "retrieved_date": "2026-10-19"
+    },
+    {
+      "file": "mext2015-table.xlsx",
+      "url": "https://www.mext.go.jp/component/english/__icsFiles/afieldfile/2017/12/25/1374049_1r12_1.xlsx",
+      "sha256": "5c968f1801f706b2970d51599ab2dce6f9e09ff3901fcf1990922960761885fb",
+      "retrieved_date": "2026-10-19"
+    },
+    {
+      "query": "cà chua",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=c%C3%A0+chua",
+      "file": "nin-searches/1b3738c31116.json",
+      "sha256": "a2b815d60443d0ebd134f55952a7ddcd4833dd78152e888cfe1fbc96972409c0",
+      "retrieved_date": "2026-10-19",
+      "total": 4,
+      "truncated": false
+    },
+    {
+      "query": "dưa chuột",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=d%C6%B0a+chu%E1%BB%99t",
+      "file": "nin-searches/dc5242638b22.json",
+      "sha256": "be8bb5e8769daccce86e23809c3a65bf21997e72c8e323412ae15296035c24d0",
+      "retrieved_date": "2026-10-19",
+      "total": 3,
+      "truncated": false
+    },
+    {
+      "query": "xà lách",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=x%C3%A0+l%C3%A1ch",
+      "file": "nin-searches/2afae78a79d1.json",
+      "sha256": "d1c67fa11936aff312fb40d9a4b08dcbe6e9f36f2e8fcfcf0f99ac0570730702",
+      "retrieved_date": "2026-10-19",
+      "total": 0,
+      "truncated": false
+    },
+    {
+      "query": "giá đậu xanh",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=gi%C3%A1+%C4%91%E1%BA%ADu+xanh",
+      "file": "nin-searches/843d83b4c21d.json",
+      "sha256": "89c8a0903219529c216c89f9d64557eca0152e42cabd668ad2f33f4855d3d6c1",
+      "retrieved_date": "2026-10-19",
+      "total": 3,
+      "truncated": false
+    },
+    {
+      "query": "hành tây",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=h%C3%A0nh+t%C3%A2y",
+      "file": "nin-searches/595eb4e30f3d.json",
+      "sha256": "6093c87c29c98f56b43dd1e6f6b56182fa64f127c7e87e855ccab604113ad525",
+      "retrieved_date": "2026-10-19",
+      "total": 1,
+      "truncated": false
+    },
+    {
+      "query": "hành lá",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=h%C3%A0nh+l%C3%A1",
+      "file": "nin-searches/d212a250bc74.json",
+      "sha256": "77b856cf7fc93594890e2b5a822afe20897d3c06f3c09ae2c609dffeccac6797",
+      "retrieved_date": "2026-10-19",
+      "total": 1,
+      "truncated": false
+    },
+    {
+      "query": "rau mùi",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=rau+m%C3%B9i",
+      "file": "nin-searches/f84bb73ce7c4.json",
+      "sha256": "e0727727df941e958230370a365c36abf572ce0c4a29fd8c73610928130f120b",
+      "retrieved_date": "2026-10-19",
+      "total": 2,
+      "truncated": false
+    },
+    {
+      "query": "húng quế",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=h%C3%BAng+qu%E1%BA%BF",
+      "file": "nin-searches/cbd7c0dc17c5.json",
+      "sha256": "d1c67fa11936aff312fb40d9a4b08dcbe6e9f36f2e8fcfcf0f99ac0570730702",
+      "retrieved_date": "2026-10-19",
+      "total": 0,
+      "truncated": false
+    },
+    {
+      "query": "rau răm",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=rau+r%C4%83m",
+      "file": "nin-searches/2ae78f95989a.json",
+      "sha256": "c19335d9231b34580c6966c39d098364190dcdfc75eb1e880a6c5a4378083f75",
+      "retrieved_date": "2026-10-19",
+      "total": 1,
+      "truncated": false
+    },
+    {
+      "query": "hẹ",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=h%E1%BA%B9",
+      "file": "nin-searches/daf024c71d2b.json",
+      "sha256": "2fbfb77e9f69d7ac21d88b19b51019033ee7b324d933e791d95d0a955853db7e",
+      "retrieved_date": "2026-10-19",
+      "total": 23,
+      "truncated": false
+    },
+    {
+      "query": "sả",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=s%E1%BA%A3",
+      "file": "nin-searches/6d9fb7bdff65.json",
+      "sha256": "388556a5bc43f14ba7d91467b56c3e7dfa23775d2e62f1294b270342edb83e75",
+      "retrieved_date": "2026-10-19",
+      "total": 70,
+      "truncated": true
+    },
+    {
+      "query": "gừng",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=g%E1%BB%ABng",
+      "file": "nin-searches/1fbe711f0d6a.json",
+      "sha256": "e9d47958bd2724748b9caaa8a7a62642411f3bfde97a1b339a171ba7789cd729",
+      "retrieved_date": "2026-10-19",
+      "total": 2,
+      "truncated": false
+    },
+    {
+      "query": "tỏi",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=t%E1%BB%8Fi",
+      "file": "nin-searches/8c5eb8ada935.json",
+      "sha256": "2122bdefe7a54851fdc667cff16ee92aeb0c10c134e0a60a5a276011fd0b3a92",
+      "retrieved_date": "2026-10-19",
+      "total": 4,
+      "truncated": false
+    },
+    {
+      "query": "hành tím",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=h%C3%A0nh+t%C3%ADm",
+      "file": "nin-searches/088f8ef4687b.json",
+      "sha256": "d1c67fa11936aff312fb40d9a4b08dcbe6e9f36f2e8fcfcf0f99ac0570730702",
+      "retrieved_date": "2026-10-19",
+      "total": 0,
+      "truncated": false
+    },
+    {
+      "query": "ớt",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=%E1%BB%9Bt",
+      "file": "nin-searches/ade5c2868f9e.json",
+      "sha256": "7fe591df8843c469d765086db2913cb1c6e39f516907f2f962bf208fe9d5de4a",
+      "retrieved_date": "2026-10-19",
+      "total": 8,
+      "truncated": false
+    },
+    {
+      "query": "cà rốt",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=c%C3%A0+r%E1%BB%91t",
+      "file": "nin-searches/bb82c010b314.json",
+      "sha256": "19bfd5fe8638641067ff0359cdc0b62efb61a0d35d1a1e227e60714111320190",
+      "retrieved_date": "2026-10-19",
+      "total": 3,
+      "truncated": false
+    },
+    {
+      "query": "củ cải",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=c%E1%BB%A7+c%E1%BA%A3i",
+      "file": "nin-searches/9245a4273914.json",
+      "sha256": "14ace1c01addbe9fdda82085674af371dd5e06f421bae6373f7da89996afde2f",
+      "retrieved_date": "2026-10-19",
+      "total": 7,
+      "truncated": false
+    },
+    {
+      "query": "đu đủ",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=%C4%91u+%C4%91%E1%BB%A7",
+      "file": "nin-searches/57b68f96c798.json",
+      "sha256": "03b793b01319c751489f3fe248823bc3d80924748d7120e5d36d18e9199caa2f",
+      "retrieved_date": "2026-10-19",
+      "total": 3,
+      "truncated": false
+    },
+    {
+      "query": "dứa",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=d%E1%BB%A9a",
+      "file": "nin-searches/b760bef676c2.json",
+      "sha256": "99beed873906c723fa2855547c1294f614bfa44c71095131d5da2f6a1b6de4ea",
+      "retrieved_date": "2026-10-19",
+      "total": 31,
+      "truncated": false
+    },
+    {
+      "query": "đậu bắp",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=%C4%91%E1%BA%ADu+b%E1%BA%AFp",
+      "file": "nin-searches/0adc11080ec2.json",
+      "sha256": "d1c67fa11936aff312fb40d9a4b08dcbe6e9f36f2e8fcfcf0f99ac0570730702",
+      "retrieved_date": "2026-10-19",
+      "total": 0,
+      "truncated": false
+    },
+    {
+      "query": "dọc mùng",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=d%E1%BB%8Dc+m%C3%B9ng",
+      "file": "nin-searches/3389806feb2d.json",
+      "sha256": "5d8cf192000103206bcae8552a8614d3c8c57116d7c3946fe224e2323fe22261",
+      "retrieved_date": "2026-10-19",
+      "total": 2,
+      "truncated": false
+    },
+    {
+      "query": "bí ngô",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=b%C3%AD+ng%C3%B4",
+      "file": "nin-searches/040d8f3d71fa.json",
+      "sha256": "517ca1072e4949323f4310784c15f69da1b4e3d0bf9cf69bbcdb27e7b8e50fce",
+      "retrieved_date": "2026-10-19",
+      "total": 3,
+      "truncated": false
+    },
+    {
+      "query": "rau ngổ",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=rau+ng%E1%BB%95",
+      "file": "nin-searches/c13dbbd8662f.json",
+      "sha256": "c8d54ee27e2ff6975f62f72f1424fd3362d57af614411cfd2a0a6d592c46a78a",
+      "retrieved_date": "2026-10-19",
+      "total": 4,
+      "truncated": false
+    },
+    {
+      "query": "mùi tàu",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=m%C3%B9i+t%C3%A0u",
+      "file": "nin-searches/60ef1d85de2d.json",
+      "sha256": "43de172b46a23ec62a0da19ab41d1781928d82fd7e4876a9191515d35a1112f7",
+      "retrieved_date": "2026-10-19",
+      "total": 1,
+      "truncated": false
+    },
+    {
+      "query": "mộc nhĩ",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=m%E1%BB%99c+nh%C4%A9",
+      "file": "nin-searches/3c00edf22f9d.json",
+      "sha256": "48ccf1b0dd64e1ba738e70c62820aa1601e43b2e7364f59ba65608be80cd5414",
+      "retrieved_date": "2026-10-19",
+      "total": 1,
+      "truncated": false
+    },
+    {
+      "query": "nấm hương",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=n%E1%BA%A5m+h%C6%B0%C6%A1ng",
+      "file": "nin-searches/78882e14c13b.json",
+      "sha256": "fb0d22ef022bc0c16d7eb98922d943fe95965c92c6073abd8e0042e4dc4f8511",
+      "retrieved_date": "2026-10-19",
+      "total": 2,
+      "truncated": false
+    },
+    {
+      "query": "nước mắm",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=n%C6%B0%E1%BB%9Bc+m%E1%BA%AFm",
+      "file": "nin-searches/1b5d0c1a446d.json",
+      "sha256": "c55dacf776272b7021f7c68b1f51ad80a06b40dbaf1bbc28ad01683df3431cdf",
+      "retrieved_date": "2026-10-19",
+      "total": 5,
+      "truncated": false
+    },
+    {
+      "query": "xì dầu",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=x%C3%AC+d%E1%BA%A7u",
+      "file": "nin-searches/a73ab8f69dea.json",
+      "sha256": "1eb4f92628577330fdee8090f1f07bc5da0613afea83dcd69a917e71587c3a52",
+      "retrieved_date": "2026-10-19",
+      "total": 1,
+      "truncated": false
+    },
+    {
+      "query": "nước tương",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=n%C6%B0%E1%BB%9Bc+t%C6%B0%C6%A1ng",
+      "file": "nin-searches/48de446a60fb.json",
+      "sha256": "d1c67fa11936aff312fb40d9a4b08dcbe6e9f36f2e8fcfcf0f99ac0570730702",
+      "retrieved_date": "2026-10-19",
+      "total": 0,
+      "truncated": false
+    },
+    {
+      "query": "bột năng",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=b%E1%BB%99t+n%C4%83ng",
+      "file": "nin-searches/6dfe60e05e25.json",
+      "sha256": "e7bd8e690f1117af9769ab3b5ca4db0c3c5a55ef8afe5d83df1315c2b65b163d",
+      "retrieved_date": "2026-10-19",
+      "total": 1,
+      "truncated": false
+    },
+    {
+      "query": "bột sắn",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=b%E1%BB%99t+s%E1%BA%AFn",
+      "file": "nin-searches/202ddfa35f54.json",
+      "sha256": "f6d3115d90d7af7c4c3b871703b3d0003cf4b62eddf0b5f1996bd8ebfd1aaa10",
+      "retrieved_date": "2026-10-19",
+      "total": 2,
+      "truncated": false
+    },
+    {
+      "query": "lạc rang",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=l%E1%BA%A1c+rang",
+      "file": "nin-searches/67095b9131da.json",
+      "sha256": "1d319074178da83133b570bf6cc0e9d4a5a988a69ee722472e92f11965e38bd0",
+      "retrieved_date": "2026-10-19",
+      "total": 1,
+      "truncated": false
+    },
+    {
+      "query": "mật ong",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=m%E1%BA%ADt+ong",
+      "file": "nin-searches/9f750a428d19.json",
+      "sha256": "6741abd1ce459d90755b62ce9a8121ed55c2f4896b9cae3d86196c6014a45e3d",
+      "retrieved_date": "2026-10-19",
+      "total": 1,
+      "truncated": false
+    },
+    {
+      "query": "mắm tôm",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=m%E1%BA%AFm+t%C3%B4m",
+      "file": "nin-searches/2b562e8e85f8.json",
+      "sha256": "93d75effcd244e12d11ce81c139bb10a948c4c1c724154ee7b1394bd48c62562",
+      "retrieved_date": "2026-10-19",
+      "total": 2,
+      "truncated": false
+    },
+    {
+      "query": "mắm ruốc",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=m%E1%BA%AFm+ru%E1%BB%91c",
+      "file": "nin-searches/4bdf03a914d7.json",
+      "sha256": "d1c67fa11936aff312fb40d9a4b08dcbe6e9f36f2e8fcfcf0f99ac0570730702",
+      "retrieved_date": "2026-10-19",
+      "total": 0,
+      "truncated": false
+    },
+    {
+      "query": "đậu phụ",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=%C4%91%E1%BA%ADu+ph%E1%BB%A5",
+      "file": "nin-searches/e55196a0d5da.json",
+      "sha256": "a4c0967b6aefdecf7e3be3c59e36a72ab527b981434a04648ce59e737b06336c",
+      "retrieved_date": "2026-10-19",
+      "total": 5,
+      "truncated": false
+    },
+    {
+      "query": "dầu đậu nành",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=d%E1%BA%A7u+%C4%91%E1%BA%ADu+n%C3%A0nh",
+      "file": "nin-searches/86dafaec30ec.json",
+      "sha256": "4c0f30b2e4112cb1954723a1209c4c10adf7c16920c0f7c6a8c144553e134555",
+      "retrieved_date": "2026-10-19",
+      "total": 2,
+      "truncated": false
+    },
+    {
+      "query": "dầu đậu tương",
+      "url": "https://viendinhduong.vn/api/fe/foodNatunal/getPageFoodData?page=1&pageSize=50&name=d%E1%BA%A7u+%C4%91%E1%BA%ADu+t%C6%B0%C6%A1ng",
+      "file": "nin-searches/602652c78a23.json",
+      "sha256": "d4d5875cbeda9c8e8411a52d0d5f0d2c3d221dd35f2248aaa6a13d318cbf8193",
+      "retrieved_date": "2026-10-19",
+      "total": 2,
+      "truncated": false
+    }
+  ]
+}

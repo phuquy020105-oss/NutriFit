@@ -1,0 +1,1 @@
+{"status":"PASS_READ_ONLY_LOCAL_CATALOG_VERIFICATION","database":"nutrifit_fq_20261019_food_quality_test","mysql_version":"26.7.0","catalog_sha256":"afdaad645524f15c334e7c0f6dfcb5dc4b1335b06dbdc2adc1b332e702f9ad20","foods":100,"recipes":60,"links":607,"read_only":true}
