@@ -1,0 +1,162 @@
+{
+  "status": "PASS_EDUCATIONAL_ACCEPTANCE",
+  "datasets": [
+    {
+      "label": "A_CURRENT_PRODUCTION30",
+      "cases": 432,
+      "successful": 432,
+      "feasible10": 200,
+      "avoidable20": 0,
+      "catalog_sha256": "c36041543cec342e06131fbe580b84d24ea37c4adb30431f1e8e1050117cb01d",
+      "csv_sha256": "334a1110c777f624a72976f168a422ea3e2e4e58fa97220effc2ea6bfd76a840",
+      "absolute_error_kcal": {
+        "mean": 598.5750462962964,
+        "median": 485.14999999999986,
+        "p90": 1583.0400000000002
+      },
+      "relative_error": {
+        "mean": 0.21897481023039916,
+        "median": 0.21301542335536672,
+        "p90": 0.5011521596215495
+      },
+      "protein_g": {
+        "mean": 93.71433564814815,
+        "median": 96.257,
+        "p90": 100.272
+      },
+      "available_carbs_g": {
+        "mean": 190.5780162037037,
+        "median": 190.125,
+        "p90": 213.915
+      },
+      "fat_g": {
+        "mean": 52.00445601851852,
+        "median": 52.76,
+        "p90": 64.378
+      },
+      "fiber_g": {
+        "mean": 11.75368287037037,
+        "median": 11.994,
+        "p90": 13.821
+      },
+      "runtime_ms": {
+        "mean": 5.341569212962963,
+        "median": 5.1783,
+        "p90": 7.0051
+      }
+    },
+    {
+      "label": "B_DEMO30_REFERENCES",
+      "cases": 432,
+      "successful": 432,
+      "feasible10": 236,
+      "avoidable20": 0,
+      "catalog_sha256": "7f0a2be03a545466249f085e4ca09c7b15844631a4ced9e6625eb89d15034e88",
+      "csv_sha256": "ac7862efcf399878e3f6d2cb9ef528e91e1d909fa9fe33a607a7b185c8e51d69",
+      "absolute_error_kcal": {
+        "mean": 468.23833101851847,
+        "median": 162.24699999999984,
+        "p90": 1534.99
+      },
+      "relative_error": {
+        "mean": 0.16320251039764283,
+        "median": 0.08917334754280999,
+        "p90": 0.49412134296136384
+      },
+      "protein_g": {
+        "mean": 95.48659722222223,
+        "median": 94.927,
+        "p90": 105.976
+      },
+      "available_carbs_g": {
+        "mean": 205.35099537037036,
+        "median": 208.23250000000002,
+        "p90": 244.469
+      },
+      "fat_g": {
+        "mean": 58.51275462962963,
+        "median": 63.953,
+        "p90": 74.35
+      },
+      "fiber_g": {
+        "mean": 11.4850625,
+        "median": 11.058,
+        "p90": 14.818
+      },
+      "runtime_ms": {
+        "mean": 4.398624305555556,
+        "median": 4.18735,
+        "p90": 5.1915
+      }
+    },
+    {
+      "label": "C_DEMO60",
+      "cases": 432,
+      "successful": 432,
+      "feasible10": 336,
+      "avoidable20": 0,
+      "catalog_sha256": "c80faa22cc6fae6b125569e9620202ad4c4fd5e0e71eefc42a8cfc4b172f62fb",
+      "csv_sha256": "c760abc64fe90c55bbf931739b6fd047b790fb2c756e20e4ad79a609b24bac9d",
+      "absolute_error_kcal": {
+        "mean": 167.3951203703704,
+        "median": 3.832499999999982,
+        "p90": 686.3800000000001
+      },
+      "relative_error": {
+        "mean": 0.057645431882195876,
+        "median": 0.002079652556038882,
+        "p90": 0.22466474421710372
+      },
+      "protein_g": {
+        "mean": 125.18965972222223,
+        "median": 120.026,
+        "p90": 167.042
+      },
+      "available_carbs_g": {
+        "mean": 248.80332638888888,
+        "median": 267.562,
+        "p90": 308.336
+      },
+      "fat_g": {
+        "mean": 52.887368055555555,
+        "median": 53.219,
+        "p90": 63.351
+      },
+      "fiber_g": {
+        "mean": 35.75309027777778,
+        "median": 36.579,
+        "p90": 49.597
+      },
+      "runtime_ms": {
+        "mean": 34.891339351851855,
+        "median": 33.464600000000004,
+        "p90": 42.9613
+      }
+    }
+  ],
+  "swaps": [
+    {
+      "catalog_recipes": 30,
+      "scenarios": 18,
+      "attempt_limit": 6,
+      "successful_swaps": 95,
+      "no_alternative_scenarios": 0,
+      "max_single_swap_relative_kcal": 0.22779289404156314
+    },
+    {
+      "catalog_recipes": 60,
+      "scenarios": 18,
+      "attempt_limit": 6,
+      "successful_swaps": 91,
+      "no_alternative_scenarios": 0,
+      "max_single_swap_relative_kcal": 0.14895572767547693
+    }
+  ],
+  "algorithm_sha256": "00ddf40cff40cde5ed4d617c421f3fa386929cb676e6e4621c80a38ccf0f0625",
+  "notes": [
+    "Same actual Onboarding targets, scorer and historical snapshots, fixed1.00portions;432cases per dataset",
+    "No forced poor substitution when acceptable novel choices are exhausted",
+    "Numeric data matches the previous exploratory C; educational qualification is an owner policy change, not new analytical measurement",
+    "Not a clinical qualification or a load test"
+  ]
+}

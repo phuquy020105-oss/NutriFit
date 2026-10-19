@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "observed_utc": "2026-10-19T18:51:26.989260+00:00",
+  "jdk": "21.0.12.1 Eclipse Adoptium",
+  "maven": "3.9.16",
+  "maven_build_pass": true,
+  "maven_commands": [
+    "mvn -DargLine=-Xmx768m clean package",
+    "mvn -DargLine=-Xmx768m package"
+  ],
+  "python_tests": 38,
+  "python_skipped": 0,
+  "python_pass": true,
+  "powershell_syntax_pass": true,
+  "powershell_versions": [
+    "WindowsPowerShell5.1",
+    "PowerShell7"
+  ],
+  "git_diff_check_pass": true,
+  "java_tool_compile_pass": true,
+  "source_hashes": {
+    "src/main/java/com/nutrifit/service/MealRecommendationService.java": "00ddf40cff40cde5ed4d617c421f3fa386929cb676e6e4621c80a38ccf0f0625",
+    "src/main/java/com/nutrifit/controller/MealRecommendationsServlet.java": "c22de977496b21514e98741901c9daa18c50af7a754ce69094ad293327863e98",
+    "src/main/webapp/assets/js/nutrition.js": "0759cd622cfcf4f8d5920e19dbfdd586cb61d9abff20a421b65cbb1d4f4f4644",
+    "src/main/webapp/WEB-INF/views/nutrition/meal-recommendations.jsp": "0b0b0171d9aa52cf7f60954499fdfa5ae313b07304601f6b9957a1616e923905"
+  },
+  "limits": [
+    "Browser fixtures and HTTP doubles, not authenticated live productionE2E",
+    "No Aiven production data write",
+    "Backup covers catalog rows plus24DDL, not user data"
+  ],
+  "production_approval_guard_before_credentials_pass": true
+}

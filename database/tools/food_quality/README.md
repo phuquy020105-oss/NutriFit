@@ -1,3 +1,16 @@
+# Current educational 60-recipe release (2026-10-20)
+
+Use `docs/nutrition/demo60-release.md` and `database/staging/food-quality-v1/release/final-manifest.json` for the current release. Owner accepts documented MATCHED/CALCULATED/ESTIMATED data for a course demo; the strict source-only audits below remain historical evidence. PRODUCTION_READY does not authorize Aiven writes.
+
+- `build_demo_release.py`: deterministic qualified B/C, documented12whole-food estimates, reviewed30portion decisions, byte-exact copy of30reviewed WebPs. Never connects to a DB.
+- `verify_web.py --jdk <JDK21> --tomcat <Tomcat10.1> --chrome <chrome.exe>`: JSP compilation checks actual error count plus14legacy/23swap browser assertions.
+- `finalize_demo_release.py`: checks real local/tests/benchmark evidence and seals file hashes. Never imports.
+- `Invoke-DemoCatalogRelease.ps1`: `Backup` is SELECT/SHOW Aiven only; `LocalTrial` restores24DDL/catalog into a new isolated local DB and tests rollback/idempotency/conflict/history/generatedIDs/calculator. `ApplyAiven` requires explicit owner approval of the exact manifest SHA256, checked files and restore-tested backup. Do not run ApplyAiven before go-live approval.
+- No passwords in command arguments/option files/logs; private .env loaded in memory. Aiven uses pinned host/CA and VERIFY_IDENTITY. Existing populated local databases are never recreated. ResumeEmptyLocal is only permitted if ALL24tables are empty; no automatic production retry.
+- Release uses parameterized SQL in CatalogReleaseMigration.java instead of a concatenated manual SQL dump. Only planned catalog DML is allowed; schema/user rows/history are preserved. Backup restoration is for a NEW local database, never over a live DB.
+
+Historical source-quality tooling follows:
+
 # Offline food quality evidence tools
 
 The Python tools are offline and do not connect to MySQL. The optional Java LOCAL trial below is explicitly database-backed. Neither creates migration approval. Source cache stays outside Git and target, for example D:/NutriFit-data-sources/20261019. Never put .env or database backups in this cache.

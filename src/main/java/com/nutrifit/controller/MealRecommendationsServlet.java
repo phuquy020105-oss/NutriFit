@@ -4,6 +4,8 @@ import com.nutrifit.dto.*;
 import com.nutrifit.model.MealEntry.MealType;
 import com.nutrifit.service.*;
 import com.nutrifit.util.Csrf;
+import com.nutrifit.util.JsonLite;
+import com.nutrifit.util.RecipeImage;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -68,6 +70,8 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
     private static String notice(String message) {
         return switch (message == null ? "" : message) {
             case "suggested" -> "Đã lưu thực đơn ba bữa vào nhật ký hôm nay.";
+            case "swapped" -> "Đã đổi một món trong bản xem trước; nhật ký chưa thay đổi.";
+            case "swap-unavailable" -> "Chưa có món thay thế phù hợp; món hiện tại được giữ nguyên.";
             case "added" -> "Đã ghi nhận món ăn.";
             case "updated" -> "Đã đổi món trong nhật ký hôm nay.";
             case "deleted" -> "Đã xóa món khỏi nhật ký hôm nay.";
@@ -84,7 +88,7 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
         if (user == null || !requireCsrf(req, resp)) return;
         try {
             String action = required(req.getParameter("action"));
-            if (!Set.of("preview", "save", "regenerate").contains(action)) throw new IllegalArgumentException("Invalid action");
+            if (!Set.of("preview", "save", "regenerate", "swap").contains(action)) throw new IllegalArgumentException("Invalid action");
             HttpSession session = req.getSession(false);
             // Serializes duplicate submits for this session, including the database commit.
             synchronized (session) {
@@ -114,12 +118,36 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
                 }
                 if (draft.attempted) throw new RecommendationUnavailableException(
                         "Thực đơn này đã được gửi lưu. Hãy kiểm tra nhật ký trước khi tạo gợi ý mới.");
+                if ("swap".equals(action)) {
+                    MealType type = MealType.valueOf(required(req.getParameter("mealType")));
+                    List<Long> recent = draft.swaps.get(type);
+                    MealSuggestion next = service.swap(user, draft.suggestion, type, List.copyOf(recent));
+                    boolean changed = !MealRecommendationService.recipeIds(next).equals(MealRecommendationService.recipeIds(draft.suggestion));
+                    String message = changed ? "Đã đổi món; nhật ký chưa thay đổi."
+                            : "Đã hết món thay thế phù hợp trong lần xem trước này. Món hiện tại được giữ nguyên.";
+                    boolean revised = !next.equals(draft.suggestion);
+                    draft.suggestion = next;
+                    if (changed) {
+                        recent.add(next.meals().stream().filter(m -> m.mealType() == type).findFirst().orElseThrow().recipeId());
+                        if (recent.size() > 30) recent.removeFirst();
+                    }
+                    if (revised) draft.token = UUID.randomUUID().toString(); // Reject stale saves/swaps from another tab.
+                    if ("json".equals(req.getParameter("format"))) {
+                        resp.setContentType("application/json;charset=UTF-8");
+                        resp.getWriter().write("{\"changed\":" + changed + ",\"message\":" + JsonLite.quote(message)
+                                + ",\"suggestionToken\":" + JsonLite.quote(draft.token)
+                                + ",\"suggestion\":" + json(next, req.getContextPath()) + "}");
+                    } else {
+                        resp.sendRedirect(req.getContextPath() + "/nutrition/recommendations?message=" + (changed ? "swapped" : "swap-unavailable"));
+                    }
+                    return;
+                }
                 // Portions, recipe IDs and nutrition are owned by the server, never the posted fields.
                 Map<MealType, BigDecimal> amounts = standardAmounts();
                 if ("preview".equals(action)) {
                     draft.suggestion = service.refresh(user, draft.suggestion, amounts);
                     resp.setContentType("application/json;charset=UTF-8");
-                    resp.getWriter().write(json(draft.suggestion));
+                    resp.getWriter().write(json(draft.suggestion, req.getContextPath()));
                 } else {
                     // Preserve attempted state on uncertain commit failures; never retry automatically.
                     draft.attempted = true;
@@ -142,10 +170,12 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
                 + "\",\"fatG\":\"" + f.fatG().toPlainString()
                 + "\",\"fiberG\":\"" + f.fiberG().toPlainString() + "\"}";
     }
-    private static String json(MealSuggestion s) {
+    private static String json(MealSuggestion s, String context) {
         List<String> meals = new ArrayList<>();
         for (SuggestedMeal m : s.meals()) meals.add("{\"mealType\":\"" + m.mealType().name()
-                + "\",\"nutrition\":" + facts(m.nutrition()) + "}");
+                + "\",\"recipeId\":" + m.recipeId() + ",\"name\":" + JsonLite.quote(m.name())
+                + ",\"imageUrl\":" + JsonLite.quote(RecipeImage.url(context, m.imageUrl()))
+                + ",\"nutrition\":" + facts(m.nutrition()) + "}");
         return "{\"meals\":[" + String.join(",", meals) + "],\"total\":" + facts(s.total())
                 + ",\"targetKcal\":\"" + s.targetKcal().toPlainString()
                 + "\",\"differenceKcal\":\"" + s.differenceKcal().toPlainString()
@@ -154,19 +184,22 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
                 + ",\"recordedMealCount\":" + s.recordedMealCount()
                 + ",\"projectedDifferenceKcal\":\"" + s.projectedDifferenceKcal().toPlainString()
                 + "\",\"exceedsTarget\":" + s.exceedsTarget()
-                + ",\"personalized\":" + s.personalized() + "}";
+                + ",\"personalized\":" + s.personalized()
+                + ",\"warnings\":[" + String.join(",", s.warnings().stream().map(JsonLite::quote).toList()) + "]}";
     }
 
     static final class Draft {
-        final String token;
+        String token;
         final Instant created;
         MealSuggestion suggestion;
         boolean attempted;
         boolean saved;
         final List<List<Long>> recent;
+        final Map<MealType,List<Long>> swaps = new EnumMap<>(MealType.class);
         Draft(String token, MealSuggestion suggestion, Instant created) { this(token,suggestion,created,List.of()); }
         Draft(String token, MealSuggestion suggestion, Instant created, List<List<Long>> previous) {
             this.token = token; this.suggestion = suggestion; this.created = created;
+            for (var m : suggestion.meals()) swaps.put(m.mealType(), new ArrayList<>(List.of(m.recipeId())));
             List<List<Long>> history = new ArrayList<>(previous);
             history.add(MealRecommendationService.recipeIds(suggestion));
             recent = List.copyOf(history.subList(Math.max(0,history.size()-5),history.size()));

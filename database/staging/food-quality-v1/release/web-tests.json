@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "jsp_errors": 0,
+  "browser_tests": [
+    {
+      "fixture": "nutrition-ui-test",
+      "result": "PASS 14 JavaScript checks",
+      "status": "PASS"
+    },
+    {
+      "fixture": "nutrition-swap-ui-test",
+      "result": "PASS 23 JavaScript swap checks",
+      "status": "PASS"
+    }
+  ]
+}

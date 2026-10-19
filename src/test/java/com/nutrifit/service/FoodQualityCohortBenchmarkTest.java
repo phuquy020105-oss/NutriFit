@@ -68,6 +68,11 @@ class FoodQualityCohortBenchmarkTest {
         benchmark("C_EXPLORATORY_60_DESIGNS_NOT_APPROVED", RealCatalog.load(Path.of("database/staging/food-quality-v1/catalog-C-exploratory.json")), "cohort-C");
     }
 
+    @Test void finalEducationalCatalogUsesSameScorerTargetsAndHistory() throws Exception {
+        benchmark("B_DEMO_30_DOCUMENTED_REFERENCES", RealCatalog.load(Path.of("database/staging/food-quality-v1/release/catalog-B-qualified.json")), "cohort-demo-B");
+        benchmark("C_DEMO_60_DOCUMENTED_REFERENCES", RealCatalog.load(Path.of("database/staging/food-quality-v1/release/catalog-C-qualified.json")), "cohort-demo-C");
+    }
+
     private void benchmark(String dataset, List<RecipeNutritionInput> data, String output) throws Exception {
         assertEquals(dataset.startsWith("C_")?60:30, data.size());
         var historicalRecipe = RealCatalog.load().get(22);

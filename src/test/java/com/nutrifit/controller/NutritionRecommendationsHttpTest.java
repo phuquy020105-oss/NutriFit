@@ -144,10 +144,73 @@ class NutritionRecommendationsHttpTest {
         assertNotNull(f.attributes.get("today"));assertNotNull(f.attributes.get("recipes"));
         assertNotNull(f.attributes.get("suggestionError"));assertEquals(0,f.writes);
     }
+    static void swapRequest(Fixture f,String type) throws Exception {
+        f.servlet.doGet(f.request,f.response);
+        var draft=(MealRecommendationsServlet.Draft)f.sessionValues.get(MealRecommendationsServlet.DRAFT);
+        f.params.put("csrfToken",Csrf.token(f.request));f.params.put("action","swap");
+        f.params.put("suggestionToken",draft.token);f.params.put("mealType",type);f.params.put("format","json");
+    }
+    @Test void swapRotatesNonceReturnsServerImageTotalsAndSaveUsesExactlyCurrentDraft()throws Exception{
+        Fixture f=new Fixture();swapRequest(f,"LUNCH");String old=f.params.get("suggestionToken");
+        f.params.put("recipeId","9999");f.params.put("caloriesKcal","0");
+        f.servlet.doPost(f.request,f.response);assertEquals(0,f.writes);assertEquals(1,f.swapped);
+        var draft=(MealRecommendationsServlet.Draft)f.sessionValues.get(MealRecommendationsServlet.DRAFT);
+        assertNotEquals(old,draft.token);assertEquals(12,draft.suggestion.meals().get(1).recipeId());
+        var json=(Map<?,?>)com.nutrifit.util.JsonLite.parse(f.body.toString());assertEquals(true,json.get("changed"));
+        assertEquals(draft.token,json.get("suggestionToken"));
+        var meal=(Map<?,?>)((List<?>)((Map<?,?>)json.get("suggestion")).get("meals")).get(1);
+        assertEquals("/assets/images/recipes/test.webp",meal.get("imageUrl"));assertEquals("New lunch",meal.get("name"));
+        f.params.put("action","save");f.servlet.doPost(f.request,f.response);assertEquals(403,f.status);assertEquals(0,f.writes);
+        f.params.put("suggestionToken",draft.token);f.servlet.doPost(f.request,f.response);assertEquals(1,f.writes);
+        assertSame(draft.suggestion,f.savedSuggestion);assertTrue(draft.saved);
+        f.params.put("action","swap");f.servlet.doPost(f.request,f.response);assertEquals(400,f.status);assertEquals(1,f.swapped);
+    }
+    @Test void swapRejectsMissingOrInvalidMealCsrfOwnerExpiryAndAttemptedDraft()throws Exception{
+        for(String type:Arrays.asList(null,"","SNACK","lunch")){
+            Fixture f=new Fixture();swapRequest(f,"LUNCH");if(type==null)f.params.remove("mealType");else f.params.put("mealType",type);
+            f.servlet.doPost(f.request,f.response);assertEquals(400,f.status);assertEquals(0,f.swapped);
+        }
+        for(int mode=0;mode<6;mode++){
+            Fixture f=new Fixture();swapRequest(f,"LUNCH");
+            var d=(MealRecommendationsServlet.Draft)f.sessionValues.get(MealRecommendationsServlet.DRAFT);
+            if(mode==0)f.params.remove("csrfToken");if(mode==1)f.sessionValues.remove("userId");
+            if(mode==2)f.sessionValues.put("userId",43L);
+            if(mode==3)f.sessionValues.put(MealRecommendationsServlet.DRAFT,new MealRecommendationsServlet.Draft(d.token,d.suggestion,Instant.now().minusSeconds(1900)));
+            if(mode==4)d.attempted=true;
+            if(mode==5)f.sessionValues.put(MealRecommendationsServlet.DRAFT,new MealRecommendationsServlet.Draft(d.token,
+                new MealSuggestion(42,LocalDate.now().minusDays(1),d.suggestion.targetKcal(),false,d.suggestion.meals()),Instant.now()));
+            f.servlet.doPost(f.request,f.response);assertEquals(mode==0||mode==2?403:mode==1?401:400,f.status);
+            assertEquals(0,f.swapped);assertEquals(0,f.writes);
+        }
+    }
+    @Test void noEquivalentKeepsNonceAndDraftWithoutJournalWrites()throws Exception{
+        Fixture f=new Fixture();swapRequest(f,"DINNER");f.noSwap=true;String token=f.params.get("suggestionToken");
+        f.servlet.doPost(f.request,f.response);
+        assertEquals(0,f.writes);assertEquals(token,((MealRecommendationsServlet.Draft)f.sessionValues.get(MealRecommendationsServlet.DRAFT)).token);
+        assertTrue(f.body.toString().contains("\"changed\":false"));
+    }
+    @Test void concurrentSwapAndStaleSaveCannotCommitAnInvisibleMenu()throws Exception{
+        Fixture f=new Fixture();swapRequest(f,"LUNCH");
+        f.swapEntered=new java.util.concurrent.CountDownLatch(1);f.swapRelease=new java.util.concurrent.CountDownLatch(1);
+        HttpServletRequest save=(HttpServletRequest)Proxy.newProxyInstance(getClass().getClassLoader(),new Class<?>[]{HttpServletRequest.class},
+            (p,m,a)->m.getName().equals("getParameter")&&a[0].equals("action")?"save":m.invoke(f.request,a));
+        var pool=java.util.concurrent.Executors.newFixedThreadPool(2);
+        try {
+            var changing=pool.submit(()->{f.servlet.doPost(f.request,f.response);return null;});
+            assertTrue(f.swapEntered.await(3,java.util.concurrent.TimeUnit.SECONDS));
+            var saving=pool.submit(()->{f.servlet.doPost(save,f.response);return null;});
+            f.swapRelease.countDown();changing.get(5,java.util.concurrent.TimeUnit.SECONDS);saving.get(5,java.util.concurrent.TimeUnit.SECONDS);
+            assertEquals(0,f.writes);assertEquals(403,f.status);assertEquals(1,f.swapped);
+        } finally {f.swapRelease.countDown();pool.shutdownNow();}
+    }
+
     private static class Fixture {
         final Map<String,Object> sessionValues=new HashMap<>(),attributes=new HashMap<>();
         final Map<String,String> params=new HashMap<>();
-        int status=200,writes,generated;
+        int status=200,writes,generated,swapped;
+        boolean noSwap;
+        MealSuggestion savedSuggestion;
+        java.util.concurrent.CountDownLatch swapEntered,swapRelease;
         String redirect;long savedUser;boolean failSave, unavailable;
         Map<MealEntry.MealType,BigDecimal> amounts;
         final StringWriter body=new StringWriter();
@@ -195,13 +258,20 @@ class NutritionRecommendationsHttpTest {
                         suggestion.meals().stream().map(m -> new SuggestedMeal(m.recipeId()+10,m.name(),m.mealType(),
                                 new BigDecimal("1.00"),m.nutrition())).toList());
             }
+            @Override public MealSuggestion swap(long user,MealSuggestion s,MealEntry.MealType type,List<Long> recent){
+                swapped++;
+                if(swapEntered!=null){swapEntered.countDown();try{if(!swapRelease.await(4,java.util.concurrent.TimeUnit.SECONDS))throw new AssertionError("Swap timeout");}catch(InterruptedException e){throw new AssertionError(e);}}
+                if(noSwap)return s;
+                return new MealSuggestion(user,s.date(),s.targetKcal(),false,s.meals().stream().map(m->m.mealType()!=type?m:
+                    new SuggestedMeal(m.recipeId()+10,"New lunch",type,new BigDecimal("1.00"),m.nutrition(),"/assets/images/recipes/test.webp")).toList());
+            }
             @Override public MealSuggestion refresh(long user,MealSuggestion s,Map<MealEntry.MealType,BigDecimal> amounts){return s;}
         };
         final MealPlannerService planner=new MealPlannerService(){
             @Override public DaySummary getToday(long user){return new DaySummary(LocalDate.now(),null,List.of(),NutritionFacts.ZERO);}
             @Override public List<RecipeCandidate> listAvailableRecipes(){return List.of();}
             @Override public MealSuggestion saveSuggestion(long user,MealSuggestion s,Map<MealEntry.MealType,BigDecimal> servings){
-                savedUser=user;amounts=servings;writes++;
+                savedUser=user;savedSuggestion=s;amounts=servings;writes++;
                 if(failSave)throw new IllegalArgumentException("injected failure");
                 return s;
             }

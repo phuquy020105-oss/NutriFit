@@ -138,6 +138,84 @@ public class MealRecommendationService {
         }
     }
 
+    /** Read-only replacement of one server-owned preview slot; never persists an entry.
+     * Recent IDs belong to this draft and slot. Exhaustion retains the existing menu.
+     */
+    public MealSuggestion swap(long userId, MealSuggestion draft, MealType type, List<Long> recent)
+            throws SQLException {
+        requireUser(userId);
+        validateDraft(userId, draft, Map.of());
+        if (type == null || recent == null || recent.size() > 30)
+            throw new IllegalArgumentException("Invalid swap filters");
+        try (Connection c = connections.open()) {
+            MealSuggestion current = refresh(c, userId, draft, Map.of());
+            Eligibility access = eligibility(c, userId);
+            List<RecipeCandidate> catalog = recipes.listCandidates(c);
+            NutritionGoal goal = users.findGoal(c, userId);
+            List<MealEntry> journal = journal(c, userId, current.date());
+            SuggestedMeal old = current.meals().stream().filter(m -> m.mealType() == type).findFirst().orElseThrow();
+            Set<Long> occupied = new HashSet<>(recipeIds(current));
+            Map<Long,Integer> frequency = new HashMap<>();
+            for (var r : catalog) for (long id : r.foodIds()) frequency.merge(id, 1, Integer::sum);
+            double beforeQuality = menuQuality(current, catalog, access, goal, frequency);
+            double beforeGap = current.projectedDifferenceKcal().abs().doubleValue();
+            double target = current.targetKcal().doubleValue();
+            List<SwapChoice> choices = new ArrayList<>();
+            for (var candidate : eligible(catalog, type, access)) {
+                if (occupied.contains(candidate.recipeId())) continue;
+                double energy = relative(candidate.perServing().caloriesKcal(), old.nutrition().caloriesKcal(), 1);
+                if (energy > .35 + 1e-12) continue; // Larger differences are not called equivalent.
+                double oldFat = old.nutrition().fatG().doubleValue();
+                if (candidate.perServing().fatG().doubleValue() > oldFat + Math.max(10, .50*oldFat)) continue;
+                RecipeNutritionInput input = requireRecipe(c, candidate.recipeId(), type, access);
+                SuggestedMeal replacement = new SuggestedMeal(input.recipeId(), input.name(), type, STANDARD_SERVINGS,
+                        calculator.calculate(input, STANDARD_SERVINGS), input.imageUrl());
+                List<SuggestedMeal> meals = current.meals().stream().map(m -> m.mealType() == type ? replacement : m).toList();
+                MealSuggestion next = preview(userId, current.date(), current.targetKcal(), access.premium(), meals, journal);
+                double nextGap = next.projectedDifferenceKcal().abs().doubleValue();
+                // Assess the actual projected journal, including old snapshots when the same dish merges.
+                if (nextGap > Math.max(beforeGap, .15*target) + .03*target) continue;
+                double quality = menuQuality(next, catalog, access, goal, frequency);
+                if (quality > beforeQuality + .06) continue;
+                double similarity = .35*energy
+                        + .20*relative(replacement.nutrition().proteinG(), old.nutrition().proteinG(), 10)
+                        + .20*relative(replacement.nutrition().carbsG(), old.nutrition().carbsG(), 15)
+                        + .15*relative(replacement.nutrition().fatG(), old.nutrition().fatG(), 5)
+                        + .10*relative(replacement.nutrition().fiberG(), old.nutrition().fiberG(), 3);
+                double missedLikes = access.likes().isEmpty() ? 0 : 1 - (double)candidate.foodIds().stream()
+                        .filter(access.likes()::contains).count()/access.likes().size();
+                int tier = energy <= .15 + 1e-12 ? 0 : energy <= .25 + 1e-12 ? 1 : 2;
+                choices.add(new SwapChoice(next, candidate.recipeId(), tier,
+                        .60*similarity + .37*quality + .03*missedLikes));
+            }
+            if (choices.isEmpty()) return current;
+            choices.sort(Comparator.comparingInt(SwapChoice::tier).thenComparingDouble(SwapChoice::score)
+                    .thenComparingLong(SwapChoice::id));
+            SwapChoice best = choices.getFirst();
+            // Novelty cannot expand the energy tier or hide a material quality loss.
+            return choices.stream().filter(v -> v.tier() == best.tier() && v.score() <= best.score() + .08
+                    && !recent.contains(v.id())).findFirst().map(SwapChoice::suggestion).orElse(current);
+        }
+    }
+
+    /** Floors prevent a zero/near-zero nutrient from producing NaN or an infinite similarity penalty. */
+    static double relative(BigDecimal candidate, BigDecimal original, double floor) {
+        return candidate.subtract(original).abs().doubleValue()/Math.max(floor, original.doubleValue());
+    }
+    private record SwapChoice(MealSuggestion suggestion, long id, int tier, double score) { }
+    private double menuQuality(MealSuggestion menu, List<RecipeCandidate> catalog, Eligibility access,
+            NutritionGoal goal, Map<Long,Integer> frequency) {
+        Set<Long> ids = new HashSet<>(recipeIds(menu));
+        List<RecipeCandidate> selected = catalog.stream().filter(r -> ids.contains(r.recipeId()))
+                .sorted(Comparator.comparing(RecipeCandidate::mealType)).toList();
+        Set<Long> foods = new HashSet<>(); for (var r : selected) foods.addAll(r.foodIds());
+        double missed = access.likes().isEmpty() ? 0 : 1 - (double)foods.stream()
+                .filter(access.likes()::contains).count()/access.likes().size();
+        return scorer.evaluate(menu.projectedDay(), menu.targetKcal(), goal,
+                menu.meals().stream().map(SuggestedMeal::nutrition).toList(),
+                MealPlanScorer.ingredientOverlap(selected, frequency), 0, missed).total();
+    }
+
     public MealSuggestion refresh(long userId, MealSuggestion draft, Map<MealType, BigDecimal> amounts)
             throws SQLException {
         requireUser(userId);

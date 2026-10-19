@@ -72,7 +72,8 @@ class ProductionHoldTest(unittest.TestCase):
             build(production=True)
         after={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in release.glob('*') if p.is_file()}
         self.assertEqual(before,after)
-        self.assertFalse((release/'catalog-B-qualified.json').exists())
-        self.assertFalse((release/'catalog-C-qualified.json').exists())
+        # The legacy staging command cannot authorize writes or mutate the separately
+        # qualified educational catalogs introduced by the owner decision2026-10-20.
+        self.assertEqual(before,after)
 
 if __name__=='__main__':unittest.main()

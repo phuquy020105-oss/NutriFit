@@ -1,0 +1,657 @@
+{
+  "version": "nutrifit-educational-60-v1-20261020",
+  "status": "PRODUCTION_READY_AWAITING_OWNER_GO_LIVE",
+  "production_ready": true,
+  "production_write_authorized": false,
+  "production_data_deployed": false,
+  "target_database": "nutrifitdb",
+  "counts": {
+    "foods": 100,
+    "recipes": 60,
+    "links": 607
+  },
+  "changes": {
+    "insert_foods": 18,
+    "insert_recipes": 30,
+    "insert_links": 224,
+    "update_foods": 66
+  },
+  "nutrient_provenance": {
+    "foods": 100,
+    "nutrient_facts": 500,
+    "statuses": {
+      "CALCULATED": 161,
+      "MATCHED": 236,
+      "ESTIMATED": 103
+    },
+    "foods_with_any_estimate": 35,
+    "whole_food_legacy_estimates": 12,
+    "strict_source_missing_facts_retained_in_separate_audit": 47
+  },
+  "qualification": "Educational estimates accepted2026-10-20; no medical/laboratory claim; original strict-source gaps remain documented",
+  "backup": {
+    "scope": "Catalog data +24tableDDL; no personal rows",
+    "restore_tested": true,
+    "manifest_sha256": "b41155c4af8ebb4771067909e3a5befc29933b72909b9bbf014043d46349ed3c"
+  },
+  "verification": {
+    "junit": {
+      "tests": 127,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "python": 38,
+    "jsp_errors": 0,
+    "javascript_checks": 37,
+    "local_mysql": "PASS24table restore/transaction/rollback/idempotency/conflict/history/FK/60calculator",
+    "benchmark_cases_per_dataset": 432
+  },
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "fd7dc173fb27f166a427169932506aaae84a840013d032d076b8a425ebaa9f0e",
+      "bytes": 1305
+    },
+    {
+      "path": "database/seed/vietnamese_catalog.json",
+      "sha256": "419fa5e4ec57cabecf692dfe827ab764e564bb1bc76b0202f716bc669f23e685",
+      "bytes": 87987
+    },
+    {
+      "path": "database/staging/food-quality-v1/food-provenance.json",
+      "sha256": "fcfc0660a471e48ceb39c945c6dd47dfc28fe28bd80ff16b31c0bdf2b8a7c0b3",
+      "bytes": 574861
+    },
+    {
+      "path": "database/staging/food-quality-v1/image-generation-jobs.json",
+      "sha256": "717584cbaa81c021285b6c2ca5bc6c4f3d8d0d048e2ca51ec8583d503e97d652",
+      "bytes": 80987
+    },
+    {
+      "path": "database/staging/food-quality-v1/new-food-provenance.json",
+      "sha256": "2af99ee08fee9622d2ca504de429bfa7aec90064b0577db7a51126d2939f4a28",
+      "bytes": 106984
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/catalog-A-baseline.json",
+      "sha256": "c36041543cec342e06131fbe580b84d24ea37c4adb30431f1e8e1050117cb01d",
+      "bytes": 86028
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/catalog-B-qualified.json",
+      "sha256": "7f0a2be03a545466249f085e4ca09c7b15844631a4ced9e6625eb89d15034e88",
+      "bytes": 92329
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/catalog-C-local-trial.json",
+      "sha256": "f048d50c1c97befa329efcd6edd05a7fa1513d09d215989ef4213a6f040d87f2",
+      "bytes": 244140
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/catalog-C-qualified.json",
+      "sha256": "c80faa22cc6fae6b125569e9620202ad4c4fd5e0e71eefc42a8cfc4b172f62fb",
+      "bytes": 244107
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/cohort-A.csv",
+      "sha256": "334a1110c777f624a72976f168a422ea3e2e4e58fa97220effc2ea6bfd76a840",
+      "bytes": 128000
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/cohort-demo-B.csv",
+      "sha256": "ac7862efcf399878e3f6d2cb9ef528e91e1d909fa9fe33a607a7b185c8e51d69",
+      "bytes": 132192
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/cohort-demo-C.csv",
+      "sha256": "c760abc64fe90c55bbf931739b6fd047b790fb2c756e20e4ad79a609b24bac9d",
+      "bytes": 131645
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/demo-benchmark-summary.json",
+      "sha256": "ed1b00b8456cf0bb6dfad4cb245da972b7316d750abd5bb56f09d9ad9a7c7c33",
+      "bytes": 4572
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/demo-local-trial.json",
+      "sha256": "7e32358a8e336149cc80f2f7f6372076c78ee416f789da79be2ad413383eb3ba",
+      "bytes": 598
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/demo-migration-plan.json",
+      "sha256": "fb7a9f721a13abe15842f0ab8720ca40194783d996e8f94215c6ac674e4bb577",
+      "bytes": 88394
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/demo-portion-review.json",
+      "sha256": "004f4b7b8ee4ed77b459381d2fa258cb170788c65cf5910ed91984808b315ca4",
+      "bytes": 108580
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/demo-provenance.json",
+      "sha256": "25c00bf328fd4cf541266d4cc90f8a91c048c1d84d35d772f7c829a96822a2e5",
+      "bytes": 521106
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/runtime-image-manifest.json",
+      "sha256": "c554cc290bc8e43d784b6adc69a40ffe5d9e9ffc3b878de18b3a23e3ca0d3d48",
+      "bytes": 14577
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/swap-benchmark.csv",
+      "sha256": "ce69f52783e74207f0f4761825707cd78523f692e4b95c8091922064a0c879b8",
+      "bytes": 1782
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/verification-report.json",
+      "sha256": "53c7903819c323f8a0e700644da4ee08d023b47500dc6ce6b2d41847b2ad432f",
+      "bytes": 1338
+    },
+    {
+      "path": "database/staging/food-quality-v1/release/web-tests.json",
+      "sha256": "dae1eab44f93992a543dc1055e52aa32f17d405a7fcd743ebef7cb48408d8e08",
+      "bytes": 315
+    },
+    {
+      "path": "database/staging/food-quality-v1/source-retrieval-manifest.json",
+      "sha256": "3868602a3540243e713b6719cec09344a91e1da797b481bc35137318a6fb6772",
+      "bytes": 23264
+    },
+    {
+      "path": "database/tools/food_quality/build_demo_release.py",
+      "sha256": "6a90c64cad141a991027384946a9aa2782eebfaa6e2692c983e2be1205676484",
+      "bytes": 13592
+    },
+    {
+      "path": "database/tools/food_quality/build_expansion.py",
+      "sha256": "c624f084f984d26fd45f6596e365a6abfa49c13142b4eea2607eea01b1c4359e",
+      "bytes": 5722
+    },
+    {
+      "path": "database/tools/food_quality/build_provenance.py",
+      "sha256": "f2da554cd89d17798befc8c2e572a904c8fd881991ba24450421c8c607be1581",
+      "bytes": 9785
+    },
+    {
+      "path": "database/tools/food_quality/CatalogReleaseMigration.java",
+      "sha256": "d19fcc76c81f1d497e676ceac075e784cb978bec05273b0c3aed2d354e4d61b6",
+      "bytes": 20055
+    },
+    {
+      "path": "database/tools/food_quality/extract_mext.py",
+      "sha256": "fc39a0ba5bdfd4afd9c976a88dd867ec11b50b6f73de14ab0d0071d43cf845be",
+      "bytes": 4103
+    },
+    {
+      "path": "database/tools/food_quality/extract_nin.py",
+      "sha256": "43834251da7205de693fe0ee503b8d518af84b67c0cacb81b783410ae7ed0908",
+      "bytes": 3168
+    },
+    {
+      "path": "database/tools/food_quality/extract_thai.py",
+      "sha256": "40dd504b7f9bb6b3ced4d7aeebaf76c85662ce4ff0b565ccd07151a0df7176b4",
+      "bytes": 5909
+    },
+    {
+      "path": "database/tools/food_quality/extract_usda.py",
+      "sha256": "b63784e7d833987449e090181e3cd8248576ada508cd51474c54146bb95af705",
+      "bytes": 6189
+    },
+    {
+      "path": "database/tools/food_quality/fetch_sources.py",
+      "sha256": "3434f0989d441949ccbb3800f9c0ee0f22b6ced9c76bb22a254f428250fdc189",
+      "bytes": 3229
+    },
+    {
+      "path": "database/tools/food_quality/finalize_demo_release.py",
+      "sha256": "9211a0b6fcb71ec4b4212a2c2b4cf9959707d05d813b88aea61835e0bf4f28a1",
+      "bytes": 7100
+    },
+    {
+      "path": "database/tools/food_quality/FoodQualityReadOnly.java",
+      "sha256": "8a09b9c0a9c7aed9d8ad56f363890bfe084d9ca5e4a47edb004af3d669d1a70f",
+      "bytes": 9433
+    },
+    {
+      "path": "database/tools/food_quality/FoodQualityReleaseSnapshot.java",
+      "sha256": "cfb46491c34eb7356a53fdabf8f8d7ebee904dec01706c73d65348a5c3d018f7",
+      "bytes": 3901
+    },
+    {
+      "path": "database/tools/food_quality/Invoke-DemoCatalogRelease.ps1",
+      "sha256": "d2ac6b624ab63b65126e334a8fc3add6782204b94da1d175aa7d657e940c3410",
+      "bytes": 2455
+    },
+    {
+      "path": "database/tools/food_quality/LocalFoodQualityTrial.java",
+      "sha256": "c32eb39160accddd97af6017fea3cfe4d4502c47217c74cc6f4a171d5a746fa5",
+      "bytes": 24270
+    },
+    {
+      "path": "database/tools/food_quality/LocalQualityDelta.java",
+      "sha256": "53ab91c7ec1442c87fb96acadf85fafd4575fdc371a0df907db68520a659b319",
+      "bytes": 8823
+    },
+    {
+      "path": "database/tools/food_quality/prepare_release.py",
+      "sha256": "5e90b7fc410e51d9325c95ee50b11e49b3bce6edfe2172cdba89a713b256cd37",
+      "bytes": 5235
+    },
+    {
+      "path": "database/tools/food_quality/record_image.py",
+      "sha256": "e8e646d52ddadfff916531c36935adc82d9857fc9a4ba5f538bcc48714ff6b6c",
+      "bytes": 2770
+    },
+    {
+      "path": "database/tools/food_quality/review_recipes.py",
+      "sha256": "d95e31372ca7e1f07f59d4cdaf7bb47fb644d608b6e583a0e16c3a2e827abe0b",
+      "bytes": 5943
+    },
+    {
+      "path": "database/tools/food_quality/summarize_benchmarks.py",
+      "sha256": "d3d39e6c0d9abbf1f7debb7afeffa0cf50ce398525dba2a24cec018506597145",
+      "bytes": 5851
+    },
+    {
+      "path": "database/tools/food_quality/summarize_demo.py",
+      "sha256": "3c6f258133125f72f16dc676966088cda8c893ddbc760d26b51d57ee7dd78ddb",
+      "bytes": 2941
+    },
+    {
+      "path": "database/tools/food_quality/test_demo_release.py",
+      "sha256": "2dfe2dadecae04406dc2d594641db846550c6dac8fc3c29f99e4006398fa1ed2",
+      "bytes": 4329
+    },
+    {
+      "path": "database/tools/food_quality/test_extract_mext.py",
+      "sha256": "78590da40c9656adc346149ce216d75ab17c6cc147d58b8e18d27cbbd879c0b9",
+      "bytes": 2009
+    },
+    {
+      "path": "database/tools/food_quality/test_extract_thai.py",
+      "sha256": "796c9757a067e32b7efe6feaa6f4d41bf7e33bd1b50b6c8e3cb48a3a7d8c721d",
+      "bytes": 3847
+    },
+    {
+      "path": "database/tools/food_quality/test_extract_usda.py",
+      "sha256": "b1118ac6d699c43381a4d7e14ce7495b09d1e5069db10061708cb9cd3d1817b3",
+      "bytes": 2725
+    },
+    {
+      "path": "database/tools/food_quality/test_fetch_sources.py",
+      "sha256": "968441066a3370d64b0ddd6e66e2131fd714f03ee3df85aeba2b9e1b5668a681",
+      "bytes": 1009
+    },
+    {
+      "path": "database/tools/food_quality/test_provenance.py",
+      "sha256": "2952494c034cf5e08e2095bde8f98cbb67090d8c806c2dc4264eb3b0669c022f",
+      "bytes": 4284
+    },
+    {
+      "path": "database/tools/food_quality/test_quality_gates.py",
+      "sha256": "53c104769ab2f0fa3f9fe11fdb27d8583433dc3a649b70e31c77dc7231c0bab8",
+      "bytes": 5054
+    },
+    {
+      "path": "database/tools/food_quality/validate_quality.py",
+      "sha256": "17586573455dc7b6533485e36e15b5ec5c7efc72b38ccc8029ba9472419caf95",
+      "bytes": 4825
+    },
+    {
+      "path": "database/tools/food_quality/verify_web.py",
+      "sha256": "e22e1d32b338bb167822a7084c727ce9682d5b500497f96d786b55fb9984809c",
+      "bytes": 2514
+    },
+    {
+      "path": "database/tools/food_quality/write_reports.py",
+      "sha256": "082fd3c176533c05f87c929363d9e28d69ce3915f8f997d89909898ec2090c77",
+      "bytes": 13889
+    },
+    {
+      "path": "src/main/java/com/nutrifit/controller/MealRecommendationsServlet.java",
+      "sha256": "c22de977496b21514e98741901c9daa18c50af7a754ce69094ad293327863e98",
+      "bytes": 12473
+    },
+    {
+      "path": "src/main/java/com/nutrifit/service/MealRecommendationService.java",
+      "sha256": "00ddf40cff40cde5ed4d617c421f3fa386929cb676e6e4621c80a38ccf0f0625",
+      "bytes": 25064
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/banh-canh-cua.webp",
+      "sha256": "6b7a5eacdbf3392152a2152d9fe35e7494c662df20b09a868aa0e8e8c5930ce0",
+      "bytes": 56286
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/banh-cuon.webp",
+      "sha256": "ec696bd7f6b0c4fc963ed04ccd29252dfffb0470f4e84cbf93de5635aede18e8",
+      "bytes": 52402
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/banh-mi-trung.webp",
+      "sha256": "e66f82c2e86d4aa7b940d662c88a1663c11b7768984fc77789598fb5bdc0c8b3",
+      "bytes": 48450
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/bun-bo-hue.webp",
+      "sha256": "19e05154c7445bb8ca7f0dd796c7e2eaf70617eda17c5e55095d6221be48d7f2",
+      "bytes": 64630
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/bun-cha-ha-noi.webp",
+      "sha256": "b902b1b1d7c8f4adb56efcb3d4612d6496bef82ab8ebd72ffaffed80e132c6a1",
+      "bytes": 61252
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/bun-rieu.webp",
+      "sha256": "00b07253f5be4548eec2a6ec784ff036fd1c2d6c7a72354d7b10d4c81bb225d1",
+      "bytes": 60408
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/bun-thit-nuong.webp",
+      "sha256": "857d00ad0ae6c612df5ebf5a5f140dbb6a859004cbda259a1bfaef8f4f48a5dc",
+      "bytes": 69252
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/chao-ga.webp",
+      "sha256": "d7e5c2d25d08b16d1a69e9d3ca54850a167b6577b7c6a3cf7f55a3d2fcea8e6a",
+      "bytes": 51182
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-bo-luc-lac.webp",
+      "sha256": "b93af692053af3380150bc81d68bcab727e265432f70107e4491ec60658a6a88",
+      "bytes": 66426
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-ca-chien.webp",
+      "sha256": "44400b81d0a44324e59c071a0a6d11fabc2caf11431c565f42790f7080e7e619",
+      "bytes": 55808
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-ca-hap.webp",
+      "sha256": "f1fd8827d45ddf9d06d6c459e69cd0a5b311bc6b291e5f4648d7e5d8fea8f696",
+      "bytes": 50996
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-ca-kho-to.webp",
+      "sha256": "1accfc0b9a51bb7bfb70f3279b2e12298cda72b696038e0d65117168dfa0f61e",
+      "bytes": 55088
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-ca-kho.webp",
+      "sha256": "a0c68eb2a9ac738a90df8af55cb019ae870b30b69401825a31c39ad1e2fa7b30",
+      "bytes": 45598
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-canh-bi-do.webp",
+      "sha256": "645bbf4cfd4fd7b8379a4bcc1b2c33aa41896789743b6687fdfa0a56072eded8",
+      "bytes": 46194
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-canh-chua-ca.webp",
+      "sha256": "164d702f0343018a088ccb6f03dd05279effe5b3c58b58d003a8e9df39569117",
+      "bytes": 53748
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-dau-hu-sot-ca.webp",
+      "sha256": "e736744bff9ce85819ff6cf8cf5bf66ed28a3f50a47bf870e20ab755e3eb196f",
+      "bytes": 48336
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-ga-kho-gung.webp",
+      "sha256": "5a50ec9b720668f32a3e59fa6c63be7a13dc727e1fc547995a16e50959676084",
+      "bytes": 51974
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-ga-luoc.webp",
+      "sha256": "6022d1eed10e1521541f6542ceb274e9f05836e2c1df9ff8a54576ec1534d10c",
+      "bytes": 50840
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-ga-xoi-mo.webp",
+      "sha256": "84b868ee81b807b912810c8c36663eab841a896d74098e21c16216411b8326a9",
+      "bytes": 58140
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-suon-ram.webp",
+      "sha256": "42c4c0b1be74b1a09836cc8b742dff7ad6e57dd8a7042b346a45d0016cf96ee8",
+      "bytes": 58588
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-tam-suon.webp",
+      "sha256": "85553cd6df3f47bf384051d299fff4950a3924d24bb157ba08856e5d0626cc1b",
+      "bytes": 63328
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-thit-kho-trung.webp",
+      "sha256": "7384f12650ac9e511171b0665dec2b6c474f705994d2b8f4039d5bdaf81435cd",
+      "bytes": 54624
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-thit-luoc.webp",
+      "sha256": "3e42139f99755a579b74332060e173981eaac2372679324dba05576d69eba9b7",
+      "bytes": 56250
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-thit-rang.webp",
+      "sha256": "cf97576d92df0bc6fb2fd99143d95a5a75edb6c8d4964cfaaa0332c63322c133",
+      "bytes": 62110
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-tom-rim.webp",
+      "sha256": "abb086274cf7a61caba5dd21b0ef559731aa81feb9ea1db24528c52e28b5afe5",
+      "bytes": 54808
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/com-trung-chien.webp",
+      "sha256": "bbc4c8db862a8d0cb3ab94f51c873238ea4bd23e5002712c675d71816bda2777",
+      "bytes": 55864
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/hu-tieu-nam-vang.webp",
+      "sha256": "8af13b89569ca0f787b2779966ababde426758f4555a953f491872b28655855d",
+      "bytes": 49146
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/pho-bo.webp",
+      "sha256": "0e603459de014478ebfae114cd020e2742290526ef99ad23035bf8b507a5ec39",
+      "bytes": 58952
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/pho-ga.webp",
+      "sha256": "b4d670f664d71bb1256ed52d6eaef3cd91bd223bbb9dfe0396ecb860e29a2d45",
+      "bytes": 56256
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r031-chao-dau-xanh-trung-ga.webp",
+      "sha256": "d0996e0e51d2d1e657e28cbfc229a0322a99a4c5d832fe91ff9023d85a736f26",
+      "bytes": 53794
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r032-chao-yen-mach-ga-bi-do.webp",
+      "sha256": "85f676b905c898126508d6f25c550f0d15050762d759d1d9a0894441203debb7",
+      "bytes": 73330
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r033-khoai-lang-luoc-trung-va-muoi-me.webp",
+      "sha256": "b6465fae72270a8188f77729f35a6bf5b5699b7a345007d8c229b48341e9d058",
+      "bytes": 52856
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r034-bap-luoc-dau-hu-me-rang.webp",
+      "sha256": "17757f3ef128a4dd28b0781035e80ad73409d5041d78145bbba2d86f6f4901d0",
+      "bytes": 59348
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r035-banh-mi-ga-xe-rau-cu.webp",
+      "sha256": "330854af902788bcd1ed8792ce6d342c0950a04ea7657809161edfcee16bf051",
+      "bytes": 65862
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r036-banh-mi-dau-hu-sot-dau-phong.webp",
+      "sha256": "16901bded9ac03cd099384b83c5b6bb7298c4f5e7dea4a4cc80b861a12ae5bd2",
+      "bytes": 69114
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r037-bun-tron-trung-rau-dau-phong.webp",
+      "sha256": "7f27fe66794aaf013c49887c87782ac30e93d836abcd3aaed6f619821517ffb4",
+      "bytes": 74430
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r038-com-nam-gao-lut-me-va-trung-luoc.webp",
+      "sha256": "f8cfc91a3349b2bc6c058a63fbf8b2107a83f6ca6706fefa94efb100a50f337d",
+      "bytes": 64880
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r039-chao-gao-lut-dau-do.webp",
+      "sha256": "03e894ae8b57d4a79076b0d11a905dc999d2bb7e135b3cfc354c19954459d4cf",
+      "bytes": 81568
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r040-khoai-lang-dau-xanh-dua-nao.webp",
+      "sha256": "675425d55bade31fc6b9c351d7d347a60a87d461379135c27ccd8655280dced7",
+      "bytes": 84778
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r041-com-gao-lut-ca-hoi-nuong-bong-cai.webp",
+      "sha256": "44f1a1201ee3f677a867ae670acccad5668e943b67bae06a246f4d4a9c5fda36",
+      "bytes": 71266
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r042-com-tron-ga-bap-dau-ha-lan.webp",
+      "sha256": "d26c9d18f36775b4447e506eded73980ce7000e13d069d4284a9e9748ae1e689",
+      "bytes": 67406
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r043-com-chay-dau-do-nam.webp",
+      "sha256": "3807376cb85e65e10d37a88dbf64dd71aa64194b79a7e4667b2c6e671a75df74",
+      "bytes": 90822
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r044-goi-ga-bap-cai-kem-khoai-lang.webp",
+      "sha256": "5713d250fa8e5cf8f48c941d33ff3c98f2885d304945ba8168132c602dfc4f17",
+      "bytes": 74928
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r045-com-dau-hu-me-dau-co-ve.webp",
+      "sha256": "4fa48522c858671cc9cde60960640be03bfd9ee381300fbbbffb0064656193cd",
+      "bytes": 84414
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r046-bun-bo-tron-rau-dau-phong.webp",
+      "sha256": "1c6eb17e29525dd458e62b72c05ae1bcec31e77724f3f59a5c0763412f85e926",
+      "bytes": 77140
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r047-com-canh-cu-sen-dau-xanh-ga.webp",
+      "sha256": "028896d7b0ffcd992045d75d68882491cd050969cb31a30b1abefa1b9f22d88f",
+      "bytes": 58072
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r048-com-bo-bap-cai-dau-co-ve.webp",
+      "sha256": "7eae0679013f8d7ec2dbe978f026a46b7821bc3d6ce1ac586f3ff2a6a9ed73be",
+      "bytes": 71804
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r049-com-ca-hoi-dau-do-bi-do.webp",
+      "sha256": "8deeedfe369589e5b6ee148a7ab1d3679fb51ee4dd5231397129d6cb5fa4ee6f",
+      "bytes": 69374
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r050-com-bap-dau-hu-trung-luoc.webp",
+      "sha256": "e6d1af9753af1f6d828821b11034b13a0c1b260ea32fd556afd0544127cde8a7",
+      "bytes": 71250
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r051-com-gao-lut-dau-ha-lan-trung-luoc.webp",
+      "sha256": "bb762ba44455f7d079dc7d0a8a970f364fd398ecd589127df1a1397fe1fc3f55",
+      "bytes": 62932
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r052-chao-yen-mach-dau-hu-nam.webp",
+      "sha256": "0a5fc0612ce0c5de88825ac4721963d2375d42ae684b16510bc515dec3f4edc5",
+      "bytes": 68436
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r053-com-canh-cai-thao-dau-hu-trung.webp",
+      "sha256": "297e03a145650e9c470f2e0eb5b0d18d684c98904ff14cc3fa06ab91d6e4e374",
+      "bytes": 59640
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r054-com-gao-lut-ga-dau-xanh-cu-sen.webp",
+      "sha256": "c43ccd926cb92be514fc352926e7f4b956d9ca8f4f29c741c8eaa111b0f4ffe8",
+      "bytes": 87986
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r055-bun-nam-dau-hu-sot-me.webp",
+      "sha256": "4cec0c2c3e505a45a83de4b9c7566e98b2700fbdb71078e599bb8863021eeb17",
+      "bytes": 81734
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r056-goi-bap-cai-trung-kem-khoai-lang.webp",
+      "sha256": "c2d20bfd2b1ec70df562a95c86b2d74a3ab5489636c05c4893be4183ce99c7d6",
+      "bytes": 65314
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r057-com-dau-hu-kho-nam.webp",
+      "sha256": "a121cfc149480d10f71c4db151805bea1884f64b66e7416d1e6bd18802628cac",
+      "bytes": 63816
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r058-chao-ca-hoi-bi-do.webp",
+      "sha256": "0c436c4e800289d8c03c762585cf6ffd5e29a1cbe7cd753634e43ffa96f97f5a",
+      "bytes": 57830
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r059-goi-dau-do-bap-dau-hu-voi-com-gao-lut.webp",
+      "sha256": "6951c4c96d1e31ad9d46c9646b0e8199c71cff2d5a0cbe093252290e519fdcc6",
+      "bytes": 90728
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/r060-com-bo-cu-sen-bong-cai.webp",
+      "sha256": "45bc55fb60c1c993896c341a80be1e43ed67471a09b39f156e5a886a10b6ca3e",
+      "bytes": 69816
+    },
+    {
+      "path": "src/main/webapp/assets/images/recipes/xoi-ga.webp",
+      "sha256": "f81cb074c091ae26ceed49d5b3304712a44c73d1f131b46ee1e1c4852b0d5942",
+      "bytes": 58912
+    },
+    {
+      "path": "src/main/webapp/assets/js/nutrition.js",
+      "sha256": "0759cd622cfcf4f8d5920e19dbfdd586cb61d9abff20a421b65cbb1d4f4f4644",
+      "bytes": 6543
+    },
+    {
+      "path": "src/main/webapp/WEB-INF/views/nutrition/meal-recommendations.jsp",
+      "sha256": "0b0b0171d9aa52cf7f60954499fdfa5ae313b07304601f6b9957a1616e923905",
+      "bytes": 13747
+    },
+    {
+      "path": "src/test/java/com/nutrifit/controller/NutritionRecommendationsHttpTest.java",
+      "sha256": "adefb0c4fe232a00f95c08f158fddb1bfec29c8275ec2f3dbc4ed4bef448b337",
+      "bytes": 20558
+    },
+    {
+      "path": "src/test/java/com/nutrifit/service/FoodQualityCohortBenchmarkTest.java",
+      "sha256": "b4f2b7471735d9ca8647ba9a11f0fac134af333f89d563b4bf568acbf3dc4b4f",
+      "bytes": 12135
+    },
+    {
+      "path": "src/test/java/com/nutrifit/service/MealSuggestionSaveTest.java",
+      "sha256": "c8dc14b9acf841930b3bd51c91df27b274b894cc014d6b94cf4bb875fe5777f7",
+      "bytes": 11932
+    },
+    {
+      "path": "src/test/java/com/nutrifit/service/MealSwapTest.java",
+      "sha256": "04d718c3948e36de5f929e8a8f5b42ea4ad73065bce1f629191eebe98c66c294",
+      "bytes": 8878
+    },
+    {
+      "path": "src/test/resources/nutrition-swap-ui-test.html",
+      "sha256": "942fbc3b1fb785e7c4a21ff4f34cb6b0f6b50d4415f9aa620d0e9d438fb1ee48",
+      "bytes": 6111
+    }
+  ]
+}

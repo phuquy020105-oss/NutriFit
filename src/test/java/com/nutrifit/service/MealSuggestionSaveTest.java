@@ -101,6 +101,23 @@ class MealSuggestionSaveTest {
         assertTrue(f.committed.values().stream().allMatch(e -> e.getServings().equals(new BigDecimal("1.00"))));
         assertEquals(List.of("begin","commit","close"),f.events);
     }
+    @Test void saveAfterSwapStoresExactlyTheDisplayedThreeRecipesAndKeepsOldJournal() throws Exception {
+        Fixture f=new Fixture(); f.manual();
+        // Equal standard portions provide a meaningful swap; the fixture's historical entry stays separate.
+        for(var r:List.copyOf(f.catalog.inputs.values())) f.catalog.inputs.put(r.recipeId(),
+            new RecipeNutritionInput(r.recipeId(),r.name(),r.mealType(),BigDecimal.ONE,
+                List.of(new IngredientNutritionLine(r.recipeId()+100,new BigDecimal("100"),MealRecommendationServiceTest.facts("600")))));
+        MealSuggestion day=f.preview();
+        var recommendation=new MealRecommendationService(()->f.catalog.connection,f.catalog.preferences,f.catalog.recipes,
+            f.catalog.users,new NutritionCalculator(),MealRecommendationServiceTest.CLOCK,f.plans,f.entries);
+        var changed=recommendation.swap(42,day,MealEntry.MealType.LUNCH,List.of(day.meals().get(1).recipeId()));
+        assertNotEquals(day.meals().get(1).recipeId(),changed.meals().get(1).recipeId());assertEquals(0,f.writes);
+        f.service.saveSuggestion(42,changed,MealRecommendationServiceTest.amounts("999"));
+        for(var m:changed.meals())assertNotNull(f.committed.get(key(m.mealType(),m.recipeId())));
+        assertEquals(4,f.committed.size());assertEquals("Manual meal",f.committed.get("manual").getRecipeNameSnapshot());
+        assertEquals(List.of("begin","commit","close"),f.events);
+    }
+
     private static String key(MealEntry.MealType type,long recipe){return type+":"+recipe;}
     private static MealEntry copy(MealEntry e){
         MealEntry result=new MealEntry(e.getPlanId(),e.getRecipeId(),e.getRecipeNameSnapshot(),e.getMealType(),

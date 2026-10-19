@@ -10,3 +10,13 @@
 # The cohort report pins the unchanged scorer/service source bytes as LF.
 /src/main/java/com/nutrifit/service/MealRecommendationService.java text eol=lf
 /.gitattributes text eol=lf
+
+# Release checksums must survive Windows/Linux checkouts.
+/src/main/java/com/nutrifit/controller/MealRecommendationsServlet.java text eol=lf
+/src/main/webapp/WEB-INF/views/nutrition/meal-recommendations.jsp text eol=lf
+/src/main/webapp/assets/js/nutrition.js text eol=lf
+/src/test/java/com/nutrifit/controller/NutritionRecommendationsHttpTest.java text eol=lf
+/src/test/java/com/nutrifit/service/MealSwapTest.java text eol=lf
+/src/test/java/com/nutrifit/service/FoodQualityCohortBenchmarkTest.java text eol=lf
+/src/test/java/com/nutrifit/service/MealSuggestionSaveTest.java text eol=lf
+/src/test/resources/nutrition-swap-ui-test.html text eol=lf

@@ -1,3 +1,22 @@
+# Checkpoint 2026-10-20 — release 60 món và đổi riêng từng món
+
+Tiêu chuẩn hiện hành: ước tính có căn cứ được chấp nhận cho đồ án. **Không ghi Aiven trước khi chủ dự án phê duyệt SHA256 manifest cuối một lần.**
+
+- Checkout: D:/Web/NutriFit-Integration; branch deploy/render-aiven-brevo. Bắt đầu từ0cfccdd đãpush và đã xác minh live revision qua health.
+- Release mới: database/staging/food-quality-v1/release/final-manifest.json, build bởi finalize_demo_release.py;100Food/60Recipe/607Ingredient,20món/bữa.103/500factsESTIMATED trên35Food;236MATCHED/161CALCULATED.12whole-food legacy estimates và5whole-vector category/process analogs ghi rõ giả định/độ tin cậy. Không giả VERIFIED; strict47MISSING audit còn nguyên.
+-30suất mới review; sáu suất lớn được chấp nhận là bữa đầy đủ có món kèm, không tự giảm gram.0suất được tuyên bố đã cân đo.30WebP đãduyệt copy byte-exact sang assets;30ảnh cũ/seed/schema/Onboarding/history không đổi.
+- Swap service/servlet/UI hoàn thiện: cùngmeal_type,1.00suất,15/25/35%calorie tiers,five-nutrientfloors,fat/day-quality guards,actualprojectedjournal,Free/expired không đọc preferences,PremiumDISLIKE/softLIKE. Per-slot recentIDs; exhausted giữ nguyên. CSRF/owner/date/30minuteexpiry/attempted/saved/sessionlock/rotatingnonce chốngstale/double-submit. Không ghiDB khi swap; save vẫntransaction/rollback.
+- Actual MavenJDK21.0.12.1/Maven3.9.16 cleanpackage và finalpackage PASS127JUnit0fail/error/skip. Python38PASS0skip với cache nguồn thật. JspC0errors;Chrome14legacy+23swap checksPASS. JspC từng bắt được block JSP thiếu đóng, đã sửa trước khi push. FixtureHTML từng chứa end-script trong string, đã sửa. Không authenticatedproductionE2E.
+-432cases/dataset: A30meanabsKcalError598.575/B30qualified468.238/C60qualified167.395. Feasible10%target200/236/336;0avoidable>20%gap. Giá trịC giống exploratoryC trước đó; thay đổi là qualification cho demo, không phải có kết quả xét nghiệm mới.
+- Swap trên30/60recipe:18scenario mỗi dataset,95/91swap thành công,0scenario không có lựa chọn đầu tiên,maxrelativekcal22.78%/14.90%. Chỉ đổi một thẻ, tổng/ảnh/warnings/nonce cập nhật bằng servervalues, integerHALF_UP chỉ cho display.
+- AivenREADONLY backup mới: D:/NutriFit-backups/food-quality-20261020/demo60-before. Catalog82/30/383+24DDL+SHA,không exportuserrows. TLSVERIFY_IDENTITY/CApin/hostname. Không productionwrite.
+- Restore thật vàoLOCAL nutrifit_fq_demo60_20261020_v2_test:24tables,baselineexactrows/PK/Unicode; migration+18Food/+30Recipe/+224links/update66Food;rollbackinjected99writes,idempotency0writes,conflictrejected,oldIDs/protectedtables/1.32snapshotpreserved,60JDBCcalculator/images/FKPASS. DDL ANSI_QUOTES và tên cột per_100g đã được xử lý đúng. DBthử đầunutrifit_fq_demo60_20261020_test còn trống,khôngDROP; DBstagingcũ/mainlocal không sửa.
+- Bảncatalog-C-local-trial.json giữ SHA dữ liệu đã thửlocal trước khi relabel5proxyESTIMATED; finalize kiểm tra SQLcontract(nutrient/recipe/grams/images) bằng hệtcatalog-C-qualified. Không đổi số liệu sau thửlocal.
+- Tools triển khai: Invoke-DemoCatalogRelease.ps1,FoodQualityReleaseSnapshot.java,CatalogReleaseMigration.java. Productionmode yêu cầu đúng --go-live-approved-manifest SHA,tất cả filehash/backuprestorechecked/exactbeforeorafter/TLS/InnoDB/khôngtrigger/transaction. KhôngDROP/DELETE/TRUNCATE/force/retry. SchemaDDL chỉ dùng tạoDBtestmới;AivenDML chỉ3catalogtables. Backup không phải fulluserdata; recoverylive cần giữ mọi ID/FK/history.
+- README và docs/nutrition/demo60-release.md có lệnh tái tạo. STAGING/exploratory reports cũ là lịch sử, không phải gate hiện hành. Trạng thái kỹ thuật PRODUCTION_READY; go-live chưa được phép. Bước còn lại: finaldiff/secrets/checkoutfilter review,commit/pushnonforce,remoteSHA/Renderrevision/assets verification,rồi hỏi go-live một lần đúng manifest. Ghi SHA và kết quả thực tế vào handoff riêng sauGit để tránh vòng lặp tự tham chiếuSHA.
+
+Historical checkpoint follows (outdated gates and push state are historical evidence, not current acceptance criteria):
+
 # Food Data Quality — latest durable checkpoint
 
 Continuation114a7953 fromf04b2da,2026-10-19 Bangkok. OverallPARTIAL; engineering and internal stagingPASS. **NO PRODUCTION AIVEN WRITE AUTHORIZED.** User must explicitly approve a final qualified manifest in a future step; current task does not lift hold.

@@ -49,7 +49,7 @@ String notice = (String) request.getAttribute("notice");
 <% if (suggestion == null) { %>
 <p class="nf-error" role="status"><%= Html.escape(request.getAttribute("suggestionError")) %></p>
 <form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-submit-once>
-<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="regenerate"><button type="submit">Gợi ý lại</button></form>
+<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="regenerate"><button type="submit" data-regenerate>Gợi ý lại</button></form>
 <% } else { %>
 <p class="nf-muted"><%= suggestion.personalized() ? "Premium: loại nguyên liệu DISLIKE và ưu tiên LIKE." : "Thực đơn Free theo mục tiêu calories trong hồ sơ." %></p>
 <div class="nf-suggestion-grid">
@@ -61,30 +61,37 @@ String notice = (String) request.getAttribute("notice");
 <section class="nf-card nf-suggested-meal" data-suggestion-meal="<%= meal.mealType().name() %>">
 <h2><%= label %></h2>
 <img class="nf-recipe-image" src="<%= Html.escape(RecipeImage.url(ctx,meal.imageUrl())) %>" data-recipe-image data-fallback="<%= Html.escape(ctx + RecipeImage.FALLBACK) %>" alt="<%= Html.escape(meal.name()) %>" width="800" height="450" loading="lazy">
-<h3><%= Html.escape(meal.name()) %></h3>
+<h3 data-meal-name><%= Html.escape(meal.name()) %></h3>
 <dl class="nf-suggestion-facts"><% for (int i=0; i<factKeys.length; i++) { %>
-<div><dt><%= factLabels[i] %></dt><dd><%= NutritionDisplay.integer(values[i]) %></dd></div>
-<% } %></dl></section><% } %></div>
+<div><dt><%= factLabels[i] %></dt><dd data-fact="<%= factKeys[i] %>"><%= NutritionDisplay.integer(values[i]) %></dd></div>
+<% } %></dl>
+<form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-swap-form>
+<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>">
+<input type="hidden" name="suggestionToken" value="<%= Html.escape(suggestionToken) %>">
+<input type="hidden" name="action" value="swap"><input type="hidden" name="mealType" value="<%= meal.mealType().name() %>">
+<button type="submit" <%= blocked ? "disabled" : "" %>>Đổi món</button>
+</form></section><% } %></div>
+<p data-swap-status role="status" aria-live="polite"></p>
 <section class="nf-card"><h2>Tổng dinh dưỡng ba bữa</h2>
 <% NutritionFacts total = suggestion.total();
    java.math.BigDecimal[] totals = {total.caloriesKcal(), total.proteinG(), total.carbsG(), total.fatG(), total.fiberG()}; %>
 <dl class="nf-suggestion-facts nf-suggestion-totals"><% for (int i=0; i<factKeys.length; i++) { %>
-<div><dt><%= factLabels[i] %></dt><dd><%= NutritionDisplay.integer(totals[i]) %></dd></div>
+<div><dt><%= factLabels[i] %></dt><dd data-total="<%= factKeys[i] %>"><%= NutritionDisplay.integer(totals[i]) %></dd></div>
 <% } %></dl>
-<p>Mục tiêu ngày: <strong><%= NutritionDisplay.integer(suggestion.targetKcal()) %></strong> kcal.
-Chênh lệch của thực đơn: <strong><%= NutritionDisplay.integer(suggestion.differenceKcal()) %></strong> kcal.</p>
+<p>Mục tiêu ngày: <strong data-target><%= NutritionDisplay.integer(suggestion.targetKcal()) %></strong> kcal.
+Chênh lệch của thực đơn: <strong data-difference><%= NutritionDisplay.integer(suggestion.differenceKcal()) %></strong> kcal.</p>
 <% if (!blocked) { %>
-<p>Nếu lưu thêm: <strong><%= NutritionDisplay.integer(suggestion.projectedDay().caloriesKcal()) %></strong> kcal cả ngày;
-chênh lệch <strong><%= NutritionDisplay.integer(suggestion.projectedDifferenceKcal()) %></strong> kcal.</p>
-<% if (suggestion.exceedsTarget()) { %><p class="nf-error" role="status">Lưu thêm thực đơn này sẽ vượt mục tiêu ngày. Hãy cân nhắc những món đã ghi nhận bên dưới trước khi lưu.</p><% } %>
+<p>Nếu lưu thêm: <strong data-projected><%= NutritionDisplay.integer(suggestion.projectedDay().caloriesKcal()) %></strong> kcal cả ngày;
+chênh lệch <strong data-projected-difference><%= NutritionDisplay.integer(suggestion.projectedDifferenceKcal()) %></strong> kcal.</p>
+<p data-exceeds class="nf-error" role="status" <%= suggestion.exceedsTarget() ? "" : "hidden" %>>Lưu thêm thực đơn này sẽ vượt mục tiêu ngày. Hãy cân nhắc những món đã ghi nhận bên dưới trước khi lưu.</p>
 <% } %>
-<% if (!suggestion.warnings().isEmpty()) { %><ul class="nf-muted" aria-label="Lưu ý về thực đơn"><% for (String warning : suggestion.warnings()) { %><li><%= Html.escape(warning) %></li><% } %></ul><% } %>
+<ul data-suggestion-warnings class="nf-muted" aria-label="Lưu ý về thực đơn" <%= suggestion.warnings().isEmpty() ? "hidden" : "" %>><% for (String warning : suggestion.warnings()) { %><li><%= Html.escape(warning) %></li><% } %></ul>
 <p class="nf-muted">Ảnh món ăn dùng để minh họa; dinh dưỡng là ước lượng. Các số hiển thị được làm tròn từ dữ liệu gốc; khi cộng có thể chênh 1 đơn vị.</p>
 <p class="nf-muted">Chênh lệch dương là vượt mục tiêu, âm là còn thiếu. Các món đã ghi nhận được giữ nguyên.</p>
 <div class="nf-suggestion-actions">
 <form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-submit-once>
 <input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="regenerate">
-<button type="submit">Gợi ý lại</button></form>
+<button type="submit" data-regenerate>Gợi ý lại</button></form>
 <form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-submit-once>
 <input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="suggestionToken" value="<%= Html.escape(suggestionToken) %>">
 <input type="hidden" name="action" value="save">

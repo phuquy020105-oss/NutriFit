@@ -1,0 +1,61 @@
+<!doctype html><html lang="vi"><meta charset="utf-8"><title>Nutrition swap UI regression</title>
+<section data-suggestion-meal="BREAKFAST"><h3 data-meal-name>Old breakfast</h3><img data-recipe-image src="../../main/webapp/assets/images/recipes/placeholder.svg" data-fallback="../../main/webapp/assets/images/recipes/placeholder.svg" alt="Old">
+<dl><dd data-fact="caloriesKcal">600</dd><dd data-fact="proteinG">20</dd><dd data-fact="carbsG">70</dd><dd data-fact="fatG">20</dd><dd data-fact="fiberG">5</dd></dl>
+<form data-swap-form action="https://example.invalid/nutrition/recommendations"><input name="csrfToken" value="test-csrf"><input name="suggestionToken" value="old-token"><input name="mealType" value="BREAKFAST"><input name="action" value="swap"><button type="submit">Đổi món</button></form></section>
+<section data-suggestion-meal="LUNCH"><h3>Unchanged lunch</h3></section>
+<section data-suggestion-meal="DINNER"><h3>Unchanged dinner</h3></section>
+<div data-total="caloriesKcal">1800</div><div data-total="proteinG">60</div><div data-total="carbsG">210</div><div data-total="fatG">60</div><div data-total="fiberG">15</div>
+<strong data-target>1800</strong><strong data-difference>0</strong><strong data-projected>1800</strong><strong data-projected-difference>0</strong>
+<p data-exceeds hidden>Exceeds</p><ul data-suggestion-warnings hidden></ul><p data-swap-status></p>
+<form id="save" data-submit-once><input name="suggestionToken" value="old-token"><button data-save-suggestion type="submit">Lưu</button></form>
+<button data-regenerate>Gợi ý lại</button><div id="journal">Historical snapshot must remain</div><pre id="result">RUNNING</pre>
+<script defer src="../../main/webapp/assets/js/nutrition.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded',async()=>{
+ let count=0,calls=0;
+ const check=(v,m)=>{if(!v)throw new Error(m);count++;};
+ const submit=f=>{let e=new Event('submit',{cancelable:true});f.dispatchEvent(e);return e;};
+ const tick=()=>new Promise(r=>setTimeout(r,0));
+ try{
+  const form=document.querySelector('[data-swap-form]'),button=form.querySelector('button'),save=document.querySelector('#save');
+  const lunch=document.querySelector('[data-suggestion-meal="LUNCH"]'),dinner=document.querySelector('[data-suggestion-meal="DINNER"]');
+  const lunchHTML=lunch.outerHTML,dinnerHTML=dinner.outerHTML,journal=document.querySelector('#journal').outerHTML;
+  const n={caloriesKcal:'599.500',proteinG:'20.499999999999999999',carbsG:'70.500',fatG:'19.000',fiberG:'5.500'};
+  let release;
+  window.fetch=async(url,options)=>{
+   calls++;check(options.method==='POST'&&options.credentials==='same-origin','same-origin POST');
+   check(options.body.get('csrfToken')==='test-csrf'&&options.body.get('mealType')==='BREAKFAST','CSRF and slot sent');
+   check(!options.body.has('recipeId')&&!options.body.has('caloriesKcal'),'no client recipe or nutrients');
+   await new Promise(r=>{release=r;});
+   return {ok:true,json:async()=>({changed:true,message:'Đã đổi món',suggestionToken:'new-token',suggestion:{
+    meals:[{mealType:'BREAKFAST',name:'New <b>breakfast</b>',imageUrl:'../../main/webapp/assets/images/recipes/banh-mi-trung.webp',nutrition:n}],
+    total:{...n,caloriesKcal:'1799.500'},targetKcal:'1800',differenceKcal:'-0.500',projectedDay:{caloriesKcal:'2000.500'},
+    projectedDifferenceKcal:'200.500',exceedsTarget:true,warnings:['Fat <img src=x onerror=alert(1)>']}})};
+  };
+  check(submit(form).defaultPrevented,'AJAX prevents full page submit');
+  check(button.disabled&&save.querySelector('button').disabled,'swap and save disabled during request');
+  submit(form);check(calls===1,'concurrent swap blocked');
+  check(submit(save).defaultPrevented,'save while swap pending blocked');
+  release();await tick();await tick();
+  check(document.querySelector('[data-meal-name]').textContent==='New <b>breakfast</b>'&&!document.querySelector('[data-meal-name] b'),'name inserted as text');
+  check(lunch.outerHTML===lunchHTML&&dinner.outerHTML===dinnerHTML,'other two cards untouched');
+  check(document.querySelector('#journal').outerHTML===journal,'journal untouched');
+  check(document.querySelector('[data-recipe-image]').src.endsWith('/banh-mi-trung.webp'),'image updated');
+  check(document.querySelector('[data-fact="proteinG"]').textContent==='20','BigDecimal display avoids binary rounding');
+  check(document.querySelector('[data-fact="caloriesKcal"]').textContent==='600','positive HALF_UP');
+  check(document.querySelector('[data-difference]').textContent==='-1','negative HALF_UP');
+  check(document.querySelector('[data-total="caloriesKcal"]').textContent==='1800','totals from server');
+  check(document.querySelector('[data-projected]').textContent==='2001'&&document.querySelector('[data-projected-difference]').textContent==='201','projected journal totals refreshed');
+  check(!document.querySelector('[data-exceeds]').hidden,'over-target warning refreshed');
+  check(!document.querySelector('[data-suggestion-warnings]').hidden&&!document.querySelector('[data-suggestion-warnings] img'),'safe nutrition warnings');
+  check([...document.querySelectorAll('input[name="suggestionToken"]')].every(i=>i.value==='new-token'),'all save/swap nonces refreshed');
+  check(!button.disabled&&!save.querySelector('button').disabled,'controls available after complete response');
+  // A rejected or lost response cannot be retried automatically with an uncertain nonce.
+  window.fetch=async()=>{calls++;return {ok:false};};submit(form);await tick();
+  check(button.disabled&&save.querySelector('button').disabled,'uncertain failure blocks replay until reload');
+  check(document.querySelector('[data-swap-status]').textContent.includes('tải lại'),'safe reload instruction');
+  const before=calls;submit(form);check(calls===before,'no automatic retry');
+  document.querySelector('#result').textContent='PASS '+count+' JavaScript swap checks';document.documentElement.dataset.testResult='PASS';
+ }catch(e){document.querySelector('#result').textContent='FAIL '+e.message;document.documentElement.dataset.testResult='FAIL';}
+});
+</script></html>
