@@ -7,7 +7,7 @@ Updated2026-10-19 Bangkok. Status PARTIAL; engineering checks PASS; production n
 - Actual repository: D:/Web/NutriFit-Integration, branch deploy/render-aiven-brevo. D:/Web/NutriFit is a DIFFERENT checkout.
 - User explicitly confirmed: no product/formula evidence yet; keep staging and DO NOT write Aiven. This overrides any earlier conditional production migration plan.
 - Authoritative four-stage task: attachment021d3a6f-4faa-4c64-bfde-498751544728/Pasted text.txt. Read final-data-quality-report.md plus current Git state before resuming; do not repeat imports.
-- Baseline98c0204fc43a132ae323b3117f5de5153ceddca9. Data-only commit0dd67b937b8c652cd3cfe292ee2b54ed151dbb0c. Code/docs commit follows separately. Final push/Render evidence lives in the handoff and private progress note; verify current remote rather than assuming.
+- Baseline98c0204fc43a132ae323b3117f5de5153ceddca9. Data-only commit0dd67b937b8c652cd3cfe292ee2b54ed151dbb0c; code/docs/tests commit55fde6519e00e29d2a4cbeeed5a30cc1099cf48b. Both pushed, exact remote SHA verified55fde65, working tree clean at that milestone. A final docs-only handoff records these results; its latest SHA is in the private progress note/final reply. Verify current remote before resuming.
 - No secret values in checkpoints. Source cache D:/NutriFit-data-sources/20261019 survives Maven clean. Private env/backup outside Git; never display them.
 
 ## Completed evidence
@@ -38,10 +38,10 @@ Updated2026-10-19 Bangkok. Status PARTIAL; engineering checks PASS; production n
 - Standalone javac LocalFoodQualityTrial PASS, actual local trial and SELECT-only PASS. NegativewrongDB/nonloopback/existingDB checksPASS before writes.
 - Secret/scope/JSON/PythonAST/whitespace checksPASS; .env/backup/target ignored. Docker copies only pom/src/main; staging/tools/docs not deployed. Runtime change only recommendationservice. Seedvalidator checksum fixed for document-only prose drift501e0fa; independentdataSQLguards unchanged.
 
-## Pending after this checkpoint
+## Handoff and pending work
 
-1. Commit code/docs/tests/tools separately, push origin/deploy/render-aiven-brevo safely and verify exact remote SHA. If already done, inspect Git/private handoff instead of duplicating commit.
-2. Render check public health/Nutrition/assets and commit status where accessible. Health200 alone does NOT prove deployed SHA. No dashboard/APIaccess established; do not change cloud configuration or database.
+1. Commit/push and remote verification completed for data/code commits; do not duplicate them. Finish/verify docs-only handoff if not yet in remote.
+2. After push: health200/statusok, Nutrition unauthenticated302to/nutrifit/login, oldbanh-mi-trung.webp200with exactlocalSHA. HTTPSverification0(success). No authenticatedE2E. GitHubstatusonlyVercelfailure, noRenderstatus. RenderdeployedSHA remainsUNVERIFIED; no dashboard/APIaccess. No cloudconfiguration/database changes.
 3. Keep data staging. Obtain actual labels/formulas for chả lụa/mắm ruốc/mắm tôm/hành phi/nước dùng/riêu cua, resolve98missing facts/state/assay questions; no guessed matches/zeros.
 4. Kitchen review originalrecipes/oil/yield,8large new portions, all30new designs; acquire30correct licensed/generated images after portions stabilize. PreserveoldIDs/grams/history/images until separately approved.
 5. Only then rebuild qualifiedB/C, benchmarksamecohort, migrationmanifest/localtrial/fullbackup/restore rehearsal/freshread-onlyTLS/conflictgates. User must lift current no-Aiven-write hold before production data mutation.

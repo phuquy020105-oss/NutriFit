@@ -68,7 +68,7 @@ Trong task chỉ đọc Aiven: lần audit xác nhận24 bảng,82 Food/30 Recip
 
 Theo quyết định chủ dự án, chưa áp dụng dữ liệu mới production. Còn thiếu phê duyệt nguồn/thành phẩm, cân khẩu phần, ảnh mới, production manifest/migrator được duyệt, backup/recovery rehearsal và kiểm tra lại trạng thái ngay trước mọi thao tác. Không chạy cloud migration để đạt số lượng60.
 
-Đợt push chỉ triển khai guard runtime; staging/tools/docs bị loại khỏi Docker theo allowlist hiện hành. Không có quyền dashboard/API Render được xác minh ở thời điểm lập báo cáo. Health200 chỉ chứng minh endpoint đáp ứng, không chứng minh commit mới đã chạy. SHA code, push và kiểm tra Render sau commit được ghi trong thông báo bàn giao/checkpoint riêng; báo cáo này không tự nhận deploy thành công.
+Đã push code guard lên đúng nhánh; staging/tools/docs bị loại khỏi Docker theo allowlist hiện hành. Sau push: health HTTP200/status ok; Nutrition không đăng nhập HTTP302 tới /nutrifit/login; ảnh banh-mi-trung.webp HTTP200 và SHA khớp local. Các kết nối HTTPS xác minh chứng chỉ thành công. Đây không phải authenticated E2E và không chứng minh commit mới đã chạy. Không có quyền dashboard/API Render được xác minh. GitHub commit status chỉ có Vercel failure, không có Render status; không sửa Vercel ngoài phạm vi. **Render deployment commit mới: UNVERIFIED.**
 
 ## Engineering — các kiểm tra đã PASS
 
@@ -89,7 +89,7 @@ Không sửa schema/pom/canonical catalog/ba seed SQL, NutritionCalculator/Onboa
 
 Cách chạy lại nguồn/audit/test/local trial: [README công cụ](../../database/tools/food_quality/README.md). Cache công khai có hash tại `D:/NutriFit-data-sources/20261019`; không phụ thuộc target tồn tại. Cấu hình và backup riêng tư không được commit.
 
-Commit dữ liệu staging riêng: `0dd67b937b8c652cd3cfe292ee2b54ed151dbb0c`. Code/docs commit riêng tiếp theo; dùng `git log --oneline -- docs/nutrition/final-data-quality-report.md` để xác định commit chứa báo cáo. Kết quả push/remote được kiểm tra sau commit và ghi trong bàn giao, không suy từ commit local.
+Commit dữ liệu staging riêng: `0dd67b937b8c652cd3cfe292ee2b54ed151dbb0c`. Commit code/docs/tests: `55fde6519e00e29d2a4cbeeed5a30cc1099cf48b`. Cả hai đã push thành công lên origin/deploy/render-aiven-brevo; git ls-remote xác nhận đúng SHA55fde65, working tree sạch tại mốc đó. Bản cập nhật bàn giao tài liệu này được commit sau các kiểm tra remote/HTTP; SHA cuối cùng của nó được ghi trong phản hồi bàn giao và checkpoint riêng ngoài Git. Không force push.
 
 ## Kết luận và bước tiếp theo
 
