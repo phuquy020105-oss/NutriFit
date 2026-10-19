@@ -1,0 +1,37 @@
+# Allow only the inputs needed by the two Docker stages. In particular, Render
+# secret files placed at the build-context root must never be copied into layers.
+**
+!Dockerfile
+!.dockerignore
+!pom.xml
+!src/
+!src/main/
+!src/main/**
+!docker/
+!docker/server.xml
+!docker/entrypoint.sh
+
+# Defense in depth if a private file is accidentally placed below src/main.
+**/.git
+**/.env
+**/.env.*
+**/.idea
+**/.vscode
+**/target
+**/.local-backups
+**/*backup*
+**/*.bak
+**/*.dump
+**/*.sql.gz
+**/*.pem
+**/ca.pm
+**/*.key
+**/*.p12
+**/*.pfx
+**/*.jks
+**/*.keystore
+**/*.log
+**/*.log.*
+**/*.dumpstream
+**/*.tmp
+**/*~

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Docker deployment behind Render's HTTPS edge only; local Tomcat is unchanged. -->
+<Server port="-1">
+    <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+    <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+    <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+    <Service name="Catalina">
+        <!-- Fixed HTTPS metadata avoids trusting client-supplied forwarded headers.
+             The socket itself is HTTP inside Render's network, behind TLS termination. -->
+        <Connector address="0.0.0.0" port="${nutrifit.http.port}"
+                   protocol="org.apache.coyote.http11.Http11NioProtocol"
+                   scheme="https" secure="true" proxyPort="443"
+                   URIEncoding="UTF-8" connectionTimeout="20000"
+                   maxThreads="75" minSpareThreads="5" enableLookups="false" />
+        <Engine name="Catalina" defaultHost="localhost">
+            <Host name="localhost" appBase="webapps" unpackWARs="true"
+                  autoDeploy="false" deployOnStartup="true">
+                <Valve className="org.apache.catalina.valves.ErrorReportValve"
+                       showReport="false" showServerInfo="false" />
+            </Host>
+        </Engine>
+    </Service>
+</Server>

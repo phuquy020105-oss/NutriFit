@@ -22,3 +22,16 @@ db.properties
 *.bak
 /_*backup*/
 /**/_*backup*/
+
+# Cloud certificates and private local database artifacts
+.local-backups/
+backups/
+*.dump
+*.sql.gz
+*.pem
+ca.pm
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore

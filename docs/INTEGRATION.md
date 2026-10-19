@@ -1,5 +1,7 @@
 # Hướng dẫn tích hợp NutriFit — nhánh Java
 
+> Với nhánh `deploy/render-aiven-brevo`, dùng [hướng dẫn triển khai cloud](deployment/render-aiven-brevo.md). Các hướng dẫn ZIP/chuyển nhánh Payment dưới đây là lịch sử tích hợp, không áp dụng để thay source hoặc đổi nhánh hiện tại.
+
 ## Nguồn và phạm vi
 
 - Nền: `NutriFit-feature-java-payment-chatbot.zip` (GitHub chính; khung MVC và schema gốc).
@@ -21,7 +23,7 @@
 2. Chọn nhánh `feature/java-payment-chatbot` từ **lịch sử GitHub chính**; không push commit từ lịch sử Git `baitap3` sang nhánh này. README nhóm xác nhận `develop-java` là nhánh Java tích hợp, không phải `main`.
 3. Dùng nội dung ZIP này làm bản nguồn để so sánh, chọn file cần giữ; `git status`, `git diff` rồi mới commit. Nếu nhóm đã merge Auth/Admin mới, ưu tiên giữ Auth/Admin hiện hành và chỉ ghép Payment/Chatbot vào các file dùng chung.
 4. Cần MySQL schema gốc; với DB đã tồn tại chỉ chạy `database/migrations/20261017_add_users_auth_version.sql` **nếu cột chưa có** (script idempotent). Script `database/seeds/optional-premium-plans.sql` chỉ khi muốn gói ví dụ và đã xác nhận giá.
-5. Trong Terminal PowerShell chạy Tomcat, cấu hình `NUTRIFIT_DB_USER`, `NUTRIFIT_DB_PASSWORD`, `NUTRIFIT_SMTP_USER`, `NUTRIFIT_SMTP_PASSWORD`, `NUTRIFIT_IP_HASH_SECRET`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `VNPAY_TMN_CODE`, `VNPAY_HASH_SECRET`, `VNPAY_RETURN_URL` bằng biến môi trường (tham khảo `.env.example`, không commit giá trị thật).
+5. Trong Terminal PowerShell chạy Tomcat, cấu hình `NUTRIFIT_DB_USER`, `NUTRIFIT_DB_PASSWORD`, `BREVO_API_KEY`, `BREVO_SENDER_EMAIL`, `BREVO_SENDER_NAME`, `NUTRIFIT_IP_HASH_SECRET`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `VNPAY_TMN_CODE`, `VNPAY_HASH_SECRET`, `VNPAY_RETURN_URL` bằng biến môi trường (tham khảo `.env.example`, không commit giá trị thật).
 6. Chạy `mvn clean verify`, dừng Tomcat cũ, triển khai `target/nutrifit.war`, chạy `catalina.bat run`. Kiểm tra `/nutrifit/health`, `/nutrifit/health/db`, `/nutrifit/login`, `/nutrifit/dashboard`, `/nutrifit/chatbot`, `/nutrifit/payment`.
 7. Test chức năng đăng ký OTP, đăng nhập, nhiều người dùng và đổi tài khoản xem chat; test giao dịch VNPay 30/365 ngày, Return, IPN và các tình huống sai chữ ký/sai số tiền/trùng IPN. **Không kích hoạt Premium khi chỉ có Return URL**.
 
@@ -30,7 +32,7 @@
 - GitHub chính `phuquy020105-oss/NutriFit`, nhánh feature `feature/java-payment-chatbot`. Đẩy thay đổi lên nhánh feature cùng lịch sử, tạo PR vào `develop-java` sau khi nhóm xác nhận.
 - Không dùng `git push --force`, `git reset --hard` hoặc `git merge --allow-unrelated-histories` để nối lịch sử repo phụ.
 - Backend Tomcat không chạy nguyên file WAR trên Vercel; IPN của VNPay cần URL HTTPS công khai và đăng ký với merchant.
-- Thành công của Maven không chứng minh SMTP, Gemini, MySQL hay VNPay đã được kiểm thử E2E.
+- Thành công của Maven không chứng minh Brevo HTTPS, Gemini, MySQL hay VNPay đã được kiểm thử E2E.
 
 ## Đưa source sạch vào đúng lịch sử GitHub chính mà không clone thư mục mới
 
@@ -73,3 +75,7 @@ git push official HEAD:feature/java-payment-chatbot
 ```
 
 **Phải xem lại các thay đổi Auth, Admin, Dashboard và `pom.xml` trước khi push** vì nhóm có nhánh riêng quản lý những phần này. Nếu nhánh feature ở xa đã có commit mới, cần fetch/review lại trước khi đẩy. Sau đó tạo PR vào `develop-java` (theo hướng dẫn nhóm).
+
+## Cấu hình cloud trên nhánh deploy/render-aiven-brevo
+
+Xem [Render + Aiven + Brevo](deployment/render-aiven-brevo.md) cho Docker, JDBC TLS và email HTTPS. Các chỉ dẫn ZIP/nhánh Payment ở trên là lịch sử tích hợp; không dùng chúng để đổi nhánh hoặc ghi đè source hiện tại. Gmail SMTP đã được thay bằng Brevo; chữ ký phương thức EmailService và rollback Auth được giữ nguyên. File `.env` không tự được Java nạp.

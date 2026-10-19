@@ -1,0 +1,2 @@
+# Docker entrypoints must remain executable shell text after Windows checkouts.
+/docker/*.sh text eol=lf
