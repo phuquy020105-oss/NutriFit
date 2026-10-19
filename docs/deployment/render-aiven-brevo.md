@@ -12,6 +12,8 @@
 
 Không có migration/seed lúc build hoặc khởi động. Image chỉ nhận `pom.xml`, `src/main`, cấu hình Docker; `.dockerignore` dùng allowlist để không mang `.git`, `.env`, CA/keystore, SQL/dump, backup, IDE, log hoặc `target` cũ vào build context. Không dùng `COPY . .` hoặc Docker build arguments chứa secret. Kiểm tra lại tag/digest base image khi cập nhật; các image này chưa được pull/build trong nhiệm vụ chuẩn bị.
 
+Runtime dùng `USER nutrifit` (UID 10001, primary GID 10001), thêm supplementary GID 1000 để đọc Render Secret Files như `/etc/secrets/ca.pem`. Dockerfile kiểm tra GID 1000 đã tồn tại trước khi tạo group, rồi thêm user vào group đó; không chỉ định `USER user:group` vì Docker sẽ bỏ qua supplementary groups. Giữ ownership thư mục Tomcat và cơ chế truststore tạm; không chmod Secret File, không copy CA vào image hoặc chạy runtime bằng root. Tham khảo [Render runtime Secret Files](https://render.com/docs/docker-secrets#accessing-secret-files-at-runtime) và [Docker USER](https://docs.docker.com/reference/dockerfile/#user). Quyền đọc thực tế trên Render chưa được kiểm chứng vì chưa build/run/deploy.
+
 ## 2. Environment variables
 
 Đặt **giá trị thật chỉ trên Render Dashboard**. `.env.example` là mẫu; Java/Tomcat không tự đọc `.env`. Khi chạy Windows, đặt biến trong đúng process IDE/Tomcat. `.env`, CA, keystore và backup phải tiếp tục nằm ngoài Git.
@@ -19,7 +21,7 @@ Không có migration/seed lúc build hoặc khởi động. Image chỉ nhận `
 | Biến | Giá trị hoặc vai trò |
 |---|---|
 | `PORT` | `8080`; bắt buộc đúng cổng Render chuyển tiếp, mặc định image cũng là 8080. |
-| `NUTRIFIT_DB_URL` | Trên Render bắt buộc: `jdbc:mysql://<AIVEN_HOST>:27047/defaultdb?sslMode=VERIFY_IDENTITY&useUnicode=true&characterEncoding=UTF-8`. Dùng hostname DNS đúng certificate; không nhúng user/password trong URL. |
+| `NUTRIFIT_DB_URL` | Trên Render bắt buộc: `jdbc:mysql://<AIVEN_HOST>:27047/nutrifitdb?sslMode=VERIFY_IDENTITY&useUnicode=true&characterEncoding=UTF-8`. Dùng hostname DNS đúng certificate; không nhúng user/password trong URL. |
 | `NUTRIFIT_DB_USER` | `avnadmin` cho service hiện tại hoặc DB user được cấp phù hợp. |
 | `NUTRIFIT_DB_PASSWORD` | Password tương ứng, không đặt giá trị trong source/README. |
 | `NUTRIFIT_DB_CA_FILE` | Trên Aiven đặt `/etc/secrets/ca.pem`; yêu cầu file CA hợp lệ, đọc được. |
@@ -37,15 +39,15 @@ Không có migration/seed lúc build hoặc khởi động. Image chỉ nhận `
 
 ## 3. Aiven và CA certificate
 
-- Bật service nếu **Powered off**, xác nhận MySQL 8.4.x, hostname, port 27047 và database `defaultdb` thực tế trong Aiven Console. Không dùng credential local `root` trên cloud.
+- Bật service nếu **Powered off**, xác nhận MySQL 8.4.x, hostname, port 27047 và database `nutrifitdb` thực tế trong Aiven Console. Không dùng credential local `root` trên cloud.
 - Đã xác nhận tên file local là `D:\Web\ca.pem` bằng danh sách file, chưa đọc/kiểm tra nội dung certificate. Lấy project CA đúng service từ Aiven Console. Trong Render → Environment → **Secret Files**, tên file **`ca.pem`**, dán nội dung PEM lấy từ file CA đúng. Runtime mount là `/etc/secrets/ca.pem`. Không copy chứng chỉ từ Windows vào repo/image và không tải certificate khi khởi động.
 - `DatabaseConfig` giữ nguyên JDBC URL local nếu `NUTRIFIT_DB_URL` thiếu/rỗng. Với URL được cấu hình, code yêu cầu MySQL single-host URL và `sslMode=VERIFY_IDENTITY`; nếu chưa ghi mode thì áp dụng qua Connector/J Properties. Cấu hình hạ TLS, embedded credentials hoặc ghi đè truststore trong URL bị từ chối. Lỗi TLS không chuyển về plaintext hay URL local.
 - `DatabaseTrustStore` đọc PEM CA ở lần JDBC đầu tiên, kiểm tra X.509/CA/thời hạn, tạo PKCS12 tạm với password ngẫu nhiên trong bộ nhớ. File Linux có quyền owner read/write; Connector/J nhận URL/type/password truststore riêng và `fallbackToSystemTrustStore=false`. Cache trong process, đổi CA cần restart/redeploy. Không thay đổi truststore HTTPS mặc định: Brevo/Gemini vẫn dùng CA công cộng của JDK.
 - Thiếu/sai CA khi đã cấu hình phải sửa file/mount; không dùng `trustAll`, `allowPublicKeyRetrieval=true`, `sslMode=PREFERRED`, `REQUIRED` hoặc tắt hostname verification để chữa lỗi.
 
-**Schema Aiven chưa được xác nhận.** Database local có 24 bảng không có nghĩa `defaultdb` đã có dữ liệu. Cần một nhiệm vụ DBA riêng được cho phép để đối chiếu và nhập schema/seed sạch: 24 bảng, `users.auth_version`, `password_reset_otps`, catalog 82/30/383, Workout 3/47 và các gói đã duyệt. `schema.sql`/migration có `CREATE DATABASE`/`USE NutriFitDB_Java`; seed chính thức có guard `_test`. Không chạy nguyên các file đó hoặc `nutrifit_full.sql` lên `defaultdb`, không bỏ guard, không nhập dữ liệu cá nhân từ dump. Container không tự chuẩn bị database.
+**Schema Aiven chưa được xác nhận.** Database local có 24 bảng không có nghĩa `nutrifitdb` đã có dữ liệu. Cần một nhiệm vụ DBA riêng được cho phép để đối chiếu và nhập schema/seed sạch: 24 bảng, `users.auth_version`, `password_reset_otps`, catalog 82/30/383, Workout 3/47 và các gói đã duyệt. `schema.sql`/migration có `CREATE DATABASE`/`USE NutriFitDB_Java`; seed chính thức có guard `_test`. Không chạy nguyên các file đó hoặc `nutrifit_full.sql` lên `nutrifitdb`, không bỏ guard, không nhập dữ liệu cá nhân từ dump. Container không tự chuẩn bị database.
 
-Sau deploy, `/nutrifit/health/db` phải trả `connected`, database `defaultdb`. Endpoint chỉ chứng minh kết nối và `SELECT DATABASE()`, **không** chứng minh đủ schema/dữ liệu/TLS bằng kiểm thử E2E; TLS policy nằm trong cấu hình JDBC. `/nutrifit/health` không phụ thuộc database.
+Sau deploy, `/nutrifit/health/db` phải trả `connected`, database `nutrifitdb`. Endpoint chỉ chứng minh kết nối và `SELECT DATABASE()`, **không** chứng minh đủ schema/dữ liệu/TLS bằng kiểm thử E2E; TLS policy nằm trong cấu hình JDBC. `/nutrifit/health` không phụ thuộc database.
 
 ## 4. Brevo và contract Auth
 
@@ -78,7 +80,7 @@ Các thao tác này **chưa thực hiện** trong giai đoạn chỉ sửa code.
 | Docker build failed | Đúng root/Dockerfile, base image/tag truy cập được, Maven repository/network, lỗi compile trong logs. Không thêm secret build arguments. |
 | Render không thấy cổng | `PORT=8080` hoặc cổng hợp lệ, entrypoint không bị thay bởi Docker command; property trong server.xml, LF của script và runtime user. |
 | HTTP 404 | Dùng `/nutrifit/...`, xác nhận WAR tên `nutrifit.war`; `/` không phải trang ứng dụng. |
-| MySQL timeout | URL/host/port/defaultdb, Aiven Powered on, allowlist/network đúng; không fallback local. |
+| MySQL timeout | URL/host/port/nutrifitdb, Aiven Powered on, allowlist/network đúng; không fallback local. |
 | TLS verification error | Secret File/read permission, PEM CA còn hạn, hostname khớp certificate; restart sau đổi CA. Không hạ TLS. |
 | DB connected nhưng chức năng lỗi | Health không kiểm tra schema; đối chiếu đủ 24 bảng/column/catalog trong nhiệm vụ DBA riêng. |
 | Brevo 401 | API key đúng loại/quyền, chưa bị thu hồi; không in key vào logs. |
