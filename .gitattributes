@@ -1,2 +1,12 @@
 # Docker entrypoints must remain executable shell text after Windows checkouts.
 /docker/*.sh text eol=lf
+
+# Raw-byte quality evidence must survive Windows/Linux checkouts without hash drift.
+/database/staging/food-quality-v1/** text eol=lf
+/database/staging/food-quality-v1/images/*.webp -text
+/database/tools/food_quality/** text eol=lf
+# The existing canonical baseline checksum was recorded over CRLF bytes; preserve it.
+/database/seed/vietnamese_catalog.json text eol=crlf
+# The cohort report pins the unchanged scorer/service source bytes as LF.
+/src/main/java/com/nutrifit/service/MealRecommendationService.java text eol=lf
+/.gitattributes text eol=lf
