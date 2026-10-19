@@ -3,6 +3,9 @@ package com.nutrifit.service;
 import com.nutrifit.config.DatabaseConfig;
 import com.nutrifit.dao.JdbcRecipeReadAdapter;
 import com.nutrifit.dao.MealEntryDAO;
+import com.nutrifit.dao.FoodPreferenceDAO;
+import com.nutrifit.dto.MealSuggestion;
+import com.nutrifit.dto.SuggestedMeal;
 import com.nutrifit.dao.MealPlanDAO;
 import com.nutrifit.dao.NutritionUserReadDAO;
 import com.nutrifit.dto.DaySummary;
@@ -18,6 +21,7 @@ import java.sql.SQLException;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /** Entry point for meal mutations; enforces current day and ownership. */
@@ -28,7 +32,8 @@ public class MealPlannerService {
     private final NutritionCalculator calculator;
     private final Clock clock;
     private final ConnectionProvider connections;
-    private final NutritionUserReadDAO users = new NutritionUserReadDAO();
+    private final NutritionUserReadDAO users;
+    private final MealRecommendationService recommendations;
 
     public MealPlannerService() {
         this(new MealPlanDAO(), new MealEntryDAO(), new JdbcRecipeReadAdapter(),
@@ -42,6 +47,14 @@ public class MealPlannerService {
 
     MealPlannerService(MealPlanDAO plans, MealEntryDAO entries, RecipeReadPort recipes,
                        NutritionCalculator calculator, Clock clock, ConnectionProvider connections) {
+        this(plans, entries, recipes, calculator, clock, connections, new NutritionUserReadDAO(), new FoodPreferenceDAO());
+    }
+
+    MealPlannerService(MealPlanDAO plans, MealEntryDAO entries, RecipeReadPort recipes,
+                       NutritionCalculator calculator, Clock clock, ConnectionProvider connections,
+                       NutritionUserReadDAO users, FoodPreferenceDAO preferences) {
+        this.users = users;
+        this.recommendations = new MealRecommendationService(connections, preferences, recipes, users, calculator, clock);
         this.plans = plans;
         this.entries = entries;
         this.recipes = recipes;
@@ -113,21 +126,7 @@ public class MealPlannerService {
             try {
                 RecipeNutritionInput recipe = requireRecipe(c, recipeId, type);
                 long planId = plans.findOrCreateForUpdate(c, userId, day);
-                Optional<MealEntry> existing = entries.findByPlanMealRecipe(c, planId, type, recipeId);
-                MealEntry e;
-                if (existing.isPresent()) {
-                    e = existing.get();
-                    BigDecimal newServings = validServings(e.getServings().add(amount));
-                    putFacts(e, calculator.rescaleStored(snapshot(e), e.getServings(), newServings));
-                    e.setServings(newServings);
-                    entries.update(c, e);
-                } else {
-                    NutritionFacts facts = calculator.calculate(recipe, amount);
-                    e = new MealEntry(planId, recipeId, recipe.name(), type, amount,
-                            facts.caloriesKcal(), facts.proteinG(), facts.carbsG(),
-                            facts.fatG(), facts.fiberG());
-                    e.setEntryId(entries.insert(c, e));
-                }
+                MealEntry e = addToPlan(c, planId, recipe, amount);
                 c.commit();
                 return e;
             } catch (SQLException | RuntimeException e) {
@@ -135,6 +134,51 @@ public class MealPlannerService {
                 throw e;
             }
         }
+    }
+
+    /** Saves exactly one breakfast/lunch/dinner, without replacing manual entries. */
+    public MealSuggestion saveSuggestion(long userId, MealSuggestion draft,
+            Map<MealEntry.MealType, BigDecimal> amounts) throws SQLException {
+        checkUser(userId);
+        try (Connection c = connections.open()) {
+            c.setAutoCommit(false);
+            try {
+                MealSuggestion checked = recommendations.refresh(c, userId, draft, amounts);
+                long planId = plans.findOrCreateForUpdate(c, userId, today());
+                for (SuggestedMeal meal : checked.meals()) {
+                    RecipeNutritionInput input = requireRecipe(c, meal.recipeId(), meal.mealType());
+                    addToPlan(c, planId, input, meal.servings());
+                }
+                if (!checked.date().equals(today())) throw new IllegalArgumentException("Day changed during save");
+                c.commit();
+                return checked;
+            } catch (SQLException | RuntimeException e) {
+                rollback(c, e);
+                throw e;
+            }
+        }
+    }
+
+    private MealEntry addToPlan(Connection c, long planId, RecipeNutritionInput recipe, BigDecimal amount)
+            throws SQLException {
+        long recipeId = recipe.recipeId();
+        MealEntry.MealType type = recipe.mealType();
+        Optional<MealEntry> existing = entries.findByPlanMealRecipe(c, planId, type, recipeId);
+        MealEntry e;
+        if (existing.isPresent()) {
+            e = existing.get();
+            BigDecimal newServings = validServings(e.getServings().add(amount));
+            putFacts(e, calculator.rescaleStored(snapshot(e), e.getServings(), newServings));
+            e.setServings(newServings);
+            entries.update(c, e);
+        } else {
+            NutritionFacts facts = calculator.calculate(recipe, amount);
+            e = new MealEntry(planId, recipeId, recipe.name(), type, amount,
+                    facts.caloriesKcal(), facts.proteinG(), facts.carbsG(),
+                    facts.fatG(), facts.fiberG());
+            e.setEntryId(entries.insert(c, e));
+        }
+        return e;
     }
 
     public MealEntry updateMeal(long userId, long entryId, long recipeId,

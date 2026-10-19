@@ -8,7 +8,9 @@ String ctx = request.getContextPath();
 BigDecimal targetKcal = (BigDecimal) request.getAttribute("targetKcal");
 String message = request.getParameter("message");
 String notice = null;
-if ("added".equals(message)) {
+if ("suggested".equals(message)) {
+    notice = "Đã lưu thực đơn ba bữa vào nhật ký hôm nay. Món trùng cùng bữa được cộng khẩu phần.";
+} else if ("added".equals(message)) {
     notice = "Đã ghi nhận món ăn. Nếu món đã có trong cùng bữa, khẩu phần được cộng thêm.";
 } else if ("updated".equals(message)) {
     notice = "Đã cập nhật món ăn.";
@@ -52,6 +54,7 @@ if ("added".equals(message)) {
 
 <header class="nf-head nf-today-hero"><div><span class="nf-hero-eyebrow">NHẬT KÝ DINH DƯỠNG · HÔM NAY</span><h1>Ăn uống lành mạnh, mỗi ngày một chút</h1><p><%= Html.escape(day.date()) %> · Theo dõi các bữa ăn và tiến độ dinh dưỡng của bạn.</p></div><div class="nf-hero-symbol" aria-hidden="true">✦</div></header>
 <% if (notice != null) { %><p class="nf-success" role="status"><%= Html.escape(notice) %></p><% } %>
+<div class="nf-suggestion-entry"><a class="nf-suggestion-button" href="<%= Html.escape(ctx) %>/nutrition/recommendations">Gợi ý thực đơn</a><p>Cả Free và Premium đều được xem trước, chỉnh khẩu phần và lưu ba bữa.</p></div>
 <section class="nf-card nf-today-overview">
 <div class="nf-section-heading"><div><span class="nf-section-kicker">TỔNG QUAN HÔM NAY</span><h2>Tiến độ dinh dưỡng</h2></div><span class="nf-section-icon" aria-hidden="true">◉</span></div>
 <div class="nf-calorie-progress">

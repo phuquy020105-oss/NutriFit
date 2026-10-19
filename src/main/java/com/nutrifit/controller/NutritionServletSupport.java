@@ -22,6 +22,13 @@ import java.util.logging.Logger;
 abstract class NutritionServletSupport extends HttpServlet {
     private static final Logger LOG = Logger.getLogger(NutritionServletSupport.class.getName());
 
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setHeader("Cache-Control", "no-store");
+        super.service(request, response);
+    }
+
     protected Long requireUser(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         OptionalLong user = CurrentUser.id(request);
@@ -105,7 +112,10 @@ abstract class NutritionServletSupport extends HttpServlet {
             throws ServletException, IOException {
         int status;
         String message;
-        if (exception instanceof IllegalArgumentException || exception instanceof DateTimeParseException) {
+        if (exception instanceof com.nutrifit.service.RecommendationUnavailableException) {
+            status = HttpServletResponse.SC_BAD_REQUEST;
+            message = exception.getMessage();
+        } else if (exception instanceof IllegalArgumentException || exception instanceof DateTimeParseException) {
             status = HttpServletResponse.SC_BAD_REQUEST;
             message = "Thông tin chưa hợp lệ. Hãy kiểm tra món ăn, bữa, khẩu phần hoặc ngày đã chọn. "
                     + "Nhật ký chỉ được chỉnh sửa trong ngày hiện tại; không thể đổi sang món đã có trong cùng bữa.";

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 /** Read-only bridge to Profile/Payment data until their shared services are integrated. */
 public class NutritionUserReadDAO {
-    /** Keeps the existing policy: PREMIUM with no expiry is allowed, pending Payment agreement. */
+    /** Same active-subscription rule as PremiumAccessService; missing expiry grants no access. */
     public boolean hasPremiumAccess(Connection connection, long userId, LocalDateTime now)
             throws SQLException {
         String sql = "SELECT subscription_status,premium_expires_at FROM users WHERE user_id=?";
@@ -20,7 +20,7 @@ public class NutritionUserReadDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next() || !"PREMIUM".equals(rs.getString("subscription_status"))) return false;
                 Timestamp expiry = rs.getTimestamp("premium_expires_at");
-                return expiry == null || expiry.toLocalDateTime().isAfter(now);
+                return expiry != null && expiry.toLocalDateTime().isAfter(now);
             }
         }
     }

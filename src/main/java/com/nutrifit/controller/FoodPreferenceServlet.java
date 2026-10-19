@@ -10,7 +10,9 @@ import java.io.IOException;
 
 @WebServlet("/nutrition/preferences")
 public class FoodPreferenceServlet extends NutritionServletSupport {
-    private final FoodPreferenceService service = new FoodPreferenceService();
+    private final FoodPreferenceService service;
+    public FoodPreferenceServlet() { this(new FoodPreferenceService()); }
+    FoodPreferenceServlet(FoodPreferenceService service) { this.service = service; }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -18,8 +20,10 @@ public class FoodPreferenceServlet extends NutritionServletSupport {
         Long user = requireUser(req, resp);
         if (user == null) return;
         try {
-            req.setAttribute("preferences", service.listSavedPreferences(user));
-            req.setAttribute("foods", service.listAvailableFoods(user));
+            boolean premium = service.hasPremiumAccess(user);
+            req.setAttribute("premium", premium);
+            req.setAttribute("preferences", premium ? service.listSavedPreferences(user) : java.util.List.of());
+            req.setAttribute("foods", premium ? service.listAvailableFoods(user) : java.util.List.of());
             req.setAttribute("csrf", Csrf.token(req));
             req.getRequestDispatcher("/WEB-INF/views/nutrition/food-preferences.jsp").forward(req, resp);
         } catch (Exception e) {
