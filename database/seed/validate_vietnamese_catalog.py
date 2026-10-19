@@ -13,7 +13,9 @@ ROOT = Path(__file__).resolve().parents[2]
 SEED = Path(__file__).resolve().parent
 KEYS = ("calories_per_100g", "protein_per_100g", "carbs_per_100g",
         "fat_per_100g", "fiber_per_100g")
-REVIEW_HASH = "727350446307d4f73739f9e5874e6dfbf93f9649a10e516df441cc0da7131028"
+# Reviewed 501e0fa: only recommendation-access prose changed; food/recipe/gram sections are unchanged.
+# Keep the full-document pin plus every independent canonical payload/metadata/decimal check below.
+REVIEW_HASH = "f5c523564224f154c9b9fcef41e7a87787e8bdca6bb14d8d58001f6c9d599223"
 
 
 def require(condition, message):

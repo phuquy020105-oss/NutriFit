@@ -35,3 +35,7 @@ ca.pm
 *.pfx
 *.jks
 *.keystore
+
+# Offline food data tooling
+__pycache__/
+*.py[cod]

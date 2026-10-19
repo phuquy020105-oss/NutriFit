@@ -98,16 +98,33 @@ public class MealRecommendationService {
                 options.put(type, choices);
             }
             Combination best = null, alternative = null, novel = null;
+            Combination bestInRange = null, alternativeInRange = null, novelInRange = null;
+            boolean energyFeasible = false;
+            BigDecimal feasibilityDistance = target.multiply(new BigDecimal("0.10"));
+            BigDecimal rankingDistance = target.multiply(new BigDecimal("0.15"));
             for (Option breakfast : options.get(MealType.BREAKFAST))
                 for (Option lunch : options.get(MealType.LUNCH))
                     for (Option dinner : options.get(MealType.DINNER)) {
                         Combination choice = combination(breakfast,lunch,dinner,recorded,target,goal,eligibility,
                                 frequency,journal,recent);
+                        // A practical energy option must not lose to a large deficit for a small soft-score gain.
+                        if (choice.energyDistance().compareTo(feasibilityDistance) <= 0) energyFeasible = true;
+                        if (choice.energyDistance().compareTo(rankingDistance) <= 0) {
+                            if (bestInRange == null || choice.compareTo(bestInRange) < 0) bestInRange = choice;
+                            if (previous != null && !choice.sameRecipes(previous)
+                                    && (alternativeInRange == null || choice.compareTo(alternativeInRange) < 0)) alternativeInRange = choice;
+                            if (!recent.contains(choice.ids()) && (novelInRange == null || choice.compareTo(novelInRange) < 0)) novelInRange = choice;
+                        }
                         if (best == null || choice.compareTo(best) < 0) best = choice;
                         if (previous != null && !choice.sameRecipes(previous)
                                 && (alternative == null || choice.compareTo(alternative) < 0)) alternative = choice;
                         if (!recent.contains(choice.ids()) && (novel==null || choice.compareTo(novel)<0)) novel=choice;
                     }
+            // Same eligibility, dislikes, servings and score weights. If a <=10% option exists,
+            // rank and regenerate within15%; otherwise retain the honest catalog-limited fallback.
+            if (energyFeasible) {
+                best = bestInRange; alternative = alternativeInRange; novel = novelInRange;
+            }
             // Prefer novelty only within a small quality margin; never force a much worse menu.
             if (previous!=null && novel!=null && novel.score()<=best.score()+.03) best=novel;
             else if (alternative!=null && alternative.score()<=best.score()+.03) best=alternative;
@@ -251,13 +268,13 @@ public class MealRecommendationService {
         return suggestion.meals().stream().sorted(Comparator.comparing(SuggestedMeal::mealType)).map(SuggestedMeal::recipeId).toList();
     }
     private record Option(RecipeCandidate recipe, NutritionFacts added) { }
-    private record Combination(Option breakfast,Option lunch,Option dinner,double score,double energyDistance)
+    private record Combination(Option breakfast,Option lunch,Option dinner,double score,BigDecimal energyDistance)
             implements Comparable<Combination> {
         List<Long> ids(){return List.of(breakfast.recipe().recipeId(),lunch.recipe().recipeId(),dinner.recipe().recipeId());}
         boolean sameRecipes(MealSuggestion previous){return ids().equals(recipeIds(previous));}
         @Override public int compareTo(Combination other) {
             int result=Double.compare(score,other.score);
-            if(result==0) result=Double.compare(energyDistance,other.energyDistance);
+            if(result==0) result=energyDistance.compareTo(other.energyDistance);
             for(int i=0;result==0 && i<3;i++) result=Long.compare(ids().get(i),other.ids().get(i));
             return result;
         }
@@ -277,7 +294,7 @@ public class MealRecommendationService {
         double repeated=(double)repeats/(3*(recent.size()+1));
         var score=scorer.evaluate(projected,target,goal,selected.stream().map(RecipeCandidate::perServing).toList(),
                 MealPlanScorer.ingredientOverlap(selected,frequency),repeated,missed);
-        return new Combination(breakfast,lunch,dinner,score.total(),projected.caloriesKcal().subtract(target).abs().doubleValue());
+        return new Combination(breakfast,lunch,dinner,score.total(),projected.caloriesKcal().subtract(target).abs());
     }
 
     private RecipeNutritionInput requireRecipe(Connection c, long id, MealType type, Eligibility eligibility)

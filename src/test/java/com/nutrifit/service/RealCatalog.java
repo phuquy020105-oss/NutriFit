@@ -11,7 +11,11 @@ import java.util.*;
 final class RealCatalog {
     @SuppressWarnings("unchecked")
     static List<RecipeNutritionInput> load() throws Exception {
-        Map<String,Object> json=(Map<String,Object>)JsonLite.parse(Files.readString(Path.of("database/seed/vietnamese_catalog.json")));
+        return load(Path.of("database/seed/vietnamese_catalog.json"));
+    }
+    @SuppressWarnings("unchecked")
+    static List<RecipeNutritionInput> load(Path path) throws Exception {
+        Map<String,Object> json=(Map<String,Object>)JsonLite.parse(Files.readString(path));
         Map<String,NutritionFacts> foods=new HashMap<>();
         for(var item:(List<Map<String,Object>>)json.get("foods")) {
             Map<String,String> n=(Map<String,String>)item.get("nutrients");
@@ -23,12 +27,17 @@ final class RealCatalog {
             List<IngredientNutritionLine> lines=new ArrayList<>();
             for(var i:(List<Map<String,Object>>)r.get("ingredients")) {
                 String ref=(String)i.get("food_ref");
-                lines.add(new IngredientNutritionLine(Long.parseLong(ref.substring(1)),new BigDecimal((String)i.get("quantity_grams")),foods.get(ref)));
+                lines.add(new IngredientNutritionLine(foodFixtureId(ref),new BigDecimal((String)i.get("quantity_grams")),foods.get(ref)));
             }
             result.add(new RecipeNutritionInput(Long.parseLong(((String)r.get("ref")).substring(1)),(String)r.get("name"),
                     MealEntry.MealType.valueOf((String)r.get("meal_type")),new BigDecimal((String)r.get("base_servings")),lines));
         }
         return result;
+    }
+    // Stable in-memory fixture keys only; actual JDBC migrations resolve generated IDs by checked names.
+    private static long foodFixtureId(String ref) {
+        if (!ref.matches("[FN][0-9]{3}")) throw new IllegalArgumentException("Unknown test catalog reference");
+        return (ref.charAt(0)=='N'?10000:0)+Long.parseLong(ref.substring(1));
     }
     private static BigDecimal d(Map<String,String> n,String key){return new BigDecimal(n.get(key));}
 }
