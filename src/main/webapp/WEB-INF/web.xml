@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" version="6.0">
+    <!-- Explicit first mapping measures the complete security/filter/controller/view chain. -->
+    <filter><filter-name>performance</filter-name><filter-class>com.nutrifit.filter.PerformanceFilter</filter-class></filter>
+    <filter-mapping><filter-name>performance</filter-name><url-pattern>/*</url-pattern><dispatcher>REQUEST</dispatcher></filter-mapping>
+    <filter><filter-name>response-cache</filter-name><filter-class>com.nutrifit.filter.ResponseCacheFilter</filter-class></filter>
+    <filter-mapping><filter-name>response-cache</filter-name><url-pattern>/*</url-pattern><dispatcher>REQUEST</dispatcher></filter-mapping>
+</web-app>

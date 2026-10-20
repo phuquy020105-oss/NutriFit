@@ -18,10 +18,43 @@ public final class DatabaseConfig {
     private DatabaseConfig() {
     }
 
+    private static DatabasePool pool;
+    private static boolean stopped;
+
     public static Connection getConnection() throws SQLException {
+        long started = System.nanoTime();
+        try {
+            return com.nutrifit.observability.Performance.instrument(pool().getConnection());
+        } catch (SQLException e) {
+            throw new SQLException("Database connection failed; check configuration, network and TLS.",
+                    e.getSQLState(), e.getErrorCode());
+        } finally {
+            com.nutrifit.observability.Performance.acquired(started);
+        }
+    }
+
+    private static synchronized DatabasePool pool() throws SQLException {
+        if (stopped) throw new SQLException("Database pool is closed.");
+        if (pool == null) pool = new DatabasePool(new PhysicalDataSource());
+        return pool;
+    }
+
+    public static synchronized void closePool() {
+        stopped = true;
+        if (pool != null) pool.close();
+    }
+
+    // Only the pool opens physical connections; all existing callers close logical leases.
+    static Connection openPhysical() throws SQLException {
         String configuredUrl = System.getenv("NUTRIFIT_DB_URL");
         boolean customUrl = configuredUrl != null && !configuredUrl.isBlank();
-        String url = customUrl ? configuredUrl.strip() : LOCAL_URL;
+        String localName = System.getenv("NUTRIFIT_LOCAL_DB_NAME");
+        if (localName != null && !localName.isBlank()
+                && (customUrl || !localName.matches("nutrifit_[a-z0-9_]+_test"))) {
+            throw new SQLException("NUTRIFIT_LOCAL_DB_NAME accepts only an isolated local test database and no custom URL.");
+        }
+        String url = customUrl ? configuredUrl.strip() : localName != null && !localName.isBlank()
+                ? LOCAL_URL.replace("/nutrifitdb_java", "/" + localName) : LOCAL_URL;
         String username = required("NUTRIFIT_DB_USER");
         String password = required("NUTRIFIT_DB_PASSWORD");
         String caFile = System.getenv("NUTRIFIT_DB_CA_FILE");
@@ -58,6 +91,19 @@ public final class DatabaseConfig {
                     "Database connection failed; check configuration, network and TLS.",
                     e.getSQLState(), e.getErrorCode());
         }
+    }
+
+    private static final class PhysicalDataSource implements javax.sql.DataSource {
+        @Override public Connection getConnection() throws SQLException { return openPhysical(); }
+        @Override public Connection getConnection(String u,String p) throws SQLException { throw new java.sql.SQLFeatureNotSupportedException(); }
+        @Override public java.io.PrintWriter getLogWriter() { return null; }
+        @Override public void setLogWriter(java.io.PrintWriter writer) throws SQLException { if(writer!=null)throw new java.sql.SQLFeatureNotSupportedException(); }
+        @Override public void setLoginTimeout(int seconds) { }
+        @Override public int getLoginTimeout() { return 10; }
+        @Override public java.util.logging.Logger getParentLogger() { return java.util.logging.Logger.getLogger("com.nutrifit.config"); }
+        @Override public <T> T unwrap(Class<T> type) throws SQLException { throw new java.sql.SQLFeatureNotSupportedException(); }
+        @Override public boolean isWrapperFor(Class<?> type) { return false; }
+        @Override public String toString() { return "NutriFit physical datasource"; }
     }
 
     private static String required(String name) throws SQLException {
