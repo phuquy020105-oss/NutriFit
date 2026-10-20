@@ -151,7 +151,7 @@ public class MealPlannerService {
                         || !checked.projectedDay().equals(draft.projectedDay())
                         || checked.targetKcal().compareTo(draft.targetKcal()) != 0) {
                     throw new RecommendationUnavailableException("Nhật ký, mục tiêu hoặc dinh dưỡng đã thay đổi. "
-                            + "Hãy kiểm tra nhật ký và chọn Gợi ý lại trước khi lưu.");
+                            + "Hãy kiểm tra nhật ký và chọn Đổi thực đơn trước khi lưu.");
                 }
                 for (SuggestedMeal meal : checked.meals()) {
                     RecipeNutritionInput input = requireRecipe(c, meal.recipeId(), meal.mealType());

@@ -49,7 +49,7 @@ String notice = (String) request.getAttribute("notice");
 <% if (suggestion == null) { %>
 <p class="nf-error" role="status"><%= Html.escape(request.getAttribute("suggestionError")) %></p>
 <form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-submit-once>
-<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="regenerate"><button type="submit" data-regenerate>Gợi ý lại</button></form>
+<input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="regenerate"><button type="submit" data-regenerate>Đổi thực đơn</button></form>
 <% } else { %>
 <p class="nf-muted"><%= suggestion.personalized() ? "Premium: loại nguyên liệu DISLIKE và ưu tiên LIKE." : "Thực đơn Free theo mục tiêu calories trong hồ sơ." %></p>
 <div class="nf-suggestion-grid">
@@ -91,7 +91,7 @@ chênh lệch <strong data-projected-difference><%= NutritionDisplay.integer(sug
 <div class="nf-suggestion-actions">
 <form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-submit-once>
 <input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="regenerate">
-<button type="submit" data-regenerate>Gợi ý lại</button></form>
+<button type="submit" data-regenerate>Đổi thực đơn</button></form>
 <form method="post" action="<%= Html.escape(ctx) %>/nutrition/recommendations" data-submit-once>
 <input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="suggestionToken" value="<%= Html.escape(suggestionToken) %>">
 <input type="hidden" name="action" value="save">

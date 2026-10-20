@@ -70,8 +70,10 @@ public class MealPlanDAO {
     public List<MealPlan> findHistory(Connection connection, long userId, LocalDate before, int limit)
             throws SQLException {
         List<MealPlan> result = new ArrayList<>();
-        String sql = "SELECT " + COLUMNS + " FROM mealplans "
-                + "WHERE user_id = ? AND plan_date < ? ORDER BY plan_date DESC LIMIT ?";
+        String sql = "SELECT p.plan_id, p.user_id, p.plan_date, p.created_at FROM mealplans p "
+                + "WHERE p.user_id = ? AND p.plan_date < ? "
+                + "AND EXISTS (SELECT 1 FROM mealentries e WHERE e.plan_id = p.plan_id) "
+                + "ORDER BY p.plan_date DESC LIMIT ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setLong(1, userId);
             ps.setDate(2, Date.valueOf(before));

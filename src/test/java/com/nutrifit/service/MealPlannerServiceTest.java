@@ -214,6 +214,27 @@ class MealPlannerServiceTest {
             assertEquals(0,denied.updates);assertEquals(List.of("autoCommit:false","rollback","close"),denied.transactions);
         }
     }
+    @Test void emptyPastPlanReturnsAnEmptyReadOnlySummaryWithoutCreatingEntries()throws Exception {
+        Fixture f=new Fixture();f.planDate=TODAY.minusDays(1);
+        var summary=f.service.getPastDay(OWNER,f.planDate);
+        assertNotNull(summary.plan());assertTrue(summary.entries().isEmpty());
+        assertEquals(NutritionFacts.ZERO.rounded(),summary.total());
+        assertEquals(0,f.inserts+f.updates+f.deletes+f.recipeReads);assertEquals(List.of("close"),f.transactions);
+    }
+    @Test void pastDaySumsAllFiveStoredFactsWithoutRescalingLegacyPortionsOrReadingRecipes()throws Exception {
+        Fixture f=new Fixture();f.planDate=TODAY.minusDays(1);f.recipeAvailable=false;
+        var a=entry();a.setServings(decimal("1.32"));
+        var b=new MealEntry(PLAN,RECIPE+1,"Another historical snapshot",MealEntry.MealType.DINNER,decimal("0.89"),
+                decimal("100.500"),decimal("0.625"),decimal("0.123"),decimal("0.111"),decimal("0.222"));
+        f.historyEntries=List.of(a,b);
+        var summary=f.service.getPastDay(OWNER,f.planDate);
+        assertEquals(new NutritionFacts(decimal("200.500"),decimal("10.625"),decimal("20.123"),decimal("5.111"),decimal("2.222")),summary.total());
+        assertEquals("Original snapshot",summary.entries().getFirst().getRecipeNameSnapshot());
+        assertEquals(decimal("1.32"),a.getServings());assertEquals(decimal("0.89"),b.getServings());assertEquals(decimal("100.000"),a.getCaloriesKcal());
+        assertEquals(0,f.inserts+f.updates+f.deletes+f.recipeReads);assertEquals(List.of("close"),f.transactions);
+        assertTrue(f.service.getPastDay(OWNER+1,f.planDate).entries().isEmpty());
+    }
+
     private static BigDecimal decimal(String value) { return new BigDecimal(value); }
 
     private static MealEntry entry() {
@@ -228,6 +249,7 @@ class MealPlannerServiceTest {
         final List<String> transactions = new ArrayList<>();
         MealEntry stored;
         MealEntry duplicate;
+        List<MealEntry> historyEntries;
         LocalDate planDate = TODAY;
         int opens, inserts, updates, deletes, recipeReads;
         long lookupUser;
@@ -283,7 +305,7 @@ class MealPlannerServiceTest {
             }
             @Override public List<MealEntry> findByPlan(Connection c, long plan) {
                 assertEquals(PLAN, plan);
-                return stored == null ? List.of() : List.of(stored);
+                return historyEntries != null ? List.copyOf(historyEntries) : stored == null ? List.of() : List.of(stored);
             }
             @Override public long insert(Connection c, MealEntry e) throws SQLException {
                 assertSame(connection, c);

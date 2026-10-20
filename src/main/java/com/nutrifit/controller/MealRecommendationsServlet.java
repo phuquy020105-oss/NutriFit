@@ -75,7 +75,7 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
             case "added" -> "Đã ghi nhận món ăn.";
             case "updated" -> "Đã đổi món trong nhật ký hôm nay.";
             case "deleted" -> "Đã xóa món khỏi nhật ký hôm nay.";
-            case "regenerated" -> "Đã chọn một thực đơn khác.";
+            case "regenerated" -> "Đã tạo thực đơn mới cho bạn.";
             case "unchanged" -> "Chưa tìm được tổ hợp khác có chất lượng tương đương từ dữ liệu hiện có.";
             default -> null;
         };

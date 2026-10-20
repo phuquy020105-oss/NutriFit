@@ -125,6 +125,13 @@ class NutritionRecommendationsHttpTest {
         assertEquals(0,f.writes);assertEquals(2,f.generated);
         assertEquals("/nutrition/recommendations?message=regenerated",f.redirect);
     }
+    @Test void regeneratedNoticeUsesTheSameMenuLanguageAsTheButton() throws Exception {
+        Fixture f=new Fixture();f.servlet.doGet(f.request,f.response);
+        f.params.put("action","regenerate");f.params.put("csrfToken",Csrf.token(f.request));
+        f.servlet.doPost(f.request,f.response);assertEquals("/nutrition/recommendations?message=regenerated",f.redirect);
+        f.params.put("message","regenerated");f.servlet.doGet(f.request,f.response);
+        assertEquals("Đã tạo thực đơn mới cho bạn.",f.attributes.get("notice"));assertEquals(0,f.writes);
+    }
     @Test void legacyGetRedirectsAndManualStandardPostIgnoresClientServings() throws Exception {
         Fixture f=new Fixture();final BigDecimal[] captured={null};
         MealPlannerServlet old=new MealPlannerServlet(new MealPlannerService(){

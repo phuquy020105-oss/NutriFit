@@ -42,11 +42,14 @@ String ctx = request.getContextPath();
 <form method="get" action="<%= Html.escape(ctx) %>/nutrition/history" class="nf-form">
 <label>Ngày đã qua<input type="date" name="date" min="1000-01-01" max="<%= Html.escape(request.getAttribute("latestDate")) %>" value="<%= selected==null?"":Html.escape(selected.date()) %>" required></label>
 <button type="submit">Xem nhật ký</button></form>
-<p class="nf-muted">Có thể chọn ngày cũ hơn danh sách bên dưới. Ngày chưa ghi nhận sẽ hiển thị tổng bằng 0.</p></section>
+<p class="nf-muted">Có thể chọn ngày cũ hơn danh sách bên dưới. Ngày chưa ghi nhận sẽ hiển thị thông báo chưa có món ăn.</p></section>
 <section class="nf-card"><h2>30 ngày có nhật ký gần nhất</h2>
-<% if(history.isEmpty()) { %><p>Chưa có ngày nào trong lịch sử.</p><% } else { %><ul class="nf-dates">
+<% if(history.isEmpty()) { %><p>Bạn chưa có lịch sử ăn uống.</p><% } else { %><ul class="nf-dates">
 <% for(MealPlan p:history) { %><li><a href="<%= Html.escape(ctx) %>/nutrition/history?date=<%= Html.escape(p.getPlanDate()) %>"><%= Html.escape(p.getPlanDate()) %></a></li><% } %></ul><% } %></section>
 <% if(selected != null) { %><section class="nf-card"><h2>Ngày <%= Html.escape(selected.date()) %></h2>
+<% if (selected.entries().isEmpty()) { %>
+<p>Bạn chưa ghi nhận món ăn nào trong ngày này.</p>
+<% } else { %>
 <div class="nf-stats"><div><strong><%= NutritionDisplay.integer(selected.total().caloriesKcal()) %></strong><small>kcal</small></div>
 <div><strong><%= NutritionDisplay.integer(selected.total().proteinG()) %></strong><small>Protein (g)</small></div>
 <div><strong><%= NutritionDisplay.integer(selected.total().carbsG()) %></strong><small>Carbs (g)</small></div>
@@ -57,7 +60,8 @@ String ctx = request.getContextPath();
 <td><%= Html.escape(e.getRecipeNameSnapshot()) %></td>
 <td><%= NutritionDisplay.integer(e.getCaloriesKcal()) %></td><td><%= NutritionDisplay.integer(e.getProteinG()) %></td><td><%= NutritionDisplay.integer(e.getCarbsG()) %></td>
 <td><%= NutritionDisplay.integer(e.getFatG()) %></td><td><%= NutritionDisplay.integer(e.getFiberG()) %></td></tr><% } %>
-<% if(selected.entries().isEmpty()) { %><tr><td colspan="7">Không có món ăn.</td></tr><% } %></tbody></table></div>
+</tbody></table></div>
+<% } %>
 </section><% } %><footer class="nf-footer">© NutriFit · Sống khỏe mỗi ngày</footer></main></div></div><script>
 function toggleNutritionMenu(button){
   var sidebar=document.getElementById('sidebar');
