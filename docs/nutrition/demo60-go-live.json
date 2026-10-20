@@ -1,0 +1,67 @@
+{
+  "status": "LIVE_VERIFIED",
+  "release": "nutrifit-educational-60-v1-20261020",
+  "approved_manifest_sha256": "40c1ab4b874dc74089722f9b2952d2cfbd7ae8f4f120d4fb488c30da801c84cc",
+  "approved_source_commit": "b8a55682c96226959e57b14559a2797f20499e68",
+  "owner_approval": "Explicit confirmation of exact manifest before production execution",
+  "applied_utc": "2026-10-20T01:20:35.509174+00:00",
+  "verified_utc": "2026-10-20T01:21:27.560068400Z",
+  "verified_bangkok": "2026-10-20T08:21:27.560068+07:00",
+  "database": "Aiven MySQL / nutrifitdb",
+  "mysql_version": "8.4.11",
+  "tls_mode": "VERIFY_IDENTITY",
+  "tls_version": "TLSv1.3",
+  "before": {
+    "recipes": 30,
+    "foods": 82,
+    "tables": 24,
+    "ingredients": 383
+  },
+  "after": {
+    "tables": 24,
+    "foods": 100,
+    "recipes": 60,
+    "ingredients": 607
+  },
+  "meal_types": {
+    "BREAKFAST": 20,
+    "DINNER": 20,
+    "LUNCH": 20
+  },
+  "committed_changes": {
+    "insert_foods": 18,
+    "insert_recipes": 30,
+    "insert_ingredients": 224,
+    "update_foods": 66
+  },
+  "commit": "SUCCESS_SINGLE_TRANSACTION",
+  "second_execution": {
+    "result": "ALREADY_APPLIED",
+    "insert_foods": 0,
+    "insert_recipes": 0,
+    "insert_ingredients": 0,
+    "update_foods": 0
+  },
+  "verification": {
+    "all_60_recipe_nutrition_and_image_metadata_exact": true,
+    "foreign_keys_valid": true,
+    "duplicate_names": 0,
+    "protected_tables_compared": 21,
+    "all_protected_table_hashes_identical": true,
+    "schema_columns_indexes_constraints_unchanged": true,
+    "original_food_ids_names_active_preserved": true,
+    "original_30_recipe_rows_and_383_ingredient_rows_unchanged": true,
+    "users_subscriptions_payments_mealentries_unchanged": true
+  },
+  "backup": {
+    "scope": "Catalog rows plus DDL of24tables; no personal rows",
+    "restore_rehearsal": "PASS isolated local24table database",
+    "manifest_sha256": "b41155c4af8ebb4771067909e3a5befc29933b72909b9bbf014043d46349ed3c",
+    "local_directory": "D:/NutriFit-backups/food-quality-20261020/demo60-before"
+  },
+  "audit_method": "SELECT/SHOW-only independent before/after connections; server-side row SHA2 in primary-key order for21non-catalog tables; full catalog/ID/recipe/ingredient checks and JDBC NutritionCalculator for60recipes. No personal row values exported.",
+  "limitations": [
+    "Authenticated production browserE2E not performed; public revision/assets and direct Aiven JDBC verified"
+  ],
+  "immutable_manifest": "The approved manifest describes the sealed pre-go-live package. Keep its checksum unchanged; this receipt records later authorization and deployment state."
+}

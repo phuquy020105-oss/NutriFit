@@ -1,6 +1,6 @@
 # Nutrition60 — bàn giao bản demo và đổi riêng từng món
 
-Bản2026-10-20 theo quyết định chủ dự án: dữ liệu tham khảo có ước tính được chấp nhận, không phải phần mềm y tế. **Chưa được phép ghi Aiven.** Manifest cuối là `database/staging/food-quality-v1/release/final-manifest.json`; cần phê duyệt đúng SHA256 một lần trước go-live.
+Bản2026-10-20 theo quyết định chủ dự án: dữ liệu tham khảo có ước tính được chấp nhận, không phải phần mềm y tế. **Đã được chủ dự án phê duyệt đúng manifest và đã go-live Aiven thành công.** Xem [biên bản](demo60-go-live.json). Manifest cuối là `database/staging/food-quality-v1/release/final-manifest.json`; phê duyệt đúng SHA256 một lần đã được nhận và thực thi; giữ nguyên manifest bất biến.
 
 ## Dữ liệu và ảnh
 
@@ -46,6 +46,6 @@ PowerShell công cụ (không có password trong lệnh):
 
 Mặc định tự nạp privateENV ngoài repository. Không đổi tên file, không hỏi/ghi password. Apply kiểm tra SHA manifest/tất cả file/backup đã restore, TLS/hostname/CA,24bảng/InnoDB/khôngtrigger, exactbefore hoặc alreadyafter, khóa và DML trong một transaction. Nếu có dữ liệu lạ, dừng/rollback; khôngDELETE/DROP/TRUNCATE/force hoặc tự retry. Rerun alreadyafter được verify và trả0writes. Không chạy migration từ Docker/Render startup.
 
-SauCOMMIT cần SELECT lại100/60/607,20/bữa,ảnh/FK/calculator/giữ snapshot; chưa thực hiện production COMMIT trong nhiệm vụ chuẩn bị. Nếu kết quả commit không rõ, chỉ điều tra read-only. Backup restore wholesale chỉ dành local trống; không phủ lên users hoặc nhật ký mới trên production. Nếu phải hoàn nguyên sau có người dùng ghi mới, lập phương án catalog-only giữ mọi khóa ngoại/ID và xin phê duyệt riêng.
+Đã COMMIT và SELECT hậu kiểm100/60/607,20/bữa,60ảnh/calculator/FK hợp lệ; checksum21bảng ngoài catalog và schema không đổi. ID cũ,30recipe/383ingredient cũ và snapshot nhật ký giữ nguyên. Lần chạy thứ haiALREADY_APPLIED,0writes. Nếu kết quả commit không rõ, chỉ điều tra read-only. Backup restore wholesale chỉ dành local trống; không phủ lên users hoặc nhật ký mới trên production. Nếu phải hoàn nguyên sau có người dùng ghi mới, lập phương án catalog-only giữ mọi khóa ngoại/ID và xin phê duyệt riêng.
 
 Code/assets có thể deploy trước dữ liệu: swap hoạt động ngay với30món Aiven hiện tại, tự dùng60món sau go-live. Health200 không đủ chứng minh revision; đối chiếu `/nutrifit/health` trườngrevision với commit đãpush. Không thay đổiAuth/Payment/Workout/Onboarding/schema/seed gốc hoặc lịch sử.
