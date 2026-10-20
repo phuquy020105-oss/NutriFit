@@ -35,7 +35,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run-local.ps1 -Actio
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run-local.ps1 -Action Run
 ```
 
-`Init` chỉ dùng database local rỗng; không tạo lại database có bảng. Nó tạo 24 bảng và dữ liệu mẫu, không tạo người dùng. Nếu database local đã được khởi tạo đúng phiên bản này, dùng `-Action Verify`, không chạy `Init` lại. Xem [database/README.md](database/README.md) trước khi nâng cấp một database đã có dữ liệu. `.env` chỉ được wrapper PowerShell nạp; Java/Tomcat tự chạy không tự đọc file đó.
+`Init` chỉ dùng database local rỗng; không tạo lại database có bảng. Nó tạo 24 bảng và dữ liệu mẫu, không tạo người dùng. Schema chỉ định nghĩa bảng; công cụ tự nạp lần lượt Workout, gói Premium mẫu và catalog Nutrition từ `database/seed/`. Nếu database local đã được khởi tạo đúng phiên bản này, dùng `-Action Verify`, không chạy `Init` lại. Xem [database/README.md](database/README.md) trước khi nâng cấp một database đã có dữ liệu. `.env` chỉ được wrapper PowerShell nạp; Java/Tomcat tự chạy không tự đọc file đó.
 
 Mở `http://localhost:8080/nutrifit/register`, đăng ký bằng email nhận OTP rồi hoàn tất onboarding. Không chạy hai Tomcat cùng cổng. Công cụ local chỉ copy WAR vào Tomcat được chỉ định; không sửa cấu hình Tomcat hoặc database cloud.
 

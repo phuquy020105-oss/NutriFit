@@ -24,23 +24,27 @@ public final class CatalogSeed {
     }
     static long key(PreparedStatement p)throws SQLException{try(var r=p.getGeneratedKeys()){require(r.next(),"GENERATED_ID_MISSING");return r.getLong(1);}}
     // SQL files are trusted repository setup inputs, not remotely supplied content.
-    static void sqlFile(Connection c,Path path)throws Exception{
+    static int sqlFile(Connection c,Path path)throws Exception{
+        int workoutWrites=0;
         String text=Files.readString(path).replaceAll("(?m)^\\s*--[^\\r\\n]*","");
         var part=new StringBuilder();char quote=0;
         for(int i=0;i<text.length();i++){
             char ch=text.charAt(i);
             if(quote!=0){part.append(ch);if(ch=='\\'&&i+1<text.length()){part.append(text.charAt(++i));continue;}if(ch==quote){if(i+1<text.length()&&text.charAt(i+1)==quote)part.append(text.charAt(++i));else quote=0;}}
             else if(ch=='\''||ch=='"'||ch=='`'){quote=ch;part.append(ch);}
-            else if(ch==';'){String q=part.toString().strip();part.setLength(0);if(q.isEmpty()||q.startsWith("USE ")||q.startsWith("CREATE DATABASE "))continue;try(var s=c.createStatement()){s.execute(q);}}
+            else if(ch==';'){String q=part.toString().strip();part.setLength(0);if(q.isEmpty()||q.startsWith("USE ")||q.startsWith("CREATE DATABASE "))continue;try(var s=c.createStatement()){s.execute(q);if(q.startsWith("INSERT INTO workoutcategories")||q.startsWith("INSERT INTO workouts"))workoutWrites+=Math.max(0,s.getUpdateCount());}}
             else part.append(ch);
         }
-        require(quote==0&&part.toString().isBlank(),"INCOMPLETE_SQL_FILE");
+        require(quote==0&&part.toString().isBlank(),"INCOMPLETE_SQL_FILE");return workoutWrites;
     }
     static void init(Connection c,String db)throws Exception{
         try(var p=c.prepareStatement("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=?")){p.setString(1,db);try(var r=p.executeQuery()){r.next();require(r.getInt(1)==0,"INIT_REQUIRES_EMPTY_DATABASE_NO_RECREATE");}}
         System.out.println("PASS empty database preflight:"+db+" has0tables");
         try(var s=c.createStatement()){s.executeUpdate("CREATE DATABASE IF NOT EXISTS `"+db+"` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");}
         c.setCatalog(db);sqlFile(c,ROOT.resolve("database/schema.sql"));
+        schema(c);require(count(c,"workoutcategories")==0&&count(c,"workouts")==0,"SCHEMA_MUST_NOT_SEED_WORKOUTS");
+        System.out.println("PASS schema-only:24tables/0workoutcategories/0workouts");
+        require(sqlFile(c,ROOT.resolve("database/seed/workouts.sql"))==50,"FRESH_WORKOUT_SEED_COUNT_MISMATCH");
         sqlFile(c,ROOT.resolve("database/seed/premium-plans.sql"));
     }
     static void schema(Connection c)throws Exception{
@@ -99,8 +103,18 @@ public final class CatalogSeed {
             verify(c,catalog);c.commit();return writes;
         }catch(Exception e){c.rollback();throw e;}finally{c.setAutoCommit(true);failAt=-1;}
     }
+    static List<String> workoutSnapshot(Connection c)throws SQLException{
+        var result=new ArrayList<String>();
+        for(String table:List.of("workoutcategories","workouts")){
+            result.add(table);try(var s=c.createStatement();var r=s.executeQuery("SELECT * FROM `"+table+"` ORDER BY 1")){
+                int columns=r.getMetaData().getColumnCount();while(r.next())for(int i=1;i<=columns;i++)result.add(r.getString(i));
+            }
+        }return result;
+    }
     static void verify(Connection c,Map<String,Object> catalog)throws Exception{
-        schema(c);require(count(c,"foods")==100&&count(c,"recipes")==60&&count(c,"recipeingredients")==607,"CATALOG_COUNTS_MISMATCH");
+        schema(c);require(count(c,"workoutcategories")==3&&count(c,"workouts")==47&&count(c,"subscriptionplans")==2,"SAMPLE_WORKOUT_OR_PLANS_MISSING");
+        try(var s=c.createStatement();var r=s.executeQuery("SELECT COUNT(*) FROM workouts w LEFT JOIN workoutcategories c ON c.category_id=w.category_id WHERE c.category_id IS NULL")){r.next();require(r.getInt(1)==0,"ORPHAN_WORKOUT");}
+        require(count(c,"foods")==100&&count(c,"recipes")==60&&count(c,"recipeingredients")==607,"CATALOG_COUNTS_MISMATCH");
         Map<String,Long> foodIds=new HashMap<>();
         for(var f:rows(catalog.get("foods"))){
             try(var p=c.prepareStatement("SELECT * FROM foods WHERE name=?")){p.setString(1,f.get("name").toString());try(var r=p.executeQuery()){
@@ -146,6 +160,10 @@ public final class CatalogSeed {
                 phase="read-only-verify";verify(c,catalog);
                 if(Set.of("test","check").contains(action)){
                     require(count(c,"users")==0&&count(c,"mealentries")==0,"TEST_DATA_ONLY_REQUIRED");
+                    phase="workout-seed-idempotency-test";var workoutBefore=workoutSnapshot(c);
+                    require(sqlFile(c,ROOT.resolve("database/seed/workouts.sql"))==0,"WORKOUT_SEED_DUPLICATED_ROWS");
+                    require(workoutBefore.equals(workoutSnapshot(c)),"WORKOUT_SEED_CHANGED_CONTENTS_OR_IDS");
+                    System.out.println("PASS Workout seed rerun:0persistent writes,all columns and IDs unchanged");
                     phase="repeatable-idempotency-test";require(apply(c,catalog,-1)==0,"IDEMPOTENCY_FAILED");System.out.println("PASS idempotency:0writes");
                     phase="repeatable-rollback-test";
                     var trial=obj(JsonLite.parse(Files.readString(ROOT.resolve("database/seed/catalog.json"))));

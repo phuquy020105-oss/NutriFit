@@ -1,5 +1,6 @@
 """Offline catalog, provenance, assets and local dependency checks. No network or DB access."""
 import hashlib
+import csv
 import json
 from pathlib import Path
 import re
@@ -14,6 +15,7 @@ def require(ok, code):
 def load(name):
     return json.loads((ROOT/name).read_text(encoding='utf-8'))
 def schema_contract(sql):
+    require(not re.search(r'(?im)^\s*(?:INSERT|REPLACE|UPDATE|DELETE|CREATE\s+TEMPORARY|DROP\s+TEMPORARY)\b',sql),'Schema must not contain sample DML or temporary tables')
     tables=re.findall(r'CREATE TABLE IF NOT EXISTS ([a-z_]+) \(.*?\) ENGINE=[^;]+;',sql,re.S)
     require(len(tables)==24 and len(set(tables))==24,'Expected24 unique schema tables')
     def definition(name):
@@ -32,8 +34,26 @@ def schema_contract(sql):
         require(fragment in reset,'Reset OTP contract: '+fragment)
     require(sql.index('CREATE TABLE IF NOT EXISTS users (')<sql.index('CREATE TABLE IF NOT EXISTS password_reset_otps ('),'FK parent creation order')
 
+def workout_contract(sql):
+    match=re.search(r'INSERT INTO tmp_workout_seed\s*\([^;]*?\)\s*VALUES\s*(.*?);',sql,re.S)
+    require(match is not None,'Missing Workout seed rows')
+    rows=[]
+    for line in match[1].splitlines():
+        line=line.strip().rstrip(',')
+        if line.startswith('('):
+            require(line.endswith(')'),'Invalid Workout row')
+            rows.append(next(csv.reader([line[1:-1]],quotechar="'",skipinitialspace=True)))
+    require(len(rows)==47 and len({r[1]for r in rows})==47,'Expected47 unique workouts')
+    require(all(len(r)==10 for r in rows),'Workout field count')
+    require(sorted(Counter(r[0]for r in rows).values())==[8,10,29],'Workout category distribution')
+    require(Counter(r[2]for r in rows)=={'FREE':42,'PREMIUM':5},'Workout access distribution')
+    require(all(Decimal(r[8])>0 and int(r[9])>0 for r in rows),'Workout MET/duration')
+    require('USE ' not in sql,'Workout seed must use selected local database')
+    return rows
+
 def verify():
     schema_contract((ROOT/'database/schema.sql').read_text(encoding='utf-8'))
+    workout_contract((ROOT/'database/seed/workouts.sql').read_text(encoding='utf-8'))
     catalog=load('database/seed/catalog.json'); provenance=load('database/seed/provenance.json')
     foods={f['ref']:f for f in catalog['foods']}; recipes=catalog['recipes']
     require(len(foods)==len(catalog['foods'])==100 and len(recipes)==60,'Expected100/60')
@@ -84,5 +104,5 @@ def verify():
     # Runtime/build must never depend on development-only staging tools or private local files.
     for p in [ROOT/'Dockerfile',ROOT/'pom.xml',*list((ROOT/'src').rglob('*.java'))]:
         text=p.read_text('utf-8');require('database/staging/'not in text and 'database/tools/food_quality'not in text,'Retired dependency '+str(p.relative_to(ROOT)))
-    print('PASS24table schema/auth/OTP;100foods/60recipes/607links/20permeal/60WebP+SHA; provenance/assets/dependencies')
+    print('PASS24table schema/auth/OTP;3categories/47workouts;100foods/60recipes/607links/20permeal/60WebP+SHA; provenance/assets/dependencies')
 if __name__=='__main__': verify()
