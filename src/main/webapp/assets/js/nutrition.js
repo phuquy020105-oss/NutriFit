@@ -68,7 +68,7 @@
             buttons.forEach(([button]) => { button.disabled = true; });
             const status = document.querySelector('[data-swap-status]');
             status.textContent = 'Đang tìm món thay thế…';
-            const data = new FormData(form);
+            const data = new URLSearchParams(new FormData(form));
             data.set('format', 'json');
             let complete = false;
             try {
