@@ -72,7 +72,7 @@
             data.set('format', 'json');
             let complete = false;
             try {
-                const response = await fetch(form.action, {method: 'POST', body: data, credentials: 'same-origin'});
+                const response = await fetch(form.getAttribute('action'), {method: 'POST', body: data, credentials: 'same-origin'});
                 if (!response.ok) throw new Error('Swap rejected');
                 const result = await response.json();
                 const s = result.suggestion;
