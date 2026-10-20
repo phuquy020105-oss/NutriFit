@@ -49,7 +49,7 @@
         const submit = form.querySelector('button[type="submit"]');
         const normalize = text => text.toLowerCase().normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/\s+/g, ' ').trim();
-        const entries = [...select.options].map(option => ({option, key: normalize(option.textContent)}));
+        const entries = [...select.options].map(option => ({option, key: normalize(option.textContent + ' ' + option.title)}));
         const filter = () => {
             const selected = select.value;
             const query = normalize(search.value);

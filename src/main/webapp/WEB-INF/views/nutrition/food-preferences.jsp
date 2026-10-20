@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.*,com.nutrifit.model.*,com.nutrifit.dto.*,com.nutrifit.util.Html" %>
+<%@ page import="java.util.*,com.nutrifit.model.*,com.nutrifit.dto.*,com.nutrifit.util.Html,com.nutrifit.util.FoodDisplayName" %>
 <%
 boolean premium = Boolean.TRUE.equals(request.getAttribute("premium"));
 List<FoodPreferenceView> prefs = (List<FoodPreferenceView>) request.getAttribute("preferences");
@@ -50,14 +50,14 @@ String csrf = (String) request.getAttribute("csrf"); String ctx = request.getCon
 <div>
 <label>Tìm nguyên liệu<input type="search" data-food-search placeholder="Tên hoặc Food ID" autocomplete="off" aria-controls="preference-food" aria-describedby="preference-food-count"></label>
 <label>Nguyên liệu<select id="preference-food" name="foodId" data-food-select required aria-describedby="preference-food-count preference-food-empty"><% for(FoodOption f:foods){ %>
-<option value="<%= f.foodId() %>">ID <%= f.foodId() %> — <%= Html.escape(f.name()) %></option><% } %></select></label>
+<option value="<%= f.foodId() %>" title="<%= Html.escape(f.name()) %>">ID <%= f.foodId() %> — <%= Html.escape(FoodDisplayName.shortName(f.name())) %></option><% } %></select></label>
 <p id="preference-food-count" class="nf-muted" data-food-count role="status" aria-live="polite">Đang hiển thị <%= foods.size() %>/<%= foods.size() %> nguyên liệu</p>
 <p id="preference-food-empty" class="nf-muted" data-food-empty hidden>Không tìm thấy nguyên liệu phù hợp. Hãy đổi hoặc xóa từ khóa.</p>
 </div>
 <label>Mức độ<select name="type"><option value="LIKE">Thích (LIKE)</option><option value="DISLIKE">Không thích (DISLIKE)</option></select></label>
 <button type="submit">Lưu</button></form><% } %></section>
 <section class="nf-card"><h2>Đã lưu</h2><div class="nf-table-scroll"><table><thead><tr><th>Nguyên liệu</th><th>Trạng thái</th><th>Cập nhật</th><th>Thao tác</th></tr></thead><tbody>
-<% for(FoodPreferenceView p:prefs){ %><tr><td><%= Html.escape(p.foodName()) %><% if(!p.active()){ %><small class="nf-muted nf-block">Nguyên liệu hiện ngừng sử dụng</small><% } %></td>
+<% for(FoodPreferenceView p:prefs){ %><tr><td title="<%= Html.escape(p.foodName()) %>"><%= Html.escape(FoodDisplayName.shortName(p.foodName())) %><% if(!p.active()){ %><small class="nf-muted nf-block">Nguyên liệu hiện ngừng sử dụng</small><% } %></td>
 <td><%= p.type()==FoodPreference.PreferenceType.LIKE?"Thích":"Không thích" %></td><td><%= Html.escape(p.updatedAt()) %></td>
 <td><% if(p.active()){ %><form method="post" action="<%= Html.escape(ctx) %>/nutrition/preferences" class="nf-action">
 <input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="save">
