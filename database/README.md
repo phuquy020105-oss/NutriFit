@@ -2,9 +2,8 @@
 
 ## Bộ khởi tạo hiện hành
 
-- `schema.sql`: schema gốc 23 bảng và 3 danh mục/47 bài tập mẫu, được giữ để tương thích.
-- `migrations/20261017_add_users_auth_version.sql`: bổ sung version phiên đăng nhập cho database cũ; script này chọn database local.
-- `migrations/20261020_password_reset_otps.sql`: bảng OTP khôi phục mật khẩu. Cùng `auth_version`, đây là cấu trúc ứng dụng hiện hành **24 bảng**.
+- `schema.sql`: schema hoàn chỉnh **24 bảng**, gồm `users.auth_version BIGINT NOT NULL DEFAULT 0`, bảng `password_reset_otps` và 3 danh mục/47 bài tập mẫu. Bảng OTP có khóa ngoại tới `users(email)` với `ON DELETE CASCADE`.
+- Khởi tạo từ đầu chỉ cần schema này và dữ liệu trong `seed/`; không có bước migration bổ sung sau schema.
 - `seed/catalog.json`: **nguồn catalog duy nhất** — 100 Food, 60 Recipe, 607 Ingredient, 20 món mỗi bữa. Giá trị trên 100g phần ăn được, gram theo trạng thái sống/chín ghi trong mỗi Food; `base_servings=1.00`.
 - `seed/provenance.json`: nguồn/phương pháp/độ tin cậy 500 giá trị dinh dưỡng và checksum 60 ảnh. Có 103 giá trị ESTIMATED ở 35 Food; không đồng nhất chúng với kết quả kiểm nghiệm.
 - `seed/premium-plans.sql`: 2 gói mẫu phục vụ VNPay Sandbox, không phải bảng giá bắt buộc cho production.
@@ -21,7 +20,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run-local.ps1 -Actio
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/run-local.ps1 -Action Verify
 ```
 
-Tool chỉ cho host `127.0.0.1`/`localhost`, đích `nutrifitdb_java` hoặc tên dạng `nutrifit_*_test`. Không hỗ trợ Aiven. `Init` từ chối database đã có bảng, tạo schema và dữ liệu mẫu. DDL MySQL auto-commit: nếu khởi tạo DDL bị lỗi, dừng và kiểm tra các bảng đã tạo, không tự retry hoặc tự xóa. Không chạy tool này trên database đang sử dụng để nâng cấp schema.
+Tool chỉ cho host `127.0.0.1`/`localhost`, đích `nutrifitdb_java` hoặc tên dạng `nutrifit_*_test`. Không hỗ trợ Aiven. `Init` từ chối database đã có bảng, chạy schema hoàn chỉnh 24 bảng và dữ liệu mẫu. DDL MySQL auto-commit: nếu khởi tạo DDL bị lỗi, dừng và kiểm tra các bảng đã tạo, không tự retry hoặc tự xóa. Không chạy tool này trên database đang sử dụng để nâng cấp schema.
 
 Sau bước DDL, cả catalog được ghi trong **một transaction**. Food/Recipe có cùng tên phải tương đương từng giá trị; gram và tập nguyên liệu phải khớp. Nếu khác thì rollback, không ghi đè, không xóa. Chạy `Seed` lại trên đúng bộ dữ liệu sẽ chèn 0 bản ghi; `Verify` chỉ đọc. Công cụ giữ named lock theo database để từ chối hai lần setup chạy đồng thời.
 

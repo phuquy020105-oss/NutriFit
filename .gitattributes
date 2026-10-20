@@ -2,6 +2,5 @@
 /docker/*.sh text eol=lf
 /scripts/** text eol=lf
 /database/seed/** text eol=lf
-/database/migrations/*.sql text eol=lf
 *.webp -text
 /.gitattributes text eol=lf

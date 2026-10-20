@@ -1,4 +1,4 @@
--- NutriFit Java / Design v1.0 - target schema
+-- NutriFit Java - complete schema for a new empty database (24 tables)
 -- Run ONLY against the new empty NutriFitDB_Java database.
 -- MySQL 8.0.16+ required for enforced CHECK constraints.
 CREATE DATABASE IF NOT EXISTS NutriFitDB_Java CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -12,8 +12,20 @@ CREATE TABLE IF NOT EXISTS users (
  role ENUM('USER','ADMIN') NOT NULL DEFAULT 'USER',
  subscription_status ENUM('FREE','PREMIUM') NOT NULL DEFAULT 'FREE',
  premium_expires_at DATETIME NULL,
- created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+ created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ auth_version BIGINT NOT NULL DEFAULT 0
 ) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS password_reset_otps (
+ email VARCHAR(255) NOT NULL PRIMARY KEY,
+ otp_hash VARCHAR(255) NOT NULL,
+ expires_at DATETIME NOT NULL,
+ attempts INT UNSIGNED NOT NULL DEFAULT 0,
+ last_sent_at DATETIME NOT NULL,
+ window_start DATETIME NOT NULL,
+ sent_in_window INT UNSIGNED NOT NULL DEFAULT 0,
+ CONSTRAINT fk_password_reset_email FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS registrationotps (
  email VARCHAR(255) PRIMARY KEY,
@@ -296,8 +308,8 @@ CREATE TABLE IF NOT EXISTS chatmessages (
  INDEX idx_chatmessage_conversation_date (conversation_id,created_at)
 ) ENGINE=InnoDB;
 
--- Verify: expected 23 tables.
-SELECT COUNT(*) AS total_tables FROM information_schema.tables
+-- Verify: expected 24 tables.
+SELECT 24 AS expected_tables, COUNT(*) AS total_tables FROM information_schema.tables
 WHERE table_schema = DATABASE() AND table_type='BASE TABLE';
 SHOW TABLES;
 

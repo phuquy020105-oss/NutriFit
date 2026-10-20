@@ -13,7 +13,27 @@ def require(ok, code):
         raise ValueError(code)
 def load(name):
     return json.loads((ROOT/name).read_text(encoding='utf-8'))
+def schema_contract(sql):
+    tables=re.findall(r'CREATE TABLE IF NOT EXISTS ([a-z_]+) \(.*?\) ENGINE=[^;]+;',sql,re.S)
+    require(len(tables)==24 and len(set(tables))==24,'Expected24 unique schema tables')
+    def definition(name):
+        match=re.search(r'CREATE TABLE IF NOT EXISTS '+name+r' \(.*?\) ENGINE=[^;]+;',sql,re.S)
+        require(match is not None,'Missing table '+name)
+        return re.sub(r'\s+',' ',match.group(0))
+    users=definition('users')
+    require('auth_version BIGINT NOT NULL DEFAULT 0' in users,'users.auth_version contract')
+    require(not re.search(r'ALTER\s+TABLE\s+users',sql,re.I),'Schema must define auth_version directly')
+    reset=definition('password_reset_otps')
+    for fragment in ['email VARCHAR(255) NOT NULL PRIMARY KEY','otp_hash VARCHAR(255) NOT NULL','expires_at DATETIME NOT NULL',
+                     'attempts INT UNSIGNED NOT NULL DEFAULT 0','last_sent_at DATETIME NOT NULL','window_start DATETIME NOT NULL',
+                     'sent_in_window INT UNSIGNED NOT NULL DEFAULT 0',
+                     'FOREIGN KEY (email) REFERENCES users(email) ON DELETE CASCADE',
+                     'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci']:
+        require(fragment in reset,'Reset OTP contract: '+fragment)
+    require(sql.index('CREATE TABLE IF NOT EXISTS users (')<sql.index('CREATE TABLE IF NOT EXISTS password_reset_otps ('),'FK parent creation order')
+
 def verify():
+    schema_contract((ROOT/'database/schema.sql').read_text(encoding='utf-8'))
     catalog=load('database/seed/catalog.json'); provenance=load('database/seed/provenance.json')
     foods={f['ref']:f for f in catalog['foods']}; recipes=catalog['recipes']
     require(len(foods)==len(catalog['foods'])==100 and len(recipes)==60,'Expected100/60')
@@ -64,5 +84,5 @@ def verify():
     # Runtime/build must never depend on development-only staging tools or private local files.
     for p in [ROOT/'Dockerfile',ROOT/'pom.xml',*list((ROOT/'src').rglob('*.java'))]:
         text=p.read_text('utf-8');require('database/staging/'not in text and 'database/tools/food_quality'not in text,'Retired dependency '+str(p.relative_to(ROOT)))
-    print('PASS100foods/60recipes/607links/20permeal/60WebP+SHA; provenance, units, assets, includes and document links')
+    print('PASS24table schema/auth/OTP;100foods/60recipes/607links/20permeal/60WebP+SHA; provenance/assets/dependencies')
 if __name__=='__main__': verify()

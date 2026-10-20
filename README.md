@@ -57,7 +57,7 @@ Test DB cần MySQL loopback và database test **chưa có bảng**; không dùn
 src/main/java/com/nutrifit/  controller, filter, service, dao, dto, model, util, config
 src/main/webapp/            JSP, CSS, JavaScript và assets
 src/test/                  unit/regression tests và browser fixtures
-database/                  schema, migrations và seed 60 món duy nhất
+database/                  schema hoàn chỉnh 24 bảng và seed 60 món duy nhất
 scripts/                   chạy local và kiểm tra repository/JSP/JS
 docker/                    Tomcat, entrypoint và ROOT redirect
 docs/                      kiến trúc và hướng dẫn triển khai

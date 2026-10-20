@@ -38,15 +38,22 @@ public final class CatalogSeed {
     }
     static void init(Connection c,String db)throws Exception{
         try(var p=c.prepareStatement("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=?")){p.setString(1,db);try(var r=p.executeQuery()){r.next();require(r.getInt(1)==0,"INIT_REQUIRES_EMPTY_DATABASE_NO_RECREATE");}}
+        System.out.println("PASS empty database preflight:"+db+" has0tables");
         try(var s=c.createStatement()){s.executeUpdate("CREATE DATABASE IF NOT EXISTS `"+db+"` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");}
         c.setCatalog(db);sqlFile(c,ROOT.resolve("database/schema.sql"));
-        // schema.sql is retained for compatibility; these two supported upgrades complete it.
-        try(var s=c.createStatement()){s.executeUpdate("ALTER TABLE users ADD COLUMN auth_version BIGINT NOT NULL DEFAULT 0");}
-        sqlFile(c,ROOT.resolve("database/migrations/20261020_password_reset_otps.sql"));
         sqlFile(c,ROOT.resolve("database/seed/premium-plans.sql"));
     }
     static void schema(Connection c)throws Exception{
         try(var s=c.createStatement();var r=s.executeQuery("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_type='BASE TABLE'")){r.next();require(r.getInt(1)==24,"EXPECTED_24_TABLES");}
+        try(var p=c.prepareStatement("SELECT data_type,is_nullable,column_default,column_type FROM information_schema.columns WHERE table_schema=DATABASE() AND table_name='users' AND column_name='auth_version'");var r=p.executeQuery()){
+            require(r.next()&&"bigint".equals(r.getString(1))&&"NO".equals(r.getString(2))&&"0".equals(r.getString(3))&&!r.getString(4).contains("unsigned")&&!r.next(),"AUTH_VERSION_SCHEMA_MISMATCH");
+        }
+        try(var p=c.prepareStatement("SELECT k.column_name,k.referenced_table_name,k.referenced_column_name,c.delete_rule FROM information_schema.key_column_usage k JOIN information_schema.referential_constraints c ON c.constraint_schema=k.constraint_schema AND c.table_name=k.table_name AND c.constraint_name=k.constraint_name WHERE k.table_schema=DATABASE() AND k.table_name='password_reset_otps'");var r=p.executeQuery()){
+            require(r.next()&&"email".equals(r.getString(1))&&"users".equals(r.getString(2))&&"email".equals(r.getString(3))&&"CASCADE".equals(r.getString(4))&&!r.next(),"RESET_OTP_FOREIGN_KEY_MISMATCH");
+        }
+        try(var p=c.prepareStatement("SELECT column_name FROM information_schema.key_column_usage WHERE table_schema=DATABASE() AND table_name='password_reset_otps' AND constraint_name='PRIMARY'");var r=p.executeQuery()){
+            require(r.next()&&"email".equals(r.getString(1))&&!r.next(),"RESET_OTP_PRIMARY_KEY_MISMATCH");
+        }
         try(var s=c.createStatement();var r=s.executeQuery("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name IN ('foods','recipes','recipeingredients') AND engine='InnoDB'")){r.next();require(r.getInt(1)==3,"INNODB_REQUIRED");}
         try(var s=c.createStatement();var r=s.executeQuery("SELECT COUNT(*) FROM information_schema.triggers WHERE trigger_schema=DATABASE() AND event_object_table IN ('foods','recipes','recipeingredients')")){r.next();require(r.getInt(1)==0,"CATALOG_TRIGGER_REQUIRES_REVIEW");}
     }
