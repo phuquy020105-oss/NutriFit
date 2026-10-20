@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title><c:out value="${workout.workoutName}"/> | NutriFit</title>
-<link rel="stylesheet" href="${ctx}/assets/css/workout-pages.css">
+<link rel="stylesheet" href="${ctx}/assets/css/workout-pages.css?v=${applicationScope.assetVersion}">
 </head>
 <body>
 <div class="layout">

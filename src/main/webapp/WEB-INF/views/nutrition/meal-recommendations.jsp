@@ -14,8 +14,8 @@ boolean blocked = Boolean.TRUE.equals(request.getAttribute("saveBlocked"));
 String notice = (String) request.getAttribute("notice");
 %>
 <!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Thực đơn hôm nay - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/dashboard.css">
-<link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/nutrition.css"></head>
+<title>Thực đơn hôm nay - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/dashboard.css?v=${applicationScope.assetVersion}">
+<link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/nutrition.css?v=${applicationScope.assetVersion}"></head>
 <body class="nf-page"><div class="app-shell">
 <aside class="sidebar" id="sidebar">
 <a class="logo" href="<%= Html.escape(ctx) %>/dashboard"><span class="logo-mark">✦</span> Nutri<span>Fit</span></a>
@@ -128,7 +128,7 @@ String mealLabel = entry.getMealType() == MealEntry.MealType.BREAKFAST ? "Bữa 
 <label>Món ăn<select name="recipeId" data-recipe-select required><% for (RecipeCandidate recipe : recipes) { %><option value="<%= recipe.recipeId() %>" data-meal="<%= recipe.mealType().name() %>"><%= Html.escape(recipe.name()) %></option><% } %></select></label>
 <button type="submit">Thêm món</button><p class="nf-muted" data-empty-recipes hidden role="status">Chưa có món phù hợp cho bữa này.</p>
 </form><% } %></details>
-<footer class="nf-footer">© NutriFit · Sống khỏe mỗi ngày</footer></main></div></div><script src="<%= Html.escape(ctx) %>/assets/js/nutrition.js" defer></script><script>
+<footer class="nf-footer">© NutriFit · Sống khỏe mỗi ngày</footer></main></div></div><script src="<%= Html.escape(ctx) %>/assets/js/nutrition.js?v=${applicationScope.assetVersion}" defer></script><script>
 function toggleNutritionMenu(button){
   var sidebar=document.getElementById('sidebar');
   var expanded=sidebar.classList.toggle('open');

@@ -50,3 +50,7 @@ Sau deploy, kiểm tra OTP/login/logout, onboarding, Admin/USER, Nutrition, Work
 - Session mất sau deploy: đăng nhập lại; không thay Auth để bỏ kiểm tra.
 
 Khởi tạo local xem [database](../../database/README.md); nâng cấp production là thao tác DBA riêng cần backup và phê duyệt, không thuộc cleanup source.
+
+## Hiệu năng
+
+Ứng dụng dùng một JDBC pool HikariCP, tối đa3 connection/minIdle1, đóng khi webapp shutdown; API và TLS/CA giữ nguyên. Không cần đổi biến Render để bật pool. `NUTRIFIT_PERF_ENABLED=true` bật log timing đã chuẩn hóa; mặc địnhfalse. Không đặt `NUTRIFIT_LOCAL_DB_NAME` trên Render. CSS/JS dùng revision để cache busting; HTML/API giữno-store. Số đo, giới hạn production và cách chạy benchmark local xem [performance audit](../performance-audit.md).

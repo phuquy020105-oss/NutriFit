@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!doctype html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Thiết lập hồ sơ | NutriFit</title><link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/onboarding.css"></head>
+<title>Thiết lập hồ sơ | NutriFit</title><link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/onboarding.css?v=${applicationScope.assetVersion}"></head>
 <body><main class="shell"><header><div class="brand">✳ NutriFit</div><p>Chỉ mất khoảng 2 phút để cá nhân hóa hành trình của bạn.</p></header>
 <section class="panel"><div class="top"><h1>Thiết lập hồ sơ thể chất</h1><span id="count">Bước 1/4</span></div>
 <div class="progress"><span id="bar"></span></div>

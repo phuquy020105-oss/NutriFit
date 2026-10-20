@@ -8,9 +8,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Thư viện bài tập - NutriFit</title>
-  <link rel="stylesheet" href="${ctx}/assets/css/workout.css">
-  <link rel="stylesheet" href="${ctx}/assets/css/workout-categories.css">
-  <script src="${ctx}/assets/js/workout-categories.js" defer></script>
+  <link rel="stylesheet" href="${ctx}/assets/css/workout.css?v=${applicationScope.assetVersion}">
+  <link rel="stylesheet" href="${ctx}/assets/css/workout-categories.css?v=${applicationScope.assetVersion}">
+  <script src="${ctx}/assets/js/workout-categories.js?v=${applicationScope.assetVersion}" defer></script>
 </head>
 <body>
   <main class="nf-page" style="max-width:1160px;margin:0 auto;padding:32px 20px">

@@ -47,7 +47,7 @@
 
     <title>Đăng nhập - NutriFit</title>
 
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/auth.css?v=2">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/auth.css?v=${applicationScope.assetVersion}">
 </head>
 
 <body>

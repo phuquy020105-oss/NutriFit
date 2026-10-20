@@ -6,8 +6,8 @@ DaySummary selected = (DaySummary) request.getAttribute("selected");
 String ctx = request.getContextPath();
 %>
 <!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lịch sử ăn uống - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/dashboard.css">
-<link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/nutrition.css"></head>
+<title>Lịch sử ăn uống - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/dashboard.css?v=${applicationScope.assetVersion}">
+<link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/nutrition.css?v=${applicationScope.assetVersion}"></head>
 <body class="nf-page"><div class="app-shell">
 <aside class="sidebar" id="sidebar">
 <a class="logo" href="<%= Html.escape(ctx) %>/dashboard"><span class="logo-mark">✦</span> Nutri<span>Fit</span></a>

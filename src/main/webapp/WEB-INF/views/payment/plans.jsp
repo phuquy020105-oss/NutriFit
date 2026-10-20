@@ -25,8 +25,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#1b332d">
     <title>NutriFit Premium | Chăm sóc sức khỏe mỗi ngày</title>
-    <link rel="stylesheet" href="<%=ctx%>/assets/css/payment.css?v=20261018-nav">
-<link rel="stylesheet" href="<%=ctx%>/assets/css/workspace-nav.css?v=20261018-nav"></head>
+    <link rel="stylesheet" href="<%=ctx%>/assets/css/payment.css?v=${applicationScope.assetVersion}">
+<link rel="stylesheet" href="<%=ctx%>/assets/css/workspace-nav.css?v=${applicationScope.assetVersion}"></head>
 <body class="premium-layout nf-integrated-payment">
 <button type="button" class="nf-global-scrim" id="nfGlobalScrim" aria-label="Đóng điều hướng" onclick="nfToggleNav()"></button>
 <aside class="nf-global-sidebar" id="nfGlobalSidebar" aria-label="Điều hướng NutriFit">

@@ -24,7 +24,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tổng quan | NutriFit</title>
-    <link rel="stylesheet" href="<%= contextPath %>/assets/css/dashboard.css">
+    <link rel="stylesheet" href="<%= contextPath %>/assets/css/dashboard.css?v=${applicationScope.assetVersion}">
 </head>
 <body>
 <div class="app-shell">

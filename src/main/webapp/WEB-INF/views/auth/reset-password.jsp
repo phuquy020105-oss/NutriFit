@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1">
     <title>Đặt lại mật khẩu - NutriFit</title>
-    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/auth.css?v=2">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/assets/css/auth.css?v=${applicationScope.assetVersion}">
 </head>
 <body>
 <div class="nf-auth-layout">

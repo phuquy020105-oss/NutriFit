@@ -43,7 +43,7 @@
 
     <title>Hồ sơ cá nhân - NutriFit</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/profile.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/profile.css?v=${applicationScope.assetVersion}">
 </head>
 
 <body>
@@ -196,6 +196,6 @@
     </main>
 </div>
 
-<script src="${pageContext.request.contextPath}/assets/js/profile.js" defer></script>
+<script src="${pageContext.request.contextPath}/assets/js/profile.js?v=${applicationScope.assetVersion}" defer></script>
 </body>
 </html>

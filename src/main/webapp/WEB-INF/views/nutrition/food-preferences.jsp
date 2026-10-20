@@ -7,8 +7,8 @@ List<FoodOption> foods = (List<FoodOption>) request.getAttribute("foods");
 String csrf = (String) request.getAttribute("csrf"); String ctx = request.getContextPath();
 %>
 <!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sở thích thực phẩm - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/dashboard.css">
-<link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/nutrition.css"></head>
+<title>Sở thích thực phẩm - NutriFit</title><link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/dashboard.css?v=${applicationScope.assetVersion}">
+<link rel="stylesheet" href="<%= Html.escape(ctx) %>/assets/css/nutrition.css?v=${applicationScope.assetVersion}"></head>
 <body class="nf-page"><div class="app-shell">
 <aside class="sidebar" id="sidebar">
 <a class="logo" href="<%= Html.escape(ctx) %>/dashboard"><span class="logo-mark">✦</span> Nutri<span>Fit</span></a>
@@ -62,7 +62,7 @@ String csrf = (String) request.getAttribute("csrf"); String ctx = request.getCon
 <input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="delete">
 <input type="hidden" name="foodId" value="<%= p.foodId() %>"><button class="nf-danger nf-small" type="submit">Bỏ đánh dấu</button></form></td></tr><% } %>
 <% if(prefs.isEmpty()) { %><tr><td colspan="4">Chưa có sở thích.</td></tr><% } %>
-</tbody></table></div></section><% } %><footer class="nf-footer">© NutriFit · Sống khỏe mỗi ngày</footer></main></div></div><script src="<%= Html.escape(ctx) %>/assets/js/nutrition.js" defer></script><script>
+</tbody></table></div></section><% } %><footer class="nf-footer">© NutriFit · Sống khỏe mỗi ngày</footer></main></div></div><script src="<%= Html.escape(ctx) %>/assets/js/nutrition.js?v=${applicationScope.assetVersion}" defer></script><script>
 function toggleNutritionMenu(button){
   var sidebar=document.getElementById('sidebar');
   var expanded=sidebar.classList.toggle('open');

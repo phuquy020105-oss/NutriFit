@@ -20,10 +20,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="theme-color" content="#f5faf7">
     <title>NutriFit AI – Trợ lý dinh dưỡng thông minh</title>
-    <link rel="stylesheet" href="<%=ctx%>/assets/css/chatbot.css?v=20261018-nav">
-    <script defer src="<%=ctx%>/assets/js/chatbot.js?v=20261018-nav"></script>
-<link rel="stylesheet" href="<%=ctx%>/assets/css/workspace-nav.css?v=20261018-nav">
-<link rel="stylesheet" href="<%=ctx%>/assets/css/chatbot-dashboard.css?v=20261018-b"></head>
+    <link rel="stylesheet" href="<%=ctx%>/assets/css/chatbot.css?v=${applicationScope.assetVersion}">
+    <script defer src="<%=ctx%>/assets/js/chatbot.js?v=${applicationScope.assetVersion}"></script>
+<link rel="stylesheet" href="<%=ctx%>/assets/css/workspace-nav.css?v=${applicationScope.assetVersion}">
+<link rel="stylesheet" href="<%=ctx%>/assets/css/chatbot-dashboard.css?v=${applicationScope.assetVersion}"></head>
 <body class="chat-page nf-integrated-chat">
 <button type="button" class="nf-global-scrim" id="nfGlobalScrim" aria-label="Đóng điều hướng" onclick="nfToggleNav()"></button>
 <aside class="nf-global-sidebar" id="nfGlobalSidebar" aria-label="Điều hướng NutriFit">
