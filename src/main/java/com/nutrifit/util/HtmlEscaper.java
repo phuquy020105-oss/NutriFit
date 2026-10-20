@@ -1,11 +1,9 @@
 package com.nutrifit.util;
 
+/** Compatibility entry point sharing the HTML escaping policy used by all views. */
 public final class HtmlEscaper {
-    private HtmlEscaper() {}
+    private HtmlEscaper() { }
     public static String escape(Object value) {
-        if (value == null) return "";
-        String t = value.toString();
-        return t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-                .replace("\"", "&quot;").replace("'", "&#39;");
+        return Html.escape(value);
     }
 }

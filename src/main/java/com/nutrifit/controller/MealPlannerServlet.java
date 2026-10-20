@@ -1,7 +1,6 @@
 package com.nutrifit.controller;
 
 import com.nutrifit.service.MealPlannerService;
-import com.nutrifit.util.Csrf;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;

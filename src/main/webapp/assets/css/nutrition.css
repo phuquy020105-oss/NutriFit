@@ -17,7 +17,6 @@ body.nf-page { background:#f3f6f4;color:#1e3029;margin:0;line-height:1.5; }
 .nf-wrap button { border:0;border-radius:7px;padding:10px 16px;background:#14724e;color:#fff;cursor:pointer;font-weight:600; }
 .nf-wrap button:hover { filter:brightness(.9); }
 .nf-wrap .nf-danger { background:#b53333; } .nf-wrap .nf-small { padding:7px 10px;white-space:nowrap; }
-.nf-inline { display:flex;align-items:center;gap:6px; }
 .nf-table-scroll { overflow:auto; } .nf-wrap table { width:100%;border-collapse:collapse;min-width:720px; }
 .nf-wrap th,.nf-wrap td { text-align:left;padding:10px;border-bottom:1px solid #e5ede7;vertical-align:middle; } .nf-wrap th {background:#f5faf7;white-space:nowrap;}
 .nf-success { color:#0a613d;padding:10px 14px;background:#e2f5e9;border-radius:8px; }
@@ -33,7 +32,6 @@ body.nf-page { background:#f3f6f4;color:#1e3029;margin:0;line-height:1.5; }
 .nf-edit-form select { width:100%; }
 .nf-action { margin:5px 0; }
 .nf-block { display:block; }
-.nf-target { margin-top:16px !important; }
 .nf-error { color:#912828;background:#fff0ed;border:1px solid #efc7bf;padding:14px;border-radius:8px; }
 @media (max-width:700px) { .nf-wrap{padding:18px 10px 48px;} .nf-card{padding:14px;} .nf-form {display:grid;} }
 
