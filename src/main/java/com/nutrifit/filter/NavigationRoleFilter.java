@@ -31,7 +31,7 @@ public class NavigationRoleFilter implements Filter {
         if (session != null && session.getAttribute("userId") instanceof Long userId
                 && session.getAttribute("authVersion") instanceof Long version) {
             try {
-                User user = users.findById(userId).orElse(null);
+                User user = com.nutrifit.util.VerifiedRequestUser.find(request, users).orElse(null);
                 request.setAttribute("navigationAdmin", user != null
                         && userId.equals(user.getUserId()) && user.getAuthVersion() == version
                         && user.getRole() == UserRole.ADMIN);

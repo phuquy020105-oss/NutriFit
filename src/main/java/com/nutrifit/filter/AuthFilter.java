@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Optional;
 
 @WebFilter(urlPatterns = {
         "/profile", "/profile/*",
@@ -27,7 +26,9 @@ import java.util.Optional;
 })
 public class AuthFilter implements Filter {
 
-    private final UserDAO userDAO = new UserDAO();
+    private final UserDAO userDAO;
+    public AuthFilter() { this(new UserDAO()); }
+    AuthFilter(UserDAO users) { this.userDAO=users; }
 
     @Override
     public void doFilter(
@@ -64,12 +65,9 @@ public class AuthFilter implements Filter {
         }
 
         try {
-            Optional<Long> databaseVersion =
-                    userDAO.findAuthVersionById(userId);
+            var verified = com.nutrifit.util.VerifiedRequestUser.find(request, userDAO);
 
-            if (databaseVersion.isEmpty()
-                    || databaseVersion.get().longValue()
-                    != sessionVersion.longValue()) {
+            if (verified.isEmpty()) {
 
                 session.invalidate();
                 redirectToLogin(request, response);

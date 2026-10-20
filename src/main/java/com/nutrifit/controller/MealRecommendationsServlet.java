@@ -35,7 +35,7 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
             req.setAttribute("recipes", planner.listAvailableRecipes());
             req.setAttribute("csrf", Csrf.token(req));
             HttpSession session = req.getSession(false);
-            synchronized (session) {
+            synchronized (nutritionLock(session)) {
                 Object value = session.getAttribute(DRAFT);
                 Draft draft = value instanceof Draft d && active(d, user) ? d : null;
                 try {
@@ -56,6 +56,16 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
             req.setAttribute("notice", notice(req.getParameter("message")));
             req.getRequestDispatcher("/WEB-INF/views/nutrition/meal-recommendations.jsp").forward(req, resp);
         } catch (Exception e) { fail(req, resp, e); }
+    }
+
+    // Serialize Nutrition draft/save only; never hold the session monitor across DB/CPU work.
+    private static Object nutritionLock(HttpSession session) {
+        synchronized (session) {
+            String key = DRAFT + ".lock";
+            Object lock = session.getAttribute(key);
+            if (lock == null) { lock = new Object(); session.setAttribute(key, lock); }
+            return lock;
+        }
     }
 
     private boolean active(Draft draft, long user) {
@@ -91,7 +101,7 @@ public class MealRecommendationsServlet extends NutritionServletSupport {
             if (!Set.of("preview", "save", "regenerate", "swap").contains(action)) throw new IllegalArgumentException("Invalid action");
             HttpSession session = req.getSession(false);
             // Serializes duplicate submits for this session, including the database commit.
-            synchronized (session) {
+            synchronized (nutritionLock(session)) {
                 Object value = session.getAttribute(DRAFT);
                 if ("regenerate".equals(action)) {
                     MealSuggestion previous = value instanceof Draft d && active(d, user) ? d.suggestion : null;

@@ -11,5 +11,12 @@ import java.util.Optional;
 public interface RecipeReadPort {
     Optional<RecipeNutritionInput> findNutritionInput(Connection connection, long recipeId)
             throws SQLException;
+    /** Batch boundary; existing Food/Recipe implementations remain source compatible. */
+    default java.util.Map<Long, RecipeNutritionInput> findNutritionInputs(Connection connection, java.util.Collection<Long> ids)
+            throws SQLException {
+        java.util.Map<Long, RecipeNutritionInput> result = new java.util.LinkedHashMap<>();
+        for (Long id : ids) findNutritionInput(connection, id).ifPresent(value -> result.put(id, value));
+        return result;
+    }
     List<RecipeCandidate> listCandidates(Connection connection) throws SQLException;
 }

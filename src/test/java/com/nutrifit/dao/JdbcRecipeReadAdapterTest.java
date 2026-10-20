@@ -41,6 +41,14 @@ class JdbcRecipeReadAdapterTest {
         assertEquals(new BigDecimal("250.000"),candidate.perServing().caloriesKcal());
         assertEquals(new BigDecimal("5.000"),candidate.perServing().fiberG());
     }
+    @Test void batchReadPreservesCanonicalFactsAndRejectsInvalidIds()throws Exception{
+        var adapter=new JdbcRecipeReadAdapter();
+        assertEquals(adapter.findNutritionInput(connection(true),7).orElseThrow(),
+                adapter.findNutritionInputs(connection(true),List.of(7L)).get(7L));
+        assertTrue(adapter.findNutritionInputs(connection(false),List.of(7L)).isEmpty());
+        assertTrue(adapter.findNutritionInputs(connection(true),List.of()).isEmpty());
+        assertThrows(IllegalArgumentException.class,()->adapter.findNutritionInputs(connection(true),List.of(-1L)));
+    }
     @Test void imagesNeverMakeInactiveFoodEligible()throws Exception{
         var adapter=new JdbcRecipeReadAdapter();
         assertTrue(adapter.findNutritionInput(connection(false),7).isEmpty());

@@ -188,7 +188,7 @@ public class ProfileServlet extends HttpServlet {
         try {
 
             Optional<User> user =
-                    userDAO.findById(userId);
+                    com.nutrifit.util.VerifiedRequestUser.find(request, userDAO);
 
             if (user.isEmpty()) {
 

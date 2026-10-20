@@ -31,6 +31,18 @@ class NutritionRecommendationsHttpTest {
         assertEquals(new BigDecimal("1.00"),f.amounts.get(MealEntry.MealType.DINNER));
         assertTrue(draft.saved);
     }
+    @Test void concurrentDuplicateSavesAreSerializedOnNutritionLock() throws Exception {
+        Fixture f=new Fixture();f.servlet.doGet(f.request,f.response);
+        var draft=(MealRecommendationsServlet.Draft)f.sessionValues.get(MealRecommendationsServlet.DRAFT);
+        f.params.put("csrfToken",Csrf.token(f.request));f.params.put("action","save");f.params.put("suggestionToken",draft.token);
+        var executor=java.util.concurrent.Executors.newFixedThreadPool(2);
+        try {
+            java.util.concurrent.Callable<Void> submit=()->{f.servlet.doPost(f.request,f.response);return null;};
+            for(var result:executor.invokeAll(List.of(submit,submit)))result.get(5,java.util.concurrent.TimeUnit.SECONDS);
+            assertEquals(1,f.writes);assertTrue(draft.saved);
+        }finally{executor.shutdownNow();}
+    }
+
     @Test void portionPreviewReturnsAllMacrosAndNeverWritesJournal() throws Exception {
         Fixture f=new Fixture();f.servlet.doGet(f.request,f.response);
         var draft=(MealRecommendationsServlet.Draft)f.sessionValues.get(MealRecommendationsServlet.DRAFT);

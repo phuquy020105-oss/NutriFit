@@ -47,6 +47,32 @@ public class JdbcRecipeReadAdapter implements RecipeReadPort {
     }
 
     @Override
+    public Map<Long, RecipeNutritionInput> findNutritionInputs(Connection connection, java.util.Collection<Long> recipeIds)
+            throws SQLException {
+        List<Long> ids = recipeIds.stream().distinct().toList();
+        if (ids.isEmpty()) return Map.of();
+        if (ids.size() > 60 || ids.stream().anyMatch(id -> id == null || id <= 0))
+            throw new IllegalArgumentException("Invalid recipe batch");
+        Map<Long, RecipeRows> grouped = new LinkedHashMap<>();
+        String marks = String.join(",", java.util.Collections.nCopies(ids.size(), "?"));
+        try (PreparedStatement ps = connection.prepareStatement(SELECT + "WHERE r.active=TRUE AND r.recipe_id IN ("
+                + marks + ") ORDER BY r.recipe_id,i.ingredient_id")) {
+            for (int i=0; i<ids.size(); i++) ps.setLong(i+1, ids.get(i));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    long id = rs.getLong("recipe_id");
+                    RecipeRows row = grouped.get(id);
+                    if (row == null) { row = new RecipeRows(rs); grouped.put(id,row); }
+                    row.append(rs);
+                }
+            }
+        }
+        Map<Long,RecipeNutritionInput> result = new LinkedHashMap<>();
+        for (var entry : grouped.entrySet()) entry.getValue().input().ifPresent(input -> result.put(entry.getKey(),input));
+        return result;
+    }
+
+    @Override
     public List<RecipeCandidate> listCandidates(Connection connection) throws SQLException {
         List<RecipeCandidate> result = new ArrayList<>();
         Map<Long, RecipeRows> grouped = new LinkedHashMap<>();

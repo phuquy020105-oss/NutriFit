@@ -32,13 +32,16 @@ class NavigationRoleFilterTest {
         NavigationRoleFilter filter = new NavigationRoleFilter(f.users);
         f.sessionValues.put("role", "ADMIN");
         f.user.setRole(UserRole.USER);
+        f.attributes.clear();
         filter.doFilter(f.request, f.response, f.chain);
         assertEquals(false, f.attributes.get("navigationAdmin"));
         f.sessionValues.put("role", "USER");
         f.user.setRole(UserRole.ADMIN);
+        f.attributes.clear();
         filter.doFilter(f.request, f.response, f.chain);
         assertEquals(true, f.attributes.get("navigationAdmin"));
         f.user.setRole(UserRole.USER);
+        f.attributes.clear();
         filter.doFilter(f.request, f.response, f.chain);
         assertEquals(false, f.attributes.get("navigationAdmin"));
         assertEquals(3, f.reads);
@@ -108,6 +111,26 @@ class NavigationRoleFilterTest {
         assertEquals("/nutrifit/login", f.redirect);
     }
 
+    @Test void authAndNavigationReuseOneVerifiedReadRegardlessOfOrder() throws Exception {
+        for (boolean authFirst : List.of(true,false)) {
+            Fixture f=new Fixture(); AuthFilter auth=new AuthFilter(f.users); NavigationRoleFilter nav=new NavigationRoleFilter(f.users);
+            FilterChain last=(req,res)->f.forwarded++;
+            if(authFirst)auth.doFilter(f.request,f.response,(req,res)->nav.doFilter(req,res,last));
+            else nav.doFilter(f.request,f.response,(req,res)->auth.doFilter(req,res,last));
+            assertEquals(1,f.reads);assertEquals(1,f.forwarded);assertEquals(true,f.attributes.get("navigationAdmin"));
+            // A new request must reread the DB and reject the old authVersion.
+            f.attributes.clear();f.user.setAuthVersion(8);auth.doFilter(f.request,f.response,last);
+            assertEquals(2,f.reads);assertEquals(1,f.forwarded);assertTrue(f.invalidated);
+        }
+    }
+
+    @Test void requestContextCannotLeakBetweenUsersOrTrustSessionRole() throws Exception {
+        Fixture a=new Fixture();Fixture b=new Fixture();b.user.setRole(UserRole.USER);
+        new AuthFilter(a.users).doFilter(a.request,a.response,(req,res)->{});
+        new NavigationRoleFilter(b.users).doFilter(b.request,b.response,b.chain);
+        assertEquals(false,b.attributes.get("navigationAdmin"));assertEquals(1,a.reads);assertEquals(1,b.reads);
+    }
+
     private static AdminFilter adminFilter(UserDAO users) throws Exception {
         // Inject a read-only DAO stub into the existing filter without changing its production code.
         AdminFilter filter = new AdminFilter();
@@ -142,6 +165,7 @@ class NavigationRoleFilterTest {
                 new Class<?>[]{HttpServletRequest.class}, (p,m,a) -> switch(m.getName()) {
                     case "getSession" -> { assertArrayEquals(new Object[]{false}, a); yield hasSession ? session : null; }
                     case "setAttribute" -> { attributes.put((String)a[0], a[1]); yield null; }
+                    case "getAttribute" -> attributes.get(a[0]);
                     case "getContextPath" -> "/nutrifit";
                     default -> throw new AssertionError(m.getName());
                 });

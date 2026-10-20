@@ -80,7 +80,8 @@ public class MealRecommendationService {
         requireUser(userId);
         if (recent==null || recent.size()>5) throw new IllegalArgumentException("At most five recent combinations required");
         if (previous != null && previous.userId() != userId) throw new SecurityException("Preview owner mismatch");
-        try (Connection c = connections.open()) {
+        try (var timing = com.nutrifit.observability.Performance.scope("recommend");
+             Connection c = connections.open()) {
             BigDecimal target = target(c, userId);
             Eligibility eligibility = eligibility(c, userId);
             List<RecipeCandidate> catalog = recipes.listCandidates(c);
@@ -129,8 +130,9 @@ public class MealRecommendationService {
             if (previous!=null && novel!=null && novel.score()<=best.score()+.03) best=novel;
             else if (alternative!=null && alternative.score()<=best.score()+.03) best=alternative;
             List<SuggestedMeal> meals = new ArrayList<>();
+            Map<Long,RecipeNutritionInput> selectedInputs = recipes.findNutritionInputs(c, best.ids());
             for (Option option : List.of(best.breakfast(), best.lunch(), best.dinner())) {
-                RecipeNutritionInput input = requireRecipe(c, option.recipe().recipeId(), option.recipe().mealType(), eligibility);
+                RecipeNutritionInput input = requireRecipe(selectedInputs, option.recipe().recipeId(), option.recipe().mealType(), eligibility);
                 meals.add(new SuggestedMeal(input.recipeId(), input.name(), input.mealType(), STANDARD_SERVINGS,
                         calculator.calculate(input, STANDARD_SERVINGS),input.imageUrl()));
             }
@@ -147,7 +149,8 @@ public class MealRecommendationService {
         validateDraft(userId, draft, Map.of());
         if (type == null || recent == null || recent.size() > 30)
             throw new IllegalArgumentException("Invalid swap filters");
-        try (Connection c = connections.open()) {
+        try (var timing = com.nutrifit.observability.Performance.scope("swap");
+             Connection c = connections.open()) {
             MealSuggestion current = refresh(c, userId, draft, Map.of());
             Eligibility access = eligibility(c, userId);
             List<RecipeCandidate> catalog = recipes.listCandidates(c);
@@ -167,9 +170,10 @@ public class MealRecommendationService {
                 if (energy > .35 + 1e-12) continue; // Larger differences are not called equivalent.
                 double oldFat = old.nutrition().fatG().doubleValue();
                 if (candidate.perServing().fatG().doubleValue() > oldFat + Math.max(10, .50*oldFat)) continue;
-                RecipeNutritionInput input = requireRecipe(c, candidate.recipeId(), type, access);
-                SuggestedMeal replacement = new SuggestedMeal(input.recipeId(), input.name(), type, STANDARD_SERVINGS,
-                        calculator.calculate(input, STANDARD_SERVINGS), input.imageUrl());
+                // listCandidates already calculates every public recipe with NutritionCalculator in one query.
+                // Score alternatives from that same snapshot, then revalidate only the chosen replacement.
+                SuggestedMeal replacement = new SuggestedMeal(candidate.recipeId(), candidate.name(), type, STANDARD_SERVINGS,
+                        candidate.perServing().rounded(), candidate.imageUrl());
                 List<SuggestedMeal> meals = current.meals().stream().map(m -> m.mealType() == type ? replacement : m).toList();
                 MealSuggestion next = preview(userId, current.date(), current.targetKcal(), access.premium(), meals, journal);
                 double nextGap = next.projectedDifferenceKcal().abs().doubleValue();
@@ -193,8 +197,19 @@ public class MealRecommendationService {
                     .thenComparingLong(SwapChoice::id));
             SwapChoice best = choices.getFirst();
             // Novelty cannot expand the energy tier or hide a material quality loss.
-            return choices.stream().filter(v -> v.tier() == best.tier() && v.score() <= best.score() + .08
+            MealSuggestion selected = choices.stream().filter(v -> v.tier() == best.tier() && v.score() <= best.score() + .08
                     && !recent.contains(v.id())).findFirst().map(SwapChoice::suggestion).orElse(current);
+            if (selected == current) return current;
+            SuggestedMeal replacement = selected.meals().stream().filter(m -> m.mealType() == type).findFirst().orElseThrow();
+            RecipeNutritionInput checked = requireRecipe(c, replacement.recipeId(), type, access);
+            NutritionFacts checkedFacts = calculator.calculate(checked, STANDARD_SERVINGS);
+            if (!checkedFacts.equals(replacement.nutrition().rounded())) {
+                throw unavailable(type); // Catalog changed while scoring; never silently use stale nutrition.
+            }
+            SuggestedMeal finalMeal = new SuggestedMeal(checked.recipeId(), checked.name(), type, STANDARD_SERVINGS,
+                    checkedFacts, checked.imageUrl());
+            return preview(userId, selected.date(), selected.targetKcal(), access.premium(),
+                    selected.meals().stream().map(m -> m.mealType() == type ? finalMeal : m).toList(), journal);
         }
     }
 
@@ -230,9 +245,10 @@ public class MealRecommendationService {
         validateDraft(userId, draft, amounts);
         Eligibility eligibility = eligibility(c, userId);
         List<SuggestedMeal> meals = new ArrayList<>();
+        Map<Long,RecipeNutritionInput> selectedInputs = recipes.findNutritionInputs(c, recipeIds(draft));
         for (SuggestedMeal meal : draft.meals()) {
             BigDecimal servings = STANDARD_SERVINGS;
-            RecipeNutritionInput input = requireRecipe(c, meal.recipeId(), meal.mealType(), eligibility);
+            RecipeNutritionInput input = requireRecipe(selectedInputs, meal.recipeId(), meal.mealType(), eligibility);
             meals.add(new SuggestedMeal(input.recipeId(), input.name(), input.mealType(), servings,
                     calculator.calculate(input, servings),input.imageUrl()));
         }
@@ -379,6 +395,13 @@ public class MealRecommendationService {
             throws SQLException {
         RecipeNutritionInput input = recipes.findNutritionInput(c, id).orElseThrow(() -> unavailable(type));
         if (input.mealType() != type || input.ingredients().stream()
+                .anyMatch(line -> eligibility.dislikes().contains(line.foodId()))) throw unavailable(type);
+        return input;
+    }
+
+    private RecipeNutritionInput requireRecipe(Map<Long,RecipeNutritionInput> inputs, long id, MealType type, Eligibility eligibility) {
+        RecipeNutritionInput input = inputs.get(id);
+        if (input == null || input.mealType() != type || input.ingredients().stream()
                 .anyMatch(line -> eligibility.dislikes().contains(line.foodId()))) throw unavailable(type);
         return input;
     }

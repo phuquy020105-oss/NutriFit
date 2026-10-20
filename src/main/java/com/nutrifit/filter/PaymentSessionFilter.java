@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Optional;
 
 /** Applies only to protected payment UI/API paths; never to public VNPay IPN. */
 @WebFilter(urlPatterns = {"/payment", "/payment/return", "/api/features"})
@@ -28,8 +27,8 @@ public final class PaymentSessionFilter implements Filter {
             reject(request, response); return;
         }
         try {
-            Optional<Long> current = users.findAuthVersionById(id);
-            if (current.isEmpty() || current.get().longValue() != version.longValue()) {
+            var current = com.nutrifit.util.VerifiedRequestUser.find(request, users);
+            if (current.isEmpty()) {
                 session.invalidate(); reject(request, response); return;
             }
         } catch (SQLException e) {
