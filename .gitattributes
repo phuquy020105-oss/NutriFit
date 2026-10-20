@@ -1,22 +1,7 @@
-# Docker entrypoints must remain executable shell text after Windows checkouts.
+# Stable executable text and canonical setup data on Windows/Linux.
 /docker/*.sh text eol=lf
-
-# Raw-byte quality evidence must survive Windows/Linux checkouts without hash drift.
-/database/staging/food-quality-v1/** text eol=lf
-/database/staging/food-quality-v1/images/*.webp -text
-/database/tools/food_quality/** text eol=lf
-# The existing canonical baseline checksum was recorded over CRLF bytes; preserve it.
-/database/seed/vietnamese_catalog.json text eol=crlf
-# The cohort report pins the unchanged scorer/service source bytes as LF.
-/src/main/java/com/nutrifit/service/MealRecommendationService.java text eol=lf
+/scripts/** text eol=lf
+/database/seed/** text eol=lf
+/database/migrations/*.sql text eol=lf
+*.webp -text
 /.gitattributes text eol=lf
-
-# Release checksums must survive Windows/Linux checkouts.
-/src/main/java/com/nutrifit/controller/MealRecommendationsServlet.java text eol=lf
-/src/main/webapp/WEB-INF/views/nutrition/meal-recommendations.jsp text eol=lf
-/src/main/webapp/assets/js/nutrition.js text eol=lf
-/src/test/java/com/nutrifit/controller/NutritionRecommendationsHttpTest.java text eol=lf
-/src/test/java/com/nutrifit/service/MealSwapTest.java text eol=lf
-/src/test/java/com/nutrifit/service/FoodQualityCohortBenchmarkTest.java text eol=lf
-/src/test/java/com/nutrifit/service/MealSuggestionSaveTest.java text eol=lf
-/src/test/resources/nutrition-swap-ui-test.html text eol=lf

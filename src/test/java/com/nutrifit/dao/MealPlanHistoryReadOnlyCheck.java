@@ -1,7 +1,8 @@
 package com.nutrifit.dao;
 
 import java.lang.reflect.Proxy;
-import java.nio.file.Path;
+import java.sql.DriverManager;
+import java.util.Properties;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.*;
@@ -33,11 +34,14 @@ public final class MealPlanHistoryReadOnlyCheck {
         });
     }
     public static void main(String[] args)throws Exception{
-        require(args.length==1,"PRIVATE_ENV_PATH_REQUIRED_NO_SECRETS_IN_ARGS");
-        // Existing vetted helper enforces exact Aiven host/database/CA/VERIFY_IDENTITY.
-        var helper=Class.forName("com.nutrifit.config.FoodQualityReleaseSnapshot");
-        try(var real=(Connection)helper.getMethod("openReadOnly",Path.class).invoke(null,Path.of(args[0]))){
-            require(real.isReadOnly(),"READ_ONLY_CONNECTION_REQUIRED");real.setAutoCommit(false);
+        require(args.length==0,"NO_CREDENTIALS_IN_ARGS");
+        String host=System.getenv().getOrDefault("LOCAL_DB_HOST","127.0.0.1");
+        String db=System.getenv("LOCAL_DB_NAME"),port=System.getenv().getOrDefault("LOCAL_DB_PORT","3306");
+        require(Set.of("localhost","127.0.0.1").contains(host)&&db!=null&&db.matches("nutrifit_[a-z0-9_]+_test")&&port.matches("[0-9]{1,5}"),"ISOLATED_LOCAL_TEST_REQUIRED");
+        var properties=new Properties();properties.setProperty("user",System.getenv().getOrDefault("LOCAL_DB_USER",System.getenv().getOrDefault("NUTRIFIT_DB_USER","root")));
+        properties.setProperty("password",System.getenv().getOrDefault("LOCAL_DB_PASSWORD",System.getenv().getOrDefault("NUTRIFIT_DB_PASSWORD","")));properties.setProperty("paranoid","true");
+        try(var real=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db+"?connectTimeout=10000",properties)){
+            real.setReadOnly(true);require(real.isReadOnly(),"READ_ONLY_CONNECTION_REQUIRED");real.setAutoCommit(false);
             var c=wrapped(real,false);var dao=new MealPlanDAO();
             var all=dao.findHistory(c,42,TODAY,100);require(all.size()==36,"EMPTY_OR_OTHER_OR_NONPAST_PLAN_INCLUDED");
             require(all.get(0).getPlanId()==2&&all.get(1).getPlanId()==3,"DATE_ORDER_OR_POPULATED_PLAN_MISSING");

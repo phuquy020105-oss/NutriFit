@@ -57,24 +57,12 @@ class FoodQualityCohortBenchmarkTest {
         return String.join(",", Arrays.stream(values).map(FoodQualityCohortBenchmarkTest::cell).toList()) + "\n";
     }
 
-    @Test void baselineAcrossAdultProfilesUsesExistingTargetsAndReportsFeasibilityHonestly() throws Exception {
-        benchmark("A_BASELINE_ESTIMATED", RealCatalog.load(), "cohort-A");
-    }
-
-    @Test void exploratoryDatasetsUseTheSameAlgorithmAndTheSameHistoricalSnapshots() throws Exception {
-        var evidence=FoodDataQualityAuditTest.read(Path.of("database/staging/food-quality-v1/food-provenance.json"));
-        int complete=((Number)FoodDataQualityAuditTest.object(evidence.get("summary")).get("complete_source_foods")).intValue();
-        benchmark("B_EXPLORATORY_"+complete+"_SOURCE_MATCHES_"+(82-complete)+"_UNRESOLVED", RealCatalog.load(Path.of("database/staging/food-quality-v1/catalog-B-exploratory.json")), "cohort-B");
-        benchmark("C_EXPLORATORY_60_DESIGNS_NOT_APPROVED", RealCatalog.load(Path.of("database/staging/food-quality-v1/catalog-C-exploratory.json")), "cohort-C");
-    }
-
-    @Test void finalEducationalCatalogUsesSameScorerTargetsAndHistory() throws Exception {
-        benchmark("B_DEMO_30_DOCUMENTED_REFERENCES", RealCatalog.load(Path.of("database/staging/food-quality-v1/release/catalog-B-qualified.json")), "cohort-demo-B");
-        benchmark("C_DEMO_60_DOCUMENTED_REFERENCES", RealCatalog.load(Path.of("database/staging/food-quality-v1/release/catalog-C-qualified.json")), "cohort-demo-C");
+    @Test void currentCatalogAcrossAdultProfilesUsesExistingTargetsAndStoredSnapshots() throws Exception {
+        benchmark("CURRENT_60_DOCUMENTED_REFERENCES", RealCatalog.load(), "cohort-current");
     }
 
     private void benchmark(String dataset, List<RecipeNutritionInput> data, String output) throws Exception {
-        assertEquals(dataset.startsWith("C_")?60:30, data.size());
+        assertEquals(60, data.size());
         var historicalRecipe = RealCatalog.load().get(22);
         var lines = new ArrayList<String>();
         lines.add("dataset,adult,gender,age,height_cm,weight_kg,activity,goal,subscription_case,journal,target_kcal,success,recipe_ids,projected_kcal,protein_g,available_carbs_g,fat_g,fiber_g,absolute_error_kcal,relative_error,protein_energy_ratio,carb_energy_ratio,fat_energy_ratio,nin_fiber_reference_g,fiber_gap_g,energy_feasible_10pct,best_relative_error,large_error_despite_feasible,unique_food_count,runtime_ms\n");
@@ -139,7 +127,7 @@ class FoodQualityCohortBenchmarkTest {
         Files.writeString(out.resolve(output+"-summary.txt"),"dataset="+dataset+"\ncases="+cases+"\nsuccess="+success+
             "\nenergy_feasible_10pct="+feasible+"\nselected_error_over20pct_when_feasible="+avoidable+
             "\nquality="+(avoidable==0?"NO_AVOIDABLE_ENERGY_GAP_OBSERVED":"FAIL_AVOIDABLE_ENERGY_GAP")+
-            "\nsource_quality=EXPLORATORY_NOT_PRODUCTION_VERIFICATION\n");
+            "\nsource_quality=DOCUMENTED_REFERENCES_INCLUDING_ESTIMATES\n");
     }
     static boolean subscriptionAllowed(RecipeCandidate recipe,MealRecommendationServiceTest.Fixture fixture) {
         return !fixture.premium || fixture.saved.stream().filter(p->p.getType()==FoodPreference.PreferenceType.DISLIKE)

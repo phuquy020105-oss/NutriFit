@@ -63,7 +63,7 @@ class RealCatalogBenchmarkTest {
         return String.format(Locale.ROOT,"%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%.6f,%.6f,%.6f%n",label,algorithm,s.targetKcal(),MealRecommendationService.recipeIds(s).toString().replace(",","/").replace(" ",""),n.caloriesKcal(),n.proteinG(),n.carbsG(),n.fatG(),n.fiberG(),s.projectedDifferenceKcal(),9*n.fatG().doubleValue()/k,1000*n.fiberG().doubleValue()/k,score);
     }
     @Test void benchmarkCommittedDataAcrossExistingProfileTargetsAndPreferences()throws Exception{
-        var data=RealCatalog.load();assertEquals(30,data.size());assertEquals(383,data.stream().mapToInt(r->r.ingredients().size()).sum());
+        var data=RealCatalog.load();assertEquals(60,data.size());assertEquals(607,data.stream().mapToInt(r->r.ingredients().size()).sum());
         List<String> lines=new ArrayList<>();lines.add("case,algorithm,target,recipe_ids,kcal,protein_g,carbs_g,fat_g,fiber_g,difference_kcal,fat_energy_ratio,fiber_g_per_1000kcal,score\n");
         // Existing OnboardingService outputs for male 30y/70kg/175cm; all five activity levels and goals.
         String[][] targets={{"1678.50","1978.50","2278.50"},{"1967.03","2267.03","2567.03"},{"2255.56","2555.56","2855.56"},{"2544.09","2844.09","3144.09"},{"2832.63","3132.63","3432.63"}};
@@ -83,7 +83,7 @@ class RealCatalogBenchmarkTest {
             lines.add(csv(label,"old",old,oldCost));lines.add(csv(label,"new",now,newCost));
         }
         Path out=Path.of("target/nutrition-audit");Files.createDirectories(out);Files.writeString(out.resolve("benchmark.csv"),String.join("",lines));
-        String hash=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(Path.of("database/seed/vietnamese_catalog.json"))));
+        String hash=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(Path.of("database/seed/catalog.json"))));
         Files.writeString(out.resolve("benchmark-summary.txt"),"catalog_sha256="+hash+"\ncases="+cases+"\nchanged="+changed+"\nimproved_score="+improved+"\nold_mean_score="+before/cases+"\nnew_mean_score="+after/cases+"\n");
         assertTrue(improved>0);
     }

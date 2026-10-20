@@ -11,7 +11,7 @@ import java.util.*;
 final class RealCatalog {
     @SuppressWarnings("unchecked")
     static List<RecipeNutritionInput> load() throws Exception {
-        return load(Path.of("database/seed/vietnamese_catalog.json"));
+        return load(Path.of("database/seed/catalog.json"));
     }
     @SuppressWarnings("unchecked")
     static List<RecipeNutritionInput> load(Path path) throws Exception {
@@ -30,7 +30,7 @@ final class RealCatalog {
                 lines.add(new IngredientNutritionLine(foodFixtureId(ref),new BigDecimal((String)i.get("quantity_grams")),foods.get(ref)));
             }
             result.add(new RecipeNutritionInput(Long.parseLong(((String)r.get("ref")).substring(1)),(String)r.get("name"),
-                    MealEntry.MealType.valueOf((String)r.get("meal_type")),new BigDecimal((String)r.get("base_servings")),lines));
+                    MealEntry.MealType.valueOf((String)r.get("meal_type")),new BigDecimal((String)r.get("base_servings")),lines,(String)r.get("image_url")));
         }
         return result;
     }

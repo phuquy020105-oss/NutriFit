@@ -13,7 +13,6 @@
 !.env.example
 db.properties
 # Build packages and runtime/test diagnostics
-*.war
 *.ear
 *.log
 *.log.*

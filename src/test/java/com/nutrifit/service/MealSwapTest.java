@@ -91,10 +91,10 @@ class MealSwapTest {
         var stale=new MealSuggestion(USER,s.date().minusDays(1),s.targetKcal(),false,s.meals());
         assertThrows(RecommendationUnavailableException.class,()->f.service.swap(USER,stale,MealType.LUNCH,List.of()));
     }
-    @Test void actual30And60RecipeCatalogsBenchmarkSlotEquivalenceAndNovelty()throws Exception{
+    @Test void currentSixtyRecipeCatalogBenchmarksSlotEquivalenceAndNovelty()throws Exception{
         var csv=new StringBuilder("catalog,target,premium,meal,attempts,changes,max_relative_calorie_change,unique_recipes\n");
         int totalChanges=0;
-        for(String file:List.of("database/staging/food-quality-v1/release/catalog-A-baseline.json","database/staging/food-quality-v1/release/catalog-C-qualified.json")){
+        for(String file:List.of("database/seed/catalog.json")){
             var inputs=RealCatalog.load(Path.of(file));
             for(String kcal:List.of("1600","2000","2400"))for(boolean premium:List.of(false,true))for(var type:MealType.values()){
                 var f=RealCatalogBenchmarkTest.fixture(inputs);f.target=new BigDecimal(kcal);f.premium=premium;

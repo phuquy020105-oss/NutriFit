@@ -1,1 +1,0 @@
-{"status":"PASS_AIVEN_SELECT_ONLY_UNCHANGED_CATALOG","database":"nutrifitdb","tables":24,"foods":82,"recipes":30,"links":383,"images":30,"tls_mode":"VERIFY_IDENTITY","tls_version":"TLSv1.3","catalog_matches_checked_backup":true,"backup_sha_roundtrip_checked":true,"restore_rehearsal_performed":false,"persistent_writes":0}
