@@ -44,11 +44,16 @@ String csrf = (String) request.getAttribute("csrf"); String ctx = request.getCon
 <p>Bạn vẫn có thể gợi ý và lưu thực đơn ba bữa với tài khoản Free. Premium cho phép quản lý LIKE/DISLIKE và cá nhân hóa theo nguyên liệu.</p>
 <a href="<%= Html.escape(ctx) %>/payment">Nâng cấp Premium</a> · <a href="<%= Html.escape(ctx) %>/nutrition/recommendations">Gợi ý thực đơn</a></section>
 <% } else { %><section class="nf-card"><h2>Thêm hoặc đổi sở thích</h2>
-<% if(foods.isEmpty()) { %><p>Chưa có nguyên liệu hoạt động trong hệ thống.</p><% } else { %>
-<form method="post" action="<%= Html.escape(ctx) %>/nutrition/preferences" class="nf-form">
+<% if(foods.isEmpty()) { %><p>Chưa có nguyên liệu hoạt động trong hệ thống.</p><p class="nf-muted">Đang hiển thị 0/0 nguyên liệu</p><% } else { %>
+<form method="post" action="<%= Html.escape(ctx) %>/nutrition/preferences" class="nf-form" data-food-preference-form>
 <input type="hidden" name="csrfToken" value="<%= Html.escape(csrf) %>"><input type="hidden" name="action" value="save">
-<label>Nguyên liệu<select name="foodId" required><% for(FoodOption f:foods){ %>
-<option value="<%= f.foodId() %>"><%= Html.escape(f.name()) %></option><% } %></select></label>
+<div>
+<label>Tìm nguyên liệu<input type="search" data-food-search placeholder="Tên hoặc Food ID" autocomplete="off" aria-controls="preference-food" aria-describedby="preference-food-count"></label>
+<label>Nguyên liệu<select id="preference-food" name="foodId" data-food-select required aria-describedby="preference-food-count preference-food-empty"><% for(FoodOption f:foods){ %>
+<option value="<%= f.foodId() %>">ID <%= f.foodId() %> — <%= Html.escape(f.name()) %></option><% } %></select></label>
+<p id="preference-food-count" class="nf-muted" data-food-count role="status" aria-live="polite">Đang hiển thị <%= foods.size() %>/<%= foods.size() %> nguyên liệu</p>
+<p id="preference-food-empty" class="nf-muted" data-food-empty hidden>Không tìm thấy nguyên liệu phù hợp. Hãy đổi hoặc xóa từ khóa.</p>
+</div>
 <label>Mức độ<select name="type"><option value="LIKE">Thích (LIKE)</option><option value="DISLIKE">Không thích (DISLIKE)</option></select></label>
 <button type="submit">Lưu</button></form><% } %></section>
 <section class="nf-card"><h2>Đã lưu</h2><div class="nf-table-scroll"><table><thead><tr><th>Nguyên liệu</th><th>Trạng thái</th><th>Cập nhật</th><th>Thao tác</th></tr></thead><tbody>

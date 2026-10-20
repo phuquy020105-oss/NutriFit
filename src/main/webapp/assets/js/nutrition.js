@@ -41,6 +41,34 @@
         sync();
     });
 
+    document.querySelectorAll('[data-food-preference-form]').forEach(form => {
+        const search = form.querySelector('[data-food-search]');
+        const select = form.querySelector('[data-food-select]');
+        const count = form.querySelector('[data-food-count]');
+        const empty = form.querySelector('[data-food-empty]');
+        const submit = form.querySelector('button[type="submit"]');
+        const normalize = text => text.toLowerCase().normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd').replace(/\s+/g, ' ').trim();
+        const entries = [...select.options].map(option => ({option, key: normalize(option.textContent)}));
+        const filter = () => {
+            const selected = select.value;
+            const query = normalize(search.value);
+            const matches = entries.filter(entry => entry.key.includes(query));
+            select.replaceChildren(...matches.map(entry => entry.option));
+            select.value = matches.some(entry => entry.option.value === selected)
+                ? selected : matches.length ? matches[0].option.value : '';
+            select.disabled = matches.length === 0;
+            submit.disabled = matches.length === 0;
+            empty.hidden = matches.length !== 0;
+            count.textContent = 'Đang hiển thị ' + matches.length + '/' + entries.length + ' nguyên liệu';
+        };
+        search.addEventListener('input', filter);
+        form.addEventListener('submit', event => {
+            if (select.disabled || !select.value) event.preventDefault();
+        });
+        filter();
+    });
+
     document.querySelectorAll('form[data-confirm]').forEach(form => {
         form.addEventListener('submit', event => {
             if (!window.confirm(form.dataset.confirm)) event.preventDefault();

@@ -13,7 +13,7 @@ public class FoodCatalogDAO {
     public List<FoodOption> listActive(Connection c) throws SQLException {
         List<FoodOption> results = new ArrayList<>();
         try (PreparedStatement ps = c.prepareStatement(
-                "SELECT food_id,name FROM foods WHERE active=TRUE ORDER BY name,food_id")) {
+                "SELECT food_id,name FROM foods WHERE active=TRUE ORDER BY food_id ASC")) {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) results.add(new FoodOption(rs.getLong(1), rs.getString(2)));
             }
